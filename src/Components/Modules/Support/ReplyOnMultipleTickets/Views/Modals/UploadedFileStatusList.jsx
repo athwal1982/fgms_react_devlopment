@@ -93,25 +93,24 @@ const [isLoadinguploadedFileStatusDataList, setisLoadinguploadedFileStatusDataLi
       setisLoadinguploadedFileStatusDataList(false);;
       if (result.responseCode === 1) {
         if (result.responseData && result.responseData.length > 0) {
-          setuploadedFileStatusDataList(result.responseData);
           const columnOrder = {
             SupportTicketNo: "Ticket No",
             CurrentStatus: "Updated Ticket Status",
-            TicketStatus: "Ticket Status",
+            TicketStaus: "Ticket Status",
             ErrorDescription: "Error Description",
             TicketDescription: "Comments",
           };
-          const mappedData = pFarmerData.map((value) => {
+          const mappedData = result.responseData.map((value) => {
             return {
               SupportTicketNo: value.SupportTicketNo,
               CurrentStatus: value.CurrentStatus,
-              TicketStatus: value.TicketStatus,
+              TicketStaus: value.TicketStaus,
               ErrorDescription: value.ErrorDescription,
               TicketDescription: value.TicketDescription,
             };
           });
           const rearrangedData = rearrangeAndRenameColumns(mappedData, columnOrder);
-          const workSheetColumnWidth = [{ width: 25 }, { width: 20 },{ width: 20 }, { width: 70 }, { width: 100 }];
+          const workSheetColumnWidth = [{ width: 22 }, { width: 20 },{ width: 18 }, { width: 50 }, { width: 100 }];
           const UniqueDateTimeTick = getCurrentDateTimeTick();
           downloadExcel(rearrangedData, workSheetColumnWidth, `Uploaded_File_Status_Result${UniqueDateTimeTick}`);
          
