@@ -1,0 +1,11 @@
+.PageStart {
+  display: grid;
+  grid-template-rows: 100%;
+  overflow: auto;
+}
+
+.Card {
+  display: grid;
+  grid-template-rows: max-content auto;
+  overflow: auto;
+}

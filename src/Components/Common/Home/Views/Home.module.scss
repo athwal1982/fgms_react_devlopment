@@ -1,0 +1,817 @@
+.Box {
+  display: grid;
+  grid-template-rows: max-content minmax(max-content, auto);
+  align-items: center;
+  row-gap: 12px;
+  padding: 12px;
+  position: relative;
+
+  .refreshIconDiv {
+    display: flex;
+    justify-content: right;
+  }
+  
+
+  .SummaryBoard {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    column-gap: 12px;
+
+    .ScoreBoard {
+      display: block;
+      border-radius: 4px;
+      padding: 12px 20px;
+      height: 90px;
+      background: var(--white);
+      box-shadow: 0 1px 0 0 #cfd7df;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      background: #307ef4;
+
+      span {
+        color: #ffffff;
+        display: block;
+        text-align: center;
+
+        &:nth-child(1) {
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+
+        &:nth-child(2) {
+          font-weight: 700;
+          font-size: 24px;
+        }
+      }
+
+      &:nth-child(1) {
+        background: #307ef4;
+
+        span {
+          color: #ffffff;
+        }
+      }
+
+      &:nth-child(2) {
+        background: #ffb057;
+
+        span {
+          color: #183247;
+        }
+      }
+
+      &:nth-child(3) {
+        background: #49b6c2;
+
+        span {
+          color: #ffffff;
+        }
+      }
+
+      &:nth-child(4) {
+        background: #ff814d;
+
+        span {
+          color: #ffffff;
+        }
+      }
+
+      &:nth-child(5) {
+        background: #fa5b5a;
+
+        span {
+          color: #ffffff;
+        }
+      }
+
+      &:nth-child(6) {
+        background: #29b873;
+
+        span {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .SummaryBoardTicketTypeGrievence {
+    border-radius: 5px;
+    padding: 10px;
+    height: 100%;
+    background: var(--white);
+    box-shadow: 0 1px 0 0 #cfd7df;
+
+    h6 {
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 0px;
+      text-decoration: underline;
+     }
+
+    .SummaryBoard {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      column-gap: 8px;
+  
+      .ScoreBoard {
+        display: block;
+        border-radius: 4px;
+        padding: 12px 20px;
+        height: 90px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #307ef4;
+  
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+  
+          &:nth-child(1) {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 16px;
+          }
+  
+          &:nth-child(2) {
+            font-weight: 700;
+            font-size: 24px;
+          }
+        }
+  
+        &:nth-child(1) {
+          background: #307ef4;
+  
+          span {
+            color: #ffffff;
+          }
+        }
+  
+        &:nth-child(2) {
+          background: #ffb057;
+  
+          span {
+            color: #183247;
+          }
+        }
+  
+        &:nth-child(3) {
+          background: #49b6c2;
+  
+          span {
+            color: #ffffff;
+          }
+        }
+  
+        &:nth-child(4) {
+          background: #ff814d;
+  
+          span {
+            color: #ffffff;
+          }
+        }
+  
+        &:nth-child(5) {
+          background: #fa5b5a;
+  
+          span {
+            color: #ffffff;
+          }
+        }
+  
+        &:nth-child(6) {
+          background: #29b873;
+  
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .SummaryBoardTicketTypeCropLoss {
+    border-radius: 5px;
+    padding: 10px;
+    height: 100%;
+    background: var(--white);
+    box-shadow: 0 1px 0 0 #cfd7df;
+
+    h6 {
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 0px;
+      text-decoration: underline;
+     }
+
+    .SummaryBoard {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      column-gap: 8px;
+  
+      .ScoreBoard {
+        display: block;
+        border-radius: 4px;
+        padding: 12px 20px;
+        height: 90px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #307ef4;
+  
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+  
+          &:nth-child(1) {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 16px;
+          }
+  
+          &:nth-child(2) {
+            font-weight: 700;
+            font-size: 24px;
+          }
+        }
+  
+        &:nth-child(1) {
+          background: #29b873;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(2) {
+          background: #60b65b;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(3) {
+          background: #5f9dac;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(4) {
+          background: #626ea8;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(5) {
+          background: #697bdd;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(6) {
+          background: #29b873;
+
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .SummaryBoardTicketTypeInformation {
+    border-radius: 5px;
+    padding: 10px;
+    height: 100%;
+    background: var(--white);
+    box-shadow: 0 1px 0 0 #cfd7df;
+
+    h6 {
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 0px;
+      text-decoration: underline;
+     }
+
+    .SummaryBoard {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      column-gap: 8px;
+  
+      .ScoreBoard {
+        display: block;
+        border-radius: 4px;
+        padding: 12px 20px;
+        height: 90px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #307ef4;
+  
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+  
+          &:nth-child(1) {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 16px;
+          }
+  
+          &:nth-child(2) {
+            font-weight: 700;
+            font-size: 24px;
+          }
+        }
+  
+        &:nth-child(1) {
+          background: #cc681b;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(2) {
+          background: #60b65b;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(3) {
+          background: #5f9dac;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(4) {
+          background: #626ea8;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(5) {
+          background: #4656aa;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(6) {
+          background: #29b873;
+
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+ 
+
+  .ChartBox {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1.1fr 2fr;
+    grid-template-rows: repeat(2, minmax(max-content, auto));
+    gap: 12px;
+
+    .Chart {
+      display: grid;
+      border-radius: 4px;
+      padding: 20px 10px 5px 10px;
+      height: 100%;
+      background: var(--white);
+      box-shadow: 0 1px 0 0 #cfd7df;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      grid-template-rows: max-content auto;
+      position: relative;
+
+      &:nth-child(1) {
+        grid-row: span 2;
+      }
+
+      &:nth-child(4) {
+        grid-column: span 2;
+      }
+
+      .ChartHeadBox {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 4px;
+        justify-content: space-between;
+        padding: 0px 4px 0px 16px;
+        margin-bottom: 12px;
+
+        h4 {
+          color: #183247;
+          font-weight: 500;
+        }
+
+        ul {
+          list-style: none;
+          display: flex;
+          gap: 16px;
+
+          li {
+            color: #a1a5b7;
+            font-size: 13px;
+            padding: 5px 10px;
+            .Box {
+              display: grid;
+              grid-template-rows: max-content minmax(max-content, auto);
+              align-items: center;
+              row-gap: 12px;
+              padding: 12px;
+
+              .SummaryBoard {
+                display: grid;
+                grid-auto-columns: 1fr;
+                grid-auto-flow: column;
+                column-gap: 12px;
+
+                .ScoreBoard {
+                  display: block;
+                  border-radius: 4px;
+                  padding: 12px 20px;
+                  height: 90px;
+                  background: var(--white);
+                  box-shadow: 0 1px 0 0 #cfd7df;
+                  text-decoration: none;
+                  letter-spacing: 0.2px;
+
+                  span {
+                    color: #183247;
+                    display: block;
+
+                    &:nth-child(1) {
+                      font-weight: 500;
+                      margin-bottom: 8px;
+                    }
+
+                    &:nth-child(2) {
+                      font-weight: 600;
+                      font-size: 24px;
+                    }
+                  }
+                }
+              }
+
+              .ChartBox {
+                display: grid;
+                height: 100%;
+                grid-template-columns: 1.1fr 2fr;
+                grid-template-rows: repeat(2, minmax(max-content, auto));
+                gap: 12px;
+
+                .Chart {
+                  display: grid;
+                  border-radius: 4px;
+                  padding: 20px 10px 5px 10px;
+                  height: 100%;
+                  background: var(--white);
+                  box-shadow: 0 1px 0 0 #cfd7df;
+                  text-decoration: none;
+                  letter-spacing: 0.2px;
+                  grid-template-rows: max-content auto;
+                  position: relative;
+
+                  &:nth-child(1) {
+                    grid-row: span 2;
+                  }
+
+                  &:nth-child(4) {
+                    grid-column: span 2;
+                  }
+
+                  .ChartHeadBox {
+                    display: grid;
+                    grid-template-columns: repeat(2, max-content);
+                    gap: 4px;
+                    justify-content: space-between;
+                    padding: 0px 4px 0px 16px;
+                    margin-bottom: 12px;
+
+                    h4 {
+                      color: #183247;
+                      font-weight: 500;
+                    }
+
+                    ul {
+                      list-style: none;
+                      display: flex;
+                      gap: 16px;
+
+                      li {
+                        color: #a1a5b7;
+                        font-size: 13px;
+                        padding: 5px 10px;
+                        cursor: pointer;
+
+                        &.active {
+                          background: #009ef7 !important;
+                          color: #fff !important;
+                          border-radius: 2px;
+                        }
+                      }
+                    }
+                  }
+
+                  > div:nth-child(2) {
+                    display: grid;
+                    align-items: center;
+                  }
+                }
+              }
+            }
+
+            cursor: pointer;
+
+            &.active {
+              background: #009ef7 !important;
+              color: #fff !important;
+              border-radius: 2px;
+            }
+          }
+        }
+      }
+
+      > div:nth-child(2) {
+        display: grid;
+        align-items: center;
+      }
+    }
+  }
+
+  .PieCharBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 12px;
+
+    .PieChart {
+      display: grid;
+      border-radius: 4px;
+      padding: 20px 4px 5px 10px;
+      height: 100%;
+      background: var(--white);
+      box-shadow: 0 1px 0 0 #cfd7df;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      grid-template-rows: max-content auto;
+      position: relative;
+
+      .PieChartHeadBox {
+        display: grid;
+        gap: 4px;
+        justify-content: space-between;
+        padding: 0px 4px 0px 16px;
+        margin-bottom: 12px;
+
+        h4 {
+          color: #183247;
+          font-weight: 500;
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  .ChartBox {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1.1fr 2fr;
+    grid-template-rows: repeat(2, minmax(max-content, auto));
+    gap: 12px;
+
+    .Chart {
+      display: grid;
+      border-radius: 4px;
+      padding: 20px 10px 5px 10px;
+      height: 100%;
+      background: var(--white);
+      box-shadow: 0 1px 0 0 #cfd7df;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      grid-template-rows: max-content auto;
+      position: relative;
+
+      &:nth-child(1) {
+        grid-row: span 2;
+      }
+
+      &:nth-child(4) {
+        grid-column: span 2;
+      }
+
+      .ChartHeadBox {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 4px;
+        justify-content: space-between;
+        padding: 0px 4px 0px 16px;
+        margin-bottom: 12px;
+
+        h4 {
+          color: #183247;
+          font-weight: 500;
+          font-size: 1.1rem;
+        }
+
+        ul {
+          list-style: none;
+          display: flex;
+          gap: 16px;
+
+          li {
+            color: #a1a5b7;
+            font-size: 13px;
+            padding: 5px 10px;
+            .Box {
+              display: grid;
+              grid-template-rows: max-content minmax(max-content, auto);
+              align-items: center;
+              row-gap: 12px;
+              padding: 12px;
+
+              .SummaryBoard {
+                display: grid;
+                grid-auto-columns: 1fr;
+                grid-auto-flow: column;
+                column-gap: 12px;
+
+                .ScoreBoard {
+                  display: block;
+                  border-radius: 4px;
+                  padding: 12px 20px;
+                  height: 90px;
+                  background: var(--white);
+                  box-shadow: 0 1px 0 0 #cfd7df;
+                  text-decoration: none;
+                  letter-spacing: 0.2px;
+
+                  span {
+                    color: #183247;
+                    display: block;
+
+                    &:nth-child(1) {
+                      font-weight: 500;
+                      margin-bottom: 8px;
+                    }
+
+                    &:nth-child(2) {
+                      font-weight: 600;
+                      font-size: 24px;
+                    }
+                  }
+                }
+              }
+
+              .ChartBox {
+                display: grid;
+                height: 100%;
+                grid-template-columns: 1.1fr 2fr;
+                grid-template-rows: repeat(2, minmax(max-content, auto));
+                gap: 12px;
+
+                .Chart {
+                  display: grid;
+                  border-radius: 4px;
+                  padding: 20px 10px 5px 10px;
+                  height: 100%;
+                  background: var(--white);
+                  box-shadow: 0 1px 0 0 #cfd7df;
+                  text-decoration: none;
+                  letter-spacing: 0.2px;
+                  grid-template-rows: max-content auto;
+                  position: relative;
+
+                  &:nth-child(1) {
+                    grid-row: span 2;
+                  }
+
+                  &:nth-child(4) {
+                    grid-column: span 2;
+                  }
+
+                  .ChartHeadBox {
+                    display: grid;
+                    grid-template-columns: repeat(2, max-content);
+                    gap: 4px;
+                    justify-content: space-between;
+                    padding: 0px 4px 0px 16px;
+                    margin-bottom: 12px;
+
+                    h4 {
+                      color: #183247;
+                      font-weight: 500;
+                    }
+
+                    ul {
+                      list-style: none;
+                      display: flex;
+                      gap: 16px;
+
+                      li {
+                        color: #a1a5b7;
+                        font-size: 13px;
+                        padding: 5px 10px;
+                        cursor: pointer;
+
+                        &.active {
+                          background: #009ef7 !important;
+                          color: #fff !important;
+                          border-radius: 2px;
+                        }
+                      }
+                    }
+                  }
+
+                  > div:nth-child(2) {
+                    display: grid;
+                    align-items: center;
+                  }
+                }
+              }
+            }
+
+            cursor: pointer;
+
+            &.active {
+              background: #009ef7 !important;
+              color: #fff !important;
+              border-radius: 2px;
+            }
+          }
+        }
+      }
+
+      > div:nth-child(2) {
+        display: grid;
+        align-items: center;
+      }
+    }
+  }
+
+  .MapChartBox {
+    display: grid;
+    grid-template-columns: 2.9fr 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 12px;
+
+    .MapChart {
+      display: grid;
+      border-radius: 4px;
+      padding: 20px 10px 5px 10px;
+      height: 100%;
+      background: var(--white);
+      box-shadow: 0 1px 0 0 #cfd7df;
+      text-decoration: none;
+      letter-spacing: 0.2px;
+      grid-template-rows: max-content auto;
+      position: relative;
+
+      .MapChartHeadBox {
+        display: grid;
+        gap: 4px;
+        justify-content: space-between;
+        padding: 0px 4px 0px 16px;
+        margin-bottom: 12px;
+
+        h4 {
+          color: #183247;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

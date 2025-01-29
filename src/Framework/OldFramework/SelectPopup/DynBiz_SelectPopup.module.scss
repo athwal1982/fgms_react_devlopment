@@ -1,0 +1,188 @@
+.overlay {
+  background-color: rgba(9, 30, 66, 0.28);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: var(--lg-SelectPopupOverlay-zIndex);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.FormTagContent {
+  display: grid;
+  grid-template-rows: auto max-content;
+  overflow: auto !important;
+  background: #ebeff3;
+}
+
+/* ----------------------- Top Select Popup Varients Style ----------------------- */
+
+.toppopup {
+  margin: auto;
+  animation: DynBiz-SelPopup__animatetopselectpopup__KbN6I 0.3s
+    cubic-bezier(0.165, 0.84, 0.44, 1) backwards;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 334px;
+  height: 100vh;
+  background: #fff;
+  position: fixed;
+  display: grid;
+  grid-template-rows: max-content auto;
+  box-shadow: 0 12px 32px rgba(0, 27, 71, 0.12);
+  z-index: var(--lg-SelectPopup-zIndex);
+  overflow: auto !important;
+
+  .FormTagContent {
+    max-height: #{"Calc(100vh - 40px)"} !important;
+  }
+
+  .Header {
+    cursor: move !important;
+  }
+}
+
+@keyframes _animatetopselectpopup {
+  0% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ----------------------- Top Select Popup Varients Style ----------------------- */
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 16px;
+  height: 40px;
+  line-height: 20px;
+  letter-spacing: 0;
+  width: 100%;
+  border-bottom: 1px solid #dddde8;
+}
+
+.Header h2,
+.HeaderCloseBtn {
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+
+.Header h2 {
+  white-space: nowrap;
+  font-size: 16px;
+  color: #34495e;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  margin: 0px;
+}
+
+.HeaderCloseBtn {
+  height: 16px;
+
+  .Icon {
+    height: 17px;
+    color: #85929e;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  &:hover .Icon {
+    color: #f64e60 !important;
+  }
+}
+
+.AnimOn {
+  transform: scale(1.01) !important;
+}
+
+/* ----------------------- Select Address Style ----------------------- */
+
+.AddressBox {
+  background: #ebeff3;
+  margin: 12px;
+  display: grid;
+  grid-gap: 12px;
+  grid-template-columns: repeat(1, 300px);
+  grid-auto-rows: max-content;
+  overflow: auto;
+  position: relative;
+}
+
+.AddressMainBox {
+  position: relative;
+  height: 100%;
+
+  input[type="radio"] {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-clip: content-box;
+    border: 1px solid #7a7a7a;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    &:checked,
+    &:focus {
+      padding: 1px;
+      border: 1px solid #283747;
+      background-color: #283747;
+      ~ .AddressCard {
+        border: 1px solid #79a8d4 !important;
+        h4 {
+          background: #79a8d4 !important;
+          color: #fff !important;
+        }
+      }
+    }
+  }
+
+  .AddressCard {
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.11);
+    background-color: var(--lg-light-backcolor);
+    cursor: pointer;
+    border: 1px solid #bcced6;
+    width: 100%;
+    display: grid;
+    grid-template-rows: max-content auto;
+    height: 100%;
+    row-gap: 8px;
+
+    h4 {
+      background: #bcced6;
+      color: #5a6469;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 4px 28px 4px 8px;
+      height: 28px;
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+    }
+
+    p {
+      font-size: 12px;
+      padding: 0px 8px 6px 8px;
+      color: #808b96;
+      min-height: 26px;
+      user-select: none;
+    }
+  }
+}
+
+/* ----------------------- Select Address Style ----------------------- */

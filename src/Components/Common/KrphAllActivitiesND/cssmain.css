@@ -1,0 +1,613 @@
+.csc_main {
+  background: linear-gradient(to bottom, #21862d, #c3eb68);
+  /* min-height: -moz-fit-content;
+  min-height: fit-content; */
+  height: 100vh;
+  cursor: pointer;
+}
+.csc_main .submit-btn {
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.csc_main .green-button {
+  border: none;
+  background: #075307;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.csc_main .orange-button {
+  border: none;
+  background: #ff9500;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.csc_main .reset-btn {
+  border: 1px solid #ff3b30;
+  background: rgba(0, 0, 0, 0);
+  color: #ff3b30;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-iconContainer {
+  background: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: #075307 !important;
+  z-index: 2;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-iconContainer .step-icon {
+  width: 25px;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-iconContainer.Mui-active {
+  background: #fff403 !important;
+}
+.csc_main .MuiStepper-horizontal .MuiStepConnector-root {
+  top: 25% !important;
+}
+.csc_main .MuiStepper-horizontal .MuiStepConnector-line {
+  border-color: #fff;
+  border-top-width: 4px;
+}
+.csc_main .MuiStepper-horizontal .MuiStepConnector-line.Mui-active {
+  border-color: #fff403 !important;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-label.Mui-active {
+  color: #fff403 !important;
+}
+.csc_main .csc-form-cards {
+  border: none;
+  padding: 10px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .title-container {
+  width: 70%;
+  background: #075307;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+  padding: 5px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .title-container h3 {
+  margin: 0;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.csc_main .csc-form-cards .csc-form-container .btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.csc_main .csc-form-cards .csc-form-container .form-group {
+  padding: 10px 0px;
+}
+.csc_main .csc-form-cards .csc-form-container label {
+  font-size: 14px;
+  color: #000;
+  font-weight: 600;
+}
+.csc_main .csc-form-cards .csc-form-container .form-control {
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+  font-size: 14px;
+  border-radius: 8px;
+}
+.csc_main .csc-form-cards .csc-form-container .form-select {
+  font-size: 14px;
+  border-radius: 8px;
+}
+.csc_main .csc-form-cards .csc-form-container .bg-gray {
+  background-color: #e5e7eb;
+}
+.csc_main .csc-form-cards .csc-form-container .toggle-container {
+  background: #16a34a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .csc-form-container .toggle-container span {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 16px;
+  transition: all ease-in 0.3s;
+}
+.csc_main .csc-form-cards .csc-form-container .toggle-container .active {
+  background: #fff;
+  color: #16a34a;
+  padding: 10px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .csc-form-container .mobile-number-validation-container {
+  display: flex;
+  gap: 20px;
+  align-items: end;
+  justify-content: flex-start;
+}
+.csc_main .csc-form-cards .csc-form-container .mobile-number-validation-container .form-group {
+  padding: 0px;
+}
+.csc_main .csc-form-cards .information-title {
+  font-size: 14px;
+  color: #075307;
+  font-weight: 600;
+  border-bottom: 1px solid;
+  padding: 5px 0px;
+}
+.csc_main .farmer-authentication-tab-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 15px 0px;
+  position: relative;
+}
+.csc_main .farmer-authentication-tab-container .item {
+  font-size: 14px;
+  color: #6b7280;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+.csc_main .farmer-authentication-tab-container .item.active {
+  background-color: #e9e8ff;
+  color: #2563eb;
+  z-index: 2;
+  border-bottom: 1px solid #2563eb;
+}
+.csc_main .farmer-authentication-tab-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  z-index: 0;
+  pointer-events: none;
+  border-bottom: 1px solid #e5e7eb;
+}
+.csc_main .information-card {
+  background: #e5e7eb;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 10px;
+}
+.csc_main .information-card .card-container-value {
+  margin: 10px 0px;
+}
+.csc_main .information-card .lable {
+  margin: 0;
+  font-size: 14px;
+  color: #4b5563;
+}
+.csc_main .information-card .value {
+  margin: 0;
+  font-size: 14px;
+  color: #030712;
+  font-weight: 600;
+}
+.csc_main .farmer-ticket-summary .ticket-card {
+  padding: 20px;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+.csc_main .farmer-ticket-summary .ticket-card .title_name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.csc_main .farmer-ticket-summary .ticket-card .card_value {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 600;
+}
+.csc_main .farmer-ticket-summary .bluebggr {
+  background: linear-gradient(109.34deg, #588fff 24.99%, #1349b7 91.89%);
+}
+.csc_main .farmer-ticket-summary .pnkbg {
+  background: linear-gradient(113.61deg, #ff5996 22.77%, #ea2e72 84.18%);
+}
+.csc_main .farmer-ticket-summary .orangebg {
+  background: linear-gradient(111.48deg, #f88400 19.19%, #d36f0b 84.59%);
+}
+.csc_main .ticket-creation label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+.csc_main .ticket-creation .MuiFormGroup-root {
+  display: flex !important;
+  flex-direction: row;
+}
+.csc_main .ticket-creation .Mui-checked + .MuiFormControlLabel-label {
+  color: #075307 !important;
+}
+.csc_main .ticket-creation .MuiFormControlLabel-label {
+  font-size: 14px !important;
+}
+.csc_main .ticket-creation .Mui-checked {
+  color: #075307 !important;
+}
+.csc_main .ticket-creation .text-democation-ready {
+  border: 1px solid #9ca3af;
+  border-radius: 12px;
+  padding: 0px 10px;
+}
+.csc_main {
+  background: linear-gradient(to bottom, #21862d, #c3eb68);
+  min-height: -moz-fit-content;
+  min-height: fit-content;
+}
+.csc_main .submit-btn {
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1019607843);
+}
+.csc_main .green-button {
+  border: none;
+  background: #075307;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1019607843);
+}
+.csc_main .orange-button {
+  border: none;
+  background: #ff9500;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1019607843);
+}
+.csc_main .reset-btn {
+  border: 1px solid #ff3b30;
+  background: rgba(0, 0, 0, 0);
+  color: #ff3b30;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1019607843);
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-iconContainer {
+  background: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: #075307 !important;
+  z-index: 2;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-iconContainer .step-icon {
+  width: 25px;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-iconContainer.Mui-active {
+  background: #fff403 !important;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-iconContainer.Mui-completed {
+  background: #fff403 !important;
+}
+.csc_main .MuiStepper-horizontal .MuiStepConnector-root {
+  top: 25% !important;
+}
+.csc_main .MuiStepper-horizontal .MuiStepConnector-line {
+  border-color: #fff;
+  border-top-width: 4px;
+}
+.csc_main .MuiStepper-horizontal .MuiStepConnector-line.Mui-active {
+  border-color: #fff403 !important;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+.csc_main .MuiStepper-horizontal .MuiStepLabel-label.Mui-active {
+  color: #fff403 !important;
+}
+.csc_main .MuiStepper-horizontal .completed-step .MuiStepLabel-label {
+  color: #fff403 !important;
+}
+.csc_main .MuiStepper-horizontal .upcoming-step .MuiStepConnector-line {
+  position: relative;
+  transition: all ease-in-out 0.2s;
+}
+.csc_main .MuiStepper-horizontal .upcoming-step .MuiStepConnector-line::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 50%;
+  height: 4px;
+  background-color: #fff403;
+  z-index: 1;
+}
+.csc_main .csc-form-cards {
+  border: none;
+  padding: 10px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .title-container {
+  width: 70%;
+  background: #075307;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+  padding: 5px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .title-container h3 {
+  margin: 0;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.csc_main .csc-form-cards .csc-form-container .btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.csc_main .csc-form-cards .csc-form-container .form-group {
+  padding: 10px 0px;
+}
+.csc_main .csc-form-cards .csc-form-container label {
+  font-size: 14px;
+  color: #000;
+  font-weight: 600;
+}
+.csc_main .csc-form-cards .csc-form-container .form-control {
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+  font-size: 14px;
+  border-radius: 8px;
+}
+.csc_main .csc-form-cards .csc-form-container .form-select {
+  font-size: 14px;
+  border-radius: 8px;
+}
+.csc_main .csc-form-cards .csc-form-container .bg-gray {
+  background-color: #e5e7eb;
+}
+.csc_main .csc-form-cards .csc-form-container .toggle-container {
+  background: #16a34a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .csc-form-container .toggle-container span {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 16px;
+  transition: all ease-in 0.3s;
+}
+.csc_main .csc-form-cards .csc-form-container .toggle-container .active {
+  background: #fff;
+  color: #16a34a;
+  padding: 10px;
+  border-radius: 16px;
+}
+.csc_main .csc-form-cards .csc-form-container .mobile-number-validation-container {
+  display: flex;
+  gap: 20px;
+  align-items: end;
+  justify-content: flex-start;
+}
+.csc_main .csc-form-cards .csc-form-container .mobile-number-validation-container .form-group {
+  padding: 0px;
+}
+.csc_main .csc-form-cards .information-title {
+  font-size: 14px;
+  color: #075307;
+  font-weight: 600;
+  border-bottom: 1px solid;
+  padding: 5px 0px;
+}
+.csc_main .farmer-authentication-tab-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 15px 0px;
+  position: relative;
+}
+.csc_main .farmer-authentication-tab-container .item {
+  font-size: 14px;
+  color: #6b7280;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+}
+.csc_main .farmer-authentication-tab-container .item.active {
+  background-color: #e9e8ff;
+  color: #2563eb;
+  z-index: 2;
+  border-bottom: 1px solid #2563eb;
+}
+.csc_main .farmer-authentication-tab-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  z-index: 0;
+  pointer-events: none;
+  border-bottom: 1px solid #e5e7eb;
+}
+.csc_main .information-card {
+  background: #e5e7eb;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 10px;
+}
+.csc_main .information-card .card-container-value {
+  margin: 10px 0px;
+}
+.csc_main .information-card .lable {
+  margin: 0;
+  font-size: 14px;
+  color: #4b5563;
+}
+.csc_main .information-card .value {
+  margin: 0;
+  font-size: 14px;
+  color: #030712;
+  font-weight: 600;
+}
+.csc_main .farmer-ticket-summary .ticket-card {
+  padding: 20px;
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-shadow: 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+.csc_main .farmer-ticket-summary .ticket-card .title_name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.csc_main .farmer-ticket-summary .ticket-card .card_value {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 600;
+}
+.csc_main .farmer-ticket-summary .bluebggr {
+  background: linear-gradient(109.34deg, #588fff 24.99%, #1349b7 91.89%);
+}
+.csc_main .farmer-ticket-summary .pnkbg {
+  background: linear-gradient(113.61deg, #ff5996 22.77%, #ea2e72 84.18%);
+}
+.csc_main .farmer-ticket-summary .orangebg {
+  background: linear-gradient(111.48deg, #f88400 19.19%, #d36f0b 84.59%);
+}
+.csc_main .ticket-creation label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+.csc_main .ticket-creation .MuiFormGroup-root {
+  display: flex !important;
+  flex-direction: row;
+}
+.csc_main .ticket-creation .Mui-checked + .MuiFormControlLabel-label {
+  color: #075307 !important;
+}
+.csc_main .ticket-creation .MuiFormControlLabel-label {
+  font-size: 14px !important;
+}
+.csc_main .ticket-creation .Mui-checked {
+  color: #075307 !important;
+}
+.csc_main .ticket-creation .text-democation-ready {
+  border: 1px solid #9ca3af;
+  border-radius: 12px;
+  padding: 0px 10px;
+}
+.csc_main .success-card .icon {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+.csc_main .success-card .ticket-number-container {
+  width: -moz-fit-content;
+  width: fit-content;
+  border: 1px dotted #d1d5db;
+  padding: 10px 30px;
+  border-radius: 16px;
+  margin: 30px auto;
+}
+.csc_main .success-card .ticket-number-container .ticket_number {
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #075307;
+}
+.csc_main .success-card .ticket-number-container .ticket_message {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+.csc_main .success-card .ticket-number-container .content-area {
+  text-align: center;
+  font-size: 16px;
+  color: #4b5563;
+}
+
+.asteriskCss {
+  color: red;
+}
+.login_ErrorTxt {
+  font-size: 12px;
+  color: #e54b4b;
+  font-weight: 600;
+}
+
+@keyframes blink {
+  0%, 100% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0;
+  }
+}
+
+.blinking {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgb(52, 199, 89);
+  margin-right: 10px;
+  display: inline-block;
+  animation: blink 1s infinite;
+}

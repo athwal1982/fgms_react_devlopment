@@ -1,0 +1,30 @@
+.Box {
+  background: var(--white);
+  display: grid;
+  grid-template-rows: max-content auto;
+  overflow: auto;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 76px;
+  // A z-index: 99999999;
+  z-index: 9999999;
+
+  .ActionDiv {
+    background-color: var(--fg-TicketList-Active-Tab);
+    padding: 6px 14px 7px 14px;
+    height: 38px;
+    display: grid;
+    gap: 10px;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-items: center;
+  }
+
+  .ContentDiv {
+    display: grid;
+    grid-template-columns: auto 410px;
+    overflow: auto;
+  }
+}

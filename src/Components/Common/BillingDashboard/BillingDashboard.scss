@@ -1,0 +1,983 @@
+.PageStart {
+  display: grid;
+  grid-template-rows: max-content auto;
+  overflow: auto;
+  cursor: pointer;
+
+  .Main_Dash {
+    padding: 10px;
+  }
+  .Dash_container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .bar_header_Text_billing {
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    right: 430px;
+  }
+
+  .ContainerPnlUpper {
+    display: grid;
+    grid-template-rows: max-content auto;
+    overflow: auto;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 5px;
+    min-height: 30vh;
+    padding: 15px 15px;
+    background-color: #d1e0eb;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+
+    .SummaryBoard-Top {
+      // A display: grid;
+      // A grid-auto-columns: 1fr;
+      // A grid-auto-flow: column;
+      // A column-gap: 12px;
+      // A justify-items: center; /* Center items horizontally */
+      // A align-items: center; /* Center items vertically */
+
+      display: flex;
+      column-gap: 45px;
+      width: 97%;
+      justify-content: center;
+
+      .ScoreBoardSummary {
+        display: block;
+        border-radius: 15px;
+        padding: 40px 10px;
+        height: 110px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #3a76cf;
+        margin-bottom: 15px;
+        width: 250px;
+        border: 5px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.07);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          z-index: 999;
+        }
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 20px;
+        }
+      }
+
+      .ScoreBoardSummaryActive {
+        display: block;
+        border-radius: 15px;
+        padding: 40px 10px;
+        height: 110px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        width: 250px;
+        background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #9eb5d8), color-stop(1, #3a76cf));
+        background: -webkit-linear-gradient(top, #96b7e9, #3a76cf);
+        background: linear-gradient(to bottom, #96b7e9, #3a76cf);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        margin-bottom: 15px;
+        width: 200px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 20px;
+        }
+      }
+
+      .ScoreBoardInboundCalls {
+        display: block;
+        border-radius: 15px;
+        padding: 40px 10px;
+        height: 110px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #9bbb58;
+        width: 250px;
+        margin-bottom: 15px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.07);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          z-index: 999;
+        }
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 20px;
+        }
+      }
+      .ScoreBoardInboundCallsActive {
+        display: block;
+        border-radius: 15px;
+        padding: 40px 10px;
+        height: 110px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        width: 250px;
+        margin-bottom: 15px;
+        background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #b4e251), color-stop(1, #9bbb58));
+        background: -webkit-linear-gradient(top, #b4e251, #9bbb58);
+        background: linear-gradient(to bottom, #b4e251, #9bbb58);
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 20px;
+        }
+      }
+    }
+    .SummaryBoard {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      column-gap: 12px;
+
+      .ScoreBoardAgents {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #60b65b;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.07);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          z-index: 999;
+        }
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardAgentsActive {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #83eb7d), color-stop(1, #60b65b));
+        background: -webkit-linear-gradient(top, #83eb7d, #60b65b);
+        background: linear-gradient(to bottom, #83eb7d, #60b65b);
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardOutboundCalls {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #49b6c2;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.07);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          z-index: 999;
+        }
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardOutboundCallsActive {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #84dde7), color-stop(1, #49b6c2));
+        background: -webkit-linear-gradient(top, #84dde7, #49b6c2);
+        background: linear-gradient(to bottom, #84dde7, #49b6c2);
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardTextMessage {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #5f9dac;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.07);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          z-index: 999;
+        }
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardTextMessageActive {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #93e3f7), color-stop(1, #5f9dac));
+        background: -webkit-linear-gradient(top, #93e3f7, #5f9dac);
+        background: linear-gradient(to bottom, #93e3f7, #5f9dac);
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardWhatsApp {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #626ea8;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.09);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          z-index: 999;
+        }
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardWhatsAppActive {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #a8b4f0), color-stop(1, #626ea8));
+        background: -webkit-linear-gradient(top, #a8b4f0, #626ea8);
+        background: linear-gradient(to bottom, #a8b4f0, #626ea8);
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardAIBot {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #8064a1;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.09);
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          z-index: 999;
+        }
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+      .ScoreBoardAIBotActive {
+        display: block;
+        border-radius: 15px;
+        padding: 22px 10px;
+        height: 70px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #c4a6e7), color-stop(1, #8064a1));
+        background: -webkit-linear-gradient(top, #c4a6e7, #8064a1);
+        background: linear-gradient(to bottom, #c4a6e7, #8064a1);
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+          font-weight: 500;
+          margin-bottom: 4px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .ContainerPnl {
+    display: grid;
+    grid-template-rows: max-content auto;
+    overflow: auto;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 5px;
+    min-height: 30vh;
+    padding: 15px 15px;
+
+    .spanHeaderHeading {
+      font-weight: 600;
+      text-decoration: underline;
+      padding-bottom: 10px;
+    }
+
+    .headerAndButtonAlign {
+      display: grid;
+      grid-auto-columns: 2fr;
+      grid-auto-flow: column;
+      column-gap: 12px;
+
+      .spanHeader {
+        font-weight: 600;
+        text-decoration: underline;
+        padding-bottom: 10px;
+      }
+
+      .buttonAlign {
+        display: flex;
+        font-size: 18px;
+        align-items: center;
+        justify-content: flex-end;
+      }
+    }
+
+    .SummaryBoardDetailsUpper {
+      display: flex;
+      column-gap: 15px;
+      justify-content: center;
+      padding-bottom: 10px;
+
+      .ScoreBoard {
+        display: block;
+        border-radius: 15px;
+        padding: 8px 4px;
+        height: 85px;
+        width: 370px;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #626ea8;
+        box-shadow: 0 4px 6px #0000004d, 0 1px 3px #0000004d;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+
+          &:nth-child(1) {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 16px;
+          }
+
+          &:nth-child(2) {
+            font-weight: 700;
+            font-size: 20px;
+          }
+        }
+
+        &:nth-child(1) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #9eb5d8), color-stop(1, #626ea8));
+          background: -webkit-linear-gradient(top, #96b7e9, #626ea8);
+          background: linear-gradient(to bottom, #96b7e9, #626ea8);
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(2) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #9eb5d8), color-stop(1, #5f9dac));
+          background: -webkit-linear-gradient(top, #96b7e9, #5f9dac);
+          background: linear-gradient(to bottom, #96b7e9, #5f9dac);
+
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+
+      .ScoreBoardActive {
+        border: solid 2px #7a7878;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .SummaryBoardDetails {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      padding-bottom: 10px;
+      .ScoreBoard {
+        display: block;
+        border-radius: 15px;
+        padding: 8px 4px;
+        height: 85px;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #307ef4;
+        box-shadow: 0 4px 6px #0000004d, 0 1px 3px #0000004d;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+
+          &:nth-child(1) {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 16px;
+          }
+
+          &:nth-child(2) {
+            font-weight: 700;
+            font-size: 20px;
+          }
+        }
+
+        &:nth-child(1) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #82aff8), color-stop(1, #307ef4));
+          background: -webkit-linear-gradient(top, #82aff8, #307ef4);
+          background: linear-gradient(to bottom, #82aff8, #307ef4);
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(2) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #82aceb), color-stop(1, #628fd3));
+          background: -webkit-linear-gradient(top, #82aceb, #628fd3);
+          background: linear-gradient(to bottom, #82aceb, #628fd3);
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(3) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #7ad3dd), color-stop(1, #49b6c2));
+          background: -webkit-linear-gradient(top, #7ad3dd, #49b6c2);
+          background: linear-gradient(to bottom, #7ad3dd, #49b6c2);
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(4) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #8bd3b0), color-stop(1, #29b873));
+          background: -webkit-linear-gradient(top, #8bd3b0, #29b873);
+          background: linear-gradient(to bottom, #8bd3b0, #29b873);
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(5) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #8dd8ba), color-stop(1, #5db18f));
+          background: -webkit-linear-gradient(top, #8dd8ba, #5db18f);
+          background: linear-gradient(to bottom, #8dd8ba, #5db18f);
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(6) {
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #cef086), color-stop(1, #9bbb58));
+          background: -webkit-linear-gradient(top, #cef086, #9bbb58);
+          background: linear-gradient(to bottom, #cef086, #9bbb58);
+
+          span {
+            color: #ffffff;
+          }
+        }
+        &:nth-child(7) {
+          background: #5db18f;
+
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+
+      .ScoreBoardActive {
+        border: solid 2px #7a7878;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    .SummaryBoardDetailsBottom {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-auto-flow: column;
+      column-gap: 12px;
+
+      .ScoreBoard {
+        display: block;
+        border-radius: 15px;
+        padding: 12px 6px;
+        height: 90px;
+        background: var(--white);
+        box-shadow: 0 1px 0 0 #cfd7df;
+        text-decoration: none;
+        letter-spacing: 0.2px;
+        background: #29b873;
+
+        span {
+          color: #ffffff;
+          display: block;
+          text-align: center;
+
+          &:nth-child(1) {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 16px;
+          }
+
+          &:nth-child(2) {
+            font-weight: 700;
+            font-size: 20px;
+          }
+        }
+
+        &:nth-child(1) {
+          background: #29b873;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(2) {
+          background: #60b65b;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(3) {
+          background: #5f9dac;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(4) {
+          background: #626ea8;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(5) {
+          background: #0a1e83;
+
+          span {
+            color: #ffffff;
+          }
+        }
+
+        &:nth-child(6) {
+          background: #29b873;
+
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+
+      .ScoreBoardActive {
+        border: solid 2px #7a7878;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+  }
+  .ContainerPnlDisabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  .calls-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .calls-box {
+    width: 48%;
+    background-color: white;
+    border: 1px solid #000000;
+    border-radius: 0px;
+    // A box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.3);
+
+    .calls-header {
+      background-color: #d9eaf5;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .calls-content {
+      padding: 15px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 10px;
+          font-size: 14px;
+        }
+      }
+
+      .bifurcation {
+        font-weight: bold;
+        margin-top: 15px;
+
+        ul {
+          list-style-type: disc;
+          padding-left: 20px;
+
+          li {
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .dashboard-item {
+    text-align: center;
+    margin: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    border: solid 1px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+  }
+
+  .dashboard-item i {
+    margin-bottom: 7px;
+  }
+  .outbound-dashboard {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .outbound-dashboard-item {
+    padding: 0;
+    width: 220px;
+    height: 80px;
+    border: 1px solid #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .outbound-dashboard-title {
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 2px solid #d7e1eb;
+    background-color: #d9eaf5;
+    font-weight: 700;
+  }
+
+  .outbound-dashboard-value {
+    height: 25px;
+    width: 25px;
+    align-self: center;
+    // margin-left: 5px;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+
+  .pulses-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pulses-box,
+  .pulses-circle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .inbound-pulses {
+    width: 290px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .pulses-tax {
+    width: 290px;
+    height: 200px;
+    border: 2px solid black;
+    border-radius: 50%;
+    font-weight: 700;
+  }
+
+  .total-pulses {
+    width: 290px;
+    height: 200px;
+    background-color: #5a9bd5;
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .pulses-plus-sign,
+  .pulses-equals-sign {
+    font-size: 50px;
+    color: #b3c7db;
+    margin: 0 15px;
+  }
+  table {
+    text-align: left;
+    position: relative;
+    border-collapse: collapse;
+  }
+  .tbodyAgentWorkingDetails {
+    display: block;
+    height: 618px;
+    overflow: auto;
+  }
+  th,
+  td {
+    padding: 0.25rem;
+    font-size: 14px;
+    border-width: 0.5px;
+  }
+  tr.red th {
+    // background: #446fad;
+    color: white;
+    border-width: 0.5px;
+    text-align: center;
+  }
+  th {
+    background: #d1e0eb;
+    position: sticky;
+    top: 0; /* Don't forget this, required for the stickiness */
+    // box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    font-size: 14.2px;
+    border-width: 0.5px;
+    text-align: center;
+  }
+  .table-bordered td {
+    border: 1px solid #ffd0ae;
+    text-align: center;
+    border-width: 0.5px;
+  }
+  .table-bordered th {
+    border: 1px solid #f7f7f7;
+    text-align: center;
+    border-width: 0.5px;
+  }
+  .table-stripped > tbody > tr:nth-child(odd) > td {
+    background: #fbd3b7 !important;
+  }
+
+  .table-stripped > tbody > tr:nth-child(odd) > th {
+    background: #fbd3b7;
+  }
+}
+.billing-header {
+  background-color: #5a9bd5;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+.ContainerPnlUpperHeading {
+  display: grid;
+  grid-template-rows: max-content auto;
+  height: 35px;
+  padding: 7px 5px 5px 10px;
+  background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #9eb5d8), color-stop(1, #5d92b9));
+  background: -webkit-linear-gradient(top, #96b7e9, #5d92b9);
+  background: linear-gradient(to bottom, #96b7e9, #5d92b9);
+  margin-bottom: 10px;
+
+  span {
+    color: #000000;
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+}
+
+.total_holidays_details_Div {
+  // A left: 45%;
+  // A width: 39%;
+  box-sizing: border-box;
+  padding: 8px;
+  // A top: 48%;
+  background: #ffffff;
+  margin-bottom: 2px;
+  border-radius: 3px;
+  position: absolute;
+  z-index: 99999999;
+  font-family: Verdana;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 18px;
+  border: 2px solid #ffffff;
+  box-shadow: rgb(10, 140, 155) 5px 5px 10px;
+}

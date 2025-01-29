@@ -1,0 +1,433 @@
+.Box {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content auto;
+
+  .PageBar {
+    background-color: rgb(250, 212, 133);
+    padding: 8px 5px 7px 10px;
+    height: 42px;
+    z-index: 1;
+    display: flex;
+    grid-template-columns: auto repeat(2, max-content);
+    align-items: center;
+    border-bottom: 1px solid #f8c471;
+    gap: 12px;
+
+    p {
+      display: grid;
+      grid-template-columns: max-content auto;
+      column-gap: 8px;
+
+      svg {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--gray-600);
+      }
+
+      span {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--gray-600);
+        font-family: var(--fg-headingsFont);
+      }
+    }
+
+    .PageBarBox {
+      display: grid;
+      justify-content: flex-end;
+
+      button {
+        padding: 0 12px;
+        height: 27px;
+        font-size: 12px;
+        border: 1px solid var(--fg-Pagebar-border);
+        border-radius: 2px;
+        color: var(--white);
+        background-image: linear-gradient(180deg, var(--fg-Pagebar-button-bg1), var(--fg-Pagebar-button-bg2));
+        cursor: pointer;
+        display: none;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  .MainBox {
+    display: grid;
+    grid-template-columns: auto max-content;
+    overflow: auto;
+
+    .FilterBox {
+      width: 300px;
+      background: var(--white);
+      box-shadow: rgba(0, 27, 71, 0.08) 0px 3px 8px;
+      display: grid;
+      grid-template-rows: max-content auto max-content;
+      padding: 12px;
+      overflow: auto;
+
+      .Header {
+        display: grid;
+        grid-template-columns: repeat(3, max-content);
+        overflow: auto;
+        width: 100%;
+        padding: 0px 0px 7px;
+        border-bottom: 1px solid var(--gray-200);
+
+        h4 {
+          font-size: 16px;
+          color: var(--gray-800);
+          font-weight: 700;
+          padding: 0px 12px;
+          font-family: var(--fg-headingsFont);
+          text-align: left;
+          user-select: none !important;
+          -webkit-user-drag: none !important;
+          width: 212px;
+        }
+        span {
+          width: 6px;
+        }
+        .ExportButton {
+          background-color: whitesmoke;
+          color: var(--Main-light-text-color);
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #2bbe60), color-stop(1, #0f9d58));
+          background: -webkit-linear-gradient(top, #2bbe60, #0f9d58);
+          background: linear-gradient(to bottom, #2bbe60, #0f9d58);
+          border: 1px solid #0f9d58;
+          border-radius: 2px;
+          box-shadow: 0 1px 3px rgb (0 0 0 / 8%), inset 0 -1px 4px rgb (151 159 175 / 20%);
+          box-sizing: border-box;
+          cursor: pointer;
+          display: inline-block;
+          padding: 0 12px;
+          height: 27px;
+          font-size: 12px;
+          position: relative;
+          text-align: center;
+          text-decoration: none !important;
+          vertical-align: middle;
+          color: #fff !important;
+        }
+        .FilterTicketButton {
+          background-color: whitesmoke;
+          color: var(--Main-light-text-color);
+          background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #2bbe60), color-stop(1, #0f9d58));
+          background: -webkit-linear-gradient(top, #4773d1, #457ee7);
+          background: linear-gradient(to bottom, #4773d1, #457ee7);
+          border: 1px solid #457ee7;
+          border-radius: 2px;
+          box-shadow: 0 1px 3px rgb (0 0 0 / 8%), inset 0 -1px 4px rgb (151 159 175 / 20%);
+          box-sizing: border-box;
+          cursor: pointer;
+          display: inline-block;
+          padding: 0 12px;
+          height: 27px;
+          font-size: 12px;
+          position: relative;
+          text-align: center;
+          text-decoration: none !important;
+          vertical-align: middle;
+          color: #fff !important;
+        }
+      }
+
+      > div:nth-child(2) {
+        overflow: auto;
+      }
+
+      .Footer {
+        button {
+          width: 45%;
+          color: var(--white);
+          background-image: linear-gradient(var(--fg-login-button-bg1) 0%, var(--fg-login-button-bg2) 100%);
+          padding: 0 42px;
+          font-size: 13px;
+          height: 32px;
+          border: 0px;
+          border-radius: 2px;
+          margin-top: 20px;
+          letter-spacing: 0.5px;
+          font-weight: 600;
+          font-family: var(--fg-headingsFont);
+
+          &:hover {
+            cursor: pointer;
+            color: var(--white);
+            background: #12344d;
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            transition: 0.1s linear;
+            transform: none;
+            box-shadow: none;
+            color: #f3f5f7;
+            background-image: linear-gradient(to bottom, #92a4b2, #8899a6);
+          }
+        }
+      }
+    }
+
+    .DataBox {
+      display: grid;
+      grid-auto-rows: max-content;
+      padding: 12px;
+      row-gap: 6px;
+      overflow: auto;
+      position: relative;
+
+      .ContentBox {
+        display: grid;
+        grid-template-columns: max-content auto;
+        background: var(--white);
+        min-height: 40px;
+        border-radius: 2px;
+        box-shadow: 0 1px 0 0 #cfd7df;
+        position: relative;
+        border-width: 1px 1px 1px 3px;
+        border-style: solid;
+        border-color: var(--white);
+        padding: 10px 0px;
+
+        .CheckBox {
+          display: grid;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          padding: 0px 0px 0px 4px;
+
+          input[type="checkbox"] {
+            cursor: pointer;
+            appearance: none;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background-clip: content-box;
+            border: 1px solid #aeb6bf;
+            background-color: #fff;
+            border-radius: 1px;
+            padding: 1px;
+            cursor: pointer;
+            transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+            &:checked {
+              border-color: #5090fe;
+              background-color: #5090fe;
+            }
+          }
+        }
+
+        .SubBox {
+          display: grid;
+          grid-template-columns: max-content auto max-content;
+          grid-template-rows: 100%;
+          align-items: center;
+          gap: 12px;
+
+          .TickIcon {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            padding: 0px 14px 0px 3px;
+
+            > svg {
+              font-size: 34px;
+            }
+          }
+
+          .TicketContent {
+            display: grid;
+            grid-template-columns: 100%;
+            grid-auto-rows: max-content;
+            row-gap: 3px;
+
+            .TicketTitle {
+              font-size: 14px;
+              font-weight: 600;
+              color: #283747;
+              letter-spacing: 0.4px;
+              width: max-content;
+              border: 0px;
+              background: transparent;
+
+              &:hover {
+                color: #5090fe;
+              }
+
+              &:active {
+                transform: none !important;
+                box-shadow: none !important;
+              }
+
+              span {
+                color: #6f7c87;
+                padding-left: 6px;
+              }
+            }
+
+            .TicketSubInfo {
+              display: grid;
+              grid-template-columns: repeat(3, max-content);
+              align-items: center;
+
+              .TicketFromInfo {
+                display: flex;
+                align-items: center;
+                font-size: 12px;
+                color: #283747;
+
+                svg {
+                  font-size: 16px;
+                  margin-right: 6px;
+                }
+              }
+
+              .TicketResponsedInfo {
+                display: flex;
+                align-items: center;
+                font-size: 12px;
+                color: #8a9ba8;
+
+                svg {
+                  font-size: 20px;
+                }
+              }
+            }
+          }
+
+          .StatusContent {
+            min-width: 240px;
+            display: grid;
+            grid-template-columns: 100%;
+            grid-auto-rows: max-content;
+            padding: 0px 12px;
+            row-gap: 5px;
+            border-left: thin solid #d7dadb;
+
+            .CreatedOnInfo,
+            .AgentInfo,
+            .StatusInfo {
+              font-size: 11px;
+              display: grid;
+              grid-template-columns: max-content auto;
+              align-items: center;
+              color: #0d2233;
+
+              svg {
+                font-size: 14px;
+                margin-right: 10px;
+                color: #7b8f9f;
+              }
+            }
+          }
+        }
+
+        .RibbonBox {
+          font-size: 11px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 4px 10px;
+          position: absolute;
+          z-index: 1;
+          border-radius: 0px 0px 0px 4px;
+          box-shadow: 0px -1px 5px 0 rgba(0, 0, 0, 0.1);
+          color: var(--white);
+          top: -1px;
+          right: -1px;
+        }
+
+        & {
+          &.urgent {
+            border-left-color: var(--pr-urgent);
+
+            .RibbonBox {
+              background-color: var(--pr-urgent);
+            }
+
+            .TickIcon {
+              > svg {
+                color: var(--pr-urgent);
+              }
+            }
+          }
+
+          &.high {
+            border-left-color: var(--pr-high);
+
+            .RibbonBox {
+              background-color: var(--pr-high);
+            }
+
+            .TickIcon {
+              > svg {
+                color: var(--pr-high);
+              }
+            }
+          }
+
+          &.medium {
+            border-left-color: var(--pr-medium);
+
+            .RibbonBox {
+              background-color: var(--pr-medium);
+            }
+
+            .TickIcon {
+              > svg {
+                color: var(--pr-medium);
+              }
+            }
+          }
+
+          &.low {
+            border-left-color: var(--pr-low);
+
+            .RibbonBox {
+              background-color: var(--pr-low);
+            }
+
+            .TickIcon {
+              > svg {
+                color: var(--pr-low);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.FormContent {
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.disabledDivContent {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.ticketCounterBar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: max-content;
+  align-items: center;
+  gap: 4px;
+
+  span {
+    font-size: 12.5px;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 600;
+    min-width: 50px;
+    padding-left: 2px;
+  }
+}

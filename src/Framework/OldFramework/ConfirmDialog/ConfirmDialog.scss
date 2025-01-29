@@ -1,0 +1,158 @@
+.Biz_ConfirmDialog_Overlay {
+  background-color: rgba(9, 30, 66, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: var(--lg-ConfirmBox-zIndex);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Biz_ConfirmDialog {
+  height: max-content;
+  width: 380px;
+  background-color: #fff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  -webkit-animation: DynBizPopup_animatetoppopup 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) backwards;
+  animation: DynBizPopup_animatetoppopup 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) backwards;
+}
+
+.Biz_ConfirmDialog_BtnBox {
+  display: grid;
+  grid-template-columns: 190px 190px;
+}
+
+.Biz_ConfirmDialog_Heading {
+  position: relative;
+  display: inline;
+  flex-grow: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(37, 36, 35);
+  text-align: center;
+  padding-top: 16px;
+  cursor: inherit;
+  user-select: none;
+}
+
+.Biz_ConfirmDialog_BodyTxt {
+  position: relative;
+  display: inline;
+  flex-grow: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(37, 36, 35);
+  text-align: center;
+  padding: 12px 8px;
+  cursor: inherit;
+  user-select: none;
+}
+
+.Biz_ConfirmDialog_OpenBtn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  font-weight: 500;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-align: left;
+  border-width: 1px 1px 0px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 0px 0px 4px 0px;
+  border-style: solid;
+  cursor: pointer;
+  width: 100%;
+}
+
+button.Biz_ConfirmDialog_OpenBtn {
+  &.Biz_ConfirmDialog_Danger {
+    background-color: var(--Main-Primary-red-Color);
+    border-color: var(--Main-Primary-red-Color);
+    color: #fff;
+  }
+
+  &.Biz_ConfirmDialog_Success {
+    background-color: #82ce34;
+    border-color: #82ce34;
+    color: #fff;
+  }
+}
+
+.Biz_ConfirmDialog_OpenBtn {
+  &:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: none !important;
+    box-shadow: none !important;
+    opacity: 0.6;
+  }
+}
+
+.Biz_ConfirmDialog_CloseBtn {
+  background-color: #eaefef;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  border-color: rgb(213, 217, 222);
+  text-align: left;
+  border-width: 1px 0px 0px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 0px 0px 0px 4px;
+  border-style: solid;
+  cursor: pointer;
+  width: 100%;
+
+  &:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: none !important;
+    box-shadow: none !important;
+    opacity: 0.6;
+  }
+}
+
+@keyframes DynBizPopup_animatetoppopup {
+  0% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,598 @@
+.Box {
+  display: grid;
+  // grid-template-rows: 100%;
+  padding: 12px;
+  // overflow: auto;
+  gap: 12px;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  z-index: 101;
+  background: #eff2f6;
+
+  .Div {
+    background: #fff;
+    border-radius: 4px;
+    display: grid;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 11%);
+    border: 1px solid #d6dbdf;
+    border-bottom: none;
+    overflow: auto;
+    grid-template-rows: auto max-content;
+    // ================================= Validation Box Style Start ================================= //
+
+    .ValidateBox {
+      display: grid;
+      grid-template-rows: max-content auto;
+      overflow: auto;
+      .ValidateTitle {
+        display: grid;
+        grid-template-columns: auto max-content;
+        padding: 8px 12px;
+        gap: 12px;
+
+        h3 {
+          font-size: 14px;
+          color: #34495e;
+          font-weight: 600;
+          display: grid;
+          grid-template-columns: max-content auto;
+          gap: 18px;
+          align-items: center;
+
+          &::after {
+            content: "";
+            border-bottom: 2px solid #34495e;
+            width: 100%;
+          }
+        }
+      }
+
+      .ValidateContent {
+        border: 1px solid #d6dbdf;
+        border-radius: 2px;
+        display: grid;
+        grid-template-rows: auto max-content;
+        overflow: auto;
+
+        .ValidateForm {
+          display: grid;
+          grid-template-rows: max-content max-content;
+          gap: 10px;
+          border-bottom: 1px solid #d6dbdf;
+          margin-bottom: 12px;
+
+          .ValidateInputGroup {
+            display: grid;
+            grid-template-columns: 100%;
+            align-items: center;
+            grid-auto-rows: max-content;
+            grid-row: span 2;
+
+            label {
+              font-size: 15px;
+              font-weight: 500;
+              margin-bottom: 12px;
+              color: #2c2927;
+              text-align: left;
+              padding-left: 10px;
+              text-decoration: 2px underline red;
+            }
+
+            .ValidateTabGroup {
+              list-style: none;
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              button {
+                padding: 4px 10px;
+                border: 2px solid rgba(118, 118, 118, 0.4);
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                border-radius: 4px;
+                cursor: pointer;
+                background: #fff;
+                height: 40px;
+
+                &:active,
+                &:hover {
+                  transform: none !important;
+                  box-shadow: none !important;
+                }
+
+                &.Active {
+                  border: 2px solid #367ef4 !important;
+                  pointer-events: none;
+                  opacity: 0.6;
+                  .ValidateTabCheckBox {
+                    border: 4px solid #367ef4;
+                  }
+                }
+
+                .ValidateTabCheckBox {
+                  height: 13px;
+                  width: 13px;
+                  border-radius: 50%;
+                  border: 2px solid rgb(118, 118, 118);
+                }
+
+                span {
+                  font-size: 13px;
+                  font-weight: 500;
+                }
+              }
+            }
+            .Authentication_Header {
+              border: 2px solid #44637b;
+              background-color: #44637b;
+              padding: 4px 10px;
+              span {
+                font-size: 14.5px;
+                font-weight: 500;
+                color: #ffffff;
+              }
+            }
+          }
+
+          .ValidateControlGroup {
+            display: grid;
+            grid-template-columns: 100%;
+            align-items: center;
+            grid-auto-rows: max-content max-content;
+            gap: 3px;
+            padding: 3px 12px;
+
+            .Validatelabel {
+              font-size: 15px;
+              font-weight: 500;
+              margin-bottom: 12px;
+              color: #2c2927;
+              text-align: left;
+              text-decoration: 2px underline red;
+            }
+            label {
+              font-size: 13px;
+              font-weight: 600;
+              color: #3a4a54;
+            }
+          }
+
+          .ValidateFormFooter {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 14px;
+            align-items: flex-end;
+
+            .FormFooterButton {
+              justify-content: center;
+              min-width: 86px;
+              border-radius: 2px;
+              padding: 7px 16px;
+              border: 1px solid #12344d;
+              background: linear-gradient(to bottom, #264966, #12344d);
+            }
+          }
+        }
+
+        .ValidateProfile {
+          display: grid;
+        }
+      }
+    }
+
+    // ================================= Validation Box Style End =================================== //
+
+    // ================================= Indo Div Style Start ======================================= //
+
+    .InfoDiv {
+      display: grid;
+      grid-template-rows: max-content max-content;
+      overflow: auto;
+      white-space: nowrap;
+      .FarmerInfoDiv,
+      .CreationDiv {
+        display: grid;
+        grid-template-rows: max-content auto;
+        overflow: auto;
+
+        .Title {
+          display: block;
+          padding: 2px 30px;
+
+          h3 {
+            font-size: 14px;
+            color: #34495e;
+            font-weight: 600;
+            display: grid;
+            grid-template-columns: max-content auto;
+            gap: 18px;
+            align-items: center;
+
+            &::after {
+              content: "";
+              border-bottom: 2px solid #34495e;
+              width: 100%;
+            }
+          }
+        }
+
+        .EnqGreivCropLoss {
+          display: grid;
+          grid-template-columns: repeat(3, max-content);
+          overflow: auto;
+          width: 100%;
+          padding: 0px 0px 0px;
+
+          .EnqGreivCropLossButton {
+            background-color: whitesmoke;
+            color: var(--Main-light-text-color);
+            background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #2bbe60), color-stop(1, #0f9d58));
+            background: -webkit-linear-gradient(top, #2bbe60, #0f9d58);
+            background: linear-gradient(to bottom, #2bbe60, #0f9d58);
+            border: 1px solid #0f9d58;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgb (0 0 0 / 8%), inset 0 -1px 4px rgb (151 159 175 / 20%);
+            box-sizing: border-box;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0 12px;
+            height: 27px;
+            font-size: 12px;
+            position: relative;
+            text-align: center;
+            text-decoration: none !important;
+            vertical-align: middle;
+            color: #fff !important;
+          }
+          .ActiveEnqGreivCropLossButton {
+            background-color: whitesmoke;
+            color: var(--Main-light-text-color);
+            background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #3699ff), color-stop(1, #3d8bda));
+            background: -webkit-linear-gradient(top, #3699ff, #3d8bda);
+            background: linear-gradient(to bottom, #3699ff, #3d8bda);
+            border: 1px solid #3699ff;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgb (0 0 0 / 8%), inset 0 -1px 4px rgb (151 159 175 / 20%);
+            box-sizing: border-box;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0 12px;
+            height: 27px;
+            font-size: 12px;
+            position: relative;
+            text-align: center;
+            text-decoration: none !important;
+            vertical-align: middle;
+            color: #fff !important;
+          }
+
+          .disableEnqGreivCropLoss {
+            pointer-events: none;
+            opacity: 0.6;
+          }
+        }
+
+        .Content {
+          display: grid;
+          border: 1px solid #ccc;
+          border-left: none;
+          overflow: auto;
+          padding: 8px 30px;
+          .ValidateTabGroup {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            align-items: center;
+
+            button {
+              padding: 2px 4px;
+              border: 2px solid rgba(118, 118, 118, 0.4);
+              display: flex;
+              gap: 5px;
+              align-items: center;
+              border-radius: 4px;
+              cursor: pointer;
+              background: #fff;
+              height: 28px;
+
+              &:active,
+              &:hover {
+                transform: none !important;
+                box-shadow: none !important;
+              }
+
+              &.Active {
+                border: 2px solid #367ef4 !important;
+                .ValidateTabCheckBox {
+                  border: 4px solid #367ef4;
+                }
+              }
+              .disableCheckBox {
+                pointer-events: none;
+                opacity: 0.6;
+              }
+
+              .ValidateTabCheckBox {
+                height: 13px;
+                width: 13px;
+                border-radius: 50%;
+                border: 2px solid rgb(118, 118, 118);
+              }
+
+              span {
+                font-size: 12.5px;
+                font-weight: 500;
+              }
+            }
+          }
+        }
+      }
+      .CreationDiv {
+        .Content {
+          border-bottom: none;
+        }
+      }
+      .FarmerInfoDiv {
+        .Content {
+          grid-template-rows: repeat(2, max-content) minmax(max-content, auto);
+          .ContentDiv {
+            border-top: 1px solid #d6dbdf;
+            margin-top: 4px;
+            padding: 6px 0px;
+          }
+
+          .ContentPresenter {
+            font-size: 12px;
+            padding: 4px 10px;
+            background: #ebedef;
+            border-radius: 1px;
+            color: #3c414a;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 11%);
+            border: 1px solid #d6dbdf;
+            min-height: 28px;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+          }
+
+          .Button {
+            margin: 0px 0px 1px 0px;
+            justify-content: center;
+            min-width: 70px;
+            border-radius: 2px;
+            padding: 6px 12px;
+            border: 1px solid #3d8bda;
+            color: #fff;
+            background: linear-gradient(#3699ff, #3d8bda);
+          }
+        }
+      }
+
+      .CreationDiv {
+        .Content {
+          padding-top: 12px;
+        }
+        .ContainerPnl {
+          display: grid;
+          grid-template-rows: max-content auto;
+          overflow: auto;
+          box-shadow: 0 0 6px rgba(0, 0, 0, 0.3), 0 0 3px rgba(0, 0, 0, 0.3);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-radius: 5px;
+          min-height: 25vh;
+          padding: 15px 15px;
+
+          .SummaryBoardCenter {
+            display: grid;
+            grid-template-rows: max-content auto;
+            justify-items: center; /* Center items horizontally */
+            align-items: center; /* Center items vertically */
+            .SummaryBoard {
+              display: grid;
+              grid-auto-columns: 1fr;
+              grid-auto-flow: column;
+              column-gap: 12px;
+              padding: 10px;
+
+              .ScoreBoardTicket {
+                display: block;
+                border-radius: 4px;
+                padding: 8px 10px;
+                height: 40px;
+                background: var(--white);
+                box-shadow: 0 1px 0 0 #cfd7df;
+                text-decoration: none;
+                letter-spacing: 0.2px;
+                background: #3d8bda;
+
+                span {
+                  color: #ffffff;
+                  display: block;
+                  text-align: center;
+                  font-weight: 500;
+                  margin-bottom: 4px;
+                  font-size: 16px;
+                }
+              }
+              .ScoreBoardTicketActive {
+                display: block;
+                border-radius: 4px;
+                padding: 8px 10px;
+                height: 40px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+                text-decoration: none;
+                letter-spacing: 0.2px;
+                background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #84dde7), color-stop(1, #3d8bda));
+                background: -webkit-linear-gradient(top, #84dde7, #3d8bda);
+                background: linear-gradient(to bottom, #84dde7, #3d8bda);
+
+                span {
+                  color: #ffffff;
+                  display: block;
+                  text-align: center;
+                  font-weight: 500;
+                  margin-bottom: 4px;
+                  font-size: 16px;
+                }
+              }
+              .ScoreBoardPrmCalc {
+                display: block;
+                border-radius: 4px;
+                padding: 8px 10px;
+                height: 40px;
+                background: var(--white);
+                box-shadow: 0 1px 0 0 #cfd7df;
+                text-decoration: none;
+                letter-spacing: 0.2px;
+                background: #f95454;
+
+                span {
+                  color: #ffffff;
+                  display: block;
+                  text-align: center;
+                  font-weight: 500;
+                  margin-bottom: 4px;
+                  font-size: 16px;
+                }
+              }
+              .ScoreBoardPrmCalcActive {
+                display: block;
+                border-radius: 4px;
+                padding: 8px 10px;
+                height: 40px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.3);
+                text-decoration: none;
+                letter-spacing: 0.2px;
+                background: -webkit-gradient(linear, top left, bottom left, color-stop(0, #eb9a9a), color-stop(1, #f95454));
+                background: -webkit-linear-gradient(top, #eb9a9a, #f95454);
+                background: linear-gradient(to bottom, #eb9a9a, #f95454);
+
+                span {
+                  color: #ffffff;
+                  display: block;
+                  text-align: center;
+                  font-weight: 500;
+                  margin-bottom: 4px;
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+
+        .ValidateFormFooterBG {
+          border: 1px solid #075307;
+          color: #fff;
+          background: linear-gradient(#075307, #358935);
+          height: 50px;
+
+          .ValidateFormFooter {
+            display: flex;
+            justify-content: flex-end;
+            padding: 8px 12px;
+            align-items: flex-end;
+            gap: 10px;
+
+            .FormFooterButton {
+              justify-content: center;
+              min-width: 86px;
+              border-radius: 2px;
+              padding: 7px 16px;
+              color: #494949 !important;
+              border: 1px solid #ffca00;
+              font-weight: 500;
+              background: linear-gradient(to bottom, #ffca00, #ffca00);
+            }
+
+            .FormFooterCancelButton {
+              justify-content: center;
+              min-width: 86px;
+              border-radius: 2px;
+              padding: 7px 16px;
+              border: 1px solid #ad071a;
+              background: linear-gradient(to bottom, #ea384d, #d31027);
+            }
+          }
+        }
+      }
+    }
+
+    // ================================= Indo Div Style End ========================================= //
+  }
+}
+.toggleContainerKrphCenter {
+  display: grid;
+  grid-template-rows: max-content auto;
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  .toggleContainerKrph {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: fit-content;
+    border: 5px solid #7ed321;
+    border-radius: 5px;
+    background: #7ed321;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #7ed321;
+    cursor: pointer;
+    z-index: 0;
+  }
+
+  .toggleContainerKrph::before {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0%;
+    border-radius: 20px;
+    background: white;
+    transition: all 0.3s;
+  }
+
+  .toggleCheckboxKrph:checked + .toggleContainerKrph::before {
+    left: 50%;
+  }
+
+  .toggleContainerKrph div {
+    padding: 6px;
+    text-align: center;
+    z-index: 1;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .toggleCheckboxKrph {
+    display: none;
+  }
+
+  .toggleCheckboxKrph:checked + .toggleContainerKrph div:first-child {
+    color: white;
+    transition: color 0.3s;
+  }
+
+  .toggleCheckboxKrph:checked + .toggleContainerKrph div:last-child {
+    color: #7ed321;
+    transition: color 0.3s;
+  }
+
+  .toggleCheckboxKrph + .toggleContainerKrph div:first-child {
+    color: #7ed321;
+    transition: color 0.3s;
+  }
+
+  .toggleCheckboxKrph + .toggleContainerKrph div:last-child {
+    color: white;
+    transition: color 0.3s;
+  }
+  .toggleCheckboxKrph + .toggleContainerKrph div:first-child {
+    padding: 6px 12px;
+  }
+}

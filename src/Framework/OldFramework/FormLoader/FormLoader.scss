@@ -1,0 +1,125 @@
+.Biz_Formloader_Back {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  cursor: progress;
+  background: rgba(255, 255, 255, 0.88);
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+}
+
+.Biz_Formloader-cube {
+  margin: auto;
+  width: 52px;
+  height: 52px;
+  position: relative;
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+
+  .Biz_Formloader-cubeBox {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+      animation: sk-foldCubeAngle 2.4s infinite linear both;
+      -webkit-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+      transform-origin: 100% 100%;
+      background-color: #33a852;
+    }
+  }
+
+  .Biz_Formloader_2 {
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+    transform: scale(1.1) rotateZ(90deg);
+  }
+
+  .Biz_Formloader_3 {
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+    transform: scale(1.1) rotateZ(180deg);
+  }
+
+  .Biz_Formloader_4 {
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+    transform: scale(1.1) rotateZ(270deg);
+  }
+
+  .Biz_Formloader_2:before {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+    background-color: #e94336;
+  }
+
+  .Biz_Formloader_3:before {
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+    background-color: #fbbd03;
+  }
+
+  .Biz_Formloader_4:before {
+    -webkit-animation-delay: 0.9s;
+    animation-delay: 0.9s;
+    background-color: #4483f0;
+  }
+}
+
+@-webkit-keyframes sk-foldCubeAngle {
+  0%,
+  10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-foldCubeAngle {
+  0%,
+  10% {
+    -webkit-transform: perspective(140px) rotateX(-180deg);
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    -webkit-transform: perspective(140px) rotateX(0deg);
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  }
+
+  90%,
+  100% {
+    -webkit-transform: perspective(140px) rotateY(180deg);
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}

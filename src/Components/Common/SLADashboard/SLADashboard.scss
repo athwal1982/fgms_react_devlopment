@@ -1,0 +1,190 @@
+.PageStart {
+  display: grid;
+  grid-template-rows: max-content auto;
+  overflow: auto;
+
+  .Main_Dash {
+    padding: 10px;
+  }
+  .Dash_container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .card {
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 180px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+    }
+  }
+
+  .color-1 {
+    background-color: #9bbb58;
+  }
+  .color-2 {
+    background-color: #60b65b;
+  }
+
+  .color-3 {
+    background-color: #5db18f;
+  }
+  .color-4 {
+    background-color: #5f9dac;
+  }
+  .color-5 {
+    background-color: #626ea8;
+  }
+  .color-6 {
+    background-color: #8064a1;
+  }
+
+  .header {
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    padding-right: 30px;
+    text-align: center;
+  }
+  .bar_header_Text {
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+    right: 490px;
+  }
+
+  .info {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+
+    .tooltip {
+      visibility: hidden;
+      font-size: small;
+      width: 330px; // Set width for the tooltip
+      max-height: 300px; // Set max height for the tooltip
+      background-color: white;
+
+      color: black;
+      text-align: left;
+      border-radius: 5px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      top: 75%;
+      left: 50%;
+      margin-left: -300px; // Center the tooltip (width / 2)
+      opacity: 0;
+      transition: opacity 0.3s;
+      overflow-y: auto; // Enable vertical scrolling if content exceeds max-height
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+          border: 1px solid #ddd;
+          padding: 2px;
+          text-align: left;
+        }
+
+        th {
+          color: #fff;
+          height: 20px;
+        }
+
+        tbody tr:nth-child(even) {
+          background-color: #f2f2f2;
+        }
+      }
+    }
+
+    &:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .content {
+    font-size: 24px;
+    margin-top: 10px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .footer {
+    font-size: 12px;
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  .Box {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 15px;
+    margin: 0;
+    width: 100%;
+  }
+
+  .accordion-button {
+    font-size: 0.9rem;
+    height: 45px;
+  }
+
+  .accordion {
+    --mdb-accordion-btn-icon-width: 0.8rem;
+  }
+
+  .SLAyDiv {
+    left: 35%;
+    width: 39%;
+    box-sizing: border-box;
+    padding: 8px;
+    top: 12%;
+    background: #ffffff;
+    margin-bottom: 2px;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 999999999;
+    font-family: Verdana;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 18px;
+    border: 2px solid #ffffff;
+    box-shadow: rgb(10, 140, 155) 5px 5px 10px;
+  }
+}

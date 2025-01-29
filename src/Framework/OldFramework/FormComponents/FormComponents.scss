@@ -1,0 +1,611 @@
+.DynBiz_Popup_Form_Content {
+  display: grid;
+  grid-template-columns: repeat(
+    1,
+    [label] max-content [input] minmax(220px, 300px)
+  );
+  grid-gap: 10px;
+  align-items: center;
+  grid-auto-flow: row dense;
+  grid-auto-rows: max-content;
+  overflow: auto;
+}
+
+.DynBiz_Popup_Main_FormGroup {
+  padding: 14px 18px 18px 18px;
+  display: grid;
+  row-gap: 18px;
+  overflow: auto;
+  grid-auto-rows: max-content;
+}
+
+.DynBiz_Popup_InputGroupBox {
+  display: contents;
+
+  &.ss_2 {
+    .DynBiz_Popup_InputGroup,
+    .DynBiz_Popup_LabelTxt {
+      grid-row: span 2 !important;
+    }
+  }
+
+  &.ss_3 {
+    .DynBiz_Popup_InputGroup,
+    .DynBiz_Popup_LabelTxt {
+      grid-row: span 3 !important;
+    }
+  }
+
+  &.ss_4 {
+    .DynBiz_Popup_InputGroup,
+    .DynBiz_Popup_LabelTxt {
+      grid-row: span 4 !important;
+    }
+  }
+
+  &.ss_5 {
+    .DynBiz_Popup_InputGroup,
+    .DynBiz_Popup_LabelTxt {
+      grid-row: span 5 !important;
+    }
+  }
+
+  &.ss_6 {
+    .DynBiz_Popup_InputGroup,
+    .DynBiz_Popup_LabelTxt {
+      grid-row: span 6 !important;
+    }
+  }
+
+  &.ss_2 .DynBiz_Popup_InputGroup,
+  &.ss_3 .DynBiz_Popup_InputGroup,
+  &.ss_4 .DynBiz_Popup_InputGroup,
+  &.ss_5 .DynBiz_Popup_InputGroup,
+  &.ss_6 .DynBiz_Popup_InputGroup {
+    grid-template-rows: minmax(32px, max-content) max-content !important;
+  }
+
+  &.ss_2 .DynBiz_AddPopup_Inputbox,
+  &.ss_3 .DynBiz_AddPopup_Inputbox,
+  &.ss_4 .DynBiz_AddPopup_Inputbox,
+  &.ss_5 .DynBiz_AddPopup_Inputbox,
+  &.ss_6 .DynBiz_AddPopup_Inputbox {
+    height: 100% !important;
+  }
+}
+
+.DynBiz_Popup_Form_ConCol_2 {
+  grid-template-columns: repeat(
+    2,
+    [label] max-content [input] minmax(240px, 300px)
+  );
+}
+
+.DynBiz_Popup_Form_ConCol_3 {
+  grid-template-columns: repeat(
+    3,
+    [label] max-content [input] minmax(240px, 300px)
+  );
+}
+
+.DynBiz_Popup_Form_ConCol_2 .DynBiz_Popup_InputGroupBox {
+  &.Col__2 {
+    .DynBiz_Popup_LabelTxt {
+      grid-column-start: 1;
+    }
+
+    .DynBiz_Popup_InputGroup {
+      grid-column: span 3;
+    }
+  }
+
+  &.Col__1.ColStart__1 .DynBiz_Popup_LabelTxt {
+    grid-column-start: 1 !important;
+  }
+}
+
+.DynBiz_Popup_Form_ConCol_3 .DynBiz_Popup_InputGroupBox {
+  &.Col__1.ColStart__1 .DynBiz_Popup_LabelTxt,
+  &.Col__2.ColStart__1 .DynBiz_Popup_LabelTxt {
+    grid-column-start: 1 !important;
+  }
+}
+
+.DynBiz_Popup_Form_ConCol_2
+  .DynBiz_Popup_InputGroupBox.Col__1.ColStart__1
+  .DynBiz_Popup_InputGroup {
+  grid-column-start: 2 !important;
+}
+
+.DynBiz_Popup_Form_ConCol_3 .DynBiz_Popup_InputGroupBox {
+  &.Col__1.ColStart__1 .DynBiz_Popup_InputGroup,
+  &.Col__2.ColStart__1 .DynBiz_Popup_InputGroup {
+    grid-column-start: 2 !important;
+  }
+}
+
+.DynBiz_Popup_Form_ConCol_2
+  .DynBiz_Popup_InputGroupBox.Col__1.ColStart__2
+  .DynBiz_Popup_LabelTxt {
+  grid-column-start: 3 !important;
+}
+
+.DynBiz_Popup_Form_ConCol_3 .DynBiz_Popup_InputGroupBox {
+  &.Col__1.ColStart__2 .DynBiz_Popup_LabelTxt,
+  &.Col__2.ColStart__2 .DynBiz_Popup_LabelTxt {
+    grid-column-start: 3 !important;
+  }
+}
+
+.DynBiz_Popup_Form_ConCol_2
+  .DynBiz_Popup_InputGroupBox.Col__1.ColStart__2
+  .DynBiz_Popup_InputGroup {
+  grid-column-start: 4 !important;
+}
+
+.DynBiz_Popup_Form_ConCol_3 .DynBiz_Popup_InputGroupBox {
+  &.Col__1.ColStart__2 .DynBiz_Popup_InputGroup,
+  &.Col__2.ColStart__2 .DynBiz_Popup_InputGroup {
+    grid-column-start: 4 !important;
+  }
+
+  &.Col__1.ColStart__3 {
+    .DynBiz_Popup_LabelTxt {
+      grid-column-start: 5 !important;
+    }
+
+    .DynBiz_Popup_InputGroup {
+      grid-column-start: 6 !important;
+    }
+  }
+
+  &.Col__2 .DynBiz_Popup_InputGroup {
+    grid-column: 2 / span 3;
+  }
+
+  &.Col__3 .DynBiz_Popup_InputGroup {
+    grid-column: 2 / span 5;
+  }
+
+  &.Col__2 .DynBiz_Popup_LabelTxt,
+  &.Col__3 .DynBiz_Popup_LabelTxt {
+    grid-column-start: 1;
+  }
+}
+
+.DynBiz_Popup_Req_true {
+  text-decoration: 2px underline #f64e60 !important;
+}
+
+.DynBiz_Popup_LabelTxt {
+  font-size: 13px;
+  line-height: 1.5;
+  text-transform: capitalize;
+  font-weight: 400;
+  color: #555;
+  height: 100%;
+  padding-top: 4px;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 32px auto;
+  align-items: center;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+}
+
+.DynBiz_Popup_InputGroup {
+  display: grid;
+  grid-template-rows: minmax(32px, max-content) auto;
+  grid-template-columns: auto max-content;
+  grid-row-gap: 2px;
+  row-gap: 2px;
+  // A padding-top: 4px;
+  // A  padding-right: 4px;
+  height: 100%;
+  // A align-items: center;
+  position: relative;
+}
+
+.DynBiz_AddPopup_Inputbox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d6dbdf;
+  padding: 5px 8px;
+  border-radius: 0 !important;
+  outline: none;
+  font-size: 12px;
+  color: #3f4254;
+  font-weight: 400;
+  height: 30px;
+
+  &.DynBiz_AddPopup_InputboxMaxLength {
+    grid-column: span 2;
+  }
+}
+
+.DynBiz_AddPopup_TextArea {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #d6dbdf;
+  padding: 8px;
+  border-radius: 0 !important;
+  outline: none;
+  font-size: 12px;
+  color: #3f4254;
+  font-weight: 400;
+}
+
+.DynBiz_AddPopup_Inputbox::placeholder,
+.DynBiz_AddPopup_TextArea::placeholder {
+  color: #3f4254 !important;
+  font-weight: 400;
+}
+
+.DynBiz_AddPopup_Inputbox:focus,
+.DynBiz_AddPopup_TextArea:focus {
+  border: 1px solid #0071e3 !important;
+  box-shadow: 0 0 0 2px rgba(0, 125, 250, 0.3);
+}
+
+.DynBiz_AddPopup_Inputbox[type="radio"]:focus {
+  border: 0px !important;
+  box-shadow: none !important;
+}
+
+.DynBiz_Popup_InputGroup_Error {
+  .DynBiz_AddPopup_Inputbox,
+  .css-2b097c-container,
+  .DynBiz_AddPopup_TextArea {
+    border: 1px solid #f64e60 !important;
+    box-shadow: none !important;
+  }
+
+  .css-4pcovv-control {
+    border: 0px !important;
+    box-shadow: none !important;
+  }
+
+  .css-1v82soj-control {
+    &:hover {
+      border: 0px !important;
+      box-shadow: none !important;
+    }
+
+    border: 0px !important;
+    box-shadow: none !important;
+  }
+
+  .css-4pcovv-control:focus,
+  .css-1v82soj-control:focus {
+    border: 0px !important;
+    box-shadow: none !important;
+  }
+}
+
+.DynBiz_Popup_InputGroupError_Msg {
+  color: #f64e60;
+  font-size: 11px;
+  font-weight: 500;
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.DynBiz_Popup_FormBox_ContentDiv {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content auto;
+  grid-row-gap: 2px;
+  row-gap: 2px;
+  align-items: center;
+  background: #eef7fd;
+  border-top: 0px !important;
+  border: 1px solid #adcffc;
+  height: 100%;
+  position: relative;
+}
+
+.DynBiz_Popup_FormBox_Content {
+  display: grid;
+  grid-template-columns: repeat(1, max-content auto);
+  column-gap: 12px;
+  row-gap: 12px;
+  align-items: center;
+  padding: 0px 18px 18px 18px;
+  background: #eef7fd;
+}
+
+.DynBiz_Popup_FormBox_ConCol_2 {
+  grid-template-columns: repeat(2, max-content auto);
+}
+
+.DynBiz_Popup_FormBox_ConCol_3 {
+  grid-template-columns: repeat(3, max-content auto);
+}
+
+.DynBiz_Popup_FormBox_ConCol_4 {
+  grid-template-columns: repeat(4, max-content auto);
+}
+
+.DynBiz_Popup_FormCheckBheadTxt {
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  color: #549cf8;
+  line-height: 1.5;
+  text-transform: capitalize;
+  width: 100%;
+  user-select: none !important;
+  -webkit-user-drag: none !important;
+  margin: -9px 0px 0px 0px;
+
+  &:after,
+  &:before {
+    content: "";
+    border-top: 1px solid #adcffc;
+    flex: 1 0 1px;
+  }
+
+  &:empty {
+    &:before,
+    &:after {
+      margin: 0px !important;
+    }
+  }
+
+  &:before {
+    margin-right: 10px;
+  }
+
+  &:after {
+    margin-left: 10px;
+  }
+}
+
+/* SwitchBox Code */
+
+.DynBiz__panel_Switch {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 24px;
+  padding: 3px;
+  margin: auto 0;
+  border-radius: 18px;
+  cursor: pointer;
+  box-sizing: content-box;
+}
+
+.DynBiz__panel_Switch-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  box-sizing: content-box;
+}
+
+.DynBiz__panel_Switch-label {
+  position: relative;
+  display: block;
+  height: inherit;
+  font-size: 11px;
+  height: 24px;
+  text-transform: uppercase;
+  background: #adb5bd;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12),
+    inset 0 0 2px rgba(0, 0, 0, 0.15);
+  box-sizing: content-box;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 52%;
+    margin-top: -0.5em;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+    box-sizing: content-box;
+  }
+
+  &:before {
+    content: attr(data-off);
+    right: 8px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  &:after {
+    content: attr(data-on);
+    left: 6px;
+    color: #ffffff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+  }
+}
+
+.DynBiz__panel_Switch-input:checked ~ .DynBiz__panel_Switch-label {
+  background: var(--Main-Primary-Color);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15),
+    inset 0 0 3px rgba(0, 0, 0, 0.2);
+
+  &:before {
+    opacity: 0;
+  }
+
+  &:after {
+    opacity: 1;
+  }
+}
+
+.DynBiz__panel_Switch-handle {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to bottom, #ffffff 40%, #f0f0f0);
+  background-image: -webkit-linear-gradient(top, #ffffff 40%, #f0f0f0);
+  border-radius: 100%;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(to bottom, #eeeeee, #ffffff);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #ffffff);
+    border-radius: 6px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+  }
+}
+
+.DynBiz__panel_Switch-input:checked ~ .DynBiz__panel_Switch-handle {
+  left: 31px;
+  box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.DynBiz__panel_Switch-label,
+.DynBiz__panel_Switch-handle {
+  transition: All 0.3s ease;
+  -webkit-transition: All 0.3s ease;
+  -moz-transition: All 0.3s ease;
+  -o-transition: All 0.3s ease;
+}
+
+/* SwitchBox Code */
+
+.DynBiz_AddPopup_Inputbox:focus + .DynBiz_Popup_MaxLengthBox {
+  display: block;
+}
+
+.DynBiz_Popup_MaxLengthBox {
+  font-size: 10px;
+  height: 20px;
+  text-align: right;
+  align-items: center;
+  justify-content: right;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.DynBiz_Popup_InputGroup_Error
+  .DynBiz_AddPopup_Inputbox
+  + .DynBiz_Popup_MaxLengthBox
+  .DynBiz_Popup_MaxLengthTxt {
+  color: #fff !important;
+  background-color: #f64e60 !important;
+}
+
+.DynBiz_Popup_MaxLengthTxt {
+  color: #fff;
+  background-color: #01a3fd;
+  border-radius: 4px;
+  width: max-content;
+  font-size: 11px;
+  padding: 4px 6px 3px 6px;
+  font-weight: 400;
+  text-align: right;
+  user-select: none;
+}
+
+.css-tlfecz-indicatorContainer,
+.css-1gtu0rj-indicatorContainer {
+  padding: 4px 8px !important;
+}
+
+.DynBiz_Popup_MultiInputGroupBox {
+  display: grid;
+  column-gap: 8px;
+
+  &.Col__2 {
+    grid-column: span 3 !important;
+  }
+
+  &.Col__3 {
+    grid-column: span 5 !important;
+  }
+}
+
+/* Address Control */
+.DynBiz_Popup_AddressControl {
+  display: grid;
+  grid-template-rows: minmax(26px, max-content) auto;
+  border: 1px solid #d6dbdf;
+  row-gap: 6px;
+  padding: 6px;
+
+  .DynBiz_Popup_AddressControl_Header {
+    display: grid;
+    border-radius: 2px;
+    grid-template-columns: auto max-content;
+    grid-auto-rows: max-content;
+    column-gap: 10px;
+    align-items: center;
+    background: #f5f5f5;
+    padding-left: 8px;
+    height: 26px;
+
+    h4 {
+      color: #283f61;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 0px;
+      -webkit-user-drag: none;
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
+    }
+
+    button {
+      padding: 5px 8px 5px 8px;
+      border: none;
+      border-radius: 0px 2px 2px 0px;
+      cursor: pointer;
+      -webkit-user-drag: none;
+      user-select: none;
+      outline: none;
+      height: max-content;
+      width: max-content;
+      height: 26px;
+      color: #fff;
+      background-color: #64acfb;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:focus {
+        background: linear-gradient(180deg, #f67c1b, #ef6817) !important;
+      }
+
+      svg {
+        font-size: 16px;
+      }
+    }
+  }
+
+  span {
+    font-size: 12px;
+    padding: 2px 2px;
+    height: 34px;
+    color: #808b96;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 16px;
+  }
+}
+/* Address Control */

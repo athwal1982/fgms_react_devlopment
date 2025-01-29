@@ -1,0 +1,46 @@
+// A .tox-tinymce {
+// A  border-radius: 0px !important;
+// A  border: 0px !important;
+// A}
+
+// A .tox .tox-statusbar,
+// A  .tox .tox-notification--warn,
+// A .tox .tox-notification--warning {
+// A  display: none !important;
+// A}
+
+// A .tox:not(.tox-tinymce-inline) .tox-editor-header {
+// A  padding: 1px 0px !important;
+// A  box-shadow: none !important;
+// A  border-bottom: 1px solid #d8dcde !important;
+// A}
+
+// A .tox .tox-tbtn--enabled,
+// A .tox .tox-tbtn--enabled:hover {
+// A  background: #fe824f !important;
+// A}
+
+// A .tox .tox-tbtn--enabled svg,
+// A .tox .tox-tbtn--enabled:hover svg {
+// A  fill: var(--white) !important;
+// A}
+
+// A .tox .tox-tbtn:hover,
+// A .tox .tox-tbtn:hover svg {
+// A  background: #d6dbdf !important;
+// A  color: #222f3e !important;
+// A}
+
+// A .tox .tox-tbtn:hover svg {
+// A  fill: #222f3e !important;
+// A}
+
+// A .mce-content-body {
+// A  margin: 12px !important;
+// A}
+.ql-container {
+  display: grid;
+  width: 100%;
+  max-height: 197px;
+  overflow: auto;
+}

@@ -1,0 +1,135 @@
+.Biz_clear___toast {
+  position: fixed;
+  top: 17px;
+  margin: auto;
+  z-index: 999999999;
+  min-width: 380px;
+  max-width: 420px;
+  right: 17px;
+  animation: RfadeInDown 0.1s ease-out;
+}
+
+.Biz_toast_Success {
+  color: #6dcb49;
+  border-bottom: 4px solid #6dcb49 !important;
+
+  .Biz__Icon {
+    color: #6dcb49;
+  }
+}
+
+.Biz_toast_Error {
+  color: #fd375b;
+  border-bottom: 4px solid #fd375b !important;
+
+  .Biz__Icon {
+    color: #fd375b;
+  }
+}
+
+.Biz_toast_Warning {
+  color: #f6af1f;
+  border-bottom: 4px solid #f6af1f !important;
+
+  .Biz__Icon {
+    color: #f6af1f;
+  }
+}
+
+.Biz_toast_Primary {
+  color: #0167ff;
+  border-bottom: 4px solid #0167ff !important;
+
+  .Biz__Icon {
+    color: #0167ff;
+  }
+}
+
+.Biz_toast__fd {
+  margin: auto;
+  z-index: 1001;
+  min-width: 360px;
+  max-width: 460px;
+  right: 17px;
+  display: flex;
+  align-items: stretch;
+  padding: 16px;
+  position: relative;
+  border-radius: 0px;
+  border: 1px solid #ebedef;
+  background-color: #fff;
+  box-shadow: rgba(9, 30, 66, 0.31) 0px 0px 1px, rgba(9, 30, 66, 0.25) 0px 20px 32px -8px;
+  color: rgb(66, 82, 110);
+  width: 100%;
+}
+
+.Biz_toast__icon {
+  display: flex;
+  align-items: center;
+  padding: 0 1.25rem 0 0;
+  border-right: 1px solid #efeef1;
+
+  .Biz__Icon {
+    font-weight: 100;
+    font-size: 36px;
+  }
+}
+
+.Biz_toast__text {
+  display: grid;
+  grid-template-rows: auto auto;
+  padding: 0 0 0 1.25rem;
+  row-gap: 2px;
+
+  h2 {
+    color: rgb(66, 82, 110);
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  p {
+    color: rgb(66, 82, 110);
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+.Biz_toast__close {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  line-height: 0;
+  margin-left: auto;
+
+  .Biz_toast__closebtn {
+    background: transparent;
+    border: none;
+    display: grid;
+  }
+}
+
+.Biz_toast__closebtn .Biz__Icon {
+  color: #a4b0b4 !important;
+  font-size: 18px;
+  font-weight: 600;
+  align-items: center;
+  cursor: pointer;
+}
+
+@keyframes RfadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

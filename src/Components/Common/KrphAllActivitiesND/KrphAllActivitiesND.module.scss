@@ -1,0 +1,35 @@
+.ModalBox {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content auto;
+}
+
+.disabledOnIntimationTextBox {
+  pointer-events: none;
+}
+
+.disabledLateIntimationTextBox {
+  pointer-events: none;
+  background-color: #f30722;
+  color: #ffffff;
+}
+
+.CounterDescKRPH {
+  color: #fff;
+  background-color: #01a3fd;
+  border-radius: 0px 0px 4px 4px;
+  width: max-content;
+  font-size: 10px;
+  padding: 1px 8px 1px;
+  justify-content: center;
+  font-weight: 400;
+  -webkit-user-select: none;
+  user-select: none;
+  grid-column: span 2;
+  justify-content: center;
+  margin-left: auto;
+  min-width: 50px;
+  text-align: right;
+  position: sticky;
+}
+
