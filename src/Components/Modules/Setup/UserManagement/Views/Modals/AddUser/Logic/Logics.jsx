@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { sha256 } from "crypto-hash";
 import { AlertMessage } from "Framework/Components/Widgets/Notification/NotificationProvider";
+import moment from "moment";
 import { getSessionStorage, validatePassword, encryptStringData } from "Components/Common/Login/Auth/auth";
 import { getBrHeadTypeData, addNewUser, getReferenceTypeData, getMasterDataBinding, GetUserInsCompAssignManage } from "../Services/Methods";
 import { GetUserStateAssignManage } from "../../AssignStateListModal/Service/Methods";
@@ -217,12 +218,12 @@ function AddUserLogics() {
     let errorsMsg = "";
     if (name === "txtDisplayName") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       }
     }
     if (name === "txtLoginName") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       } else {
         const regex = new RegExp("^[a-zA-Z0-9_]*$");
         if (!regex.test(value)) {
@@ -232,7 +233,7 @@ function AddUserLogics() {
     }
     if (name === "txtPassword") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       } else if (value) {
         const ErrorPwd = validatePassword(value);
         if (ErrorPwd !== "") {
@@ -242,22 +243,22 @@ function AddUserLogics() {
     }
     if (name === "txtUserType") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       }
     }
     if (name === "txtLocationType") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       }
     }
     if (name === "txtReferenceType") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       }
     }
     if (name === "txtBRHeadType") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       }
     }
     if (name === "txtState") {
@@ -268,20 +269,20 @@ function AddUserLogics() {
         formValues.txtUserType.AppAccessTypeID.toString() === "999"
       ) {
         if (!value || typeof value === "undefined") {
-          errorsMsg = "Cannot be empty";
+          errorsMsg = "Can not be empty";
         }
       }
     }
     if (name === "txtUserReference") {
       if (formValues.txtBRHeadType && formValues.txtBRHeadType.BMCGCode.toString() === "124003") {
         if (!value || typeof value === "undefined") {
-          errorsMsg = "Cannot be empty";
+          errorsMsg = "Can not be empty";
         }
       }
     }
     if (name === "txtMobileNo") {
       if (!value || typeof value === "undefined") {
-        errorsMsg = "Cannot be empty";
+        errorsMsg = "Can not be empty";
       } else {
         const regex = new RegExp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$");
         if (!regex.test(value)) {
@@ -290,7 +291,7 @@ function AddUserLogics() {
       }
     }
     if (name === "txtEmailID") {
-      const regex = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+      const regex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
       if (!regex.test(value)) {
         errorsMsg = "Email ID is not valid";
       }
@@ -508,6 +509,7 @@ function AddUserLogics() {
               EmailAddress: formValues.txtEmailID ? formValues.txtEmailID : "",
               UserMobileNumber: formValues.txtMobileNo ? formValues.txtMobileNo : "",
               InsertUserID: userData ? userData.LoginID : 0,
+              InsertedTime: moment().utcOffset("+05:30").format("YYYY-MM-DDTHH:mm:ss"),
               IsNewlyAdded: true,
             },
           ];
