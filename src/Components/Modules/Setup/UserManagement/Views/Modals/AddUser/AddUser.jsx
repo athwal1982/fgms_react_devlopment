@@ -72,11 +72,11 @@ function AddUser({ showfunc, referenceTypeOptions, updateUserData }) {
                   onChange={(e) => updateState("txtDisplayName", e.target.value)}
                 />
               </Form.InputGroup>
-              <Form.InputGroup label="Login Name" errorMsg={formValidationError["txtLoginName"]} req="true">
+              <Form.InputGroup label="User Name" errorMsg={formValidationError["txtLoginName"]} req="true">
                 <Form.InputControl
                   control="input"
                   type="text"
-                  maxLength="20"
+                  maxLength="10"
                   autoComplete="off"
                   value={formValues.txtLoginName}
                   name="txtLoginName"

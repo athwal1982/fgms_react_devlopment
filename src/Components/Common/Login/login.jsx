@@ -97,7 +97,7 @@ function Login() {
                           <input
                             type="text"
                             name="txtLoginId"
-                            maxLength="10"
+                            maxLength="20"
                             value={formValues.txtLoginId}
                             onChange={(e) => updateState(e.target.name, e.target.value)}
                             placeholder="Login ID"

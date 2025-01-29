@@ -7,6 +7,7 @@ import { BiCategory } from "react-icons/bi";
 import PropTypes from "prop-types";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import { Loader } from "Framework/Components/Widgets";
+import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import BizClass from "./UserManagement.module.scss";
 
 const cellActionTemplate = (props) => {
@@ -197,6 +198,19 @@ function UserManagement({
             return node.data.ActiveStatus.toString() === "Y" ? "Active" : "In-Active";
           }}
         />
+        <DataGrid.Column
+                              field="#"
+                              headerName="Created At"
+                              width="145px"
+                              valueGetter={(node) => {
+                                return node.data.InsertedTime
+                                  ? dateToSpecificFormat(
+                                      `${node.data.InsertedTime.split("T")[0]} ${Convert24FourHourAndMinute(node.data.InsertedTime.split("T")[1])}`,
+                                      "DD-MM-YYYY HH:mm",
+                                    )
+                                  : null;
+                              }}
+                            />
       </DataGrid>
     </div>
   );
