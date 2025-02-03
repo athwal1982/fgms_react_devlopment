@@ -1141,17 +1141,17 @@ function AddTicketLogics() {
       }
       if (name === "txtSubDistrictForByLocation") {
         if (!value || typeof value === "undefined") {
-          errorsMsg = `${lableTalukAnything} is required`;
+          errorsMsg = `${lableTalukAnything} is required!`;
         }
       }
       if (name === "txtlevel5ByLocation") {
         if (!value || typeof value === "undefined") {
-          errorsMsg = `${lablelevel5} is required`;
+          errorsMsg = `${lablelevel5} is required!`;
         }
       }
       if (name === "txtlevel6ByLocation") {
         if (!value || typeof value === "undefined") {
-          errorsMsg = `${lablelevel6} is required`;
+          errorsMsg = `${lablelevel6} is required!`;
         }
       }
       if (name === "txtVillageForByLocation") {
