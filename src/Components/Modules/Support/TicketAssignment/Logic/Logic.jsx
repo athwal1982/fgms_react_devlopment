@@ -108,6 +108,13 @@ function TicketAssignmentLogics() {
         });
         return;
       }
+      if (fetchTicket.length > 100) {
+        setAlertMessage({
+          type: "error",
+          message: "You can only assign up to 100 tickets at once.",
+        });
+        return;
+      }
 
       const ticketIds = fetchTicket.map((data) => data.SupportTicketID).join(",");
       const userIds = fetchUser.map((data) => data.AppAccessID);
@@ -172,7 +179,7 @@ function TicketAssignmentLogics() {
       setIsLoadingTicketAssignment(true);
       const formdata = {
         userId: AppAccessId,
-        pageSize: 100,
+        pageSize: 1000000,
         skip: 0,
       };
       const result = await getUserWiseTicketList(formdata);
