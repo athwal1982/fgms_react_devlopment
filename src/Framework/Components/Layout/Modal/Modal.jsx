@@ -26,6 +26,7 @@ function Modal(props) {
     bottom,
     overlay,
     onlyfooter = false,
+    onlyCancel = false,
     ...restProps
   } = props;
 
@@ -72,9 +73,10 @@ function Modal(props) {
               <header id="handle" className={BizClass.Header}>
                 <h2>{title}</h2>
                 <div className={BizClass.ContentBox}>{Header.length === 1 ? Header : null}</div>
+                {onlyCancel === "true" ? null :
                 <button type="button" className={BizClass.CloseBtn} onClick={show}>
                   <FaTimes />
-                </button>
+                </button>}
               </header>
             )}
             <form className={BizClass.FormContent} {...restProps}>
@@ -119,6 +121,7 @@ Modal.propTypes = {
   overlay: PropTypes.string,
   bottom: PropTypes.string,
   onlyfooter: PropTypes.bool,
+  onlyCancel: PropTypes.bool,
 };
 
 function ModalHeader(props) {

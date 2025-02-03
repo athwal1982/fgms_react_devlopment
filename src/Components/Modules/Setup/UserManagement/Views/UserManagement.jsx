@@ -2,7 +2,7 @@ import React from "react";
 import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import { RiFileUserLine, RiLockPasswordLine, RiHome2Fill } from "react-icons/ri";
-import { MdOutlineAssignment } from "react-icons/md";
+import { MdOutlineAssignment, MdOutlineCancel } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
 import PropTypes from "prop-types";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
@@ -131,6 +131,7 @@ function UserManagement({
   toggleCloseDistrictListModal,
   toggleAssignRegionalOfficeListModal,
   toggleAssignInsCompModal,
+  onClearSearchClick,
 }) {
   const userData = getSessionStorage("user");
   const getRowStyle = (params) => {
@@ -146,6 +147,7 @@ function UserManagement({
     <div className={BizClass.PageStart}>
       <PageBar>
         <PageBar.Search value={userListItemSearch} onChange={(e) => onChangeUserList(e.target.value)} onClick={() => getUsersList()} />
+        <MdOutlineCancel style={{fontSize: "28px" , color: "red",cursor: "pointer"}} onClick={() => onClearSearchClick()} />
         {userData && userData.AppAccessTypeID.toString() !== "503" ? <PageBar.Button onClick={() => toggleAddVisitModal()}>Add User</PageBar.Button> : null}
       </PageBar>
       <DataGrid

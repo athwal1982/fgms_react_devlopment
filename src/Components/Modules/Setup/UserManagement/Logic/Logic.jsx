@@ -151,6 +151,10 @@ function UserManagementLogics() {
       console.log("itemsToUpdate", itemsToUpdate);
     }
   };
+  const onClearSearchClick = () => {
+    debugger;
+    setUserListItemSearch("");
+  };
 
   useEffect(() => {
     getUserData();
@@ -169,6 +173,7 @@ function UserManagementLogics() {
     onActiveUser,
     onDeActiveUser,
     updateUserDataList,
+    onClearSearchClick,
   };
 }
 export default UserManagementLogics;

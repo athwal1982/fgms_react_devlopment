@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import BizClass from "./AddUser.module.scss";
 import AddUserLogics from "./Logic/Logics";
 
-function AddUser({ showfunc, referenceTypeOptions, updateUserData }) {
+function AddUser({ showfunc, referenceTypeOptions, updateUserData, setConfirmAlert }) {
   const {
     formValues,
     isLoadingSelectedState,
@@ -36,6 +36,18 @@ function AddUser({ showfunc, referenceTypeOptions, updateUserData }) {
     setPopupVisible(false);
   };
 
+  const handleCancel = () => {
+    debugger;
+    setConfirmAlert({
+      open: true,
+      title: "Cancel Confirmation",
+      msg: "Do you want to cancel ?",
+      button: { confirmText: "Yes", abortText: "No", Color: "Danger" },
+      onConfirm: () => showfunc(),
+    });
+  };
+  
+
   return (
     <>
       {isPopupVisible && (
@@ -57,7 +69,7 @@ function AddUser({ showfunc, referenceTypeOptions, updateUserData }) {
           </p>
         </div>
       )}
-      <Modal onSubmit={(e) => handleSave(e, updateUserData)} varient="center" title="Add User" show={showfunc} right="0">
+      <Modal onlyfooter ="true" onlyCancel="true" onSubmit={(e) => handleSave(e, updateUserData)} varient="center" title="Add User" show={showfunc} right="0">
         <Modal.Body>
           <Form>
             <Form.Group column={2} controlwidth="280px">
@@ -203,6 +215,9 @@ function AddUser({ showfunc, referenceTypeOptions, updateUserData }) {
         <Modal.Footer>
           <Button type="submit" varient="secondary" trigger={btnLoaderActive}>
             Save
+          </Button>
+          <Button type="button" varient="grey"  onClick={() => handleCancel()}>
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>

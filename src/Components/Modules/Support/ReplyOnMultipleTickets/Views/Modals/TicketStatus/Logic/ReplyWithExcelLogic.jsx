@@ -345,6 +345,14 @@ function ReplyWithExcelLogic() {
               rtnval = false;
               break;
             }
+            if (dataForUpload[i].ticketStatusID === 109019) {
+              setAlertMessage({
+                type: "warning",
+                message: `CSC user can not change the ticket status(Open) at row no.${i + 1}`,
+              });
+              rtnval = false;
+              break;
+            }
             if (dataForUpload[i].ticketStatusID === 109014) {
               setAlertMessage({
                 type: "warning",
@@ -398,6 +406,16 @@ function ReplyWithExcelLogic() {
                 rtnval = false;
                 break;
               }
+            }
+          }
+          if (filterValues.txtStatus.CommonMasterValueID === 109301) {
+            if (dataForUpload[i].ticketStatusID === 109304) {
+              setAlertMessage({
+                type: "warning",
+                message: `CSC user can not change the status(Re-Open) if status is Open at row no.${i + 1}`,
+              });
+              rtnval = false;
+              break;
             }
           }
           if (filterValues.txtStatus.CommonMasterValueID === 109302) {

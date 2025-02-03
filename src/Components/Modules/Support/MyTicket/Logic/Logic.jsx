@@ -270,6 +270,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
+            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             HasDocument: 0,
             InsertIPAddress: ip,
@@ -450,6 +451,13 @@ function MyTicketLogics() {
           });
           return;
         }
+        if (formValuesTicketProperties.txtTicketStatus.BMCGCode.toString() === "109019") {
+          setAlertMessage({
+            type: "warning",
+            message: "CSC user can not change the ticket status(Open)",
+          });
+          return;
+        }
         if (formValuesTicketProperties.txtTicketStatus.BMCGCode.toString() === "109014") {
           setAlertMessage({
             type: "warning",
@@ -457,7 +465,16 @@ function MyTicketLogics() {
           });
           return;
         }
-        if (ticketData.TicketStatusID.toString() === "109014") {
+        if (ticketData.TicketStatusID.toString() === "109301") {
+          if (formValuesTicketProperties.txtTicketStatus.BMCGCode.toString() === "109026") {
+            setAlertMessage({
+              type: "warning",
+              message: "CSC user can not Re-Open the ticket if status is Open",
+            });
+            return;
+          }
+        }
+        if (ticketData.TicketStatusID.toString() === "109302") {
           if (formValuesTicketProperties.txtTicketStatus.BMCGCode.toString() === "109026") {
             setAlertMessage({
               type: "warning",
@@ -592,6 +609,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
+            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             HasDocument: phasDocument,
             InsertIPAddress: ip,
@@ -983,6 +1001,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
+            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             HasDocument: 0,
             InsertIPAddress: ip,

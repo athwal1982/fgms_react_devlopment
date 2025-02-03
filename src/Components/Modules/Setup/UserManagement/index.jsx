@@ -11,6 +11,7 @@ import AssignSubDistrictListModal from "./Views/Modals/SubDistrict/SubDistrictAs
 import AssignBlockListModal from "./Views/Modals/Block/BlockAssignModal";
 import AssignRegionalOfficeModal from "./Views/Modals/AssignRegionalOfficeModal/AssignRegionalOfficeModal";
 import AssignInsCompModal from "./Views/Modals/AssignInsCompModal/AssignInsCompModal";
+import ConfirmDialog from "Framework/ConfirmDialog/ConfirmDialog";
 
 function UserManagementPage() {
   const [addUserModal, setAddUserModal] = useState(false);
@@ -28,6 +29,7 @@ function UserManagementPage() {
     onActiveUser,
     onDeActiveUser,
     updateUserDataList,
+    onClearSearchClick,
   } = UserManagementLogics();
 
   const referenceTypeOptions = [
@@ -103,9 +105,23 @@ function UserManagementPage() {
     setSelectedUserData(data);
   };
 
+  const [confirmAlert, setConfirmAlert] = useState({
+    open: false,
+    title: "",
+    msg: "",
+    onConfirm: null,
+    button: { confirmText: "", abortText: "" },
+  });
+
   return (
     <>
-      {addUserModal ? <AddUser showfunc={toggleAddVisitModal} updateUserData={updateUserData} referenceTypeOptions={referenceTypeOptions} /> : null}
+      {confirmAlert.open && (
+        <ConfirmDialog
+          confirmAlert={confirmAlert}
+          setConfirmAlert={setConfirmAlert}
+        />
+      )}
+      {addUserModal ? <AddUser showfunc={toggleAddVisitModal} updateUserData={updateUserData} referenceTypeOptions={referenceTypeOptions}  setConfirmAlert={setConfirmAlert} /> : null}
       {profileListModal && <ProfileListModal showfunc={toggleProfileListModal} selectedUserData={selectedUserData} updateUserDataList={updateUserDataList} />}
       {assignStateListModal ? (
         <AssignStateListModal showfunc={toggleAssignStateListModal} selectedUserData={selectedUserData} updateUserDataList={updateUserDataList} />
@@ -151,6 +167,7 @@ function UserManagementPage() {
         toggleCloseDistrictListModal={toggleCloseDistrictListModal}
         toggleAssignRegionalOfficeListModal={toggleAssignRegionalOfficeListModal}
         toggleAssignInsCompModal={toggleAssignInsCompModal}
+        onClearSearchClick={onClearSearchClick}
       />
     </>
   );

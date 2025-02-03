@@ -57,6 +57,13 @@ function TicketStatusLogic() {
         });
         return;
       }
+      if (formValuesReplyOnTickets.txtTicketStatus.BMCGCode.toString() === "109019") {
+        setAlertMessage({
+          type: "warning",
+          message: "CSC user can not change the ticket status(In-Progress)",
+        });
+        return;
+      }
       if (formValuesReplyOnTickets.txtTicketStatus.BMCGCode.toString() === "109014") {
         setAlertMessage({
           type: "warning",
@@ -148,7 +155,18 @@ function TicketStatusLogic() {
         }
       }
 
-      if (selectedTicketsData[i].TicketStatusID.toString() === "109014") {
+      if (selectedTicketsData[i].TicketStatusID.toString() === "109301") {
+        if (formValuesReplyOnTickets.txtTicketStatus.BMCGCode.toString() === "109026") {
+          setAlertMessage({
+            type: "warning",
+            message: "CSC user can not Re-Open the ticket if status is Open",
+          });
+          rtnval = false;
+          break;
+        }
+      }
+
+      if (selectedTicketsData[i].TicketStatusID.toString() === "109302") {
         if (formValuesReplyOnTickets.txtTicketStatus.BMCGCode.toString() === "109026") {
           setAlertMessage({
             type: "warning",

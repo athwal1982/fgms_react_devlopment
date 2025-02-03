@@ -60,7 +60,7 @@ function TicketAssignment({
     setOpenToggleViewTicketAssignmentPopup((prevState) => !prevState);
   };
 
-  const todayDate = moment().format("YYYY-MM-DD");
+  
 
   const checkboxSelection = (params) => {
     console.log(params);
@@ -75,24 +75,6 @@ function TicketAssignment({
     <div className={BizClass.PageStart}>
       <PageBar>
         <div className={BizClass.ticketCountBanner}>Un-Assigned Ticket Count : &nbsp;{ticketCount ? `(${ticketCount})` : "(0)"}</div>
-
-        {/* <PageBar.Input
-              ControlTxt="From Date"
-              control="input"
-              type="date"
-              name="txtFromDate"
-              value={filterValues.txtFromDate}
-              onChange={(e) => updateFilterState("txtFromDate", e.target.value)}
-            />
-            <PageBar.Input
-              ControlTxt="To Date"
-              control="input"
-              type="date"
-              name="txtToDate"
-              value={filterValues.txtToDate}
-              onChange={(e) => updateFilterState("txtToDate", e.target.value)}
-              max={todayDate}
-            /> */}
         <PageBar.Select
           ControlTxt="State"
           name="txtState"
@@ -128,6 +110,7 @@ function TicketAssignment({
         <PageBar.Select
           ControlTxt="Search By"
           name="txtTicketCategory"
+          label="Sub Category"
           value={filterValues.txtTicketCategory}
           options={ticketCategoryList}
           isLoading={isLoadingTicketCategoryList}
