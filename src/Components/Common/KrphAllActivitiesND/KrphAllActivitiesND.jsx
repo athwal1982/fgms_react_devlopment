@@ -494,9 +494,13 @@ function KrphAllActivitiesND() {
       };
       const result = await krphFarmerCallingHistorydata(formData);
       if (result.response.responseCode === 1) {
-        setgetCallingMasterID(result.response.responseData.CallingMasterID);
+        if(result.response.responseData.CallingMasterID > 0) {
+          setgetCallingMasterID(result.response.responseData.CallingMasterID); 
+        } else {
+          setgetCallingMasterID(1);
+        }
       } else {
-        setgetCallingMasterID(0);
+        setgetCallingMasterID(1);
         setAlertMessage({
           type: "error",
           message: result.response.responseMessage,
