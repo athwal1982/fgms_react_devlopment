@@ -20,6 +20,9 @@ function PageAuthenticator() {
     }
     return <Navigate to="/welcome" />;
   }
+  if( pathUrl.indexOf("ImportantInstructions") !== -1 ) {
+    return <Navigate to="/ImportantInstructions" />;
+  }
 
   return <Navigate to="/login" />;
 }
