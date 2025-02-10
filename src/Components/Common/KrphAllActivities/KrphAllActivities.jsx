@@ -2698,7 +2698,7 @@ function KrphAllActivities() {
         }
         
       } else {
-        setgetCallingMasterID(1);
+        setgetCallingMasterID(2);
         setAlertMessage({
           type: "error",
           message: result.response.responseMessage,
@@ -2738,7 +2738,7 @@ function KrphAllActivities() {
           setgetCallingMasterID(1);    
         }
       } else {
-        setgetCallingMasterID(1);
+        setgetCallingMasterID(2);
         setAlertMessage({
           type: "error",
           message: result.response.responseMessage,

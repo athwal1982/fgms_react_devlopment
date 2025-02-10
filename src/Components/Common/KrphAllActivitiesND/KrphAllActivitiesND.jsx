@@ -500,7 +500,7 @@ function KrphAllActivitiesND() {
           setgetCallingMasterID(1);
         }
       } else {
-        setgetCallingMasterID(1);
+        setgetCallingMasterID(2);
         setAlertMessage({
           type: "error",
           message: result.response.responseMessage,
