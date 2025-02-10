@@ -44,6 +44,7 @@ import StatewiseICTickets from "Components/Modules/Reports/StatewiseICTickets/";
 import BillingDashboard from "Components/Common/BillingDashboard/BillingDashboard";
 import KrphAllActivities from "Components/Common/KrphAllActivities/KrphAllActivities";
 import KrphAllActivitiesND from "Components/Common/KrphAllActivitiesND/KrphAllActivitiesND";
+import ImportantInstructions from "Components/Common/ImportantInstructions/ImportantInstructions";
 import ServiceSuccess from "Components/Common/KrphAllActivities/ServiceSuccess";
 import Page from "./Page/Page";
 import PageAuthenticator from "./PageAuthenticator/PageAuthenticator";
@@ -55,6 +56,7 @@ function PageRouter() {
         <Route exact path="/" element={<PageAuthenticator />} />
 
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/ImportantInstructions" element={<ImportantInstructions />} />
         <Route exact path="/welcome" element={<Page component={<Welcome />} title="Home" />} />
         <Route exact path="/home" element={<Page component={<HomePage />} title="Dashboard" />} />
         <Route exact path="/KrphAllActivities" element={<KrphAllActivities />} />
