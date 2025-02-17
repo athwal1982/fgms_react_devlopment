@@ -418,8 +418,10 @@ function KrphAllActivities() {
         });
         if (result.response.responseCode === 2) {
           setvalisRegistered("D");
+          SavevalidateFarmerOnpageLand("D");
         } else {
           setvalisRegistered("U");
+          SavevalidateFarmerOnpageLand("U");
         }
       }
     } catch (error) {
@@ -2669,6 +2671,48 @@ function KrphAllActivities() {
         });
         setStateCropLossIntimation("YES");
       }
+    }
+  };
+
+  const SavevalidateFarmerOnpageLand = async (pisRegistered) => {
+    debugger;
+    try {
+      const formData = {
+        CallingMasterID: getCallingMasterID,
+        callerMobileNumber: formValuesGI.txtMobileCallerNumber ? formValuesGI.txtMobileCallerNumber : "",
+        user: dcryptUID,
+        callingUniqueID: dcryptUNQEID,
+        farmerMobileNumber: formValuesMN.txtMobileNumber ? formValuesMN.txtMobileNumber : "",
+        farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
+        callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
+        reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
+        stateCodeAlpha:
+          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        districtCodeAlpha:  formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        isRegistered: pisRegistered,
+      };
+      const result = await krphFarmerCallingHistorydata(formData);
+      if (result.response.responseCode === 1) {
+        if(result.response.responseData.CallingMasterID > 0) {
+          setgetCallingMasterID(result.response.responseData.CallingMasterID);
+        } else {
+          setgetCallingMasterID(1);
+        }
+        
+      } else {
+        setgetCallingMasterID(2);
+        setAlertMessage({
+          type: "error",
+          message: result.response.responseMessage,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+      return false;
     }
   };
 
