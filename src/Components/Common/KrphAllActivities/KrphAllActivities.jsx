@@ -2716,6 +2716,45 @@ function KrphAllActivities() {
     }
   };
 
+  const SavevalidateFarmerEveryCallLand = async () => {
+    debugger;
+    try {
+      const formData = {
+        CallingMasterID: getCallingMasterID,
+        callerMobileNumber: formValuesGI.txtMobileCallerNumber ? formValuesGI.txtMobileCallerNumber : "",
+        user: dcryptUID,
+        callingUniqueID: dcryptUNQEID,
+        farmerMobileNumber: formValuesMN.txtMobileNumber ? formValuesMN.txtMobileNumber : "",
+        farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
+        callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
+        reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
+        stateCodeAlpha:
+          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        districtCodeAlpha:  formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        isRegistered: "U",
+      };
+      const result = await krphFarmerCallingHistorydata(formData);
+      if (result.response.responseCode === 1) {
+        if(result.response.responseData.CallingMasterID > 0) {
+          setgetCallingMasterID(result.response.responseData.CallingMasterID);
+          validateFarmerByMobileNumberKRPH();
+        } else {
+          validateFarmerByMobileNumberKRPH();
+        }
+        
+      } else {
+        validateFarmerByMobileNumberKRPH();
+      }
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+      return false;
+    }
+  };
+
   const SavevalidateFarmerOnClick = async (pdistrictCodeAlpha) => {
     debugger;
     try {
@@ -4620,7 +4659,7 @@ function KrphAllActivities() {
     }
     setYearList(yearArray.sort().reverse());
     getTicketCategoryTypeListData("1", 0, "TCKTYP");
-    validateFarmerByMobileNumberKRPH();
+    SavevalidateFarmerEveryCallLand();
     getticketDataBindingKrphAllActivitiesData();
     getStateKRPHListData();
   }, []);

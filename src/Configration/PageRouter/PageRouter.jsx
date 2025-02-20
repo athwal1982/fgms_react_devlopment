@@ -46,6 +46,9 @@ import KrphAllActivities from "Components/Common/KrphAllActivities/KrphAllActivi
 import KrphAllActivitiesND from "Components/Common/KrphAllActivitiesND/KrphAllActivitiesND";
 import ImportantInstructions from "Components/Common/ImportantInstructions/ImportantInstructions";
 import ServiceSuccess from "Components/Common/KrphAllActivities/ServiceSuccess";
+import CreateTraining from "Components/Modules/TrainingManagement/CreateTraining/CreateTraining";
+import TrainingList from "Components/Modules/TrainingManagement/TrainingList/TrainingList";
+import TraineeList from "Components/Modules/Trainee/TraineeList/TraineeList";
 import Page from "./Page/Page";
 import PageAuthenticator from "./PageAuthenticator/PageAuthenticator";
 
@@ -118,6 +121,9 @@ function PageRouter() {
         <Route exact path="/OfflineIntimationReport" element={<Page component={<OfflineIntimationReport />} title="Offline Intimation Report" />} />
         <Route exact path="/StatewiseICTickets" element={<Page component={<StatewiseICTickets />} title="Statewise IC Tickets" />} />
         <Route exact path="/BillingDashboard" element={<Page component={<BillingDashboard />} title="Billing Dashboard" />} />
+        <Route exact path="/CreateNewTraining" element={<Page component={<CreateTraining />} title="Create  Training" />} />
+        <Route exact path="/TraineeList" element={<Page component={<TraineeList />} title="Trainee List" />} />
+        <Route exact path="/TrainingList" element={<Page component={<TrainingList />} title="Training List" />} />
       </Routes>
     </Router>
   );
