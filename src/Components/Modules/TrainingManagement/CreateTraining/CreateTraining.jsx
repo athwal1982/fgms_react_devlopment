@@ -1,59 +1,74 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
 import { FaPaperPlane } from "react-icons/fa";
-import { getTrainingTypeData } from "../Services/Methods";
+import { getTrainingTypeData,createTrainingData } from "../Services/Methods"; 
 
 const CreateTraining = () => {
-  // Define the state to store the training types
+ 
   const [trainingTypes, setTrainingTypes] = useState([]);
   
-  // Define the state for selected options
   const [selectedModule, setSelectedModule] = useState("");
   const [trainingDate, setTrainingDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [submissionStatus, setSubmissionStatus] = useState(""); 
 
-  // Function to fetch training types based on the selected module (by MODE and TrainingID)
-  const fetchTrainingType = async (body) => {
-    try {
-      const data = await getTrainingTypeData(body); 
-      if(data.response.responseCode == 1 ){
-        setTrainingTypes(data); // Assuming data is an array of training types
+  useEffect(() => {
+    const fetchTrainingTypes = async () => {
+      try {
+        const data = await getTrainingTypeData({ MODE: "#ALL", TrainingID: null });
+        if (data.response.responseCode === 1) {
+          const responseData = data.response.responseData;
+          if (Array.isArray(responseData)) {
+            setTrainingTypes(responseData);
+          } else {
+            console.error("Expected an array but received", responseData);
+            setTrainingTypes([]);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching training data:", error);
+        setTrainingTypes([]); 
       }
-      setTrainingTypes([]);
-        // Assuming data is an array of training types
-    } catch (error) {
-      console.error("Error fetching training data:", error);
-    }
-  };
-
-  // Function to handle dropdown value change and fetch the training types
-  const handleModuleChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedModule(selectedValue);
-
-    const body = {
-      MODE: selectedValue === "#ALL" ? "#ALL" : "BYID",
-      TrainingID: selectedValue !== "#ALL" ? selectedValue : null, 
     };
 
-    fetchTrainingType(body);  
-  };
-
-  
-  useEffect(() => {
-    const body = { MODE: "#ALL", TrainingID: null };  
-    fetchTrainingType(body);
+    fetchTrainingTypes();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      selectedModule,
-      trainingDate,
-      startTime,
-      endTime,
-    });
+
+    if (!selectedModule || !trainingDate || !startTime || !endTime) {
+      setSubmissionStatus("Please fill in all the fields.");
+      return;
+    }
+
+    const trainingData = {
+      TrainingTypeID: selectedModule,
+      TrainingDate:trainingDate,
+      StartTime:startTime,
+      EndTime:endTime,
+    };
+    console.log(JSON.stringify(trainingData));
+
+    setIsSubmitting(true); 
+    setSubmissionStatus(""); 
+
+    try {
+      const response = await createTrainingData(trainingData);
+      console.log(response, "dsdfdfdf");
+      if (response.response.responseCode === 1) {
+        setSubmissionStatus("Training created successfully!");
+      } else {
+        setSubmissionStatus("Failed to create training. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting the training data:", error);
+      setSubmissionStatus("Error submitting the data. Please try again.");
+    } finally {
+      setIsSubmitting(false); 
+    }
   };
 
   return (
@@ -68,30 +83,39 @@ const CreateTraining = () => {
                   id="training-module"
                   required
                   value={selectedModule}
-                  onChange={handleModuleChange}  // Update when selection changes
+                  onChange={(e) => setSelectedModule(e.target.value)} 
                 >
                   <option value="" disabled>
                     Choose Training Type
                   </option>
-                  {/* {trainingTypes?.map((type) => (
-                    <option key={type.TrainingID} value={type.TrainingID}>
-                      {type.name} 
-                    </option>
-                  ))} */}
+                  {Array.isArray(trainingTypes) && trainingTypes.length === 0 ? (
+                    <option disabled>No training types available</option>
+                  ) : (
+                    Array.isArray(trainingTypes) &&
+                    trainingTypes.map((type) => (
+                      <option key={type.TrainingID} value={type.TrainingID}>
+                        {type.TrainingName} {/* Updated to use TrainingName */}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
             </div>
+
+            {/* Date and Time Inputs */}
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="training-date">Training scheduled date *</label>
                 <input
-                  type="date"
-                  id="training-date"
-                  placeholder="22/11/2024"
-                  required
-                  value={trainingDate}
-                  onChange={(e) => setTrainingDate(e.target.value)}
-                />
+  type="date"
+  id="training-date"
+  placeholder="22/11/2024"
+  required
+  value={trainingDate}
+  onChange={(e) => setTrainingDate(e.target.value)}
+  min={new Date().toISOString().split("T")[0]} // Set today's date as the minimum selectable date
+/>
+
               </div>
               <div
                 className="form-group time-group"
@@ -126,10 +150,19 @@ const CreateTraining = () => {
                 </div>
               </div>
             </div>
-            <button type="submit" className="submit-btn">
-              <FaPaperPlane className="icon" /> Save
+
+            {/* Submit Button */}
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
             </button>
           </form>
+
+          {/* Submission Status */}
+          {submissionStatus && (
+            <div className={`status-message ${submissionStatus.includes("success") ? "success" : "error"}`}>
+              {submissionStatus}
+            </div>
+          )}
         </div>
       </div>
     </>

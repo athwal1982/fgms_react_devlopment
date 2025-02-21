@@ -1,8 +1,8 @@
 const APIEndpoints = {
   Training: {
     GetTrainingType: "FGMS/GetTrainingType",
-    CreateTraining:"agent/CreateTraining",
-    GetTrainingList: "agent/GetTrainingList",
+    CreateTraining:"FGMS/CreateTraining",
+    GetTrainingList: "FGMS/GetTrainingList",
   
   },
 };

@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
-import "./TrainingList.scss";
 import { FaEdit, FaBan } from "react-icons/fa";
-// A import EditAgent from "../EditAgent/EditAgent";
-import { getAllAgent, statusUpdate } from "../../Trainee/TraineeList/Services/Methods";
-// A import { changeToCapitalize } from "../../../Service/Utilities/Utils";
-import _ from "lodash"; 
+import { getTrainingListData } from "../Services/Methods";
+import _ from "lodash";
 
 const TrainingList = () => {
   const navigate = useNavigate();
@@ -15,38 +12,51 @@ const TrainingList = () => {
   const [rowData, setRowData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [adminList, setAdminList] = useState([]);
-  const [selectedAdmin, setSelectedAdmin] = useState("");
-  const [selectedSupervisor, setSelectedSupervisor] = useState("");
-  const [supervisorList, setSupervisorList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
 
+  // Fetching training data
+  const fetchAllTraining = async (page = 1, query = "") => {
+    try {
+      const response = await getTrainingListData({ page, limit, searchQuery: query });
+      console.log(response.response, "responseresponse");
+      let data = response.response;
+      if (data.responseCode === 1) {
+        setRowData(response.data);
+        setFilteredData(response.data);
+        setTotalPages(response.totalPages);
+      } else {
+        setRowData([]);
+        setFilteredData([]);
+        console.error(response.message);
+      }
+    } catch (error) {
+      console.error("Error fetching training data:", error);
+    }
+  };
+
+  // Columns definitions
   const [columnDefs] = useState([
-    {
+    /* {
       headerName: "Action",
       field: "action",
       width: 100,
       cellRendererFramework: (params) => {
-        const agent = params.data;
-        const status = agent.status;
-  
-        // Handle Enable/Disable action
+        const training = params.data;
+        const status = training.status;
+
         const handleStatusToggle = () => {
-          toggleAgentStatus(agent._id, status); // Use the function defined in the component
+          toggleTrainingStatus(training._id, status);
         };
-  
+
         return (
           <div className="action-icons">
             <FaEdit
               className="icon edit-icon"
               title="Edit"
-              onClick={() => handleEdit(agent._id)}
+              onClick={() => handleEdit(training._id)}
             />
-          
-            
-            {/* Enable/Disable button */}
             <FaBan
               className={`icon disable-icon ${status === 0 ? "enabled" : "disabled"}`}
               title={status === 0 ? "Disable" : "Enable"}
@@ -55,180 +65,58 @@ const TrainingList = () => {
           </div>
         );
       },
-    },
-    
+    }, */
     {
       headerName: "Training Type",
-      field: "#",
+      field: "trainingType",
       sortable: true,
       filter: true,
     },
     {
       headerName: "Training Date",
-      field: "#",
+      field: "trainingDate",
       sortable: true,
       filter: true,
     },
     {
       headerName: "Start Time",
-      field: "#",
+      field: "startTime",
       sortable: true,
       filter: true,
     },
     {
       headerName: "End Time",
-      field: "#",
+      field: "endTime",
       sortable: true,
       filter: true,
     },
     {
-      headerName: "Created BY",
-      field: "#",
+      headerName: "Created By",
+      field: "createdBy",
       sortable: true,
       filter: true,
     },
     {
       headerName: "Created On",
-      field: "#",
+      field: "createdOn",
       sortable: true,
       filter: true,
     },
     {
-      headerName: "Updated BY",
-      field: "#",
+      headerName: "Updated By",
+      field: "updatedBy",
       sortable: true,
       filter: true,
     },
     {
       headerName: "Updated On",
-      field: "#",
+      field: "updatedOn",
       sortable: true,
       filter: true,
     },
-  
   ]);
 
-  const handleFilterApply = async (adminId, supervisorId) => {
-    try {
-      const formData = {
-        page: 1,  
-        limit: 10, 
-        adminId: adminId,
-        supervisorId: supervisorId,
-        role:3
-      };
-  
-      const result = await getAllAgent(formData); 
-      if (result.response.responseCode === 1) {
-        setFilteredData(result.response.responseData.agents);
-        setTotalPages(result.response.responseData.totalPages); 
-      } else {
-        setFilteredData([]);
-        console.error(result.response.responseMessage);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-
-  const handleEdit = (userId) => {
-    navigate(`/CreateNewAgent?userId=${userId}`); 
-  };
-
-  const handleClosePopup = () => {
-    setPopupOpen(false);
-    setSelectedAgent(null);
-  };
-
-  const handleCreateTraining = () => {
-    navigate("/CreateNewTraining");
-  };
-
-  const getAllAdmins = async () => {
-    try {
-      const formData = {
-        page: 1,
-        limit: 10000000,
-        searchQuery: "",
-        role: 1,
-      };
-      const result = await getAllAgent(formData);
-      if (result.response.responseCode === 1) {
-        setAdminList(result.response.responseData.agents);
-      } else {
-        setAdminList([]);
-        console.error(result.response.responseMessage);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getSupervisorsByAdmin = async (adminId) => {
-    try {
-      const result = await getAllAgent({
-        page: 1,
-        limit: 100000,
-        searchQuery: "",
-        role: 2,
-        adminId: adminId,
-      });
-      if (result.response.responseCode === 1) {
-        setSupervisorList(result.response.responseData.agents);
-      } else {
-        setSupervisorList([]);
-        console.error(result.response.responseMessage);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getAllAgentData = async (page, query = "") => {
-    try {
-      const formData = {
-        page: page,
-        limit: 10,
-        searchQuery: query,
-        role: 3,
-      };
-      const result = await getAllAgent(formData);
-      if (result.response.responseCode === 1) {
-        setRowData(result.response.responseData.agents);
-        setFilteredData(result.response.responseData.agents);
-        setTotalPages(result.response.responseData.totalPages);
-      } else {
-        setRowData([]);
-        setFilteredData([]);
-        console.error(result.response.responseMessage);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getAllAgentData(currentPage);
-    getAllAdmins();
-  }, [currentPage]);
-
-  const debounceSearch = useCallback(
-    _.debounce((query) => {
-      if (query.length >= 4) {
-        getAllAgentData(1, query);
-      } else {
-        getAllAgentData(1);
-      }
-    }, 500),
-    []
-  );
-
-  const handleSearchInputChange = (query) => {
-    setSearchQuery(query);
-    debounceSearch(query);
-  };
-
+  // Pagination handler
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
       setCurrentPage(newPage);
@@ -241,7 +129,7 @@ const TrainingList = () => {
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
-       <i className="fas fas fa-arrow-left"></i>
+        <i className="fas fas fa-arrow-left"></i>
       </button>
       <span>
         Page {currentPage} of {totalPages}
@@ -250,52 +138,41 @@ const TrainingList = () => {
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
       >
-      <i className="fas fas fa-arrow-right"></i>
+        <i className="fas fas fa-arrow-right"></i>
       </button>
     </div>
   );
 
-  const handleAdminFilterChange = (adminId) => {
-    if (adminId) {
-      getSupervisorsByAdmin(adminId);
-    } else {
-      setSupervisorList([]);
-      setSelectedSupervisor("");
-    }
+  const handleSearchInputChange = (query) => {
+    setSearchQuery(query);
+    fetchAllTraining(1, query);
   };
 
-  const toggleAgentStatus = async (agentId, currentStatus) => {
+  /* A const toggleTrainingStatus = async (trainingId, currentStatus) => {
     try {
       const newStatus = currentStatus === 0 ? 1 : 0;
-  
-      const result = await statusUpdate({ agentId, status: newStatus });
-  
+      const result = await statusUpdate({ trainingId, status: newStatus });
       if (result.success) {
         setFilteredData((prevData) =>
-          prevData.map((agent) =>
-            agent._id === agentId ? { ...agent, status: newStatus } : agent
+          prevData.map((training) =>
+            training._id === trainingId ? { ...training, status: newStatus } : training
           )
         );
       } else {
-        console.error("Failed to update agent status");
+        console.error("Failed to update training status");
       }
     } catch (error) {
-      console.error("Error updating agent status:", error);
+      console.error("Error updating training status:", error);
     }
+  }; */
+
+  const handleEdit = (trainingId) => {
+    navigate(`/CreateNewTraining?trainingId=${trainingId}`);
   };
 
-  const handleAdminChange = (e) => {
-    const adminId = e.target.value;
-    setSelectedAdmin(adminId);
-    handleAdminFilterChange(adminId);
-  };
-
-  const handleSupervisorChange = (e) => {
-    setSelectedSupervisor(e.target.value);
-  };
-
-  
-  
+  useEffect(() => {
+    fetchAllTraining(currentPage);
+  }, [currentPage]);
 
   return (
     <>
@@ -306,41 +183,32 @@ const TrainingList = () => {
               <input
                 type="text"
                 className="search-input"
-                placeholder="Enter at least 4 characters to search..."
+                placeholder="Search by training details..."
                 value={searchQuery}
                 onChange={(e) => handleSearchInputChange(e.target.value)}
               />
             </div>
 
-            <button className="create-agent-button" onClick={handleCreateTraining}>
+            <button className="create-agent-button" onClick={() => navigate("/CreateNewTraining")}>
               Create Training &nbsp; <i className="fas fas fa-arrow-right"></i>
             </button>
           </div>
-          <div className="ag-theme-alpine ag-grid-container">
-          <AgGridReact
-  rowData={filteredData}
- 
-  columnDefs={[
-    { 
-      headerName: "S.No", 
-      valueGetter: (params) => params.node.rowIndex + 1, 
-      width: 80 ,
-      cellStyle: { marginLeft: "20px" } 
-    }, ...columnDefs,
 
-   
-  ]}
-  defaultColDef={{ resizable: true, sortable: true, cellStyle: { marginLeft: "15px" }  }}
-  rowHeight={30} 
-/>
+          <div className="ag-theme-alpine ag-grid-container">
+            <AgGridReact
+              rowData={filteredData}
+              columnDefs={[
+                { headerName: "S.No", valueGetter: (params) => params.node.rowIndex + 1, width: 80 },
+                ...columnDefs,
+              ]}
+              defaultColDef={{ resizable: true, sortable: true }}
+              rowHeight={30}
+            />
           </div>
+
           {renderPagination()}
         </div>
       </div>
-
-      {isPopupOpen && (
-        <EditAgent agentData={selectedAgent} onClose={handleClosePopup} />
-      )}
     </>
   );
 };
