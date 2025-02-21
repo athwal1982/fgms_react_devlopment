@@ -172,7 +172,7 @@ function KrphAllActivities() {
       });
       setobjDistrictData({});
       if(farmerAuthenticateByMobile === false) {
-        SavevalidateFarmerOnClick(value && value.level3ID ? value.level3ID : "");
+        SavevalidateFarmerOnClick(value && value.level3ID ? value.level3ID : "", value && value.level3Name ? value.level3Name : "");
       }
     }
     if (name === "txtFarmerName") {
@@ -209,7 +209,9 @@ function KrphAllActivities() {
           formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
         districtCodeAlpha:
           formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
-        // A isRegistered: farmerAuthenticateByMobile === true ? "R" : farmerAuthenticateByMobile === false ? "U" : "" ,
+        farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
+        farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
+          // A isRegistered: farmerAuthenticateByMobile === true ? "R" : farmerAuthenticateByMobile === false ? "U" : "" ,
         isRegistered: valisRegistered,
       };
       const result = await krphFarmerCallingHistorydata(formData);
@@ -242,7 +244,7 @@ function KrphAllActivities() {
     if (pType === "BTNNXT") {
       setActiveBtnKey(pType);
        if(farmerAuthenticateByMobile === false) {
-        SavevalidateFarmerOnClick(formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "");
+        SavevalidateFarmerOnClick(formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "", formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "");
        }
     } else if (pType === "BTNSBMT") {
       setActiveBtnKey(pType);
@@ -397,7 +399,7 @@ function KrphAllActivities() {
             txtReason: null,
           });
           setvalisRegistered("R");
-          SavevalidateFarmerRegisteredFarmerOnClick(parseFarmerData.data.result ? parseFarmerData.data.result.farmerName : "", parseFarmerData.data.result && parseFarmerData.data.result.stateID  ? parseFarmerData.data.result.stateID : "", parseFarmerData.data.result && parseFarmerData.data.result.districtID ? parseFarmerData.data.result.districtID : "");
+          SavevalidateFarmerRegisteredFarmerOnClick(parseFarmerData.data.result ? parseFarmerData.data.result.farmerName : "", parseFarmerData.data.result && parseFarmerData.data.result.stateID  ? parseFarmerData.data.result.stateID : "", parseFarmerData.data.result && parseFarmerData.data.result.districtID ? parseFarmerData.data.result.districtID : "", parseFarmerData.data.result && parseFarmerData.data.result.state ? parseFarmerData.data.result.state : "",parseFarmerData.data.result && parseFarmerData.data.result.district? parseFarmerData.data.result.district : "");
         }
       } else {
         setAlertMessage({
@@ -2689,6 +2691,8 @@ function KrphAllActivities() {
         stateCodeAlpha:
           formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
         districtCodeAlpha:  formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
+        farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
         isRegistered: pisRegistered,
       };
       const result = await krphFarmerCallingHistorydata(formData);
@@ -2716,7 +2720,7 @@ function KrphAllActivities() {
     }
   };
 
-  const SavevalidateFarmerOnClick = async (pdistrictCodeAlpha) => {
+  const SavevalidateFarmerOnClick = async (pdistrictCodeAlpha, pdistrictName) => {
     debugger;
     try {
       const formData = {
@@ -2731,6 +2735,8 @@ function KrphAllActivities() {
         stateCodeAlpha:
           formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
         districtCodeAlpha: pdistrictCodeAlpha,
+        farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
+        farmerDistrictName: pdistrictName,
         isRegistered: valisRegistered,
       };
       const result = await krphFarmerCallingHistorydata(formData);
@@ -2758,7 +2764,7 @@ function KrphAllActivities() {
     }
   };
 
-  const SavevalidateFarmerRegisteredFarmerOnClick = async (pFarmerName,pstateCodeAlpha,pdistrictCodeAlpha) => {
+  const SavevalidateFarmerRegisteredFarmerOnClick = async (pFarmerName,pstateCodeAlpha,pdistrictCodeAlpha,pstateName,pdistrictName) => {
     debugger;
     try {
       const formData = {
@@ -2772,6 +2778,8 @@ function KrphAllActivities() {
         reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
         stateCodeAlpha: pstateCodeAlpha,
         districtCodeAlpha: pdistrictCodeAlpha,
+        farmerStateName: pstateName,
+        farmerDistrictName: pdistrictName,
         isRegistered: "R",
       };
       const result = await krphFarmerCallingHistorydata(formData);

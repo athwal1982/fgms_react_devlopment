@@ -1,0 +1,259 @@
+.form-wrapper-agent {
+  margin: 3px;
+}
+
+.modify-agent-container {
+  padding: 10px;
+
+  .search-container {
+    gap: 8px;
+
+    .search-input {
+      flex: 0.75;
+      padding: 8px;
+      width: 25vw;
+      font-size: 11px;
+      border-radius: 3px;
+      border: 1px solid #075307;
+      outline: none;
+    }
+    .search-input::placeholder {
+      color: #075307;
+      opacity: 0.5;
+    }
+
+    .search-button-download {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: transparent;
+      color: #075307;
+      border-radius: 3px;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        background-color: #075307;
+        color: #fff;
+      }
+    }
+  }
+
+  .ag-grid-container {
+    height: 75vh;
+    border: 2px solid #006400;
+    border-radius: 4px;
+    color: black;
+    background-color: white;
+
+    .ag-header {
+      font-size: 11px;
+      background-color: #006400;
+
+      font-weight: bold;
+    }
+
+    .ag-row,
+    .ag-cell {
+      font-size: 11px;
+      padding: 3px;
+      color: black;
+    }
+
+    .action-icons {
+      gap: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      .icon {
+        margin: 2px;
+        font-size: 15px;
+        cursor: pointer;
+        &.edit-icon {
+          color: #4caf50;
+        }
+        &.notify-icon {
+          color: #ff9800;
+        }
+        &.delete-icon {
+          color: #f44336;
+        }
+        &:hover {
+          transform: scale(1.6);
+          transition: transform 0.2s ease-in-out;
+        }
+      }
+    }
+  }
+  .ag-grid-container:hover{
+    color: black;
+    font-size: small;
+  }
+}
+
+.ag-theme-alpine .ag-header-cell-label {
+  font-size: 11px !important;
+  color: white !important;
+}
+
+.top-actions {
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .create-agent-button {
+    padding: 8px;
+    font-size: 11px;
+    background-color: #075307;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      background-color: #004d00;
+    }
+    i {
+      display: inline-block;
+      animation: move-arrow 2s infinite;
+    }
+  }
+}
+
+@keyframes move-arrow {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: right;
+  button {
+    padding: 1px;
+    font-size: 11px;
+    color: #004d00;
+    border: 2px solid #006400;
+    background-color: #E3F7B6;
+    cursor: pointer;
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  span {
+    margin: 0 8px;
+  }
+}
+
+.no-records-found {
+  font-size: 14px;
+  padding: 15px;
+  text-align: center;
+  color: #888;
+}
+
+.icon.disable-icon {
+  cursor: pointer;
+  &.enabled {
+    color: green;
+  }
+  &.disabled {
+    color: red;
+  }
+}
+
+.role-filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: #006400;
+  font-size: 10px;
+}
+
+.role-dropdown {
+  padding: 6px;
+  font-size: 10px;
+  border-radius: 3px;
+  color: #004d00;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  padding-right: 4px;
+  background-color: white;
+}
+
+.admin-filter,
+.superadmin-filter {
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  .role-dropdown option:hover {
+    background-color: green;
+    color: #004d00;
+  }
+}
+.custom-header-style{
+  margin-left: 20px;
+}
+.custom-header-style-other{
+  margin-left: 10px;
+}
+
+/* The switch - the container */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+/* Hide the default checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider - the actual toggle switch */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+/* The knob inside the slider */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+/* When the checkbox is checked, change the slider's background and knob position */
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* Add a round shape to the slider */
+.round {
+  border-radius: 34px;
+}
