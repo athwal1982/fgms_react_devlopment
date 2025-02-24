@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
 import { FaPaperPlane } from "react-icons/fa";
-import { getTrainingTypeData, createTrainingData, getUpcomingTrainings } from "../Services/Methods";
-import Calendar from "react-calendar"; // Importing the react-calendar library
+import { getTrainingTypeData, createTrainingData } from "../Services/Methods";
 
 const CreateTraining = () => {
   const [trainingTypes, setTrainingTypes] = useState([]);
@@ -15,7 +14,6 @@ const CreateTraining = () => {
   const [trainingTitle, setTrainingTitle] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState("");
-  const [upcomingTrainings, setUpcomingTrainings] = useState([]); // State for upcoming trainings
 
   useEffect(() => {
     const fetchTrainingTypes = async () => {
@@ -34,27 +32,9 @@ const CreateTraining = () => {
       }
     };
 
-    const fetchUpcomingTrainings = async () => {
-      try {
-        const data = await getUpcomingTrainings(); // Fetching upcoming trainings
-        if (data.response.responseCode === 1) {
-          const responseData = data.response.responseData;
-          if (Array.isArray(responseData)) {
-            setUpcomingTrainings(responseData);
-          } else {
-            setUpcomingTrainings([]);
-          }
-        }
-      } catch (error) {
-        setUpcomingTrainings([]);
-      }
-    };
-
     fetchTrainingTypes();
-    fetchUpcomingTrainings();
   }, []);
 
-  // Update end time when duration or start time changes
   const updateEndTime = (duration, startTime) => {
     if (!startTime) return;
     const start = new Date(`1970-01-01T${startTime}:00Z`);
@@ -63,14 +43,12 @@ const CreateTraining = () => {
     setEndTime(end);
   };
 
-  // Handle duration selection
   const handleDurationChange = (e) => {
     const selectedDuration = e.target.value;
     setDuration(selectedDuration);
     updateEndTime(selectedDuration, startTime);
   };
 
-  // Handle start time change
   const handleStartTimeChange = (e) => {
     const selectedStartTime = e.target.value;
     setStartTime(selectedStartTime);
@@ -79,7 +57,6 @@ const CreateTraining = () => {
     }
   };
 
-  // Handle end time change
   const handleEndTimeChange = (e) => {
     const selectedEndTime = e.target.value;
     setEndTime(selectedEndTime);
@@ -91,7 +68,6 @@ const CreateTraining = () => {
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -126,9 +102,6 @@ const CreateTraining = () => {
     }
   };
 
-  // Disable dates with scheduled trainings
-  const disabledDates = upcomingTrainings.map((training) => training.TrainingDate);
-
   return (
     <div className="form-wrapper">
       <div className="form-container">
@@ -162,14 +135,16 @@ const CreateTraining = () => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="training-date">Training scheduled date *</label>
-              <Calendar
-                onChange={(date) => setTrainingDate(date.toISOString().split("T")[0])}
-                value={new Date(trainingDate)}
-                minDate={new Date()} // Disable past dates
-                tileDisabled={({ date }) => disabledDates.includes(date.toISOString().split("T")[0])}
+              <input
+                type="date"
+                id="training-date"
+                placeholder="22/11/2024"
+                required
+                value={trainingDate}
+                onChange={(e) => setTrainingDate(e.target.value)}
+                min={new Date().toISOString().split("T")[0]}
               />
             </div>
-
             <div
               className="form-group time-group"
               style={{ display: "flex", flexDirection: "row", gap: "20px", marginRight: "0px" }}
