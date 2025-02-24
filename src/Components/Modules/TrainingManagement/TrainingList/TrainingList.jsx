@@ -4,9 +4,10 @@ import { AgGridReact } from "ag-grid-react";
 import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import moment from "moment";
 import "./TrainingList.scss";
-import { getTrainingListData } from "../Services/Methods";
+import { getTrainingListData,getTrainerList } from "../Services/Methods";
 import _ from "lodash";
 import { Modal, Button } from "react-bootstrap";
+import Select from "react-select";
 
 const TrainingList = () => {
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const TrainingList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
+
+
+  const [trainers, setTrainers] = useState([]);
+  const [selectedTrainers, setSelectedTrainers] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedTraining, setSelectedTraining] = useState(null); // Added state for selected training
@@ -41,8 +46,35 @@ const TrainingList = () => {
       console.error("Error fetching training data:", error);
     }
   };
+  const fetchAllTrainer = async () => {
+    const formdata = {
+      SPMODE: "LOCATIONTRAINER",
+    };
+  
+    try {
+      const response = await getTrainerList(formdata);
+      let data = response.response.responseData;
+      let responseCode = response.response.responseCode;
+  
+      if (responseCode === 1) {
+        setTrainers(
+          data.map((trainer) => ({
+            value: trainer.UserID,
+            label: `${trainer.Name} - ${trainer.Center}`,
+          }))
+        );
+      } else {
+        setTrainers([]);
+      }
+    } catch (error) {
+      console.error("Error fetching trainer data:", error);
+    }
+  };
+  
 
   const handleShow = (training) => {
+    debugger;
+    fetchAllTrainer();
     setSelectedTraining(training); // Set selected training for modal
     setShowModal(true);
   };
@@ -59,7 +91,7 @@ const TrainingList = () => {
         <i
           className="fas fa-save"
           style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-          onClick={() => handleShow(props.data)} 
+          onClick={() => handleShow(props.data)}
           title="Save"
         ></i>
   
@@ -197,6 +229,7 @@ const TrainingList = () => {
   
 
   useEffect(() => {
+    fetchAllTrainer();
     fetchAllTraining(currentPage);
   }, [currentPage]);
 
@@ -318,14 +351,21 @@ const TrainingList = () => {
           </div>
 
           <div className="col-md-6">
-            <label htmlFor="trainer" className="form-label small-bold-label">Trainer :</label>
-            <select className="form-control form-control-sm" id="trainer">
-              <option value="">Select Trainer</option>
-              <option value="Trainer1">Trainer 1</option>
-              <option value="Trainer2">Trainer 2</option>
-              <option value="Trainer3">Trainer 3</option>
-            </select>
-          </div>
+  <label htmlFor="trainer" className="form-label small-bold-label">
+    Trainer :
+  </label>
+  <Select
+    options={trainers}
+    isMulti
+    value={selectedTrainers}
+    onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
+    className="basic-multi-select"
+    classNamePrefix="select"
+    placeholder="Select Trainer(s)"
+  />
+</div>
+
+
         </div>
       </form>
     </Modal.Body>

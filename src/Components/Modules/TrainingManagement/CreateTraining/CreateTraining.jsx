@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
+import { useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import { getTrainingTypeData, createTrainingData, getUpcomingTrainings } from "../Services/Methods";
 
 const CreateTraining = ({props}) => {
+   const navigate = useNavigate();
   const location = useLocation();
   const trainingData = location.state || {}; 
   const [trainingTypes, setTrainingTypes] = useState([]);
@@ -268,9 +270,35 @@ const CreateTraining = ({props}) => {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
-          </button>
+          <div className="button-group">
+  {/* Save Button */}
+  <button type="submit" className="submit-btn save-btn" disabled={isSubmitting}>
+    {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
+  </button>
+
+  {/* Cancel Button */}
+  <button type="button" className="submit-btn cancel-btn" onClick={() => navigate("/TrainingList")}>
+    Cancel
+  </button>
+
+  {/* Clear Button */}
+  <button
+    type="button"
+    className="submit-btn clear-btn"
+    onClick={() => {
+      setSelectedModule("");
+      setTrainingDate("");
+      setStartTime("");
+      setEndTime("");
+      setDuration("");
+      setTrainingTitle("");
+    }}
+  >
+    Clear
+  </button>
+</div>
+
+
         </form>
 
         {submissionStatus && (
