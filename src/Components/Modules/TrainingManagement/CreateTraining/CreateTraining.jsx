@@ -7,8 +7,11 @@ import { TextField } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format, isSameDay } from "date-fns";
+import { useLocation } from "react-router-dom";
 
-const CreateTraining = () => {
+const CreateTraining = ({props}) => {
+  const location = useLocation();
+  const trainingData = location.state || {}; 
   const [trainingTypes, setTrainingTypes] = useState([]);
   const [durations, setDurations] = useState([1, 2, 3, 4, 5, 6, 7]);
   const [selectedModule, setSelectedModule] = useState("");
@@ -43,8 +46,12 @@ const CreateTraining = () => {
     const fetchExistingTrainingDates = async () => {
       try {
         const data = await getUpcomingTrainings();
-        if (data && Array.isArray(data)) {
-          setExistingTrainingDates(data.map(training => new Date(training.date)));
+        console.log(data);
+        if(data.response.responseCode == 1){
+          setExistingTrainingDates(data.response.responseData);
+
+        }else{
+          setExistingTrainingDates([]);
         }
       } catch (error) {
         console.error("Error fetching existing training dates", error);
@@ -158,6 +165,25 @@ const CreateTraining = () => {
     }
   };
 
+
+  useEffect(() => {
+    if (trainingData?.TrainingMasterId) {
+      setTrainingTitle(trainingData.TrainingName || "");
+      setSelectedModule(trainingData.TrainingTypeID || "");
+      setTrainingDate(trainingData.TrainingDate || "");
+      setStartTime(trainingData.StartTime || "");
+      setEndTime(trainingData.EndTime || "");
+      
+    
+      if (trainingData.StartTime && trainingData.EndTime) {
+        const start = new Date(`1970-01-01T${trainingData.StartTime}`);
+        const end = new Date(`1970-01-01T${trainingData.EndTime}`);
+        const durationInHours = (end - start) / (1000 * 60 * 60);
+        setDuration(durationInHours);
+      }
+    }
+  }, [trainingData]);
+
   return (
     <div className="form-wrapper">
       <div className="form-container">
@@ -232,6 +258,39 @@ const CreateTraining = () => {
               </div>
             </div>
           </div>
+
+                     <div className="form-row">
+      <div className="scheduled-training-box">
+        <h5>Training Booked Slot</h5>
+        <table className="training-timetable">
+          <thead>
+            <tr>
+              <th>Train</th>
+              <th>Time</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            {existingTrainingDates.map((training, index) => (
+              <tr key={index} className={training.isUpcoming ? "highlight-upcoming-training" : ""}>
+                <td>{training.TrainingTitle}</td>
+                <td>{new Date(training.TrainingDate).toLocaleTimeString()}</td>
+                <td>{training.StartTime}</td>
+                <td>{training.EndTime}</td>
+
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
 
           <div className="form-row">
             <div className="form-group">

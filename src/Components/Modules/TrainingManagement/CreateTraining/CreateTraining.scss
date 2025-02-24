@@ -104,4 +104,51 @@
     position: relative; /* Needed for the tooltip positioning */
   }
   
+  .scheduled-training-box {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .scheduled-training-box h5 {
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  .training-timetable {
+    width: 100%;
+    border-collapse: collapse; /* Remove spacing between cells */
+  }
+  
+  .training-timetable th,
+  .training-timetable td {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .training-timetable th {
+    background-color: #f1f1f1; /* Light background for the header */
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .training-timetable tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .training-timetable tr.highlight-upcoming-training {
+    background-color: #ffcc00;
+    color: white;
+  }
   

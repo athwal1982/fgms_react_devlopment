@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
 import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import moment from "moment";
 import "./TrainingList.scss";
 import { getTrainingListData } from "../Services/Methods";
-import _ from "lodash"; 
+import _ from "lodash";
+import { Modal, Button } from "react-bootstrap";
 
 const TrainingList = () => {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ const TrainingList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTraining, setSelectedTraining] = useState(null); // Added state for selected training
 
   // Fetching training data
   const fetchAllTraining = async (page = 1, query = "") => {
@@ -26,32 +30,70 @@ const TrainingList = () => {
         setRowData(data);
         setFilteredData(data);
         setTotalPages(response.totalPages);
+        console.log("this is filteredData see trainingID" +  JSON.stringify(data));
       } else {
         setRowData([]);
         setFilteredData([]);
         console.error(response.message);
+        console.log("this is filteredData see trainingID" + JSON.stringify(data));
       }
     } catch (error) {
       console.error("Error fetching training data:", error);
     }
   };
 
+  const handleShow = (training) => {
+    setSelectedTraining(training); // Set selected training for modal
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedTraining(null); // Clear selected training
+  };
+
+  // Action cell renderer
+  const ActionCellRenderer = (props) => {
+    return (
+      <>
+        <i
+          className="fas fa-save"
+          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+          onClick={() => handleShow(props.data)} 
+          title="Save"
+        ></i>
+  
+        <i
+          className="fas fa-edit"
+          style={{ cursor: "pointer", color: "green" }}
+          onClick={() => handleEdit(props.data)} 
+          title="Edit"
+        ></i>
+      </>
+    );
+  };
+  
+
   const [columnDefs] = useState([
+
+    
     {
-      headerName: "S.No",
-      valueGetter: (params) => params.node.rowIndex + 1,
-      width: 80,
+      headerName: "Action",
+      field: "action",
+      cellRenderer: ActionCellRenderer,
+      width: 100,
+      cellStyle: { textAlign: "center" },
     },
     {
       headerName: "Training Type",
-      field: "TrainingName", // Change from 'trainingType' to 'TrainingName' based on the response
+      field: "TrainingName",
       sortable: true,
       filter: true,
       width: 150,
     },
     {
       headerName: "Training Date",
-      field: "TrainingDate", // Use 'TrainingDate' instead of 'trainingDate'
+      field: "TrainingDate",
       sortable: true,
       filter: true,
       width: 110,
@@ -60,7 +102,7 @@ const TrainingList = () => {
     },
     {
       headerName: "Start Time",
-      field: "StartTime", // Use 'StartTime' as per the response
+      field: "StartTime",
       sortable: true,
       filter: true,
       width: 100,
@@ -69,7 +111,7 @@ const TrainingList = () => {
     },
     {
       headerName: "End Time",
-      field: "EndTime", // Use 'EndTime' as per the response
+      field: "EndTime",
       sortable: true,
       filter: true,
       width: 100,
@@ -78,19 +120,17 @@ const TrainingList = () => {
     },
     {
       headerName: "Created By",
-      field: "CreatedBy", // Use 'CreatedBy' from the response
+      field: "CreatedBy",
       sortable: true,
       filter: true,
       width: 160,
     },
     {
       headerName: "Created On",
-      field: "InsertedDateTime", // Use 'InsertedDateTime' for creation date
+      field: "InsertedDateTime",
       sortable: true,
       filter: true,
       width: 140,
-      valueGetter: (params) =>
-        params.node.rowIndex + 1,
       valueGetter: (node) => {
         return node.data.InsertedDateTime
           ? dateToSpecificFormat(
@@ -104,20 +144,19 @@ const TrainingList = () => {
     },
     {
       headerName: "Updated By",
-      field: "UpdatedBy", // Use 'UpdatedBy' from the response
+      field: "UpdatedBy",
       sortable: true,
       filter: true,
       width: 160,
     },
     {
       headerName: "Updated On",
-      field: "UpdateDateTime", // Use 'UpdateDateTime' from the response
+      field: "UpdateDateTime",
       sortable: true,
       filter: true,
       width: 160,
     },
   ]);
-  
 
   // Pagination handler
   const handlePageChange = (newPage) => {
@@ -151,27 +190,11 @@ const TrainingList = () => {
     fetchAllTraining(1, query);
   };
 
-  /* A const toggleTrainingStatus = async (trainingId, currentStatus) => {
-    try {
-      const newStatus = currentStatus === 0 ? 1 : 0;
-      const result = await statusUpdate({ trainingId, status: newStatus });
-      if (result.success) {
-        setFilteredData((prevData) =>
-          prevData.map((training) =>
-            training._id === trainingId ? { ...training, status: newStatus } : training
-          )
-        );
-      } else {
-        console.error("Failed to update training status");
-      }
-    } catch (error) {
-      console.error("Error updating training status:", error);
-    }
-  }; */
-
-  const handleEdit = (trainingId) => {
-    navigate(`/CreateNewTraining?trainingId=${trainingId}`);
+  const handleEdit = (trainingData) => {
+    navigate("/CreateNewTraining", { state: trainingData });
+    console.log("Clicked Create New Training: ", JSON.stringify(trainingData));
   };
+  
 
   useEffect(() => {
     fetchAllTraining(currentPage);
@@ -192,7 +215,10 @@ const TrainingList = () => {
               />
             </div>
 
-            <button className="create-agent-button" onClick={() => navigate("/CreateNewTraining")}>
+            <button
+              className="create-agent-button"
+              onClick={() => navigate("/CreateNewTraining")}
+            >
               Create Training &nbsp; <i className="fas fas fa-arrow-right"></i>
             </button>
           </div>
@@ -204,9 +230,129 @@ const TrainingList = () => {
                 { headerName: "S.No", valueGetter: (params) => params.node.rowIndex + 1, width: 80 },
                 ...columnDefs,
               ]}
-              defaultColDef={{ resizable: true, sortable: true }}
+              components={{ ActionCellRenderer }}
+              defaultColDef={{
+                resizable: true,
+                sortable: true,
+                headerClass: "custom-header-style-other",
+                cellStyle: { border: "1px solid #ECECEC", padding: "5px" },
+              }}
               rowHeight={30}
             />
+
+            {/* Modal for Training Details */}
+            {selectedTraining && (
+  <Modal show={showModal} onHide={handleClose} centered className="custom-modal">
+
+    <Modal.Header closeButton className="py-2"  style={{ backgroundColor: "#004d00", color: "white" }}>
+      <Modal.Title style={{ fontSize: "1rem" }}>Edit Training Details</Modal.Title>
+      <style>
+    {`
+      .btn-close {
+        filter: invert(1);
+      }
+    `}
+  </style>
+    </Modal.Header>
+
+    <Modal.Body>
+      <form>
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label htmlFor="trainingId" className="form-label small-bold-label">Training ID :</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="trainingId"
+              value={selectedTraining.TrainingMasterId}
+              readOnly
+            />
+          </div>
+
+          <div className="col-md-6">
+            <label htmlFor="trainingName" className="form-label small-bold-label">Training Name :</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="trainingName"
+              value={selectedTraining.TrainingName}
+              readOnly
+            />
+          </div>
+        </div>
+
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label htmlFor="trainingDate" className="form-label small-bold-label">Training Date :</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="trainingDate"
+              value={moment(selectedTraining.TrainingDate).format("DD-MM-YYYY")}
+              readOnly
+            />
+          </div>
+
+          <div className="col-md-6">
+            <label htmlFor="startTime" className="form-label small-bold-label">Start Time :</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="startTime"
+              value={Convert24FourHourAndMinute(selectedTraining.StartTime)}
+              readOnly
+            />
+          </div>
+        </div>
+
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label htmlFor="endTime" className="form-label small-bold-label">End Time :</label>
+            <input
+              type="text"
+              className="form-control form-control-sm"
+              id="endTime"
+              value={Convert24FourHourAndMinute(selectedTraining.EndTime)}
+              readOnly
+            />
+          </div>
+
+          <div className="col-md-6">
+            <label htmlFor="trainer" className="form-label small-bold-label">Trainer :</label>
+            <select className="form-control form-control-sm" id="trainer">
+              <option value="">Select Trainer</option>
+              <option value="Trainer1">Trainer 1</option>
+              <option value="Trainer2">Trainer 2</option>
+              <option value="Trainer3">Trainer 3</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </Modal.Body>
+
+    <Modal.Footer className="py-2" style={{ fontSize: "0.875rem" }}>
+    <Button 
+  size="sm" 
+  onClick={() => console.log("Trainer Assigned Successfully!")}
+  style={{ backgroundColor: "#004d00", border: "none", pointerEvents: "auto" }}
+>
+  Assign
+</Button>
+
+<Button 
+  variant="secondary" 
+  size="sm" 
+  onClick={handleClose} 
+  style={{ backgroundColor: "#6c757d", border: "none", pointerEvents: "auto" }}
+>
+  Close
+</Button>
+
+    </Modal.Footer>
+  </Modal>
+)}
+
+
           </div>
 
           {renderPagination()}
