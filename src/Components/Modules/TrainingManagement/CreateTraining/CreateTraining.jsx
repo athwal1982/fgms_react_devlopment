@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
+import { useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { getTrainingTypeData, createTrainingData, getUpcomingTrainings } from "../Services/Methods";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -10,6 +11,7 @@ import { format, isSameDay } from "date-fns";
 import { useLocation } from "react-router-dom";
 
 const CreateTraining = ({props}) => {
+   const navigate = useNavigate();
   const location = useLocation();
   const trainingData = location.state || {}; 
   const [trainingTypes, setTrainingTypes] = useState([]);
@@ -84,6 +86,14 @@ const CreateTraining = ({props}) => {
         {dayComponent}
       </div>
     );
+  };
+
+  const capitalizeText = (text) => {
+    if (!text) return text; 
+    return text
+      .split(" ") 
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) 
+      .join(" "); 
   };
 
   const handleMouseEnter = (date) => {
@@ -276,7 +286,7 @@ const CreateTraining = ({props}) => {
           <tbody>
             {existingTrainingDates.map((training, index) => (
               <tr key={index} className={training.isUpcoming ? "highlight-upcoming-training" : ""}>
-                <td>{training.TrainingTitle}</td>
+                <td>{capitalizeText(training.TrainingTitle)}</td>
                 <td>{new Date(training.TrainingDate).toLocaleTimeString()}</td>
                 <td>{training.StartTime}</td>
                 <td>{training.EndTime}</td>
@@ -288,6 +298,8 @@ const CreateTraining = ({props}) => {
         </table>
       </div>
     </div>
+   
+
 
 
 
@@ -327,9 +339,35 @@ const CreateTraining = ({props}) => {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
-          </button>
+          <div className="button-group">
+  {/* Save Button */}
+  <button type="submit" className="submit-btn save-btn" disabled={isSubmitting}>
+    {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
+  </button>
+
+  {/* Cancel Button */}
+  <button type="button" className="submit-btn cancel-btn" onClick={() => navigate("/TrainingList")}>
+    Cancel
+  </button>
+
+  {/* Clear Button */}
+  <button
+    type="button"
+    className="submit-btn clear-btn"
+    onClick={() => {
+      setSelectedModule("");
+      setTrainingDate("");
+      setStartTime("");
+      setEndTime("");
+      setDuration("");
+      setTrainingTitle("");
+    }}
+  >
+    Clear
+  </button>
+</div>
+
+
         </form>
 
         {submissionStatus && (
