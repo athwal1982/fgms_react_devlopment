@@ -190,9 +190,11 @@ const TrainingList = () => {
     fetchAllTraining(1, query);
   };
 
-  const handleEdit = (TrainingMasterId) => {
-    navigate(`/CreateNewTraining?trainingId=${TrainingMasterId}`);
+  const handleEdit = (trainingData) => {
+    navigate("/CreateNewTraining", { state: trainingData });
+    console.log("Clicked Create New Training: ", JSON.stringify(trainingData));
   };
+  
 
   useEffect(() => {
     fetchAllTraining(currentPage);

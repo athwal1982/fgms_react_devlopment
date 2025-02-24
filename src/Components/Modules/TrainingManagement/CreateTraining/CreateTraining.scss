@@ -77,4 +77,31 @@
       }
     }
   }
+
+  .highlight-upcoming-training {
+    background-color: #ffcc00 !important; /* Highlight color */
+    color: white;
+  }
+  
+
+  .tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 10;
+    white-space: nowrap;
+    top: 50px; /* Adjust the position based on your layout */
+    left: 0;
+    transform: translateX(-50%);
+  }
+  
+  .highlighted-date {
+    background-color: #ff0;
+    border: 2px solid #f00;
+    position: relative; /* Needed for the tooltip positioning */
+  }
+  
   
