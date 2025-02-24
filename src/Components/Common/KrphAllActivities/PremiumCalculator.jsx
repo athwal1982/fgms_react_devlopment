@@ -338,6 +338,8 @@ function PremiumCalculator({objStateData,objDistrictData,formValuesGI,dcryptUNQE
           formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
         districtCodeAlpha:
           formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
+        farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
         isRegistered: "P",
       };
       const result = await krphFarmerCallingHistorydata(formData);

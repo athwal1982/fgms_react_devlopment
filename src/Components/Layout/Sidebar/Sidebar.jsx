@@ -4,7 +4,7 @@ import { setSessionStorage, getSessionStorage } from "Components/Common/Login/Au
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { AiFillHome, AiFillSetting } from "react-icons/ai";
-import { FaTicketAlt, FaQuestionCircle } from "react-icons/fa";
+import { FaTicketAlt, FaQuestionCircle, FaChalkboardTeacher, FaUserGraduate } from "react-icons/fa";
 import { GiFarmer } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsCalculator } from "react-icons/bs";
@@ -199,7 +199,11 @@ function Sidebar() {
       case "Offline Intimation":
               return <FaTicketAlt />;   
       case "Billing Dashboard":
-                return <HiPhotograph />;                  
+                return <HiPhotograph />;  
+      case "Training Management":
+                return <FaChalkboardTeacher />;  
+      case "Trainee":
+                return <FaUserGraduate />;                            
       default:
         return <MdOutlineDisabledByDefault />;
     }

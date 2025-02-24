@@ -311,7 +311,7 @@ function AddLoginLogics() {
       const params = Object.fromEntries(urlSearchParams.entries());
       // A console.log(encryptStringData(params && params.userName ? params.userName : "uN"));
       // A console.log(encryptStringData(params && params.userID ? params.userID : "uID"));
-      // A console.log(encryptStringData(params && params.mobileNumber ? params.mobileNumber : "uMO"));
+       console.log(encryptStringData(params && params.mobileNumber ? params.mobileNumber : "uMO"));
       // A console.log(encryptStringData(params && params.uniqueID ? params.uniqueID : "UNQEID"));
      
       // A const encptUN = decryptStringData(params && params.userName ? params.userName : "uN");
