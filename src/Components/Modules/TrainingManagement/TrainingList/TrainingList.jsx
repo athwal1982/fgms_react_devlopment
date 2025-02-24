@@ -20,11 +20,11 @@ const TrainingList = () => {
   const fetchAllTraining = async (page = 1, query = "") => {
     try {
       const response = await getTrainingListData({ page, limit, searchQuery: query });
-      console.log(response.response, "responseresponse");
-      let data = response.response;
-      if (data.responseCode === 1) {
-        setRowData(response.data);
-        setFilteredData(response.data);
+      let data = response.response.responseData;
+      let responseCode = response.response.responseCode;
+      if (responseCode === 1) {
+        setRowData(data);
+        setFilteredData(data);
         setTotalPages(response.totalPages);
       } else {
         setRowData([]);
@@ -36,110 +36,88 @@ const TrainingList = () => {
     }
   };
 
-  // Columns definitions
   const [columnDefs] = useState([
-    /* {
-      headerName: "Action",
-      field: "action",
-      width: 100,
-      cellRendererFramework: (params) => {
-        const training = params.data;
-        const status = training.status;
-
-        const handleStatusToggle = () => {
-          toggleTrainingStatus(training._id, status);
-        };
-
-        return (
-          <div className="action-icons">
-            <FaEdit
-              className="icon edit-icon"
-              title="Edit"
-              onClick={() => handleEdit(training._id)}
-            />
-            <FaBan
-              className={`icon disable-icon ${status === 0 ? "enabled" : "disabled"}`}
-              title={status === 0 ? "Disable" : "Enable"}
-              onClick={handleStatusToggle}
-            />
-          </div>
-        );
-      },
-    }, */
+    {
+      headerName: "S.No",
+      valueGetter: (params) => params.node.rowIndex + 1,
+      width: 80,
+    },
     {
       headerName: "Training Type",
-      field: "trainingType",
+      field: "TrainingName", // Change from 'trainingType' to 'TrainingName' based on the response
       sortable: true,
       filter: true,
       width: 150,
     },
     {
       headerName: "Training Date",
-      field: "trainingDate",
+      field: "TrainingDate", // Use 'TrainingDate' instead of 'trainingDate'
       sortable: true,
       filter: true,
       width: 110,
-      valueFormatter: (param) => (param.value ? moment(param.value).format("DD-MM-YYYY") : "")
+      valueFormatter: (param) =>
+        param.value ? moment(param.value).format("DD-MM-YYYY") : "",
     },
     {
       headerName: "Start Time",
-      field: "startTime",
+      field: "StartTime", // Use 'StartTime' as per the response
       sortable: true,
       filter: true,
       width: 100,
-      valueGetter: (node) => {
-        return node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null;
-      }
+      valueGetter: (node) =>
+        node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null,
     },
     {
       headerName: "End Time",
-      field: "endTime",
+      field: "EndTime", // Use 'EndTime' as per the response
       sortable: true,
       filter: true,
       width: 100,
-      valueGetter: (node) => {
-        return node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null;
-      }
+      valueGetter: (node) =>
+        node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null,
     },
     {
       headerName: "Created By",
-      field: "createdBy",
+      field: "CreatedBy", // Use 'CreatedBy' from the response
       sortable: true,
       filter: true,
       width: 160,
     },
     {
       headerName: "Created On",
-      field: "createdOn",
+      field: "InsertedDateTime", // Use 'InsertedDateTime' for creation date
       sortable: true,
       filter: true,
       width: 140,
-      valueGetter: (params) => params.node.rowIndex + 1,
-      valueGetter:(node) => {
-                              // A return node.data.CreatedAt ? `${dateFormat(node.data.CreatedAt.split("T")[0])} ${tConvert(node.data.CreatedAt.split("T")[1])}` : null;
-                              return node.data.InsertedDateTime
-                                ? dateToSpecificFormat(
-                                    `${node.data.InsertedDateTime.split("T")[0]} ${Convert24FourHourAndMinute(node.data.InsertedDateTime.split("T")[1])}`,
-                                    "DD-MM-YYYY HH:mm",
-                                  )
-                                : null;
-                            }
+      valueGetter: (params) =>
+        params.node.rowIndex + 1,
+      valueGetter: (node) => {
+        return node.data.InsertedDateTime
+          ? dateToSpecificFormat(
+              `${node.data.InsertedDateTime.split("T")[0]} ${Convert24FourHourAndMinute(
+                node.data.InsertedDateTime.split("T")[1]
+              )}`,
+              "DD-MM-YYYY HH:mm"
+            )
+          : null;
+      },
     },
     {
       headerName: "Updated By",
-      field: "updatedBy",
+      field: "UpdatedBy", // Use 'UpdatedBy' from the response
       sortable: true,
       filter: true,
       width: 160,
     },
     {
       headerName: "Updated On",
-      field: "updatedOn",
+      field: "UpdateDateTime", // Use 'UpdateDateTime' from the response
       sortable: true,
       filter: true,
       width: 160,
     },
   ]);
+  
 
   // Pagination handler
   const handlePageChange = (newPage) => {
