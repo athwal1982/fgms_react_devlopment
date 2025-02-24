@@ -70,9 +70,6 @@ const CreateTraining = () => {
       setIsSubmitting(false);
     }
   };
-  const handleCancel = () => {
-    navigate("/dashboard"); 
-  };
 
   return (
     <>
@@ -155,14 +152,13 @@ const CreateTraining = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="button-group">
+            
             <button type="submit" className="submit-btn" disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
             </button>
             <button type="button" className="cancel-btn" onClick={handleCancel}>
                 Cancel
               </button>
-              </div>
           </form>
 
           {/* Submission Status */}

@@ -3,6 +3,7 @@ const APIEndpoints = {
     GetTrainingType: "FGMS/GetTrainingType",
     CreateTraining:"FGMS/CreateTraining",
     GetTrainingList: "FGMS/GetTrainingList",
+    GetUpcomingTrainingList:"FGMS/UpcomingTrainingList"
   
   },
 };
