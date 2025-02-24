@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
-import { FaEdit, FaBan } from "react-icons/fa";
+import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
+import moment from "moment";
+import "./TrainingList.scss";
 import { getTrainingListData } from "../Services/Methods";
-import _ from "lodash";
+import _ from "lodash"; 
 
 const TrainingList = () => {
   const navigate = useNavigate();
-  const [isPopupOpen, setPopupOpen] = useState(false);
-  const [selectedAgent, setSelectedAgent] = useState(null);
   const [rowData, setRowData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,48 +71,73 @@ const TrainingList = () => {
       field: "trainingType",
       sortable: true,
       filter: true,
+      width: 150,
     },
     {
       headerName: "Training Date",
       field: "trainingDate",
       sortable: true,
       filter: true,
+      width: 110,
+      valueFormatter: (param) => (param.value ? moment(param.value).format("DD-MM-YYYY") : "")
     },
     {
       headerName: "Start Time",
       field: "startTime",
       sortable: true,
       filter: true,
+      width: 100,
+      valueGetter: (node) => {
+        return node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null;
+      }
     },
     {
       headerName: "End Time",
       field: "endTime",
       sortable: true,
       filter: true,
+      width: 100,
+      valueGetter: (node) => {
+        return node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null;
+      }
     },
     {
       headerName: "Created By",
       field: "createdBy",
       sortable: true,
       filter: true,
+      width: 160,
     },
     {
       headerName: "Created On",
       field: "createdOn",
       sortable: true,
       filter: true,
+      width: 140,
+      valueGetter: (params) => params.node.rowIndex + 1,
+      valueGetter:(node) => {
+                              // A return node.data.CreatedAt ? `${dateFormat(node.data.CreatedAt.split("T")[0])} ${tConvert(node.data.CreatedAt.split("T")[1])}` : null;
+                              return node.data.InsertedDateTime
+                                ? dateToSpecificFormat(
+                                    `${node.data.InsertedDateTime.split("T")[0]} ${Convert24FourHourAndMinute(node.data.InsertedDateTime.split("T")[1])}`,
+                                    "DD-MM-YYYY HH:mm",
+                                  )
+                                : null;
+                            }
     },
     {
       headerName: "Updated By",
       field: "updatedBy",
       sortable: true,
       filter: true,
+      width: 160,
     },
     {
       headerName: "Updated On",
       field: "updatedOn",
       sortable: true,
       filter: true,
+      width: 160,
     },
   ]);
 
