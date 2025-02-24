@@ -78,3 +78,33 @@
     }
   }
   
+
+  .button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .submit-btn, .cancel-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .submit-btn {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .submit-btn:disabled {
+    background-color: #ccc;
+  }
+
+  .cancel-btn {
+    background-color: grey;
+    color: white;
+  }
+
+  

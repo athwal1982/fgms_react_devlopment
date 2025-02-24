@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
 import { FaPaperPlane } from "react-icons/fa";
-import { getTrainingTypeData,createTrainingData } from "../Services/Methods"; 
+import { getTrainingTypeData, createTrainingData } from "../Services/Methods";
 
 const CreateTraining = () => {
- 
+
   const [trainingTypes, setTrainingTypes] = useState([]);
-  
+
   const [selectedModule, setSelectedModule] = useState("");
   const [trainingDate, setTrainingDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); 
-  const [submissionStatus, setSubmissionStatus] = useState(""); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState("");
 
   useEffect(() => {
     const fetchTrainingTypes = async () => {
@@ -29,7 +29,7 @@ const CreateTraining = () => {
         }
       } catch (error) {
         console.error("Error fetching training data:", error);
-        setTrainingTypes([]); 
+        setTrainingTypes([]);
       }
     };
 
@@ -46,14 +46,14 @@ const CreateTraining = () => {
 
     const trainingData = {
       TrainingTypeID: selectedModule,
-      TrainingDate:trainingDate,
-      StartTime:startTime,
-      EndTime:endTime,
+      TrainingDate: trainingDate,
+      StartTime: startTime,
+      EndTime: endTime,
     };
     console.log(JSON.stringify(trainingData));
 
-    setIsSubmitting(true); 
-    setSubmissionStatus(""); 
+    setIsSubmitting(true);
+    setSubmissionStatus("");
 
     try {
       const response = await createTrainingData(trainingData);
@@ -67,8 +67,11 @@ const CreateTraining = () => {
       console.error("Error submitting the training data:", error);
       setSubmissionStatus("Error submitting the data. Please try again.");
     } finally {
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
     }
+  };
+  const handleCancel = () => {
+    navigate("/dashboard"); 
   };
 
   return (
@@ -83,7 +86,7 @@ const CreateTraining = () => {
                   id="training-module"
                   required
                   value={selectedModule}
-                  onChange={(e) => setSelectedModule(e.target.value)} 
+                  onChange={(e) => setSelectedModule(e.target.value)}
                 >
                   <option value="" disabled>
                     Choose Training Type
@@ -107,14 +110,14 @@ const CreateTraining = () => {
               <div className="form-group">
                 <label htmlFor="training-date">Training scheduled date *</label>
                 <input
-  type="date"
-  id="training-date"
-  placeholder="22/11/2024"
-  required
-  value={trainingDate}
-  onChange={(e) => setTrainingDate(e.target.value)}
-  min={new Date().toISOString().split("T")[0]} // Set today's date as the minimum selectable date
-/>
+                  type="date"
+                  id="training-date"
+                  placeholder="22/11/2024"
+                  required
+                  value={trainingDate}
+                  onChange={(e) => setTrainingDate(e.target.value)}
+                  min={new Date().toISOString().split("T")[0]} // Set today's date as the minimum selectable date
+                />
 
               </div>
               <div
@@ -152,9 +155,14 @@ const CreateTraining = () => {
             </div>
 
             {/* Submit Button */}
+            <div className="button-group">
             <button type="submit" className="submit-btn" disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
             </button>
+            <button type="button" className="cancel-btn" onClick={handleCancel}>
+                Cancel
+              </button>
+              </div>
           </form>
 
           {/* Submission Status */}

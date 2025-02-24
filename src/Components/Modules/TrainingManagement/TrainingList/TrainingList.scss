@@ -1,4 +1,4 @@
-v.form-wrapper-agent {
+.form-wrapper-agent {
   margin: 3px;
 }
 
@@ -189,4 +189,17 @@ v.form-wrapper-agent {
     background-color: green;
     color: #004d00;
   }
+}
+.Training-details{
+  background-color: #004d00;
+  color: white;
+}
+
+.small-bold-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.custom-modal .modal-content {
+  border-radius: 12px;
+  border: 2px solid #004d00 !important;
 }
