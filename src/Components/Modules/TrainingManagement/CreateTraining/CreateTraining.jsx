@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
 import { FaPaperPlane } from "react-icons/fa";
-import { getTrainingTypeData, createTrainingData } from "../Services/Methods";
+import { getTrainingTypeData, createTrainingData, getUpcomingTrainings } from "../Services/Methods";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TextField } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { format, isSameDay } from "date-fns";
 
 const CreateTraining = () => {
   const [trainingTypes, setTrainingTypes] = useState([]);
   const [durations, setDurations] = useState([1, 2, 3, 4, 5, 6, 7]);
   const [selectedModule, setSelectedModule] = useState("");
-  const [trainingDate, setTrainingDate] = useState("");
+  const [trainingDate, setTrainingDate] = useState(null);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [duration, setDuration] = useState("");
   const [trainingTitle, setTrainingTitle] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState("");
+  const [existingTrainingDates, setExistingTrainingDates] = useState([]);
+  const [tooltipContent, setTooltipContent] = useState("");
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   useEffect(() => {
     const fetchTrainingTypes = async () => {
@@ -32,8 +40,56 @@ const CreateTraining = () => {
       }
     };
 
+    const fetchExistingTrainingDates = async () => {
+      try {
+        const data = await getUpcomingTrainings();
+        if (data && Array.isArray(data)) {
+          setExistingTrainingDates(data.map(training => new Date(training.date)));
+        }
+      } catch (error) {
+        console.error("Error fetching existing training dates", error);
+      }
+    };
+
     fetchTrainingTypes();
+    fetchExistingTrainingDates();
   }, []);
+
+  const isHighlightedDate = (date) => {
+    return existingTrainingDates.some(trainingDate => isSameDay(trainingDate, date));
+  };
+
+  const renderDay = (day, _selectedDate, isInCurrentMonth, dayComponent) => {
+    const isHighlighted = isHighlightedDate(day);
+    return (
+      <div
+        style={{
+          position: "relative",
+          backgroundColor: isHighlighted ? "#ffeb3b" : "transparent",
+          borderRadius: "50%",
+          width: "36px",
+          height: "36px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {dayComponent}
+      </div>
+    );
+  };
+
+  const handleMouseEnter = (date) => {
+    const training = existingTrainingDates.find(trainingDate => isSameDay(trainingDate, date));
+    if (training) {
+      setTooltipContent(`Time: ${training.startTime} - ${training.endTime}`);
+      setTooltipVisible(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setTooltipVisible(false);
+  };
 
   const updateEndTime = (duration, startTime) => {
     if (!startTime) return;
@@ -135,15 +191,18 @@ const CreateTraining = () => {
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="training-date">Training scheduled date *</label>
-              <input
-                type="date"
-                id="training-date"
-                placeholder="22/11/2024"
-                required
-                value={trainingDate}
-                onChange={(e) => setTrainingDate(e.target.value)}
-                min={new Date().toISOString().split("T")[0]}
-              />
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  id="training-date"
+                  required
+                  value={trainingDate}
+                  onChange={(newDate) => setTrainingDate(newDate)}
+                  minDate={new Date()}
+                  renderInput={(params) => <TextField {...params} />}
+                  disablePast
+                  renderDay={renderDay}
+                />
+              </LocalizationProvider>
             </div>
             <div
               className="form-group time-group"
