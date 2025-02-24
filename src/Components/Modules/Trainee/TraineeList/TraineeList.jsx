@@ -31,11 +31,6 @@ const TraineeList = () => {
       cellRendererFramework: (params) => {
         const agent = params.data;
         const status = agent.Status;
-  
-        // A const handleStatusToggle = () => {
-        //  A  toggleAgentStatus(agent.Id, status);
-        // A };
-  
         return (
           <div className="action-icons">
             <FaEdit
@@ -43,69 +38,13 @@ const TraineeList = () => {
               title="Edit"
               onClick={() => handleEdit(agent.UserID)}
             />
-            {/* <FaBan
-              className={`icon disable-icon ${status === "Y" ? "enabled" : "disabled"}`}
-              title={status === "Y" ? "Disable" : "Enable"}
-              onClick={handleStatusToggle}
-            /> */}
+           
           </div>
         );
       },
     },
 
 
-
-    
-    /* { headerName: "Trainee Name", field: "DisplayName", sortable: true, filter: true },
-    { headerName: "User Name", field: "UserName", sortable: true, filter: true },
-    { headerName: "Email ID", field: "EmailID", sortable: true, filter: true },
-    { headerName: "Mobile No.", field: "MobileNo", sortable: true, filter: true },
-    { headerName: "Alternate Mobile No.", field: "MobileNumber", sortable: true, filter: true },
-    { headerName: "Designation", field: "Designation", sortable: true, filter: true },
-    { headerName: "Company Name", field: "CompanyName", sortable: true, filter: true },
-    { headerName: "Company Type", field: "CompanyType", sortable: true, filter: true },
-    { headerName: "DOB", field: "DOB", sortable: true, filter: true },
-    { headerName: "Experience (Years)", field: "Experience", sortable: true, filter: true },
-    { headerName: "Profile Name", field: "ProfileName", sortable: true, filter: true },
-    { headerName: "Qualification", field: "Qualification", sortable: true, filter: true },
-    { headerName: "Region", field: "Region", sortable: true, filter: true },
-    { headerName: "State", field: "State", sortable: true, filter: true },
-    { headerName: "City", field: "City", sortable: true, filter: true },
-    { headerName: "Location", field: "Location", sortable: true, filter: true },
-    { headerName: "Location Type", field: "LocationType", sortable: true, filter: true },
-    {
-      headerName: "Status",
-      field: "Status",
-      sortable: true,
-      filter: true,
-      cellRendererFramework: (params) => {
-        const status = params.data.Status;
-        let circleColor = "gray";
-        let statusText = "NA";
-  
-        if (status === "Y") {
-          circleColor = "green";
-          statusText = "Enabled";
-        } else if (status === "N") {
-          circleColor = "red";
-          statusText = "Disabled";
-        }
-  
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <div
-              style={{
-                width: "12px",
-                height: "12px",
-                borderRadius: "50%",
-                backgroundColor: circleColor,
-              }}
-            ></div>
-            <span>{statusText}</span>
-          </div>
-        );
-      },
-    }, */
 
     {
       headerName: "Status",
@@ -213,27 +152,7 @@ const TraineeList = () => {
       filter: true,
       cellRendererFramework: (params) => params.value ? params.value : "NA"
     },
-    // A { 
-    // A   headerName: "Region", 
-    // A   field: "Region", 
-    // A   sortable: true, 
-    // A   filter: true,
-    // A   cellRendererFramework: (params) => params.value ? params.value : "NA"
-    // A },
-    // A { 
-    // A   headerName: "State", 
-    // A   field: "State", 
-    // A   sortable: true, 
-    // A   filter: true,
-    // A   cellRendererFramework: (params) => params.value ? params.value : "NA"
-    // A },
-    // A { 
-    // A   headerName: "City", 
-    // A   field: "City", 
-    // A   sortable: true, 
-    // A   filter: true,
-    // A   cellRendererFramework: (params) => params.value ? params.value : "NA"
-    // A },
+   
     { 
       headerName: "Location", 
       field: "Location", 
@@ -241,13 +160,7 @@ const TraineeList = () => {
       filter: true,
       cellRendererFramework: (params) => params.value ? params.value : "NA"
     },
-    // A { 
-    // A  headerName: "Location Type", 
-    // A  field: "LocationType", 
-    // A  sortable: true, 
-    // A  filter: true,
-    // A  cellRendererFramework: (params) => params.value ? params.value : "NA"
-    // A},
+   
     
   ]);
   
@@ -309,31 +222,41 @@ const TraineeList = () => {
 
 
 
-  const getAllAgentData = async (page, query = "") => {
+  const getAllAgentData = async (page, query = "", centerMasterID = "") => {
     debugger;
     try {
+      // Create the formData object, adding the centerMasterID parameter
       const formData = {
-        page_size:10,
-        page_number: page,
-        totalPages: "",
-        searchQuery: query,
-        viewMode: "ALL",
-        userId: "",
+        page_size: 10,           // Pagination size
+        page_number: page,      // Page number to fetch
+        totalPages: "",         // Will be populated later
+        searchQuery: query,     // Search query for filtering
+        viewMode: "ALL",        // ViewMode set to 'ALL'
+        userId: "",             // UserID is not required for this call
+        centerMasterID: centerMasterID  // Pass centerMasterID for filtering if provided
       };
+  
+      // Call the API function (e.g., getAllAgent) passing the formData
       const result = await getAllAgent(formData);
+  
+      // Check if the response is successful
       if (result.response.responseCode === 1) {
-        setRowData(result.response.responseData.traineeList);
-        setFilteredData(result.response.responseData.traineeList);
-        setTotalPages(result.response.responseData.totalPages);
+        // If successful, update state with received data
+        setRowData(result.response.responseData.traineeList); // List of agents
+        setFilteredData(result.response.responseData.traineeList); // Filtered data (same as traineeList for now)
+        setTotalPages(result.response.responseData.totalPages); // Total number of pages
       } else {
+        // If not successful, reset the data and log an error
         setRowData([]);
         setFilteredData([]);
         console.error(result.response.responseMessage);
       }
     } catch (error) {
+      // Log any errors encountered during the request
       console.error(error);
     }
   };
+  
 
   useEffect(() => {
     debugger;
