@@ -27,6 +27,14 @@ const CreateTraining = ({props}) => {
   const [existingTrainingDates, setExistingTrainingDates] = useState([]);
   const [tooltipContent, setTooltipContent] = useState("");
   const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [trainingLink, setTrainingLink] = useState("");
+  const [trainingTitelErrorMsg, settrainingTitleErrorMsg] = useState("");
+  const [trainingTypeErrorMsg, settrainingTypeErrorMsg] = useState("");
+  const [trainingLinkErrorMsg, settrainingLinkErrorMsg] = useState("");
+  const [trainingDateErrorMsg, settrainingDateErrorMsg] = useState("");
+  const [trainingStartDateErrorMsg, settrainingStartDateErrorMsg] = useState("");
+  const [trainingEndDateErrorMsg, settrainingEndDateErrorMsg] = useState("");
+  const [trainingDurationErrorMsg, settrainingDurationErrorMsg] = useState("");
 
   useEffect(() => {
     const fetchTrainingTypes = async () => {
@@ -174,9 +182,37 @@ const CreateTraining = ({props}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (trainingTitle === "") {
+      settrainingTitleErrorMsg("Training title is required!");
+      return;
+    }
+    if (selectedModule === "") {
+      settrainingTypeErrorMsg("Training type is required!");
+      return;
+    }
 
-    if (!selectedModule || !trainingDate || !startTime || !endTime || !duration || !trainingTitle) {
-      setSubmissionStatus("Please fill in all the fields.");
+    if (trainingLink === "") {
+      settrainingLinkErrorMsg("Training Link is required!");
+      return;
+    }
+
+    if (trainingDate === "") {
+      setTrainingDate("Training schedule date is required!");
+      return;
+    }
+
+    if (startTime === "") {
+      settrainingStartDateErrorMsg("Start time is required!");
+      return;
+    }
+
+    if (endTime === "") {
+      settrainingEndDateErrorMsg("End time is required!");
+      return;
+    }
+
+    if (duration=== "") {
+      settrainingDurationErrorMsg("Duration is required!");
       return;
     }
 
@@ -187,6 +223,7 @@ const CreateTraining = ({props}) => {
       EndTime: endTime,
       Duration: duration,
       TrainingTitle: trainingTitle,
+      TrainingLink: trainingLink,
     };
 
     setIsSubmitting(true);
@@ -230,11 +267,24 @@ const CreateTraining = ({props}) => {
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <div className="form-row">
+          <div className="form-group">
+              <label htmlFor="training-title">Training Title <span className="asteriskCss">&#42;</span></label>
+              <input
+                type="text"
+                id="training-title"
+                placeholder="Enter Training Title"
+                
+                value={trainingTitle}
+                onChange={(e) => setTrainingTitle(e.target.value)}
+                autoComplete="off"
+              />
+              <span className="login_ErrorTxt">{trainingTitelErrorMsg}</span>
+            </div>
             <div className="form-group">
-              <label htmlFor="training-module">Training module *</label>
+              <label htmlFor="training-module">Training Type <span className="asteriskCss">&#42;</span></label>
               <select
                 id="training-module"
-                required
+                
                 value={selectedModule}
                 onChange={(e) => setSelectedModule(e.target.value)}
               >
@@ -252,16 +302,32 @@ const CreateTraining = ({props}) => {
                   ))
                 )}
               </select>
+              <span className="login_ErrorTxt">{trainingTypeErrorMsg}</span>
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="training-link">Training Link <span className="asteriskCss">&#42;</span></label>
+              <input
+                type="text"
+                id="training-link"
+                placeholder="Enter Training Link"
+                
+                value={trainingLink}
+                onChange={(e) => setTrainingLink(e.target.value)}
+                autoComplete="off"
+              />
+               <span className="login_ErrorTxt">{trainingLinkErrorMsg}</span>
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="training-date">Training scheduled date *</label>
+              <label htmlFor="training-date">Training Scheduled Date <span className="asteriskCss">&#42;</span></label>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   id="training-date"
-                  required
+                  
                   value={trainingDate}
                   onChange={(newDate) => setTrainingDate(newDate)}
                   minDate={new Date()}
@@ -270,36 +336,60 @@ const CreateTraining = ({props}) => {
                   renderDay={renderDay}
                 />
               </LocalizationProvider>
+              <span className="login_ErrorTxt">{trainingDateErrorMsg}</span>
             </div>
             <div
               className="form-group time-group"
               style={{ display: "flex", flexDirection: "row", gap: "20px", marginRight: "0px" }}
             >
               <div>
-                <label htmlFor="training-start-time">Training start time *</label>
+                <label htmlFor="training-start-time">Training Start Time <span className="asteriskCss">&#42;</span></label>
                 <input
                   style={{ width: "200px" }}
                   type="time"
                   id="training-start-time"
-                  required
+                  
                   value={startTime}
                   onChange={handleStartTimeChange}
                 />
+                 <span className="login_ErrorTxt">{trainingStartDateErrorMsg}</span>
               </div>
               <div>
-                <label htmlFor="training-end-time">Training end time *</label>
+                <label htmlFor="training-end-time">Training End Time <span className="asteriskCss">&#42;</span></label>
                 <input
                   style={{ width: "200px" }}
                   type="time"
                   id="training-end-time"
-                  required
+                  
                   value={endTime}
                   onChange={handleEndTimeChange}
+                  disabled={true}
                 />
+                 <span className="login_ErrorTxt">{trainingEndDateErrorMsg}</span>
               </div>
             </div>
           </div>
-
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="training-duration">Duration <span className="asteriskCss">&#42;</span></label>
+              <select
+                id="training-duration"
+                
+                value={duration}
+                onChange={handleDurationChange}
+              >
+                <option value="" disabled>
+                  Choose Duration
+                </option>
+                {durations.map((dur, index) => (
+                  <option key={index} value={dur}>
+                    {dur} hours
+                  </option>
+                ))}
+              </select>
+              <span className="login_ErrorTxt">{trainingDurationErrorMsg}</span>
+            </div>
+          </div>
                      <div className="form-row">
       <div className="scheduled-training-box">
         <h5>Training Booked Slot</h5>
@@ -325,59 +415,6 @@ const CreateTraining = ({props}) => {
         </table>
       </div>
     </div>
-   
-
-
-
-
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="training-duration">Duration *</label>
-              <select
-                id="training-duration"
-                required
-                value={duration}
-                onChange={handleDurationChange}
-              >
-                <option value="" disabled>
-                  Choose Duration
-                </option>
-                {durations.map((dur, index) => (
-                  <option key={index} value={dur}>
-                    {dur} hours
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="training-title">Training Title *</label>
-              <input
-                type="text"
-                id="training-title"
-                placeholder="Enter training title"
-                required
-                value={trainingTitle}
-                onChange={(e) => setTrainingTitle(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="training-title">Training Link *</label>
-              <input
-                type="text"
-                id="training-link"
-                placeholder="Enter training Link"
-                required
-                value={trainingTitle}
-                onChange={(e) => setTrainingTitle(e.target.value)}
-              />
-            </div>
-          </div>
 
           <div className="button-group">
   {/* Save Button */}
