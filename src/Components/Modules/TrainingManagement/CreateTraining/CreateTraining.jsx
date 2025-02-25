@@ -310,8 +310,6 @@ const CreateTraining = ({props}) => {
               <th>Date</th>
               <th>Start Time</th>
               <th>End Time</th>
-
-
             </tr>
           </thead>
           <tbody>
@@ -321,8 +319,6 @@ const CreateTraining = ({props}) => {
                 <td>{getDateOnly(training.TrainingDate)}</td>
                 <td>{convertToAMPM(training.StartTime)}</td>
                 <td>{convertToAMPM(training.EndTime)}</td>
-
-
               </tr>
             ))}
           </tbody>
