@@ -365,6 +365,19 @@ const CreateTraining = ({props}) => {
               />
             </div>
           </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="training-title">Training Link *</label>
+              <input
+                type="text"
+                id="training-link"
+                placeholder="Enter training Link"
+                required
+                value={trainingTitle}
+                onChange={(e) => setTrainingTitle(e.target.value)}
+              />
+            </div>
+          </div>
 
           <div className="button-group">
   {/* Save Button */}
