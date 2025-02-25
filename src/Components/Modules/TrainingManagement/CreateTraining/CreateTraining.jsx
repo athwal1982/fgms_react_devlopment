@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
+import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
 import { useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { getTrainingTypeData, createTrainingData, getUpcomingTrainings } from "../Services/Methods";
@@ -11,6 +12,7 @@ import { format, isSameDay } from "date-fns";
 import { useLocation } from "react-router-dom";
 
 const CreateTraining = ({props}) => {
+    const setAlertMessage = AlertMessage();
    const navigate = useNavigate();
   const location = useLocation();
   const trainingData = location.state || {}; 
@@ -176,7 +178,10 @@ const CreateTraining = ({props}) => {
     const end = new Date(`1970-01-01T${selectedEndTime}:00Z`);
     const timeDifference = (end - start) / (1000 * 60 * 60);
     if (timeDifference < duration) {
-      setSubmissionStatus("End time must be greater than start time by the selected duration.");
+      setAlertMessage({
+        type: "error",
+        message: "End time must be greater than start time by the selected duration.",
+      });
     }
   };
 
@@ -197,7 +202,7 @@ const CreateTraining = ({props}) => {
     }
 
     if (trainingDate === "") {
-      setTrainingDate("Training schedule date is required!");
+      settrainingDateErrorMsg("Training schedule date is required!");
       return;
     }
 
@@ -232,12 +237,19 @@ const CreateTraining = ({props}) => {
     try {
       const response = await createTrainingData(trainingData);
       if (response.response.responseCode === 1) {
-        setSubmissionStatus("Training created successfully!");
+        navigate("/TrainingList");
       } else {
-        setSubmissionStatus("Failed to create training. Please try again.");
+        setAlertMessage({
+          type: "error",
+          message: response.response.responseMessage,
+        });
+
       }
     } catch (error) {
-      setSubmissionStatus("Error submitting the data. Please try again.");
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -288,7 +300,7 @@ const CreateTraining = ({props}) => {
                 value={selectedModule}
                 onChange={(e) => setSelectedModule(e.target.value)}
               >
-                <option value="" disabled>
+                <option value="">
                   Choose Training Type
                 </option>
                 {Array.isArray(trainingTypes) && trainingTypes.length === 0 ? (
@@ -378,7 +390,7 @@ const CreateTraining = ({props}) => {
                 value={duration}
                 onChange={handleDurationChange}
               >
-                <option value="" disabled>
+                <option value="">
                   Choose Duration
                 </option>
                 {durations.map((dur, index) => (
@@ -437,6 +449,14 @@ const CreateTraining = ({props}) => {
       setEndTime("");
       setDuration("");
       setTrainingTitle("");
+      setTrainingLink("");
+      settrainingTitleErrorMsg("");
+      settrainingTypeErrorMsg("");
+      settrainingTitleErrorMsg("");
+      settrainingDateErrorMsg("");
+      settrainingStartDateErrorMsg("");
+      settrainingEndDateErrorMsg("");
+      settrainingDurationErrorMsg("");
     }}
   >
     Clear
