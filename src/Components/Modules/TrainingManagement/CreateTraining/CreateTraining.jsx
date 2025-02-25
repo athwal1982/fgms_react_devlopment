@@ -380,17 +380,16 @@ const CreateTraining = ({props}) => {
           </div>
 
           <div className="button-group">
-  {/* Save Button */}
+
   <button type="submit" className="submit-btn save-btn" disabled={isSubmitting}>
     {isSubmitting ? "Submitting..." : <><FaPaperPlane className="icon" /> Save</>}
   </button>
 
-  {/* Cancel Button */}
   <button type="button" className="submit-btn cancel-btn" onClick={() => navigate("/TrainingList")}>
     Cancel
   </button>
 
-  {/* Clear Button */}
+
   <button
     type="button"
     className="submit-btn clear-btn"
