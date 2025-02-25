@@ -49,16 +49,21 @@ const CreateTraining = ({props}) => {
       try {
         const data = await getUpcomingTrainings();
         console.log(data);
-        if(data.response.responseCode == 1){
-          setExistingTrainingDates(data.response.responseData);
-
-        }else{
-          setExistingTrainingDates([]);
+    
+        if (data.response.responseCode === 1) {
+          const filteredData = data.response.responseData.filter(training => {
+            return new Date(training.TrainingDate) >= new Date(); 
+          });
+          
+          setExistingTrainingDates(filteredData);
+        } else {
+          setExistingTrainingDates([]); 
         }
       } catch (error) {
         console.error("Error fetching existing training dates", error);
       }
     };
+    
 
     fetchTrainingTypes();
     fetchExistingTrainingDates();
@@ -95,6 +100,32 @@ const CreateTraining = ({props}) => {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) 
       .join(" "); 
   };
+  const getDateOnly = (date) => {
+    const d = new Date(date);
+    return d.toISOString().split("T")[0];
+  };
+  
+
+  const convertToAMPM = (time) => {
+    if (!time || !/^\d{2}:\d{2}:\d{2}$/.test(time)) {
+      throw new Error("Invalid time format. Please use 'hh:mm:ss' format.");
+    }
+  
+    let [hours, minutes] = time.split(":");
+    hours = parseInt(hours, 10);
+  
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+  
+    if (hours === 0) {
+      hours = 12;
+    }
+  
+    minutes = minutes.padStart(2, "0");
+  
+    return `${hours}:${minutes} ${period}`;
+  };
+  
 
   const handleMouseEnter = (date) => {
     const training = existingTrainingDates.find(trainingDate => isSameDay(trainingDate, date));
@@ -275,8 +306,8 @@ const CreateTraining = ({props}) => {
         <table className="training-timetable">
           <thead>
             <tr>
-              <th>Train</th>
-              <th>Time</th>
+              <th>Training Name</th>
+              <th>Date</th>
               <th>Start Time</th>
               <th>End Time</th>
 
@@ -287,9 +318,9 @@ const CreateTraining = ({props}) => {
             {existingTrainingDates.map((training, index) => (
               <tr key={index} className={training.isUpcoming ? "highlight-upcoming-training" : ""}>
                 <td>{capitalizeText(training.TrainingTitle)}</td>
-                <td>{new Date(training.TrainingDate).toLocaleTimeString()}</td>
-                <td>{training.StartTime}</td>
-                <td>{training.EndTime}</td>
+                <td>{getDateOnly(training.TrainingDate)}</td>
+                <td>{convertToAMPM(training.StartTime)}</td>
+                <td>{convertToAMPM(training.EndTime)}</td>
 
 
               </tr>
