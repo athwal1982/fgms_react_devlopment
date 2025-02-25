@@ -4,13 +4,18 @@ import { AgGridReact } from "ag-grid-react";
 import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import moment from "moment";
 import "./TrainingList.scss";
-import { getTrainingListData,getTrainerList } from "../Services/Methods";
+import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
+import { getTrainingListData, getTrainerList, setAssignList } from "../Services/Methods";
 import _ from "lodash";
 import { Modal, Button } from "react-bootstrap";
 import Select from "react-select";
+import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 
 const TrainingList = () => {
+  const setAlertMessage = AlertMessage();
   const navigate = useNavigate();
+  const userData = getSessionStorage("user");
+  const accessCode = userData.CSCAccessTypeID;
   const [rowData, setRowData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +25,10 @@ const TrainingList = () => {
 
 
   const [trainers, setTrainers] = useState([]);
+  const [center, setCenter] = useState([]);
+
   const [selectedTrainers, setSelectedTrainers] = useState([]);
+  const [selectedCenter, setselectedCenter] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedTraining, setSelectedTraining] = useState(null); // Added state for selected training
@@ -35,7 +43,7 @@ const TrainingList = () => {
         setRowData(data);
         setFilteredData(data);
         setTotalPages(response.totalPages);
-        console.log("this is filteredData see trainingID" +  JSON.stringify(data));
+        console.log("this is filteredData see trainingID" + JSON.stringify(data));
       } else {
         setRowData([]);
         setFilteredData([]);
@@ -46,69 +54,135 @@ const TrainingList = () => {
       console.error("Error fetching training data:", error);
     }
   };
-  const fetchAllTrainer = async () => {
-    const formdata = {
-      SPMODE: "LOCATIONTRAINER",
-    };
-  
+  const fetchAllTrainer = async (MODE) => {
+    const formdata = { SPMODE: MODE };
+
     try {
       const response = await getTrainerList(formdata);
       let data = response.response.responseData;
       let responseCode = response.response.responseCode;
-  
+
       if (responseCode === 1) {
-        setTrainers(
-          data.map((trainer) => ({
-            value: trainer.UserID,
-            label: `${trainer.Name} - ${trainer.Center}`,
-          }))
-        );
+        if (MODE === "LOCATIONTRAINER") {
+          setTrainers(
+            data.map((trainer) => ({
+              value: trainer.UserID, // Ensure UserID is a string
+              label: `${trainer.Name} - ${trainer.Center}`,
+            }))
+          );
+        } else if (MODE === "CENTER") {
+          setCenter(
+            data.map((center) => ({
+              value: center.CenterMasterID, // Assuming CenterMasterID is an integer
+              label: `${center.Center} - ${center.Center}`,
+            }))
+          );
+        }
       } else {
-        setTrainers([]);
+        if (MODE === "LOCATIONTRAINER") setTrainers([]);
+        else if (MODE === "CENTER") setCenter([]);
       }
     } catch (error) {
       console.error("Error fetching trainer data:", error);
     }
   };
-  
 
-  const handleShow = (training) => {
+  const setTrainer = async () => {
     debugger;
-    fetchAllTrainer();
-    setSelectedTraining(training); // Set selected training for modal
-    setShowModal(true);
+    const selectedTrainerIds = selectedTrainers.map(trainer => trainer.value);
+
+    const selectedCenterId = selectedCenter.length > 0 ? parseInt(selectedCenter[0].value, 10) : null;
+
+    if (!selectedTraining) {
+      console.error("No training selected!");
+      return;
+    }
+
+    const formdata = {
+      viewMode: "ASSIGN",
+      centerID: selectedCenterId,
+      trainingMasterID: selectedTraining.TrainingMasterId,
+      userID: selectedTrainerIds.join(","),
+      trainingUserAssignmentID: null,
+      cSCAppAccessTypeID:accessCode,
+    };
+
+    console.log("Sending API Data:", formdata);
+
+    try {
+      const response = await setAssignList(formdata);
+      let responseCode = response.response.responseCode;
+
+      if (responseCode === 1) {
+        console.log("Trainer assignment successful!", response.response.responseData);
+        setShowModal(false);
+        setAlertMessage({
+          type: "success",
+          message: "Trainer Added Successfully",
+        });
+      } else {
+        setAlertMessage({
+          type: "error",
+          message: result.response.responseMessage,
+        });
+        console.error("Trainer assignment failed:", response);
+      }
+    } catch (error) {
+      console.error("Error assigning trainer:", error);
+    }
   };
+
+
+
+  const handleShow = async (training) => {
+    debugger;
+
+    try {
+      await Promise.all([fetchAllTrainer("LOCATIONTRAINER"), fetchAllTrainer("CENTER")]);
+
+      setSelectedTraining(training);
+      console.log("this is handleShow data: " + JSON.stringify(training));
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error in handleShow:", error);
+    }
+  };
+
 
   const handleClose = () => {
     setShowModal(false);
     setSelectedTraining(null); // Clear selected training
   };
 
-  // Action cell renderer
   const ActionCellRenderer = (props) => {
     return (
       <>
-        <i
-          className="fas fa-save"
-          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-          onClick={() => handleShow(props.data)}
-          title="Save"
-        ></i>
-  
-        <i
-          className="fas fa-edit"
-          style={{ cursor: "pointer", color: "green" }}
-          onClick={() => handleEdit(props.data)} 
-          title="Edit"
-        ></i>
+        {accessCode === 999 && (
+          <>
+            <i
+              className="fas fa-save"
+              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+              onClick={() => handleShow(props.data)}
+              title="Save"
+            ></i>
+
+            <i
+              className="fas fa-edit"
+              style={{ cursor: "pointer", color: "green" }}
+              onClick={() => handleEdit(props.data)}
+              title="Edit"
+            ></i>
+          </>
+        )}
       </>
     );
   };
-  
+
+
 
   const [columnDefs] = useState([
 
-    
+
     {
       headerName: "Action",
       field: "action",
@@ -166,11 +240,11 @@ const TrainingList = () => {
       valueGetter: (node) => {
         return node.data.InsertedDateTime
           ? dateToSpecificFormat(
-              `${node.data.InsertedDateTime.split("T")[0]} ${Convert24FourHourAndMinute(
-                node.data.InsertedDateTime.split("T")[1]
-              )}`,
-              "DD-MM-YYYY HH:mm"
-            )
+            `${node.data.InsertedDateTime.split("T")[0]} ${Convert24FourHourAndMinute(
+              node.data.InsertedDateTime.split("T")[1]
+            )}`,
+            "DD-MM-YYYY HH:mm"
+          )
           : null;
       },
     },
@@ -226,7 +300,9 @@ const TrainingList = () => {
     navigate("/CreateNewTraining", { state: trainingData });
     console.log("Clicked Create New Training: ", JSON.stringify(trainingData));
   };
-  
+
+ 
+
 
   useEffect(() => {
     fetchAllTrainer();
@@ -248,12 +324,14 @@ const TrainingList = () => {
               />
             </div>
 
-            <button
-              className="create-agent-button"
-              onClick={() => navigate("/CreateNewTraining")}
-            >
-              Create Training &nbsp; <i className="fas fas fa-arrow-right"></i>
-            </button>
+            {accessCode === 999 && ( 
+              <button
+                className="create-agent-button"
+                onClick={() => navigate("/CreateNewTraining")}
+              >
+                Create Training &nbsp; <i className="fas fas fa-arrow-right"></i>
+              </button>
+            )}
           </div>
 
           <div className="ag-theme-alpine ag-grid-container">
@@ -275,122 +353,138 @@ const TrainingList = () => {
 
             {/* Modal for Training Details */}
             {selectedTraining && (
-  <Modal show={showModal} onHide={handleClose} centered className="custom-modal">
+              <Modal show={showModal} onHide={handleClose} centered className="custom-modal">
 
-    <Modal.Header closeButton className="py-2"  style={{ backgroundColor: "#004d00", color: "white" }}>
-      <Modal.Title style={{ fontSize: "1rem" }}>Edit Training Details</Modal.Title>
-      <style>
-    {`
+                <Modal.Header closeButton className="py-2" style={{ backgroundColor: "#004d00", color: "white" }}>
+                  <Modal.Title style={{ fontSize: "1rem" }}>Edit Training Details</Modal.Title>
+                  <style>
+                    {`
       .btn-close {
         filter: invert(1);
       }
     `}
-  </style>
-    </Modal.Header>
+                  </style>
+                </Modal.Header>
 
-    <Modal.Body>
-      <form>
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label htmlFor="trainingId" className="form-label small-bold-label">Training ID :</label>
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              id="trainingId"
-              value={selectedTraining.TrainingMasterId}
-              readOnly
-            />
-          </div>
+                <Modal.Body>
+                  <form>
+                    <div className="row mb-3">
+                      <div className="col-md-6">
+                        <label htmlFor="trainingId" className="form-label small-bold-label">Training ID *</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm"
+                          id="trainingId"
+                          value={selectedTraining.TrainingMasterId}
+                          readOnly
+                        />
+                      </div>
 
-          <div className="col-md-6">
-            <label htmlFor="trainingName" className="form-label small-bold-label">Training Name :</label>
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              id="trainingName"
-              value={selectedTraining.TrainingName}
-              readOnly
-            />
-          </div>
-        </div>
+                      <div className="col-md-6">
+                        <label htmlFor="trainingName" className="form-label small-bold-label">Training Name *</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm"
+                          id="trainingName"
+                          value={selectedTraining.TrainingName}
+                          readOnly
+                        />
+                      </div>
+                    </div>
 
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label htmlFor="trainingDate" className="form-label small-bold-label">Training Date :</label>
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              id="trainingDate"
-              value={moment(selectedTraining.TrainingDate).format("DD-MM-YYYY")}
-              readOnly
-            />
-          </div>
+                    <div className="row mb-3">
+                      <div className="col-md-6">
+                        <label htmlFor="trainingDate" className="form-label small-bold-label">Training Date *</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm"
+                          id="trainingDate"
+                          value={moment(selectedTraining.TrainingDate).format("DD-MM-YYYY")}
+                          readOnly
+                        />
+                      </div>
 
-          <div className="col-md-6">
-            <label htmlFor="startTime" className="form-label small-bold-label">Start Time :</label>
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              id="startTime"
-              value={Convert24FourHourAndMinute(selectedTraining.StartTime)}
-              readOnly
-            />
-          </div>
-        </div>
+                      <div className="col-md-6">
+                        <label htmlFor="startTime" className="form-label small-bold-label">Start Time *</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm"
+                          id="startTime"
+                          value={Convert24FourHourAndMinute(selectedTraining.StartTime)}
+                          readOnly
+                        />
+                      </div>
+                    </div>
 
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label htmlFor="endTime" className="form-label small-bold-label">End Time :</label>
-            <input
-              type="text"
-              className="form-control form-control-sm"
-              id="endTime"
-              value={Convert24FourHourAndMinute(selectedTraining.EndTime)}
-              readOnly
-            />
-          </div>
-
-          <div className="col-md-6">
-  <label htmlFor="trainer" className="form-label small-bold-label">
-    Trainer :
-  </label>
-  <Select
-    options={trainers}
-    isMulti
-    value={selectedTrainers}
-    onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
-    className="basic-multi-select"
-    classNamePrefix="select"
-    placeholder="Select Trainer(s)"
-  />
-</div>
+                    <div className="row mb-3">
+                      <div className="col-md-6">
+                        <label htmlFor="endTime" className="form-label small-bold-label">End Time *</label>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm"
+                          id="endTime"
+                          value={Convert24FourHourAndMinute(selectedTraining.EndTime)}
+                          readOnly
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <label htmlFor="trainer" className="form-label small-bold-label">
+                          Trainer *
+                        </label>
+                        <Select
+                          options={trainers}
+                          isMulti
+                          value={selectedTrainers}
+                          onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
+                          className="basic-multi-select form-control-sm"
+                          classNamePrefix="select"
+                          placeholder="Select Trainer(s)"
+                        />
 
 
-        </div>
-      </form>
-    </Modal.Body>
+                      </div>
+                      <div className="col-md-6">
+                        <label htmlFor="trainer" className="form-label small-bold-label">
+                          Center *
+                        </label>
+                        <Select
+                          options={center}
+                          isMulti
+                          value={selectedCenter}
+                          onChange={(selectedOptions) => setselectedCenter(selectedOptions)}
+                          className="basic-multi-select form-control-sm"
+                          classNamePrefix="select"
+                          placeholder="Select Center"
+                        />
+                      </div>
 
-    <Modal.Footer className="py-2" style={{ fontSize: "0.875rem" }}>
-    <Button 
-  size="sm" 
-  onClick={() => console.log("Trainer Assigned Successfully!")}
-  style={{ backgroundColor: "#004d00", border: "none", pointerEvents: "auto" }}
->
-  Assign
-</Button>
 
-<Button 
-  variant="secondary" 
-  size="sm" 
-  onClick={handleClose} 
-  style={{ backgroundColor: "#6c757d", border: "none", pointerEvents: "auto" }}
->
-  Close
-</Button>
 
-    </Modal.Footer>
-  </Modal>
-)}
+                    </div>
+                  </form>
+                </Modal.Body>
+
+                <Modal.Footer className="py-2" style={{ fontSize: "0.875rem" }}>
+                  <Button
+                    size="sm"
+                    onClick={() => setTrainer()}
+                    style={{ backgroundColor: "#004d00", border: "none", pointerEvents: "auto" }}
+                  >
+                    Assign
+                  </Button>
+
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={handleClose}
+                    style={{ backgroundColor: "#6c757d", border: "none", pointerEvents: "auto" }}
+                  >
+                    Close
+                  </Button>
+
+                </Modal.Footer>
+              </Modal>
+            )}
 
 
           </div>

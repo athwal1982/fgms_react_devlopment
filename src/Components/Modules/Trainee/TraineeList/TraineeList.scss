@@ -257,3 +257,52 @@ input:checked + .slider:before {
 .round {
   border-radius: 34px;
 }
+
+/* Dropdown Styling */
+.styled-dropdown {
+  width: 250px;
+  padding: 4px;
+  font-size: 14px;
+  border: 2px solid #004d00; /* Blue border */
+  border-radius: 5px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin: 0 15px; /* Left & right spacing */
+}
+
+.styled-dropdown:hover {
+  border-color: #004d00; /* Darker blue on hover */
+}
+
+.styled-dropdown:focus {
+  outline: none;
+  border-color: #004d00; /* Highlight on focus */
+}
+
+/* Button Styling */
+.styled-button {
+  background-color: #004d00; /* Blue button */
+  color: white;
+  border: none;
+  padding: 8px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin: 0 15px; /* Left & right spacing */
+}
+
+.styled-button:hover {
+  background-color: #004d00; /* Darker blue */
+}
+
+.styled-button:active {
+  transform: scale(0.98); /* Click effect */
+}
+
+.styled-button:disabled {
+ 
+  cursor: not-allowed;
+}

@@ -4,7 +4,8 @@ const APIEndpoints = {
     CreateTraining:"FGMS/CreateTraining",
     GetTrainingList: "FGMS/GetTrainingList",
     GetUpcomingTrainingList:"FGMS/UpcomingTrainingList",
-    GetTrainerList: "FGMS/CscTrainingDataBinding"
+    GetTrainerList: "FGMS/CscTrainingDataBinding",
+    SetAssignList:"FGMS/CSCUserTrainingAssignManage"
   
   },
 };
