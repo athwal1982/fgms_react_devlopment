@@ -54,44 +54,78 @@ const TrainingList = () => {
       console.error("Error fetching training data:", error);
     }
   };
-  const fetchAllTrainer = async (MODE) => {
-    const formdata = { SPMODE: MODE };
+  const fetchAllTrainer = async () => {
+    // A const formdata = { SPMODE: MODE };
+ debugger;
+    const formData = {
+      SPMODE: "CENTER",
+      SPCenterID: 0,
+    };
 
     try {
-      const response = await getTrainerList(formdata);
+      const response = await getTrainerList(formData);
       let data = response.response.responseData;
       let responseCode = response.response.responseCode;
 
       if (responseCode === 1) {
-        if (MODE === "LOCATIONTRAINER") {
-          setTrainers(
-            data.map((trainer) => ({
-              value: trainer.UserID, 
-              label: `${trainer.Name} - ${trainer.Center}`,
-            }))
-          );
-        } else if (MODE === "CENTER") {
-          setCenter(
-            data.map((center) => ({
-              value: center.CenterMasterID, 
-              label: `${center.Center} - ${center.Center}`,
-            }))
-          );
-        }
+        setCenter(
+          data.map((center) => ({
+            value: center.CenterMasterID, 
+            label: `${center.Center} - ${center.Center}`,
+          }))
+        );
+       
       } else {
-        if (MODE === "LOCATIONTRAINER") setTrainers([]);
-        else if (MODE === "CENTER") setCenter([]);
+        setCenter([]);
       }
     } catch (error) {
       console.error("Error fetching trainer data:", error);
     }
   };
 
+  const fetchTrainersByCenter = async (centerId) => {
+    debugger;
+    try {
+      const formData = {
+        SPMODE: "TRAINEE",
+        SPCenterID: centerId, 
+      };
+  
+      const response = await getTrainerList(formData);
+      let data = response.response.responseData;
+      let responseCode = response.response.responseCode;
+  
+      if (responseCode === 1) {
+        setTrainers(
+          data.map((trainer) => ({
+            value: trainer.UserID,
+            label: trainer.Name,
+          }))
+        );
+      } else {
+        setTrainers([]);
+      }
+    } catch (error) {
+      console.error("Error fetching trainers:", error);
+    }
+  };
+  
+
+  const handleCenterChange = (selectedOption) => {
+    debugger;
+    setselectedCenter(selectedOption);
+  
+    if (selectedOption) {
+      fetchTrainersByCenter(selectedOption.value); 
+    }
+  };
+  
   const setTrainer = async () => {
     debugger;
     const selectedTrainerIds = selectedTrainers.map(trainer => trainer.value);
+    const selectedCenterId = selectedCenter ? parseInt(selectedCenter.value, 10) : null;
 
-    const selectedCenterId = selectedCenter.length > 0 ? parseInt(selectedCenter[0].value, 10) : null;
+    // A const selectedCenterId = selectedCenter.length > 0 ? parseInt(selectedCenter[0].value, 10) : null;
 
     if (!selectedTraining) {
       console.error("No training selected!");
@@ -103,7 +137,7 @@ const TrainingList = () => {
       centerID: selectedCenterId,
       trainingMasterID: selectedTraining.TrainingMasterId,
       userID: selectedTrainerIds.join(","),
-      trainingUserAssignmentID: null,
+      trainingUserAssignmentID: 0,
       cSCAppAccessTypeID:accessCode,
     };
 
@@ -305,8 +339,10 @@ const TrainingList = () => {
 
 
   useEffect(() => {
-    fetchAllTrainer();
+    debugger;
+   
     fetchAllTraining(currentPage);
+    fetchAllTrainer();
   }, [currentPage]);
 
   return (
@@ -353,7 +389,7 @@ const TrainingList = () => {
 
             {/* Modal for Training Details */}
             {selectedTraining && (
-              <Modal show={showModal} onHide={handleClose} centered className="custom-modal">
+              <Modal  show={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
 
                 <Modal.Header closeButton className="py-2" style={{ backgroundColor: "#004d00", color: "white" }}>
                   <Modal.Title style={{ fontSize: "1rem" }}>Edit Training Details</Modal.Title>
@@ -369,7 +405,7 @@ const TrainingList = () => {
                 <Modal.Body>
                   <form>
                     <div className="row mb-3">
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label htmlFor="trainingId" className="form-label small-bold-label">Training ID *</label>
                         <input
                           type="text"
@@ -380,7 +416,7 @@ const TrainingList = () => {
                         />
                       </div>
 
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label htmlFor="trainingName" className="form-label small-bold-label">Training Name *</label>
                         <input
                           type="text"
@@ -390,10 +426,7 @@ const TrainingList = () => {
                           readOnly
                         />
                       </div>
-                    </div>
-
-                    <div className="row mb-3">
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label htmlFor="trainingDate" className="form-label small-bold-label">Training Date *</label>
                         <input
                           type="text"
@@ -403,8 +436,12 @@ const TrainingList = () => {
                           readOnly
                         />
                       </div>
+                    </div>
 
-                      <div className="col-md-6">
+                    <div className="row mb-3">
+                    
+
+                      <div className="col-md-4">
                         <label htmlFor="startTime" className="form-label small-bold-label">Start Time *</label>
                         <input
                           type="text"
@@ -414,10 +451,7 @@ const TrainingList = () => {
                           readOnly
                         />
                       </div>
-                    </div>
-
-                    <div className="row mb-3">
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <label htmlFor="endTime" className="form-label small-bold-label">End Time *</label>
                         <input
                           type="text"
@@ -427,40 +461,41 @@ const TrainingList = () => {
                           readOnly
                         />
                       </div>
+                    </div>
+
+                    <div className="row mb-3">
+                   
 
 
-                      <div className="col-md-6">
-                        <label htmlFor="trainer" className="form-label small-bold-label">
-                          Center *
-                        </label>
-                        <Select
-                          options={center}
-                          
-                          value={selectedCenter}
-                          onChange={(selectedOptions) => setselectedCenter(selectedOptions)}
-                          className="basic-multi-select form-control-sm"
-                          classNamePrefix="select"
-                          placeholder="Select Center"
-                        />
-                      </div>
-                     
-                      
-                      <div className="col-md-6">
-                        <label htmlFor="trainer" className="form-label small-bold-label">
-                          Trainee *
-                        </label>
-                        <Select
-                          options={trainers}
-                          isMulti
-                          value={selectedTrainers}
-                          onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
-                          className="basic-multi-select form-control-sm"
-                          classNamePrefix="select"
-                          placeholder="Select Trainee(s)"
-                        />
+                      <div className="col-md-4">
+  <label htmlFor="center" className="form-label small-bold-label">
+    Center *
+  </label>
+  <Select
+    options={center}
+    value={selectedCenter}
+    onChange={handleCenterChange} 
+    className="basic-multi-select form-control-sm"
+    classNamePrefix="select"
+    placeholder="Select Center"
+  />
+</div>
 
+<div className="col-md-4">
+  <label htmlFor="trainer" className="form-label small-bold-label">
+    Trainee *
+  </label>
+  <Select
+    options={trainers}
+    isMulti
+    value={selectedTrainers}
+    onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
+    className="basic-multi-select form-control-sm"
+    classNamePrefix="select"
+    placeholder="Select Trainee(s)"
+  />
+</div>
 
-                      </div>
 
 
 
