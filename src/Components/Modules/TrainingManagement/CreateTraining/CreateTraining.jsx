@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CreateTraining.scss";
 import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
+import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import { useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { getTrainingTypeData, createTrainingData, getUpcomingTrainings } from "../Services/Methods";
@@ -41,7 +42,6 @@ const CreateTraining = ({props}) => {
   const handleDateChange = (newDate) => {
     if (newDate) {
       const adjustedDate = new Date(newDate.getTime() + (5.5 * 60 * 60 * 1000)); 
-      console.log(adjustedDate, "adjustedDate");
 
       setTrainingDate(adjustedDate);
     } else {
@@ -49,66 +49,62 @@ const CreateTraining = ({props}) => {
     }
   };
 
-  useEffect(() => {
-    const fetchTrainingTypes = async () => {
-      try {
-        const data = await getTrainingTypeData({ MODE: "#ALL", TrainingID: null });
-        if (data.response.responseCode === 1) {
-          const responseData = data.response.responseData;
-          if (Array.isArray(responseData)) {
-            setTrainingTypes(responseData);
-          } else {
-            setTrainingTypes([]);
-          }
-        }
-      } catch (error) {
-        setTrainingTypes([]);
-      }
-    };
-
-    const fetchExistingTrainingDates = async () => {
-      try {
-        const data = await getUpcomingTrainings();
-        if (data.response.responseCode === 1) {
-          const currentTimeIST = new Date();
-          const istOffset = 5.5 * 60 * 60 * 1000;
-          const currentTimeInIST = new Date(currentTimeIST.getTime() + istOffset);
-    
-          const filteredData = data.response.responseData.filter(training => {
-            const trainingDate = new Date(training.TrainingDate);
-            const startTimeParts = training.StartTime.split(":");
-            const endTimeParts = training.EndTime.split(":");
-    
-            const startDate = new Date(trainingDate);
-            startDate.setHours(parseInt(startTimeParts[0]), parseInt(startTimeParts[1]), 0, 0);
-            const startDateInIST = new Date(startDate.getTime() + istOffset);
-    
-            const endDate = new Date(trainingDate);
-            endDate.setHours(parseInt(endTimeParts[0]), parseInt(endTimeParts[1]), 0, 0);
-            const endDateInIST = new Date(endDate.getTime() + istOffset);
-    
-            return startDateInIST >= currentTimeInIST;
-          });
-    
-          const sortedData = filteredData.sort((a, b) => {
-            const startTimeA = new Date(new Date(a.TrainingDate).setHours(...a.StartTime.split(":").map(Number)));
-            const startTimeB = new Date(new Date(b.TrainingDate).setHours(...b.StartTime.split(":").map(Number)));
-            return startTimeA - startTimeB;
-          });
-    
-          setExistingTrainingDates(sortedData);
+  const fetchTrainingTypes = async () => {
+    try {
+      const data = await getTrainingTypeData({ MODE: "#ALL", TrainingID: null });
+      if (data.response.responseCode === 1) {
+        const responseData = data.response.responseData;
+        if (Array.isArray(responseData)) {
+          setTrainingTypes(responseData);
         } else {
-          setExistingTrainingDates([]); 
+          setTrainingTypes([]);
         }
-      } catch (error) {
-        console.error("Error fetching existing training dates", error);
       }
-    };
-    
-    
-    
-    
+    } catch (error) {
+      setTrainingTypes([]);
+    }
+  };
 
+  const fetchExistingTrainingDates = async () => {
+    try {
+      const data = await getUpcomingTrainings();
+      if (data.response.responseCode === 1) {
+        const currentTimeIST = new Date();
+        const istOffset = 5.5 * 60 * 60 * 1000;
+        const currentTimeInIST = new Date(currentTimeIST.getTime() + istOffset);
+  
+        const filteredData = data.response.responseData.filter(training => {
+          const trainingDate = new Date(training.TrainingDate);
+          const startTimeParts = training.StartTime.split(":");
+          const endTimeParts = training.EndTime.split(":");
+  
+          const startDate = new Date(trainingDate);
+          startDate.setHours(parseInt(startTimeParts[0]), parseInt(startTimeParts[1]), 0, 0);
+          const startDateInIST = new Date(startDate.getTime() + istOffset);
+  
+          const endDate = new Date(trainingDate);
+          endDate.setHours(parseInt(endTimeParts[0]), parseInt(endTimeParts[1]), 0, 0);
+          const endDateInIST = new Date(endDate.getTime() + istOffset);
+  
+          return startDateInIST >= currentTimeInIST;
+        });
+  
+        const sortedData = filteredData.sort((a, b) => {
+          const startTimeA = new Date(new Date(a.TrainingDate).setHours(...a.StartTime.split(":").map(Number)));
+          const startTimeB = new Date(new Date(b.TrainingDate).setHours(...b.StartTime.split(":").map(Number)));
+          return startTimeA - startTimeB;
+        });
+  
+        setExistingTrainingDates(sortedData);
+      } else {
+        setExistingTrainingDates([]); 
+      } 
+    } catch (error) {
+      console.error("Error fetching existing training dates", error);
+    }
+  };
+
+  useEffect(() => {
     fetchTrainingTypes();
     fetchExistingTrainingDates();
   }, []);
@@ -293,10 +289,17 @@ const CreateTraining = ({props}) => {
 
 
   useEffect(() => {
+    debugger;
     if (trainingData?.TrainingMasterId) {
       setTrainingTitle(trainingData.TrainingName || "");
       setSelectedModule(trainingData.TrainingTypeID || "");
-      setTrainingDate(trainingData.TrainingDate || "");
+      setTrainingLink(trainingData.TrainingLink || "");
+      setTrainingDate(dateToSpecificFormat(
+                  `${trainingData.TrainingDate.split("T")[0]} ${Convert24FourHourAndMinute(
+                    trainingData.TrainingDate.split("T")[1]
+                  )}`,
+                  "MM/DD/YYYY"
+                ) || "");
       setStartTime(trainingData.StartTime || "");
       setEndTime(trainingData.EndTime || "");
       

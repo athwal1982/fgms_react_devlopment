@@ -48,12 +48,9 @@ const TrainingList = () => {
         setRowData(updatedData);
         setFilteredData(updatedData);
         setTotalPages(response.totalPages);
-        console.log("this is filteredData see trainingID" + JSON.stringify(data));
       } else {
         setRowData([]);
         setFilteredData([]);
-        console.error(response.message);
-        console.log("this is filteredData see trainingID" + JSON.stringify(data));
       }
     } catch (error) {
       console.error("Error fetching training data:", error);
@@ -144,14 +141,11 @@ const TrainingList = () => {
       cSCAppAccessTypeID: accessCode,
     };
 
-    console.log("Sending API Data:", formdata);
-
     try {
       const response = await setAssignList(formdata);
       let responseCode = response.response.responseCode;
 
       if (responseCode === 1) {
-        console.log("Trainer assignment successful!", response.response.responseData);
         setShowModal(false);
         setAlertMessage({
           type: "success",
@@ -162,7 +156,6 @@ const TrainingList = () => {
           type: "error",
           message: result.response.responseMessage,
         });
-        console.error("Trainer assignment failed:", response);
       }
     } catch (error) {
       console.error("Error assigning trainer:", error);
@@ -178,7 +171,6 @@ const TrainingList = () => {
       await Promise.all([fetchAllTrainer("LOCATIONTRAINER"), fetchAllTrainer("CENTER")]);
 
       setSelectedTraining(training);
-      console.log("this is handleShow data: " + JSON.stringify(training));
       setShowModal(true);
     } catch (error) {
       console.error("Error in handleShow:", error);
@@ -304,6 +296,16 @@ const TrainingList = () => {
       sortable: true,
       filter: true,
       width: 160,
+      valueGetter: (node) => {
+        return node.data.UpdateDateTime
+          ? dateToSpecificFormat(
+            `${node.data.UpdateDateTime.split("T")[0]} ${Convert24FourHourAndMinute(
+              node.data.UpdateDateTime.split("T")[1]
+            )}`,
+            "DD-MM-YYYY HH:mm"
+          )
+          : null;
+      },
     },
   ]);
 
@@ -341,7 +343,6 @@ const TrainingList = () => {
 
   const handleEdit = (trainingData) => {
     navigate("/CreateNewTraining", { state: trainingData });
-    console.log("Clicked Create New Training: ", JSON.stringify(trainingData));
   };
 
 
