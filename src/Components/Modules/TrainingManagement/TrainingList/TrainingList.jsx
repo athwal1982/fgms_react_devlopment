@@ -66,14 +66,14 @@ const TrainingList = () => {
         if (MODE === "LOCATIONTRAINER") {
           setTrainers(
             data.map((trainer) => ({
-              value: trainer.UserID, // Ensure UserID is a string
+              value: trainer.UserID, 
               label: `${trainer.Name} - ${trainer.Center}`,
             }))
           );
         } else if (MODE === "CENTER") {
           setCenter(
             data.map((center) => ({
-              value: center.CenterMasterID, // Assuming CenterMasterID is an integer
+              value: center.CenterMasterID, 
               label: `${center.Center} - ${center.Center}`,
             }))
           );
@@ -427,9 +427,27 @@ const TrainingList = () => {
                           readOnly
                         />
                       </div>
+
+
                       <div className="col-md-6">
                         <label htmlFor="trainer" className="form-label small-bold-label">
-                          Trainer *
+                          Center *
+                        </label>
+                        <Select
+                          options={center}
+                          
+                          value={selectedCenter}
+                          onChange={(selectedOptions) => setselectedCenter(selectedOptions)}
+                          className="basic-multi-select form-control-sm"
+                          classNamePrefix="select"
+                          placeholder="Select Center"
+                        />
+                      </div>
+                     
+                      
+                      <div className="col-md-6">
+                        <label htmlFor="trainer" className="form-label small-bold-label">
+                          Trainee *
                         </label>
                         <Select
                           options={trainers}
@@ -438,24 +456,10 @@ const TrainingList = () => {
                           onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
                           className="basic-multi-select form-control-sm"
                           classNamePrefix="select"
-                          placeholder="Select Trainer(s)"
+                          placeholder="Select Trainee(s)"
                         />
 
 
-                      </div>
-                      <div className="col-md-6">
-                        <label htmlFor="trainer" className="form-label small-bold-label">
-                          Center *
-                        </label>
-                        <Select
-                          options={center}
-                          isMulti
-                          value={selectedCenter}
-                          onChange={(selectedOptions) => setselectedCenter(selectedOptions)}
-                          className="basic-multi-select form-control-sm"
-                          classNamePrefix="select"
-                          placeholder="Select Center"
-                        />
                       </div>
 
 

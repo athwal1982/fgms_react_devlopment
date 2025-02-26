@@ -38,6 +38,17 @@ const CreateTraining = ({props}) => {
   const [trainingEndDateErrorMsg, settrainingEndDateErrorMsg] = useState("");
   const [trainingDurationErrorMsg, settrainingDurationErrorMsg] = useState("");
 
+  const handleDateChange = (newDate) => {
+    if (newDate) {
+      const adjustedDate = new Date(newDate.getTime() + (5.5 * 60 * 60 * 1000)); 
+      console.log(adjustedDate, "adjustedDate");
+
+      setTrainingDate(adjustedDate);
+    } else {
+      setTrainingDate(null); 
+    }
+  };
+
   useEffect(() => {
     const fetchTrainingTypes = async () => {
       try {
@@ -58,14 +69,34 @@ const CreateTraining = ({props}) => {
     const fetchExistingTrainingDates = async () => {
       try {
         const data = await getUpcomingTrainings();
-        console.log(data);
-    
         if (data.response.responseCode === 1) {
+          const currentTimeIST = new Date();
+          const istOffset = 5.5 * 60 * 60 * 1000;
+          const currentTimeInIST = new Date(currentTimeIST.getTime() + istOffset);
+    
           const filteredData = data.response.responseData.filter(training => {
-            return new Date(training.TrainingDate) >= new Date(); 
+            const trainingDate = new Date(training.TrainingDate);
+            const startTimeParts = training.StartTime.split(":");
+            const endTimeParts = training.EndTime.split(":");
+    
+            const startDate = new Date(trainingDate);
+            startDate.setHours(parseInt(startTimeParts[0]), parseInt(startTimeParts[1]), 0, 0);
+            const startDateInIST = new Date(startDate.getTime() + istOffset);
+    
+            const endDate = new Date(trainingDate);
+            endDate.setHours(parseInt(endTimeParts[0]), parseInt(endTimeParts[1]), 0, 0);
+            const endDateInIST = new Date(endDate.getTime() + istOffset);
+    
+            return startDateInIST >= currentTimeInIST;
           });
-          
-          setExistingTrainingDates(filteredData);
+    
+          const sortedData = filteredData.sort((a, b) => {
+            const startTimeA = new Date(new Date(a.TrainingDate).setHours(...a.StartTime.split(":").map(Number)));
+            const startTimeB = new Date(new Date(b.TrainingDate).setHours(...b.StartTime.split(":").map(Number)));
+            return startTimeA - startTimeB;
+          });
+    
+          setExistingTrainingDates(sortedData);
         } else {
           setExistingTrainingDates([]); 
         }
@@ -73,6 +104,9 @@ const CreateTraining = ({props}) => {
         console.error("Error fetching existing training dates", error);
       }
     };
+    
+    
+    
     
 
     fetchTrainingTypes();
@@ -255,6 +289,8 @@ const CreateTraining = ({props}) => {
     }
   };
 
+  
+
 
   useEffect(() => {
     if (trainingData?.TrainingMasterId) {
@@ -334,22 +370,21 @@ const CreateTraining = ({props}) => {
           </div>
 
           <div className="form-row">
+           
             <div className="form-group">
-              <label htmlFor="training-date">Training Scheduled Date <span className="asteriskCss">&#42;</span></label>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  id="training-date"
-                  
-                  value={trainingDate}
-                  onChange={(newDate) => setTrainingDate(newDate)}
-                  minDate={new Date()}
-                  renderInput={(params) => <TextField {...params} />}
-                  disablePast
-                  renderDay={renderDay}
-                />
-              </LocalizationProvider>
-              <span className="login_ErrorTxt">{trainingDateErrorMsg}</span>
-            </div>
+      <label htmlFor="training-date">Training Scheduled Date <span className="asteriskCss">&#42;</span></label>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          id="training-date"
+          value={trainingDate}
+          onChange={handleDateChange}
+          minDate={new Date()} 
+          renderInput={(params) => <TextField {...params} />}
+          disablePast
+        />
+      </LocalizationProvider>
+      <span className="login_ErrorTxt">{trainingDateErrorMsg}</span>
+    </div>
             <div
               className="form-group time-group"
               style={{ display: "flex", flexDirection: "row", gap: "20px", marginRight: "0px" }}
