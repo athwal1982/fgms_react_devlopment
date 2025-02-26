@@ -245,6 +245,8 @@ function KrphAllActivities() {
       setActiveBtnKey(pType);
        if(farmerAuthenticateByMobile === false) {
         SavevalidateFarmerOnClick(formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "", formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "");
+       } else {
+        SavevalidateFarmerRegisteredFarmerOnClick(selectedFarmer ? selectedFarmer.farmerName : "", selectedFarmer.stateID  ? selectedFarmer.stateID : "", selectedFarmer && selectedFarmer.districtID ? selectedFarmer.districtID : "", selectedFarmer && selectedFarmer.state ? selectedFarmer.state : "",selectedFarmer && selectedFarmer.district ? selectedFarmer.district : "");
        }
     } else if (pType === "BTNSBMT") {
       setActiveBtnKey(pType);
@@ -2196,6 +2198,7 @@ function KrphAllActivities() {
   const [btnLoaderFarmerGreivenceInfoActive, setBtnLoaderFarmerGreivenceInfoActive] = useState(false);
   const [isLoadingApplicationNoDataGreivence, setIsLoadingApplicationNodatGreivence] = useState(false);
   const getPolicyOfFarmerGreivenceOnClick = async () => {
+    debugger;
     if (!handleFarmersInfoValidation()) {
       return;
     }
@@ -2283,6 +2286,27 @@ function KrphAllActivities() {
                 });
               });
               setInsuranceCompanyDataGreivence(farmerAndApplicationData);
+              if(getCallingMasterID === 0) {
+                const callingformData = {
+                  CallingMasterID: getCallingMasterID,
+                  callerMobileNumber: formValuesGI.txtMobileCallerNumber ? formValuesGI.txtMobileCallerNumber : "",
+                  user: dcryptUID,
+                  callingUniqueID: dcryptUNQEID,
+                  farmerMobileNumber: formValuesMN.txtMobileNumber ? formValuesMN.txtMobileNumber : "",
+                  farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
+                  callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
+                  reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
+                  stateCodeAlpha:
+                    formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+                  districtCodeAlpha:
+                    formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+                  farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
+                  farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
+                  isRegistered: valisRegistered,
+                };
+                SavevalidateFarmerCallingMaserIDFail(callingformData);
+              }
+             
               toggleInsuranceCompanyModalGreivence();
             } else {
               setInsuranceCompanyDataGreivence([]);
@@ -2678,6 +2702,7 @@ function KrphAllActivities() {
 
   const SavevalidateFarmerOnpageLand = async (pisRegistered) => {
     debugger;
+    setvalisRegistered(pisRegistered);
     try {
       const formData = {
         CallingMasterID: getCallingMasterID,
@@ -2700,15 +2725,11 @@ function KrphAllActivities() {
         if(result.response.responseData.CallingMasterID > 0) {
           setgetCallingMasterID(result.response.responseData.CallingMasterID);
         } else {
-          setgetCallingMasterID(1);
+          SavevalidateFarmerCallingMaserIDFail(formData); 
         }
         
       } else {
-        setgetCallingMasterID(2);
-        setAlertMessage({
-          type: "error",
-          message: result.response.responseMessage,
-        });
+        SavevalidateFarmerCallingMaserIDFail(formData); 
       }
     } catch (error) {
       console.log(error);
@@ -2744,15 +2765,11 @@ function KrphAllActivities() {
         if(result.response.responseData.CallingMasterID > 0) {
           setgetCallingMasterID(result.response.responseData.CallingMasterID);
         } else {
-          setgetCallingMasterID(1);
+          SavevalidateFarmerCallingMaserIDFail(formData); 
         }
         
       } else {
-        setgetCallingMasterID(2);
-        setAlertMessage({
-          type: "error",
-          message: result.response.responseMessage,
-        });
+        SavevalidateFarmerCallingMaserIDFail(formData); 
       }
     } catch (error) {
       console.log(error);
@@ -2787,14 +2804,10 @@ function KrphAllActivities() {
         if(result.response.responseData.CallingMasterID > 0) {
           setgetCallingMasterID(result.response.responseData.CallingMasterID);
         } else {
-          setgetCallingMasterID(1);    
+          SavevalidateFarmerCallingMaserIDFail(formData);  
         }
       } else {
-        setgetCallingMasterID(2);
-        setAlertMessage({
-          type: "error",
-          message: result.response.responseMessage,
-        });
+        SavevalidateFarmerCallingMaserIDFail(formData); 
       }
     } catch (error) {
       console.log(error);
@@ -2803,6 +2816,22 @@ function KrphAllActivities() {
         message: error,
       });
       return false;
+    }
+  };
+
+  const SavevalidateFarmerCallingMaserIDFail = async (pformdata) => {
+    debugger;
+    try {
+      const result = await krphFarmerCallingHistorydata(pformdata);
+      if (result.response.responseCode === 1) {
+        setgetCallingMasterID(result.response.responseData.CallingMasterID);
+      }
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
     }
   };
   const clearInsuranceFieldsAndTicketCreation = () => {
