@@ -194,7 +194,7 @@ const TrainingList = () => {
   const ActionCellRenderer = (props) => {
     return (
       <>
-        {accessCode === 999 && (
+        {accessCode == 999 && (
           <>
             <i
               className="fas fa-save"
