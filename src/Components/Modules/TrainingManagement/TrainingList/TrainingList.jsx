@@ -35,13 +35,18 @@ const TrainingList = () => {
 
   // Fetching training data
   const fetchAllTraining = async (page = 1, query = "") => {
+    debugger;
     try {
       const response = await getTrainingListData({ page, limit, searchQuery: query });
       let data = response.response.responseData;
       let responseCode = response.response.responseCode;
       if (responseCode === 1) {
-        setRowData(data);
-        setFilteredData(data);
+        const updatedData = data.map(item => ({
+          ...item,
+          Assigned: item.Assigned === 1 ? "Yes" : "No"
+        }));
+        setRowData(updatedData);
+        setFilteredData(updatedData);
         setTotalPages(response.totalPages);
         console.log("this is filteredData see trainingID" + JSON.stringify(data));
       } else {
@@ -55,8 +60,6 @@ const TrainingList = () => {
     }
   };
   const fetchAllTrainer = async () => {
-    // A const formdata = { SPMODE: MODE };
- debugger;
     const formData = {
       SPMODE: "CENTER",
       SPCenterID: 0,
@@ -70,11 +73,11 @@ const TrainingList = () => {
       if (responseCode === 1) {
         setCenter(
           data.map((center) => ({
-            value: center.CenterMasterID, 
+            value: center.CenterMasterID,
             label: `${center.Center} - ${center.Center}`,
           }))
         );
-       
+
       } else {
         setCenter([]);
       }
@@ -88,13 +91,13 @@ const TrainingList = () => {
     try {
       const formData = {
         SPMODE: "TRAINEE",
-        SPCenterID: centerId, 
+        SPCenterID: centerId,
       };
-  
+
       const response = await getTrainerList(formData);
       let data = response.response.responseData;
       let responseCode = response.response.responseCode;
-  
+
       if (responseCode === 1) {
         setTrainers(
           data.map((trainer) => ({
@@ -109,17 +112,17 @@ const TrainingList = () => {
       console.error("Error fetching trainers:", error);
     }
   };
-  
+
 
   const handleCenterChange = (selectedOption) => {
     debugger;
     setselectedCenter(selectedOption);
-  
+
     if (selectedOption) {
-      fetchTrainersByCenter(selectedOption.value); 
+      fetchTrainersByCenter(selectedOption.value);
     }
   };
-  
+
   const setTrainer = async () => {
     debugger;
     const selectedTrainerIds = selectedTrainers.map(trainer => trainer.value);
@@ -138,7 +141,7 @@ const TrainingList = () => {
       trainingMasterID: selectedTraining.TrainingMasterId,
       userID: selectedTrainerIds.join(","),
       trainingUserAssignmentID: 0,
-      cSCAppAccessTypeID:accessCode,
+      cSCAppAccessTypeID: accessCode,
     };
 
     console.log("Sending API Data:", formdata);
@@ -185,7 +188,7 @@ const TrainingList = () => {
 
   const handleClose = () => {
     setShowModal(false);
-    setSelectedTraining(null); // Clear selected training
+    setSelectedTraining(null); 
   };
 
   const ActionCellRenderer = (props) => {
@@ -221,6 +224,12 @@ const TrainingList = () => {
       headerName: "Action",
       field: "action",
       cellRenderer: ActionCellRenderer,
+      width: 100,
+      cellStyle: { textAlign: "center" },
+    },
+    {
+      headerName: "Assigned",
+      field: "Assigned",
       width: 100,
       cellStyle: { textAlign: "center" },
     },
@@ -298,7 +307,7 @@ const TrainingList = () => {
     },
   ]);
 
-  // Pagination handler
+
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
       setCurrentPage(newPage);
@@ -335,12 +344,12 @@ const TrainingList = () => {
     console.log("Clicked Create New Training: ", JSON.stringify(trainingData));
   };
 
- 
+
 
 
   useEffect(() => {
     debugger;
-   
+
     fetchAllTraining(currentPage);
     fetchAllTrainer();
   }, [currentPage]);
@@ -360,7 +369,7 @@ const TrainingList = () => {
               />
             </div>
 
-            {accessCode === 999 && ( 
+            {accessCode === 999 && (
               <button
                 className="create-agent-button"
                 onClick={() => navigate("/CreateNewTraining")}
@@ -387,9 +396,9 @@ const TrainingList = () => {
               rowHeight={30}
             />
 
-            {/* Modal for Training Details */}
+           
             {selectedTraining && (
-              <Modal  show={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
+              <Modal show={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
 
                 <Modal.Header closeButton className="py-2" style={{ backgroundColor: "#004d00", color: "white" }}>
                   <Modal.Title style={{ fontSize: "1rem" }}>Edit Training Details</Modal.Title>
@@ -439,7 +448,7 @@ const TrainingList = () => {
                     </div>
 
                     <div className="row mb-3">
-                    
+
 
                       <div className="col-md-4">
                         <label htmlFor="startTime" className="form-label small-bold-label">Start Time *</label>
@@ -464,37 +473,37 @@ const TrainingList = () => {
                     </div>
 
                     <div className="row mb-3">
-                   
+
 
 
                       <div className="col-md-4">
-  <label htmlFor="center" className="form-label small-bold-label">
-    Center *
-  </label>
-  <Select
-    options={center}
-    value={selectedCenter}
-    onChange={handleCenterChange} 
-    className="basic-multi-select form-control-sm"
-    classNamePrefix="select"
-    placeholder="Select Center"
-  />
-</div>
+                        <label htmlFor="center" className="form-label small-bold-label">
+                          Center *
+                        </label>
+                        <Select
+                          options={center}
+                          value={selectedCenter}
+                          onChange={handleCenterChange}
+                          className="basic-multi-select form-control-sm"
+                          classNamePrefix="select"
+                          placeholder="Select Center"
+                        />
+                      </div>
 
-<div className="col-md-4">
-  <label htmlFor="trainer" className="form-label small-bold-label">
-    Trainee *
-  </label>
-  <Select
-    options={trainers}
-    isMulti
-    value={selectedTrainers}
-    onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
-    className="basic-multi-select form-control-sm"
-    classNamePrefix="select"
-    placeholder="Select Trainee(s)"
-  />
-</div>
+                      <div className="col-md-4">
+                        <label htmlFor="trainer" className="form-label small-bold-label">
+                          Trainee *
+                        </label>
+                        <Select
+                          options={trainers}
+                          isMulti
+                          value={selectedTrainers}
+                          onChange={(selectedOptions) => setSelectedTrainers(selectedOptions)}
+                          className="basic-multi-select form-control-sm"
+                          classNamePrefix="select"
+                          placeholder="Select Trainee(s)"
+                        />
+                      </div>
 
 
 
