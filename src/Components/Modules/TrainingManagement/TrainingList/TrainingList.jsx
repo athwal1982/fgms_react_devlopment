@@ -10,6 +10,7 @@ import _ from "lodash";
 import { Modal, Button } from "react-bootstrap";
 import Select from "react-select";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
+import AssignUnAssignCenter from "./AssignUnAssignCenter";
 
 const TrainingList = () => {
   const setAlertMessage = AlertMessage();
@@ -195,10 +196,21 @@ const TrainingList = () => {
             <i
               class="fa fa-tasks"
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+<<<<<<< HEAD
               onClick={() => assignunassigncenterOnClick(props.data)}
               title="Assign/Unassign Center"
             ></i>
             <i className="fas fa-edit" style={{ cursor: "pointer", color: "green" }} onClick={() => handleEdit(props.data)} title="Edit"></i>
+=======
+              onClick={() => toggleAssignUnAssignCenterModal(props.data)}
+              title="Assign/Unassign Center"></i>
+            {/* <i
+              className="fas fa-edit"
+              style={{ cursor: "pointer", color: "green" }}
+              onClick={() => handleEdit(props.data)}
+              title="Edit"
+            ></i> */}
+>>>>>>> 8bf3c43b9bcf153fd5939c19e73f49acff6114ac
           </>
         )}
       </>
@@ -213,12 +225,27 @@ const TrainingList = () => {
       width: 100,
       cellStyle: { textAlign: "center" },
     },
+  
     {
       headerName: "Training Type",
-      field: "TrainingName",
+      field: "TrainingType",
       sortable: true,
       filter: true,
       width: 150,
+    },
+    {
+      headerName: "Training Title",
+      field: "TrainingTitle",
+      sortable: true,
+      filter: true,
+      width: 150,
+    },
+    {
+      headerName: "Training Link",
+      field: "TrainingLink",
+      sortable: true,
+      filter: true,
+      width: 250,
     },
     {
       headerName: "Training Date",
@@ -319,6 +346,20 @@ const TrainingList = () => {
     navigate("/CreateNewTraining", { state: trainingData });
   };
 
+<<<<<<< HEAD
+=======
+  const [assignUnAssignCenterModal, setAssignUnAssignCenterModal] =
+  useState(false);
+const [openAssignUnAssignCenterModal, setOpenAssignAssignCenterModal] =
+  useState(false);
+const toggleAssignUnAssignCenterModal = (data) => {
+  debugger;
+  setOpenAssignAssignCenterModal(!openAssignUnAssignCenterModal);
+  setAssignUnAssignCenterModal(data);
+};
+
+
+>>>>>>> 8bf3c43b9bcf153fd5939c19e73f49acff6114ac
   useEffect(() => {
     debugger;
 
@@ -328,6 +369,12 @@ const TrainingList = () => {
 
   return (
     <>
+    {openAssignUnAssignCenterModal && (
+        <AssignUnAssignCenter
+          toggleAssignUnAssignCenterModal={toggleAssignUnAssignCenterModal}
+          assignUnAssignCenterModal={assignUnAssignCenterModal}
+        />
+      )}
       <div className="form-wrapper-agent">
         <div className="modify-agent-container">
           <div className="top-actions">

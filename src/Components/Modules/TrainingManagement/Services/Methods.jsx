@@ -145,7 +145,12 @@ export const setAssignList = async (formData) => {
   }
 };
 
+<<<<<<< HEAD
 export const CSCCenterWiseTrainingData = async (formData) => {
+=======
+
+export const cSCCenterTrainingAssignManageData = async (formData) => {
+>>>>>>> 8bf3c43b9bcf153fd5939c19e73f49acff6114ac
   debugger;
   try {
     const requestData = {
@@ -153,7 +158,14 @@ export const CSCCenterWiseTrainingData = async (formData) => {
         ...formData,
       },
     };
+<<<<<<< HEAD
     const result = await ApiCalling(requestData, APIEndpoints.Training.CSCCenterWiseTraining);
+=======
+    const result = await ApiCalling(
+      requestData,
+      APIEndpoints.Training.CSCCenterTrainingAssignManage,
+    );
+>>>>>>> 8bf3c43b9bcf153fd5939c19e73f49acff6114ac
     if (result.responseCode === 1) {
       if (result.responseData) {
         return { response: result };
@@ -167,4 +179,8 @@ export const CSCCenterWiseTrainingData = async (formData) => {
       response: { responseCode: 0, responseData: null, responseMessage: error },
     };
   }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 8bf3c43b9bcf153fd5939c19e73f49acff6114ac

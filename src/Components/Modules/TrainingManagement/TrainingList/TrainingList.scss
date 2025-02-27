@@ -203,3 +203,9 @@
   border-radius: 12px;
   border: 2px solid #004d00 !important;
 }
+
+.PageStart {
+  display: grid;
+  grid-template-rows: max-content auto;
+  overflow: auto;
+}
