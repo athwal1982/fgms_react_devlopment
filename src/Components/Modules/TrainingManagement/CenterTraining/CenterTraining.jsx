@@ -10,6 +10,7 @@ import _ from "lodash";
 import { Modal, Button } from "react-bootstrap";
 import Select from "react-select";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
+import AssignUnassignTrainee from "./AssignUnassignTrainee";
 
 const CenterTraining = () => {
   const setAlertMessage = AlertMessage();
@@ -56,7 +57,7 @@ const CenterTraining = () => {
     return (
       <>
         <>
-          <i className="fas fa-tasks" style={{ cursor: "pointer", color: "green" }} onClick={() => handleShow(props.data)} title="Assign Trainee"></i>
+          <i className="fas fa-tasks" style={{ cursor: "pointer", color: "green" }} onClick={() => toggleAssignUnAssignCenterModal(props.data)} title="Assign Trainee"></i>
         </>
       </>
     );
@@ -70,6 +71,13 @@ const CenterTraining = () => {
       width: 100,
       cellStyle: { textAlign: "center" },
     },
+    {
+        headerName: "Center Name",
+        field: "Center",
+        sortable: true,
+        filter: true,
+        width: 150,
+      },
     {
       headerName: "Training Type",
       field: "TrainingName",
@@ -161,8 +169,24 @@ const CenterTraining = () => {
     fetchAllCenterWiseTraining(currentPage);
   }, [currentPage]);
 
+  const [assignUnAssignTraineeModal, setAssignUnAssignTraineeModal] =
+    useState(false);
+  const [openAssignUnAssignTraineeModal, setOpenAssignAssignTraineeModal] =
+    useState(false);
+  const toggleAssignUnAssignCenterModal = (data) => {
+    debugger;
+    setOpenAssignAssignTraineeModal(!openAssignUnAssignTraineeModal);
+    setAssignUnAssignTraineeModal(data);
+  };
+
   return (
     <>
+    {openAssignUnAssignTraineeModal && (
+        <AssignUnassignTrainee
+        toggleAssignUnAssignCenterModal={toggleAssignUnAssignCenterModal}
+          assignUnAssignTraineeModal={assignUnAssignTraineeModal}
+        />
+      )}
       <div className="form-wrapper-agent">
         <div className="modify-agent-container">
           <div className="top-actions">

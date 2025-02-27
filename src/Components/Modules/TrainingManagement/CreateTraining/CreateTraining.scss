@@ -178,3 +178,9 @@
   color: #e54b4b;
   font-weight: 600;
 }
+
+.PageStart {
+  display: grid;
+  grid-template-rows: max-content auto;
+  overflow: auto;
+}
