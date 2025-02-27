@@ -192,10 +192,13 @@ const TraineeList = () => {
     }
   };
   const fetchAllTrainer = async () => {
-    const formdata = { SPMODE: "CENTER" };
+    const formData = {
+      SPMODE: "CENTER",
+      SPCenterID: 0,
+    };
 
     try {
-      const response = await getTrainerList(formdata);
+      const response = await getTrainerList(formData);
       let data = response.response.responseData;
       let responseCode = response.response.responseCode;
 

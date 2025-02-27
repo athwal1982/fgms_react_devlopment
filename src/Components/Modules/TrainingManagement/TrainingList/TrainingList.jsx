@@ -166,7 +166,9 @@ const TrainingList = () => {
 
   const handleShow = async (training) => {
     debugger;
-
+    setSelectedTraining(null);
+    setSelectedTrainers([]);
+    setselectedCenter(null);
     try {
       await Promise.all([fetchAllTrainer("LOCATIONTRAINER"), fetchAllTrainer("CENTER")]);
 
