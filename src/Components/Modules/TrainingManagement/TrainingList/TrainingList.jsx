@@ -187,7 +187,7 @@ const TrainingList = () => {
 
   const assignunassigncenterOnClick = async () => {
 
-  }
+  };
 
   const ActionCellRenderer = (props) => {
     return (
