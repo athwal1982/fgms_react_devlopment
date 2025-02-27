@@ -3,6 +3,7 @@ import { AlertMessage, Loader } from "Framework/Components/Widgets";
 import Modal from "Framework/Components/Layout/Modal/Modal";
 import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
+import { FaPaperPlane } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 // A import { getSessionStorage } from "Components/Modules/Common/Login/Auth/auth";
 import { getSessionStorage } from "../../../Common/Login/Auth/auth";
@@ -282,12 +283,17 @@ function AssignUnAssignTrainee({
           <div
             className="PageStart"
           >
-            <PageBar>
-              <PageBar.Search
-                value={searchTextAssigendTrainee}
-                onChange={(e) => onSearchAssignedTrainee(e.target.value)}
-              />
-            </PageBar>
+          
+            <div className="custom-search-container">
+                            <input
+                                type="text"
+                                value={searchTextAssigendTrainee}
+                                onChange={(e) => onSearchAssignedTrainee(e.target.value)}
+                                className="custom-search-input"
+                                placeholder="Search Trainee..."
+                            />
+
+                        </div>
 
 
             <DataGrid
@@ -300,12 +306,14 @@ function AssignUnAssignTrainee({
               frameworkComponents={{
                 assignedTraineeActionTemplate,
               }}
+               className="custom-data-grid"
             >
               <DataGrid.Column
                 lockPosition="1"
                 pinned="left"
                 headerName="Action"
                 field=""
+                flex={1}
                 width={80}
                 // A headerCheckboxSelection
                 // A headerCheckboxSelectionFilteredOnly
@@ -321,6 +329,7 @@ function AssignUnAssignTrainee({
                 field="#"
                 headerName="Sr No."
                 width={75}
+                flex={1}
                 valueGetter="node.rowIndex + 1"
                 pinned="left"
               />
@@ -328,7 +337,9 @@ function AssignUnAssignTrainee({
                 field="AssignmentFlag"
                 headerName="Status"
                 width={120}
+                flex={1}
                 valueFormatter={(param) =>
+
                   param.value === 1 ? "Assigned" : " Not Assigned"
                 }
               />
@@ -336,9 +347,11 @@ function AssignUnAssignTrainee({
                 field="NAME"
                 headerName="Trainee Name"
                 width={150}
+                flex={1}
               />
                <DataGrid.Column
                 field="Center"
+                flex={1}
                 headerName="Center Name"
                 width={150}
               />
@@ -351,7 +364,9 @@ function AssignUnAssignTrainee({
             varient="danger"
             onClick={(e) => handleSave(e)}
             trigger={btnLoaderActive ? "true" : "false"}
+              className="custom-button-AssignUnassign"
           >
+             <FaPaperPlane className="icon" />
             Save
           </Button>
         </Modal.Footer>

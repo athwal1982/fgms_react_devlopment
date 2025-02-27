@@ -52,6 +52,7 @@ import CenterTraining from "Components/Modules/TrainingManagement/CenterTraining
 import TraineeList from "Components/Modules/Trainee/TraineeList/TraineeList";
 import Page from "./Page/Page";
 import PageAuthenticator from "./PageAuthenticator/PageAuthenticator";
+import AgentTraining from "Components/Modules/TrainingManagement/AgentTraining/AgentTraining";
 
 function PageRouter() {
   return (
@@ -126,6 +127,7 @@ function PageRouter() {
         <Route exact path="/TraineeList" element={<Page component={<TraineeList />} title="Trainee List" />} />
         <Route exact path="/TrainingList" element={<Page component={<TrainingList />} title="Training List" />} />
         <Route exact path="/CenterTrainings" element={<Page component={<CenterTraining />} title="Center Trainings" />} />
+        <Route exact path="/AgentTrainings" element={<Page component={<AgentTraining />} title="Agent Trainings" />} />
       </Routes>
     </Router>
   );
