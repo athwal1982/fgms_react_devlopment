@@ -8,6 +8,6 @@ const APIEndpoints = {
     SetAssignList:"FGMS/CSCUserTrainingAssignManage"
   
   },
-};
+};  
 
 export default APIEndpoints;

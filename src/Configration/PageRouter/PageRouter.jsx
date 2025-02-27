@@ -48,8 +48,8 @@ import ImportantInstructions from "Components/Common/ImportantInstructions/Impor
 import ServiceSuccess from "Components/Common/KrphAllActivities/ServiceSuccess";
 import CreateTraining from "Components/Modules/TrainingManagement/CreateTraining/CreateTraining";
 import TrainingList from "Components/Modules/TrainingManagement/TrainingList/TrainingList";
+import CenterTraining from "Components/Modules/TrainingManagement/CenterTraining/CenterTraining";
 import TraineeList from "Components/Modules/Trainee/TraineeList/TraineeList";
-import AssignTraining from "Components/Modules/TrainingManagement/AssignTraining/AssignTraining";
 import Page from "./Page/Page";
 import PageAuthenticator from "./PageAuthenticator/PageAuthenticator";
 
@@ -125,7 +125,7 @@ function PageRouter() {
         <Route exact path="/CreateNewTraining" element={<Page component={<CreateTraining />} title="Create  Training" />} />
         <Route exact path="/TraineeList" element={<Page component={<TraineeList />} title="Trainee List" />} />
         <Route exact path="/TrainingList" element={<Page component={<TrainingList />} title="Training List" />} />
-        <Route exact path="/AssignTraining" element={<Page component={<AssignTraining />} title="Training List" />} /> 
+        <Route exact path="/CenterTrainings" element={<Page component={<CenterTraining />} title="Center Trainings" />} />
       </Routes>
     </Router>
   );
