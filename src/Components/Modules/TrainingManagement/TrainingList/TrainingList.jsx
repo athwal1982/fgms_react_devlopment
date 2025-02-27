@@ -183,18 +183,25 @@ const TrainingList = () => {
     setSelectedTraining(null); 
   };
 
+  const assignunassigncenterOnClick = async () => {
+
+  }
+
   const ActionCellRenderer = (props) => {
     return (
       <>
         {accessCode == 999 && (
           <>
-            <i
+            {/* <i
               className="fas fa-save"
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
               onClick={() => handleShow(props.data)}
-              title="Save"
-            ></i>
-
+              title="Save">
+            </i> */}
+            <i class="fa fa-tasks"  
+              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+              onClick={() => assignunassigncenterOnClick(props.data)}
+              title="Assign/Unassign Center"></i>
             <i
               className="fas fa-edit"
               style={{ cursor: "pointer", color: "green" }}
@@ -216,12 +223,6 @@ const TrainingList = () => {
       headerName: "Action",
       field: "action",
       cellRenderer: ActionCellRenderer,
-      width: 100,
-      cellStyle: { textAlign: "center" },
-    },
-    {
-      headerName: "Assigned",
-      field: "Assigned",
       width: 100,
       cellStyle: { textAlign: "center" },
     },
