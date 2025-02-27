@@ -5,7 +5,7 @@ const APIEndpoints = {
     GetMasterDataBinding: "FGMS/GetMasterDataBinding",
     TicketStatusUpdate: "FGMS/TicketStatusUpdate",
     EditSupportTicketReview: "FGMS/EditSupportTicketReview",
-    AddCSCSupportTicketReview:"FGMS/AddCSCSupportTicketReview",
+    AddCSCSupportTicketReview: "FGMS/AddCSCSupportTicketReview",
   },
 };
 

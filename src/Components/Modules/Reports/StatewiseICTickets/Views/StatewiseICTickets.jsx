@@ -25,7 +25,7 @@ function StatewiseICTickets({
       StateMasterName: "Total",
       ["AIC"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["AIC"]), 0),
       ["Bajaj_Allianz"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["Bajaj_Allianz"]), 0),
-     // A  ["Bharti_AXA_GIC"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["Bharti_AXA_GIC"]), 0),
+      // A  ["Bharti_AXA_GIC"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["Bharti_AXA_GIC"]), 0),
       ["Chola_MS"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["Chola_MS"]), 0),
       ["Future_Generalli"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["Future_Generalli"]), 0),
       ["HDFC_Ergo"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["HDFC_Ergo"]), 0),
@@ -42,7 +42,6 @@ function StatewiseICTickets({
       ["TATA_AIG"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["TATA_AIG"]), 0),
       ["United_India"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["United_India"]), 0),
       ["Universal_Sompo"]: filteredStatewiseICTicketsDataList.reduce((acc, row) => Number(acc) + Number(row["Universal_Sompo"]), 0),
-      
     };
     return [totalRow];
   };
@@ -73,15 +72,15 @@ function StatewiseICTickets({
           onChange={(e) => updateState("txtMonthFilter", e)}
         />
         <PageBar.Select
-                  ControlTxt="Search By"
-                  name="SearchByFilter"
-                  isLoading={isLoadingTicketStatusList}
-                  getOptionLabel={(option) => `${option.CommonMasterValue}`}
-                  getOptionValue={(option) => `${option}`}
-                  options={ticketStatusList}
-                  value={formValues.txtStatus}
-                  onChange={(e) => updateState("txtStatusFilter", e)}
-                />
+          ControlTxt="Search By"
+          name="SearchByFilter"
+          isLoading={isLoadingTicketStatusList}
+          getOptionLabel={(option) => `${option.CommonMasterValue}`}
+          getOptionValue={(option) => `${option}`}
+          options={ticketStatusList}
+          value={formValues.txtStatus}
+          onChange={(e) => updateState("txtStatusFilter", e)}
+        />
 
         <PageBar.Search
           value={StatewiseICTicketsListItemSearch}
@@ -274,7 +273,7 @@ function StatewiseICTickets({
             return node.data["Kshema_Insurance"] ? node.data["Kshema_Insurance"] : 0;
           }}
         />
-       
+
         <DataGrid.Column
           field="total"
           headerName="Total"
@@ -283,24 +282,24 @@ function StatewiseICTickets({
           valueGetter={(node) => {
             return (
               Number(node.data["AIC"]) +
-              Number(node.data["Bajaj_Allianz"]) + 
-              // A Number(node.data["Bharti_AXA_GIC"]) + 
-              Number(node.data["Chola_MS"]) + 
-              Number(node.data["Future_Generalli"]) + 
-              Number(node.data["HDFC_Ergo"]) + 
-              Number(node.data["ICICI_Lombard"]) + 
-              Number(node.data["IFFCO_TOKIO"]) + 
-              Number(node.data["Kshema_Insurance"]) + 
-              Number(node.data["NationalInsurance"]) + 
-              Number(node.data["New_India_Assurance"]) + 
-              Number(node.data["Oriental_Insurance"]) + 
-              Number(node.data["Reliance_GIC"]) + 
-              Number(node.data["Royal_Sundaram_GIC"]) + 
-              Number(node.data["SBI_GIC"]) + 
-              Number(node.data["Shriram_GIC"]) + 
-              Number(node.data["TATA_AIG"]) + 
-              Number(node.data["United_India"]) + 
-              Number(node.data["Universal_Sompo"]) 
+              Number(node.data["Bajaj_Allianz"]) +
+              // A Number(node.data["Bharti_AXA_GIC"]) +
+              Number(node.data["Chola_MS"]) +
+              Number(node.data["Future_Generalli"]) +
+              Number(node.data["HDFC_Ergo"]) +
+              Number(node.data["ICICI_Lombard"]) +
+              Number(node.data["IFFCO_TOKIO"]) +
+              Number(node.data["Kshema_Insurance"]) +
+              Number(node.data["NationalInsurance"]) +
+              Number(node.data["New_India_Assurance"]) +
+              Number(node.data["Oriental_Insurance"]) +
+              Number(node.data["Reliance_GIC"]) +
+              Number(node.data["Royal_Sundaram_GIC"]) +
+              Number(node.data["SBI_GIC"]) +
+              Number(node.data["Shriram_GIC"]) +
+              Number(node.data["TATA_AIG"]) +
+              Number(node.data["United_India"]) +
+              Number(node.data["Universal_Sompo"])
             );
           }}
         />
@@ -310,7 +309,7 @@ function StatewiseICTickets({
 }
 
 export default StatewiseICTickets;
-  StatewiseICTickets.propTypes = {
+StatewiseICTickets.propTypes = {
   filteredStatewiseICTicketsDataList: PropTypes.array,
   isLoadingStatewiseICTicketsDataList: PropTypes.bool,
   onGridReady: PropTypes.func.isRequired,

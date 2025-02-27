@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import Select from 'react-select';
-import { ReactSelectStyle } from '../../Assets/Style/Widgets/SelectStyle/SelectStyle';
-import { EnterKeyCode } from 'Configration/Utilities/Constants';
-import './PageTitle.scss';
+import React, { useEffect, useRef } from "react";
+import Select from "react-select";
+import { ReactSelectStyle } from "../../Assets/Style/Widgets/SelectStyle/SelectStyle";
+import { EnterKeyCode } from "Configration/Utilities/Constants";
+import "./PageTitle.scss";
 
 function PageTitle(props) {
   const { Title, children, className, controlOnLeft, leftControl, ...rest } = props;
@@ -10,12 +10,13 @@ function PageTitle(props) {
   return (
     <React.Fragment>
       <div className={`DynBiz_PageTitle ${className}`} {...rest}>
-        {controlOnLeft === true ? <div className='DynBiz_PageTitle_ControlLeft'>
-          {leftControl} <span>{Title}</span>
-        </div>
-          :
+        {controlOnLeft === true ? (
+          <div className="DynBiz_PageTitle_ControlLeft">
+            {leftControl} <span>{Title}</span>
+          </div>
+        ) : (
           <span>{Title}</span>
-        }
+        )}
         <div className="DynBiz_PageTitle_Contentbox">{props.children}</div>
       </div>
     </React.Fragment>
@@ -25,7 +26,7 @@ function PageTitle(props) {
 export default PageTitle;
 
 export const PageSelect = React.forwardRef((props, ref) => {
-  const { ControlTxt = '', width, focus, children, ...rest } = props;
+  const { ControlTxt = "", width, focus, children, ...rest } = props;
 
   const firstSearchInput = useRef();
 
@@ -36,12 +37,26 @@ export const PageSelect = React.forwardRef((props, ref) => {
   }, [focus]);
 
   return (
-    <Select {...rest} ref={focus === true ? firstSearchInput : ref} menuPlacement="auto" openMenuOnFocus={true} isClearable={true} menuPosition={'absolute'} menuPortalTarget={document.body} isSearchable={true} className="DynBiz_PageTitle_Select" placeholder={`Select ${ControlTxt}`} styles={ReactSelectStyle} menuShouldScrollIntoView={false} noOptionsMessage={() => 'No Result Found'} />
+    <Select
+      {...rest}
+      ref={focus === true ? firstSearchInput : ref}
+      menuPlacement="auto"
+      openMenuOnFocus={true}
+      isClearable={true}
+      menuPosition={"absolute"}
+      menuPortalTarget={document.body}
+      isSearchable={true}
+      className="DynBiz_PageTitle_Select"
+      placeholder={`Select ${ControlTxt}`}
+      styles={ReactSelectStyle}
+      menuShouldScrollIntoView={false}
+      noOptionsMessage={() => "No Result Found"}
+    />
   );
 });
 
 export const PageSearch = (props) => {
-  const { ControlTxt = '', children, onClick, focus, Text = 'Search', withoutButton, placeholder = 'Search', ...rest } = props;
+  const { ControlTxt = "", children, onClick, focus, Text = "Search", withoutButton, placeholder = "Search", ...rest } = props;
 
   const firstSearchInput = useRef();
 
@@ -63,10 +78,19 @@ export const PageSearch = (props) => {
   return (
     <React.Fragment>
       <div className="DynBiz_PageTitle_SearchBox">
-        <input type="text" placeholder={placeholder} className="DynBiz_PageTitle_SearchInputBox" ref={focus === true ? firstSearchInput : null} {...rest} onKeyDown={(e) => handleKeyDown(e)} />
-        {withoutButton === true ? null : <button type="button" className="DynBiz_PageTitle_SearchBoxBtn" onClick={onClick}>
-          {Text}
-        </button>}
+        <input
+          type="text"
+          placeholder={placeholder}
+          className="DynBiz_PageTitle_SearchInputBox"
+          ref={focus === true ? firstSearchInput : null}
+          {...rest}
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
+        {withoutButton === true ? null : (
+          <button type="button" className="DynBiz_PageTitle_SearchBoxBtn" onClick={onClick}>
+            {Text}
+          </button>
+        )}
       </div>
     </React.Fragment>
   );

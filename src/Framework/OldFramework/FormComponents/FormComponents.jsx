@@ -49,7 +49,14 @@ export const PopupSearch = (props) => {
   return (
     <React.Fragment>
       <div className="DynBiz_PageTitle_SearchBox">
-        <input type="text" placeholder={placeholder} className="DynBiz_PageTitle_SearchInputBox" ref={firstSearchInputBox} {...rest} onKeyDown={(e) => handleKeyDown(e)} />
+        <input
+          type="text"
+          placeholder={placeholder}
+          className="DynBiz_PageTitle_SearchInputBox"
+          ref={firstSearchInputBox}
+          {...rest}
+          onKeyDown={(e) => handleKeyDown(e)}
+        />
         <button className="DynBiz_PageTitle_SearchBoxBtn" onClick={onClick}>
           {Text}
         </button>
@@ -146,7 +153,17 @@ export const AddressControl = (props) => {
 };
 
 export const InputControl = React.forwardRef((props, ref) => {
-  const { ControlTxt = "", Input_type = "", MaxLength = "", maxLength = "", TxtPrefix, controlwidth = "100%", isClearable = "true", isSearchable = "true", ...rest } = props;
+  const {
+    ControlTxt = "",
+    Input_type = "",
+    MaxLength = "",
+    maxLength = "",
+    TxtPrefix,
+    controlwidth = "100%",
+    isClearable = "true",
+    isSearchable = "true",
+    ...rest
+  } = props;
 
   let InputBox = "";
   switch (Input_type) {

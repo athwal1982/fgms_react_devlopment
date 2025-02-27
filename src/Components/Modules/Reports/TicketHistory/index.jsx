@@ -44,9 +44,9 @@ function TicketHistoryPage() {
       updateState={updateState}
       onClickClearSearchFilter={onClickClearSearchFilter}
       exportClick={exportClick}
-      currentPage ={currentPage}
+      currentPage={currentPage}
       totalPages={totalPages}
-      handlePageChange = {handlePageChange}
+      handlePageChange={handlePageChange}
       showHide={showHide}
     />
   );

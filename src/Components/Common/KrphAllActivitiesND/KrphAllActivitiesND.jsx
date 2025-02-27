@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { AlertMessage } from "Framework/Components/Widgets/Notification/NotificationProvider";
-import {  Modal } from "Framework/Components/Layout";
+import { Modal } from "Framework/Components/Layout";
 import { DataGrid, PageBar } from "./Layout";
-import { KrphButton } from  "./Widgets/KrphButton";
+import { KrphButton } from "./Widgets/KrphButton";
 import { Box, Stepper, Step, StepLabel, StepConnector } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import callinfo from "./assets/img/call-info.png";
@@ -494,8 +494,8 @@ function KrphAllActivitiesND() {
       };
       const result = await krphFarmerCallingHistorydata(formData);
       if (result.response.responseCode === 1) {
-        if(result.response.responseData.CallingMasterID > 0) {
-          setgetCallingMasterID(result.response.responseData.CallingMasterID); 
+        if (result.response.responseData.CallingMasterID > 0) {
+          setgetCallingMasterID(result.response.responseData.CallingMasterID);
         } else {
           setgetCallingMasterID(1);
         }
@@ -1094,16 +1094,16 @@ function KrphAllActivitiesND() {
           ? formValuesForByLocation.txtSchemeForLocation.SchemeID === 2
             ? "02"
             : formValuesForByLocation.txtSchemeForLocation.SchemeID === 4
-              ? "04"
-              : ""
+            ? "04"
+            : ""
           : pScheme;
       const pseasonID =
         pSeason === ""
           ? formValuesForByLocation.txtSeasonForLocation.CropSeasonID === 1
             ? "01"
             : formValuesForByLocation.txtSeasonForLocation.CropSeasonID === 2
-              ? "02"
-              : ""
+            ? "02"
+            : ""
           : pSeason;
       const pstateID = pStateMasterID.toString().length < 2 ? `0${pStateMasterID}` : pStateMasterID;
       const pyearID =
@@ -1381,16 +1381,16 @@ function KrphAllActivitiesND() {
           ? formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeID === 2
             ? "02"
             : formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeID === 4
-              ? "04"
-              : ""
+            ? "04"
+            : ""
           : pScheme;
       const pseasonID =
         pSeason === ""
           ? formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonID === 1
             ? "01"
             : formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonID === 2
-              ? "02"
-              : ""
+            ? "02"
+            : ""
           : pSeason;
       const pstateID = pStateMasterID.toString().length < 2 ? `0${pStateMasterID}` : pStateMasterID;
       const pyearID =
@@ -1555,15 +1555,15 @@ function KrphAllActivitiesND() {
         formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeID === 2
           ? "02"
           : formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeID === 4
-            ? "04"
-            : "";
+          ? "04"
+          : "";
       const pseasonID =
         formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline &&
         formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonID === 1
           ? "01"
           : formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonID === 2
-            ? "02"
-            : "";
+          ? "02"
+          : "";
       const pstateID =
         formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline &&
         formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterID.toString().length < 2
@@ -2033,7 +2033,7 @@ function KrphAllActivitiesND() {
           }
         }
       }
-     }
+    }
     if (selectedValidateOption === "2") {
       if (name === "txtAadharNumber") {
         if (!value || typeof value === "undefined") {
@@ -2561,28 +2561,28 @@ function KrphAllActivitiesND() {
 
     if (name === "txtYearForFarmerInfo") {
       if (value) {
-          setSelectedOption("1");
-          setSelectedOptionCropStage("1");
-          setTicketCategoryTypeList([]);
-          setTicketCategoryList([]);
-          setLossAtList([]);
-          setCropStageList([]);
-          getTicketCategoryTypeListData("1", 0, "TCKTYP");
-          setFormValuesTicketCreation({
-            ...formValuesTicketCreation,
-            txtTicketCategoryType: null,
-            txtTicketCategory: null,
-            txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-            txtCropLossIntimation: "On-time",
-            txtCropLossTime: "",
-            txtTicketDescription: "",
-            txtLossAt: null,
-            txtOtherSubCategory: null,
-            txtCropStage: null,
-            txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-            txtCropName: "",
-          });
-        }
+        setSelectedOption("1");
+        setSelectedOptionCropStage("1");
+        setTicketCategoryTypeList([]);
+        setTicketCategoryList([]);
+        setLossAtList([]);
+        setCropStageList([]);
+        getTicketCategoryTypeListData("1", 0, "TCKTYP");
+        setFormValuesTicketCreation({
+          ...formValuesTicketCreation,
+          txtTicketCategoryType: null,
+          txtTicketCategory: null,
+          txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+          txtCropLossIntimation: "On-time",
+          txtCropLossTime: "",
+          txtTicketDescription: "",
+          txtLossAt: null,
+          txtOtherSubCategory: null,
+          txtCropStage: null,
+          txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+          txtCropName: "",
+        });
+      }
     }
   };
 
@@ -2651,8 +2651,8 @@ function KrphAllActivitiesND() {
                       v.scheme === "WBCIS"
                         ? "Weather Based Crop Insurance Scheme(WBCIS)"
                         : v.scheme === "PMFBY"
-                          ? "Pradhan Mantri Fasal Bima Yojna(PMFBY)"
-                          : "",
+                        ? "Pradhan Mantri Fasal Bima Yojna(PMFBY)"
+                        : "",
                     SchemeID: v.scheme === "WBCIS" ? 2 : v.scheme === "PMFBY" ? 4 : 0,
                     insuranceCompanyName: v.insuranceCompanyName,
                     policyID: x.policyID,
@@ -3076,70 +3076,70 @@ function KrphAllActivitiesND() {
     }
   };
 
-    const selectedOptionOnClick = (pselectedOption) => {
-      if (pselectedOption === "GR") {
-        setSelectedOption("1");
-        setSelectedOptionCropStage("1");
-        setTicketCategoryList([]);
-        getTicketCategoryTypeListData("1", 0, "TCKTYP");
-      } else if (pselectedOption === "IN") {
-        setSelectedOption("2");
-        setSelectedOptionCropStage("1");
-        setTicketCategoryList([]);
-        getTicketCategoryTypeListData("2", 0, "TCKTYP");
-      } else if (pselectedOption === "LO") {
-        setSelectedOption("4");
-        setSelectedOptionCropStage("1");
-        setTicketCategoryTypeList([]);
-        setTicketCategoryList([]);
-        getLossAtListData(1);
-        getCropStageListData(1);
-      }
-      setFormValuesTicketCreation({
-        ...formValuesTicketCreation,
-        txtTicketCategoryType: null,
-        txtTicketCategory: null,
-        txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-        txtCropLossIntimation: "On-time",
-        txtCropLossTime: "",
-        txtTicketDescription: "",
-        txtLossAt: null,
-        txtOtherSubCategory: "",
-        txtCropStage: null,
-        txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-        txtCropName: "",
-      });
-      setFormValidationSupportTicketError({});
-      setStateCropLossIntimation("NA");
-    };
-    const selectedOptionOnClickCropStage = (pselectedOption) => {
-      if (pselectedOption === "SCS") {
-        setSelectedOptionCropStage("1");
-        getCropStageListData(1);
-        getLossAtListData(1);
-      } else if (pselectedOption === "HS") {
-        setSelectedOptionCropStage("2");
-        getCropStageListData(2);
-        getLossAtListData(2);
-      }
+  const selectedOptionOnClick = (pselectedOption) => {
+    if (pselectedOption === "GR") {
+      setSelectedOption("1");
+      setSelectedOptionCropStage("1");
+      setTicketCategoryList([]);
+      getTicketCategoryTypeListData("1", 0, "TCKTYP");
+    } else if (pselectedOption === "IN") {
+      setSelectedOption("2");
+      setSelectedOptionCropStage("1");
+      setTicketCategoryList([]);
+      getTicketCategoryTypeListData("2", 0, "TCKTYP");
+    } else if (pselectedOption === "LO") {
+      setSelectedOption("4");
+      setSelectedOptionCropStage("1");
       setTicketCategoryTypeList([]);
       setTicketCategoryList([]);
-      setFormValuesTicketCreation({
-        ...formValuesTicketCreation,
-        txtTicketCategoryType: null,
-        txtTicketCategory: null,
-        txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-        txtCropLossIntimation: "On-time",
-        txtCropLossTime: "",
-        txtTicketDescription: "",
-        txtLossAt: null,
-        txtOtherSubCategory: "",
-        txtCropStage: null,
-        txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-        txtCropName: "",
-      });
-      setStateCropLossIntimation("NA");
-    };
+      getLossAtListData(1);
+      getCropStageListData(1);
+    }
+    setFormValuesTicketCreation({
+      ...formValuesTicketCreation,
+      txtTicketCategoryType: null,
+      txtTicketCategory: null,
+      txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+      txtCropLossIntimation: "On-time",
+      txtCropLossTime: "",
+      txtTicketDescription: "",
+      txtLossAt: null,
+      txtOtherSubCategory: "",
+      txtCropStage: null,
+      txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+      txtCropName: "",
+    });
+    setFormValidationSupportTicketError({});
+    setStateCropLossIntimation("NA");
+  };
+  const selectedOptionOnClickCropStage = (pselectedOption) => {
+    if (pselectedOption === "SCS") {
+      setSelectedOptionCropStage("1");
+      getCropStageListData(1);
+      getLossAtListData(1);
+    } else if (pselectedOption === "HS") {
+      setSelectedOptionCropStage("2");
+      getCropStageListData(2);
+      getLossAtListData(2);
+    }
+    setTicketCategoryTypeList([]);
+    setTicketCategoryList([]);
+    setFormValuesTicketCreation({
+      ...formValuesTicketCreation,
+      txtTicketCategoryType: null,
+      txtTicketCategory: null,
+      txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+      txtCropLossIntimation: "On-time",
+      txtCropLossTime: "",
+      txtTicketDescription: "",
+      txtLossAt: null,
+      txtOtherSubCategory: "",
+      txtCropStage: null,
+      txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+      txtCropName: "",
+    });
+    setStateCropLossIntimation("NA");
+  };
 
   const [formValidationSupportTicketError, setFormValidationSupportTicketError] = useState({});
   const [formValuesTicketCreation, setFormValuesTicketCreation] = useState({
@@ -3885,57 +3885,48 @@ function KrphAllActivitiesND() {
     setOpenTicketHistoryModal(!openTicketHistoryModal);
   };
 
-    const [btnLoaderActiveTicketSummary, setBtnLoaderActiveTicketSummary] = useState(false);
-    const getfarmersTicketSummaryData = async (pticketRequestorID) => {
-      debugger;
-      try {
-        let result = "";
-        let formData = "";
-  
-        formData = {
-          viewMode: "RQSTID",
-          ticketRequestorID: pticketRequestorID,
-          mobilenumber: "",
-          aadharNumber: "",
-          accountNumber: "",
-        };
-        setBtnLoaderActiveTicketSummary(true);
-        result = await farmerTicketSummaryKRPH(formData);
-        setBtnLoaderActiveTicketSummary(false);
-        console.log(result, "result");
-        setFarmersTicketSummaryData([]);
-        if (result.response.responseCode.toString() === "1") {
-          const farmersTicketData = Object.values(result.response.responseData.data.result);
-          let sequenceNo  = 0;
-          if (farmersTicketData && farmersTicketData.length > 0) {
-            const filterfarmersTicketData = farmersTicketData.filter((data) => {
-              return data.TicketStatusID === 109301 || data.TicketStatusID === 109303;
-            });
-            let totalStsCnt = 0;
-            farmersTicketData.forEach((v) => {
-              totalStsCnt += v.Total;
-              
-            });
-            sequenceNo = 
-            filterfarmersTicketData.push({ Total: totalStsCnt, TicketStatus: "Total", TicketStatusID: 0, TicketSequence : 0 });
-            filterfarmersTicketData.forEach((v) => { 
-              v.TicketSequence = v.TicketStatusID === 0 ? 1 : v.TicketStatusID === 109301 ? 2 : v.TicketStatusID === 109303 ? 3 : 0 ;
-            });
-            setFarmersTicketSummaryData(filterfarmersTicketData.sort(sortByProperty("TicketSequence")));
-           
-            setfetchfarmersummary("");
-            setAlertMessage({
-              type: "success",
-              message: "Farmer tickets found successfully.",
-            });
-            handleStepClick(3);
-          } else {
-            setFarmersTicketSummaryData([]);
-            setAlertMessage({
-              type: "warning",
-              message: "Farmer tickets not found.",
-            });
-          }
+  const [btnLoaderActiveTicketSummary, setBtnLoaderActiveTicketSummary] = useState(false);
+  const getfarmersTicketSummaryData = async (pticketRequestorID) => {
+    debugger;
+    try {
+      let result = "";
+      let formData = "";
+
+      formData = {
+        viewMode: "RQSTID",
+        ticketRequestorID: pticketRequestorID,
+        mobilenumber: "",
+        aadharNumber: "",
+        accountNumber: "",
+      };
+      setBtnLoaderActiveTicketSummary(true);
+      result = await farmerTicketSummaryKRPH(formData);
+      setBtnLoaderActiveTicketSummary(false);
+      console.log(result, "result");
+      setFarmersTicketSummaryData([]);
+      if (result.response.responseCode.toString() === "1") {
+        const farmersTicketData = Object.values(result.response.responseData.data.result);
+        let sequenceNo = 0;
+        if (farmersTicketData && farmersTicketData.length > 0) {
+          const filterfarmersTicketData = farmersTicketData.filter((data) => {
+            return data.TicketStatusID === 109301 || data.TicketStatusID === 109303;
+          });
+          let totalStsCnt = 0;
+          farmersTicketData.forEach((v) => {
+            totalStsCnt += v.Total;
+          });
+          sequenceNo = filterfarmersTicketData.push({ Total: totalStsCnt, TicketStatus: "Total", TicketStatusID: 0, TicketSequence: 0 });
+          filterfarmersTicketData.forEach((v) => {
+            v.TicketSequence = v.TicketStatusID === 0 ? 1 : v.TicketStatusID === 109301 ? 2 : v.TicketStatusID === 109303 ? 3 : 0;
+          });
+          setFarmersTicketSummaryData(filterfarmersTicketData.sort(sortByProperty("TicketSequence")));
+
+          setfetchfarmersummary("");
+          setAlertMessage({
+            type: "success",
+            message: "Farmer tickets found successfully.",
+          });
+          handleStepClick(3);
         } else {
           setFarmersTicketSummaryData([]);
           setAlertMessage({
@@ -3943,376 +3934,383 @@ function KrphAllActivitiesND() {
             message: "Farmer tickets not found.",
           });
         }
-      } catch (error) {
-        console.log(error);
+      } else {
+        setFarmersTicketSummaryData([]);
         setAlertMessage({
-          type: "error",
-          message: error,
+          type: "warning",
+          message: "Farmer tickets not found.",
         });
       }
-    };
-    
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+    }
+  };
+
   const fetchfarmersTicketSummary = () => {
     getfarmersTicketSummaryData(fetchfarmersummary);
   };
 
-    const clearInsuranceFieldsAndTicketCreation = () => {
-      setSelectedInsuranceDetails([]);
-      setFormValuesForFarmerInfo({
-        ...formValuesForFarmerInfo,
-        txtSeasonForFarmerInfo: null,
-        txtYearForFarmerInfo: null,
-        txtSchemeForFarmerInfo: null,
-      });
-      setFormValuesTicketCreation({
-        ...formValuesTicketCreation,
-        txtTicketCategory: null,
-        txtTicketCategoryType: null,
-        txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-        txtCropLossIntimation: "On-time",
-        txtCropLossTime: "",
-        txtTicketDescription: "",
-        txtLossAt: null,
-        txtOtherSubCategory: null,
-        txtCropStage: null,
-        txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-        txtCropName: "",
-      });
-      setSelectedOption("1");
-      setSelectedOptionCropStage("1");
-      setTicketCategoryTypeList([]);
-      setTicketCategoryList([]);
-      setLossAtList([]);
-      setCropStageList([]);
-      getTicketCategoryTypeListData("1", 0, "TCKTYP");
-      setstateYearAndSeason("YRSSNYES");
-      setTicketCategoryOtherList([]);
-    };
+  const clearInsuranceFieldsAndTicketCreation = () => {
+    setSelectedInsuranceDetails([]);
+    setFormValuesForFarmerInfo({
+      ...formValuesForFarmerInfo,
+      txtSeasonForFarmerInfo: null,
+      txtYearForFarmerInfo: null,
+      txtSchemeForFarmerInfo: null,
+    });
+    setFormValuesTicketCreation({
+      ...formValuesTicketCreation,
+      txtTicketCategory: null,
+      txtTicketCategoryType: null,
+      txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+      txtCropLossIntimation: "On-time",
+      txtCropLossTime: "",
+      txtTicketDescription: "",
+      txtLossAt: null,
+      txtOtherSubCategory: null,
+      txtCropStage: null,
+      txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+      txtCropName: "",
+    });
+    setSelectedOption("1");
+    setSelectedOptionCropStage("1");
+    setTicketCategoryTypeList([]);
+    setTicketCategoryList([]);
+    setLossAtList([]);
+    setCropStageList([]);
+    getTicketCategoryTypeListData("1", 0, "TCKTYP");
+    setstateYearAndSeason("YRSSNYES");
+    setTicketCategoryOtherList([]);
+  };
 
-    const [isBtndisabled, setisBtndisabled] = useState(0);
-    const [btnLoaderSupportTicketActive, setBtnLoaderSupportTicketActive] = useState(false);
-    const supportTicketOnClick = async () => {
-      debugger;
-      try {
-        if (selectedValidateOption !== "6" && selectedValidateOption !== "7") {
-          if (selectedFarmer.length === 0 && selectedFarmer.length !== undefined) {
-            setAlertMessage({
-              type: "warning",
-              message: "Farmer Authentication is required!",
-            });
-  
-            return;
-          }
-  
-          if (selectedInsuranceDetails.length === 0 && selectedInsuranceDetails.length !== undefined) {
-            setAlertMessage({
-              type: "warning",
-              message: "Insurance Company is required!",
-            });
-  
-            return;
-          }
-          if (!handleValidationSupportTicket()) {
-            return;
-          }
-          CreateTicketBAuthOptions();
-        } else if (selectedValidateOption === "6") {
-          if (!handleFarmersValidationForNonRegFarmerOrOffline()) {
-            return;
-          }
-        }
-      } catch (error) {
-        console.log(error);
-        setAlertMessage({
-          type: "error",
-          message: error,
-        });
-      }
-    };
-  
-    const SendSMSToFarmerAgaintSupportTicket = async (ptemplateID, pmobileNO, psupportTicketNo) => {
-      try {
-        const formData = {
-          templateID: ptemplateID,
-          mobileNO: pmobileNO,
-          supportTicketNo: psupportTicketNo,
-        };
-  
-        const result = await sendSMSToFarmer(formData);
-        if (result.response.responseCode === 1) {
-          console.log(`Success: TemplateID : ${ptemplateID} ${JSON.stringify(result)}`);
-        } else {
-          console.log(`Error: TemplateID : ${ptemplateID} ${JSON.stringify(result)}`);
-        }
-      } catch (error) {
-        console.log(error);
-        setAlertMessage({
-          type: "error",
-          message: error,
-        });
-      }
-    };
-  
-    const CreateTicketBAuthOptions = async () => {
-      try {
-        let pticketStatusID = 0;
-        // A let pticketStatusNoneBMCG = 0;
-        let pticketStatus = "";
-        let papplicationNo = "";
-        let pPolicyID = "";
-        let pticketHeaderID = 0;
-        const pticketHeaderName =
-          selectedOption === "1" ? "Grievance" : selectedOption === "2" ? "Information" : selectedOption === "4" ? "Crop Loss Intimation" : "";
-  
-        if (selectedOption === "1" || selectedOption === "4") {
-          // A pticketStatusID = 109019;
-          pticketStatusID = 109301;
-          pticketStatus = "Open";
-          // A pticketStatusNoneBMCG = "109301";
-          pticketHeaderID = Number(selectedOption);
-        } else if (selectedOption === "2") {
-          // A pticketStatusID = 109025;
-          pticketStatusID = 109303;
-          pticketStatus = "Resolved";
-          // A pticketStatusNoneBMCG = "109303";
-          pticketHeaderID = Number(selectedOption);
-        }
-        if (selectedClaimOrGrievence === "CI") {
-          papplicationNo = selectedInsuranceDetails && selectedInsuranceDetails.applicationNo ? selectedInsuranceDetails.applicationNo : "";
-          pPolicyID = selectedInsuranceDetails && selectedInsuranceDetails.policyID ? selectedInsuranceDetails.policyID : "";
-        } else {
-          papplicationNo = selectedInsuranceDetails && selectedInsuranceDetails.applicationNo ? selectedInsuranceDetails.applicationNo : "";
-          pPolicyID = selectedInsuranceDetails && selectedInsuranceDetails.policyID ? selectedInsuranceDetails.policyID : "";
-        }
-        const user = getSessionStorage("user");
-        const pcreationMode =
-          selectedValidateOption === "1"
-            ? "MOB"
-            : selectedValidateOption === "2"
-              ? "AAD"
-              : selectedValidateOption === "3"
-                ? "BNK"
-                : selectedValidateOption === "4"
-                  ? "POL"
-                  : selectedValidateOption === "5"
-                    ? "LOC"
-                    : "";
-        let pselectedOptionCropStage = "";
-        if (selectedOption === "4") {
-          pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : "";
-        }
-  
-        const formData = {
-          creationMode: pcreationMode,
-          subCategoryName:
-            formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
-              ? formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
-              : "",
-          callerContactNumber: formValuesGI.txtMobileCallerNumber ? formValuesGI.txtMobileCallerNumber : "",
-          supportTicketID: 0,
-          ticketRequestorID: selectedFarmer ? selectedFarmer.farmerID : "",
-          stateCodeAlpha: selectedFarmer && selectedFarmer.stateID ? selectedFarmer.stateID : selectedFarmer.resStateID ? selectedFarmer.resStateID : "",
-          districtRequestorID:
-            selectedFarmer && selectedFarmer.districtID ? selectedFarmer.districtID : selectedFarmer.resDistrictID ? selectedFarmer.resDistrictID : "",
-          villageRequestorID:
-            selectedFarmer && selectedFarmer.villageID ? selectedFarmer.villageID : selectedFarmer.resVillageID ? selectedFarmer.resVillageID : "",
-          supportTicketNo: "0",
-          requestorName: selectedFarmer ? selectedFarmer.farmerName : "",
-          requestorMobileNo: selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "",
-          requestorAccountNo: selectedFarmer && selectedFarmer.accountNumber ? selectedFarmer.accountNumber : "",
-          requestorAadharNo: selectedFarmer && selectedFarmer.aadharNumber ? selectedFarmer.aadharNumber : "",
-          ticketCategoryID:
-            formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-              ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-              : 0,
-          // A cropCategoryOthers: formValuesTicketCreation.txtOtherSubCategory ? formValuesTicketCreation.txtOtherSubCategory : "",
-          cropCategoryOthers:
-            formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
-              ? formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
-              : "",
-          cropStageMasterID:
-            formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMasterID
-              ? formValuesTicketCreation.txtCropStage.CropStageMasterID
-              : 0,
-          cropStageMaster:
-            formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
-              ? formValuesTicketCreation.txtCropStage.CropStageMaster
-              : "",
-          cropLossDetailID:
-            formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID ? formValuesTicketCreation.txtLossAt.CropLossDetailID : 0,
-          cropStage: pselectedOptionCropStage,
-          ticketHeaderID: pticketHeaderID,
-          requestYear:
-            formValuesForFarmerInfo.txtYearForFarmerInfo && formValuesForFarmerInfo.txtYearForFarmerInfo.Value
-              ? formValuesForFarmerInfo.txtYearForFarmerInfo.Value
-              : 0,
-          requestSeason:
-            formValuesForFarmerInfo.txtSeasonForFarmerInfo && formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
-              ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
-              : 0,
-  
-          ticketDescription: formValuesTicketCreation.txtTicketDescription,
-          lossDate: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossDate ? dateToCompanyFormat(formValuesTicketCreation.txtCropLossDate) : "",
-          lossTime: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossTime ? formValuesTicketCreation.txtCropLossTime : "",
-          postHarvestDate:
-            selectedOption !== "4" || selectedOptionCropStage !== "2"
-              ? null
-              : formValuesTicketCreation.txtCropHarvestDate
-                ? dateToCompanyFormat(formValuesTicketCreation.txtCropHarvestDate)
-                : "",
-          ticketSourceID: 6,
-          ticketSourceName: "CSC",
-          ticketStatusID: pticketStatusID,
-          ticketStatus: pticketStatus,
-          applicationNo: papplicationNo,
-          insuranceCompanyID: 0,
-          insuranceCompany: selectedInsuranceDetails ? selectedInsuranceDetails.insuranceCompanyName : "",
-          insuranceCompanyCode: 0,
-          cropSeasonName:
-            formValuesForFarmerInfo.txtSeasonForFarmerInfo && formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonName
-              ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonName
-              : "",
-          ticketCategoryName:
-            formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-              ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-              : "",
-          ticketSubCategoryID:
-            formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-              ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-              : 0,
-          ticketSubCategoryName:
-            formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-              ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-              : "",
-          ticketHeadName: pticketHeaderName,
-          nyayPanchayatID:
-            formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5ID
-              ? formValuesForByLocation.txtlevel5ByLocation.level5ID
-              : "0",
-          nyayPanchayat:
-            formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5Name
-              ? formValuesForByLocation.txtlevel5ByLocation.level5Name
-              : "",
-          gramPanchayatID:
-            formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6ID
-              ? formValuesForByLocation.txtlevel6ByLocation.level6ID
-              : "0",
-          gramPanchayat:
-            formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6Name
-              ? formValuesForByLocation.txtlevel6ByLocation.level6Name
-              : "",
-          businessRelationName: user && user.UserCompanyType ? user.UserCompanyType : "",
-          schemeName:
-            formValuesForFarmerInfo.txtSchemeForFarmerInfo && formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeName
-              ? formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeName
-              : "",
-          agentName: user && user.UserDisplayName ? user.UserDisplayName : "",
-          createdBY: user && user.UserDisplayName ? user.UserDisplayName : "",
-          createdOn: null,
-          farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
-          callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
-          insurancePolicyNo: pPolicyID,
-          insurancePolicyDate: formValues.txtPolicyDate ? dateToCompanyFormat(formValues.txtPolicyDate) : "",
-          insuranceExpiryDate: formValues.txtPolicyExpiryDate ? dateToCompanyFormat(formValues.txtPolicyExpiryDate) : "",
-          agentUserID: user && user.LoginID ? user.LoginID.toString() : "0",
-          bankMasterID: 0,
-          schemeID:
-            formValuesForFarmerInfo.txtSchemeForFarmerInfo && formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeID
-              ? formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeID
-              : 0,
-          onTimeIntimationFlag: stateCropLossIntimation,
-          hasDocument: 0,
-          attachmentPath: "",
-          callingMasterID: getCallingMasterID,
-          cropName: formValuesTicketCreation.txtCropName ? formValuesTicketCreation.txtCropName : "",
-          applicationCropName: selectedInsuranceDetails ? selectedInsuranceDetails.cropName : "",
-          area: selectedInsuranceDetails ? selectedInsuranceDetails.policyArea : "",
-          villageName: selectedInsuranceDetails ? selectedInsuranceDetails.resVillage : "",
-          relation: selectedInsuranceDetails ? selectedInsuranceDetails.relation : "",
-          relativeName: selectedInsuranceDetails ? selectedInsuranceDetails.relativeName : "",
-          stateMasterName: selectedFarmer && selectedFarmer.stateID ? selectedFarmer.state : selectedFarmer.resState ? selectedFarmer.resState : "",
-          districtMasterName: selectedInsuranceDetails ? selectedInsuranceDetails.resDistrict : "",
-          subDistrictID: selectedInsuranceDetails ? selectedInsuranceDetails.resSubDistrictID : "",
-          subDistrictName: selectedInsuranceDetails ? selectedInsuranceDetails.resSubDistrict : "",
-          policyPremium: selectedInsuranceDetails ? selectedInsuranceDetails.policyPremium : "",
-          policyArea: selectedInsuranceDetails ? selectedInsuranceDetails.policyArea : "",
-          policyType: selectedInsuranceDetails ? selectedInsuranceDetails.policyType : "",
-          landSurveyNumber: selectedInsuranceDetails ? selectedInsuranceDetails.landSurveyNumber : "",
-          landDivisionNumber: selectedInsuranceDetails ? selectedInsuranceDetails.landDivisionNumber : "",
-          plotVillageName: selectedInsuranceDetails ? selectedInsuranceDetails.plotVillageName : "",
-          plotDistrictName: selectedInsuranceDetails ? selectedInsuranceDetails.plotDistrictName : "",
-          plotStateName: selectedInsuranceDetails ? selectedInsuranceDetails.plotStateName : "",
-          plotDistrictRequestorID: selectedInsuranceDetails ? selectedInsuranceDetails.plotDistrictID : "",
-          applicationSource: selectedInsuranceDetails ? selectedInsuranceDetails.applicationSource : "",
-          cropShare: selectedInsuranceDetails ? selectedInsuranceDetails.cropShare : "",
-          iFSCCode: selectedInsuranceDetails ? selectedInsuranceDetails.ifscCode : "",
-          farmerShare: selectedInsuranceDetails ? selectedInsuranceDetails.farmerShare : "",
-          sowingDate: selectedInsuranceDetails ? selectedInsuranceDetails.sowingDate : "",
-        };
-        setisBtndisabled(1);
-        setBtnLoaderSupportTicketActive(true);
-        const result = await addKRPHSupportTicketdata(formData);
-        setBtnLoaderSupportTicketActive(false);
-        setisBtndisabled(0);
-        if (result.response.responseCode === 1) {
-          if (result.response && result.response.responseData) {
-            let pTicketHeadName = "";
-            if (selectedOption === "1") {
-              pTicketHeadName = "Grievance";
-            } else if (selectedOption === "2") {
-              pTicketHeadName = "Information";
-            } else if (selectedOption === "4") {
-              pTicketHeadName = "Crop Loss Intimation";
-            }
-            setFarmersTicketSummaryData([]);
-            setfetchfarmersummary(selectedFarmer ? selectedFarmer.farmerID : "");
-            const pMobileNo = selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "";
-            const pSupportTicketNo = result.response.responseData.SupportTicketNo ? result.response.responseData.SupportTicketNo : "";
-  
-            if (selectedValidateOption === "5") {
-              setSelectedFarmer(selectedFarmer);
-            }
-            setgetSupportTicketNo(pSupportTicketNo);
-            clearInsuranceFieldsAndTicketCreation();
-            handleStepClick(4);
-            setSessionStorage("servicesuccess", "TC");
-            setServiceSuccessState("SUCCESS");
-            // A navigate("/ServiceSuccess");
-            let ptemplateID = "";
-            if (selectedClaimOrGrievence === "CI") {
-              if (selectsetfetchfarmersummaryedOption === "1") {
-                ptemplateID = "G";
-              } else if (selectedOption === "2") {
-                ptemplateID = "I";
-              }
-            } else {
-              ptemplateID = "G";
-            }
-            if (selectedOption === "1" || selectedOption === "2") {
-              SendSMSToFarmerAgaintSupportTicket(ptemplateID, pMobileNo, pSupportTicketNo);
-            }
-          }
-        } else {
+  const [isBtndisabled, setisBtndisabled] = useState(0);
+  const [btnLoaderSupportTicketActive, setBtnLoaderSupportTicketActive] = useState(false);
+  const supportTicketOnClick = async () => {
+    debugger;
+    try {
+      if (selectedValidateOption !== "6" && selectedValidateOption !== "7") {
+        if (selectedFarmer.length === 0 && selectedFarmer.length !== undefined) {
           setAlertMessage({
-            type: "error",
-            message: result.response.responseMessage,
+            type: "warning",
+            message: "Farmer Authentication is required!",
           });
+
+          return;
         }
-      } catch (error) {
-        console.log(error);
+
+        if (selectedInsuranceDetails.length === 0 && selectedInsuranceDetails.length !== undefined) {
+          setAlertMessage({
+            type: "warning",
+            message: "Insurance Company is required!",
+          });
+
+          return;
+        }
+        if (!handleValidationSupportTicket()) {
+          return;
+        }
+        CreateTicketBAuthOptions();
+      } else if (selectedValidateOption === "6") {
+        if (!handleFarmersValidationForNonRegFarmerOrOffline()) {
+          return;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+    }
+  };
+
+  const SendSMSToFarmerAgaintSupportTicket = async (ptemplateID, pmobileNO, psupportTicketNo) => {
+    try {
+      const formData = {
+        templateID: ptemplateID,
+        mobileNO: pmobileNO,
+        supportTicketNo: psupportTicketNo,
+      };
+
+      const result = await sendSMSToFarmer(formData);
+      if (result.response.responseCode === 1) {
+        console.log(`Success: TemplateID : ${ptemplateID} ${JSON.stringify(result)}`);
+      } else {
+        console.log(`Error: TemplateID : ${ptemplateID} ${JSON.stringify(result)}`);
+      }
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+    }
+  };
+
+  const CreateTicketBAuthOptions = async () => {
+    try {
+      let pticketStatusID = 0;
+      // A let pticketStatusNoneBMCG = 0;
+      let pticketStatus = "";
+      let papplicationNo = "";
+      let pPolicyID = "";
+      let pticketHeaderID = 0;
+      const pticketHeaderName =
+        selectedOption === "1" ? "Grievance" : selectedOption === "2" ? "Information" : selectedOption === "4" ? "Crop Loss Intimation" : "";
+
+      if (selectedOption === "1" || selectedOption === "4") {
+        // A pticketStatusID = 109019;
+        pticketStatusID = 109301;
+        pticketStatus = "Open";
+        // A pticketStatusNoneBMCG = "109301";
+        pticketHeaderID = Number(selectedOption);
+      } else if (selectedOption === "2") {
+        // A pticketStatusID = 109025;
+        pticketStatusID = 109303;
+        pticketStatus = "Resolved";
+        // A pticketStatusNoneBMCG = "109303";
+        pticketHeaderID = Number(selectedOption);
+      }
+      if (selectedClaimOrGrievence === "CI") {
+        papplicationNo = selectedInsuranceDetails && selectedInsuranceDetails.applicationNo ? selectedInsuranceDetails.applicationNo : "";
+        pPolicyID = selectedInsuranceDetails && selectedInsuranceDetails.policyID ? selectedInsuranceDetails.policyID : "";
+      } else {
+        papplicationNo = selectedInsuranceDetails && selectedInsuranceDetails.applicationNo ? selectedInsuranceDetails.applicationNo : "";
+        pPolicyID = selectedInsuranceDetails && selectedInsuranceDetails.policyID ? selectedInsuranceDetails.policyID : "";
+      }
+      const user = getSessionStorage("user");
+      const pcreationMode =
+        selectedValidateOption === "1"
+          ? "MOB"
+          : selectedValidateOption === "2"
+          ? "AAD"
+          : selectedValidateOption === "3"
+          ? "BNK"
+          : selectedValidateOption === "4"
+          ? "POL"
+          : selectedValidateOption === "5"
+          ? "LOC"
+          : "";
+      let pselectedOptionCropStage = "";
+      if (selectedOption === "4") {
+        pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : "";
+      }
+
+      const formData = {
+        creationMode: pcreationMode,
+        subCategoryName:
+          formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
+            ? formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
+            : "",
+        callerContactNumber: formValuesGI.txtMobileCallerNumber ? formValuesGI.txtMobileCallerNumber : "",
+        supportTicketID: 0,
+        ticketRequestorID: selectedFarmer ? selectedFarmer.farmerID : "",
+        stateCodeAlpha: selectedFarmer && selectedFarmer.stateID ? selectedFarmer.stateID : selectedFarmer.resStateID ? selectedFarmer.resStateID : "",
+        districtRequestorID:
+          selectedFarmer && selectedFarmer.districtID ? selectedFarmer.districtID : selectedFarmer.resDistrictID ? selectedFarmer.resDistrictID : "",
+        villageRequestorID:
+          selectedFarmer && selectedFarmer.villageID ? selectedFarmer.villageID : selectedFarmer.resVillageID ? selectedFarmer.resVillageID : "",
+        supportTicketNo: "0",
+        requestorName: selectedFarmer ? selectedFarmer.farmerName : "",
+        requestorMobileNo: selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "",
+        requestorAccountNo: selectedFarmer && selectedFarmer.accountNumber ? selectedFarmer.accountNumber : "",
+        requestorAadharNo: selectedFarmer && selectedFarmer.aadharNumber ? selectedFarmer.aadharNumber : "",
+        ticketCategoryID:
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            : 0,
+        // A cropCategoryOthers: formValuesTicketCreation.txtOtherSubCategory ? formValuesTicketCreation.txtOtherSubCategory : "",
+        cropCategoryOthers:
+          formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
+            ? formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
+            : "",
+        cropStageMasterID:
+          formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMasterID
+            ? formValuesTicketCreation.txtCropStage.CropStageMasterID
+            : 0,
+        cropStageMaster:
+          formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
+            ? formValuesTicketCreation.txtCropStage.CropStageMaster
+            : "",
+        cropLossDetailID:
+          formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID ? formValuesTicketCreation.txtLossAt.CropLossDetailID : 0,
+        cropStage: pselectedOptionCropStage,
+        ticketHeaderID: pticketHeaderID,
+        requestYear:
+          formValuesForFarmerInfo.txtYearForFarmerInfo && formValuesForFarmerInfo.txtYearForFarmerInfo.Value
+            ? formValuesForFarmerInfo.txtYearForFarmerInfo.Value
+            : 0,
+        requestSeason:
+          formValuesForFarmerInfo.txtSeasonForFarmerInfo && formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
+            ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
+            : 0,
+
+        ticketDescription: formValuesTicketCreation.txtTicketDescription,
+        lossDate: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossDate ? dateToCompanyFormat(formValuesTicketCreation.txtCropLossDate) : "",
+        lossTime: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossTime ? formValuesTicketCreation.txtCropLossTime : "",
+        postHarvestDate:
+          selectedOption !== "4" || selectedOptionCropStage !== "2"
+            ? null
+            : formValuesTicketCreation.txtCropHarvestDate
+            ? dateToCompanyFormat(formValuesTicketCreation.txtCropHarvestDate)
+            : "",
+        ticketSourceID: 6,
+        ticketSourceName: "CSC",
+        ticketStatusID: pticketStatusID,
+        ticketStatus: pticketStatus,
+        applicationNo: papplicationNo,
+        insuranceCompanyID: 0,
+        insuranceCompany: selectedInsuranceDetails ? selectedInsuranceDetails.insuranceCompanyName : "",
+        insuranceCompanyCode: 0,
+        cropSeasonName:
+          formValuesForFarmerInfo.txtSeasonForFarmerInfo && formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonName
+            ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonName
+            : "",
+        ticketCategoryName:
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            : "",
+        ticketSubCategoryID:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            : 0,
+        ticketSubCategoryName:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            : "",
+        ticketHeadName: pticketHeaderName,
+        nyayPanchayatID:
+          formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5ID
+            ? formValuesForByLocation.txtlevel5ByLocation.level5ID
+            : "0",
+        nyayPanchayat:
+          formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5Name
+            ? formValuesForByLocation.txtlevel5ByLocation.level5Name
+            : "",
+        gramPanchayatID:
+          formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6ID
+            ? formValuesForByLocation.txtlevel6ByLocation.level6ID
+            : "0",
+        gramPanchayat:
+          formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6Name
+            ? formValuesForByLocation.txtlevel6ByLocation.level6Name
+            : "",
+        businessRelationName: user && user.UserCompanyType ? user.UserCompanyType : "",
+        schemeName:
+          formValuesForFarmerInfo.txtSchemeForFarmerInfo && formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeName
+            ? formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeName
+            : "",
+        agentName: user && user.UserDisplayName ? user.UserDisplayName : "",
+        createdBY: user && user.UserDisplayName ? user.UserDisplayName : "",
+        createdOn: null,
+        farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
+        callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
+        insurancePolicyNo: pPolicyID,
+        insurancePolicyDate: formValues.txtPolicyDate ? dateToCompanyFormat(formValues.txtPolicyDate) : "",
+        insuranceExpiryDate: formValues.txtPolicyExpiryDate ? dateToCompanyFormat(formValues.txtPolicyExpiryDate) : "",
+        agentUserID: user && user.LoginID ? user.LoginID.toString() : "0",
+        bankMasterID: 0,
+        schemeID:
+          formValuesForFarmerInfo.txtSchemeForFarmerInfo && formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeID
+            ? formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeID
+            : 0,
+        onTimeIntimationFlag: stateCropLossIntimation,
+        hasDocument: 0,
+        attachmentPath: "",
+        callingMasterID: getCallingMasterID,
+        cropName: formValuesTicketCreation.txtCropName ? formValuesTicketCreation.txtCropName : "",
+        applicationCropName: selectedInsuranceDetails ? selectedInsuranceDetails.cropName : "",
+        area: selectedInsuranceDetails ? selectedInsuranceDetails.policyArea : "",
+        villageName: selectedInsuranceDetails ? selectedInsuranceDetails.resVillage : "",
+        relation: selectedInsuranceDetails ? selectedInsuranceDetails.relation : "",
+        relativeName: selectedInsuranceDetails ? selectedInsuranceDetails.relativeName : "",
+        stateMasterName: selectedFarmer && selectedFarmer.stateID ? selectedFarmer.state : selectedFarmer.resState ? selectedFarmer.resState : "",
+        districtMasterName: selectedInsuranceDetails ? selectedInsuranceDetails.resDistrict : "",
+        subDistrictID: selectedInsuranceDetails ? selectedInsuranceDetails.resSubDistrictID : "",
+        subDistrictName: selectedInsuranceDetails ? selectedInsuranceDetails.resSubDistrict : "",
+        policyPremium: selectedInsuranceDetails ? selectedInsuranceDetails.policyPremium : "",
+        policyArea: selectedInsuranceDetails ? selectedInsuranceDetails.policyArea : "",
+        policyType: selectedInsuranceDetails ? selectedInsuranceDetails.policyType : "",
+        landSurveyNumber: selectedInsuranceDetails ? selectedInsuranceDetails.landSurveyNumber : "",
+        landDivisionNumber: selectedInsuranceDetails ? selectedInsuranceDetails.landDivisionNumber : "",
+        plotVillageName: selectedInsuranceDetails ? selectedInsuranceDetails.plotVillageName : "",
+        plotDistrictName: selectedInsuranceDetails ? selectedInsuranceDetails.plotDistrictName : "",
+        plotStateName: selectedInsuranceDetails ? selectedInsuranceDetails.plotStateName : "",
+        plotDistrictRequestorID: selectedInsuranceDetails ? selectedInsuranceDetails.plotDistrictID : "",
+        applicationSource: selectedInsuranceDetails ? selectedInsuranceDetails.applicationSource : "",
+        cropShare: selectedInsuranceDetails ? selectedInsuranceDetails.cropShare : "",
+        iFSCCode: selectedInsuranceDetails ? selectedInsuranceDetails.ifscCode : "",
+        farmerShare: selectedInsuranceDetails ? selectedInsuranceDetails.farmerShare : "",
+        sowingDate: selectedInsuranceDetails ? selectedInsuranceDetails.sowingDate : "",
+      };
+      setisBtndisabled(1);
+      setBtnLoaderSupportTicketActive(true);
+      const result = await addKRPHSupportTicketdata(formData);
+      setBtnLoaderSupportTicketActive(false);
+      setisBtndisabled(0);
+      if (result.response.responseCode === 1) {
+        if (result.response && result.response.responseData) {
+          let pTicketHeadName = "";
+          if (selectedOption === "1") {
+            pTicketHeadName = "Grievance";
+          } else if (selectedOption === "2") {
+            pTicketHeadName = "Information";
+          } else if (selectedOption === "4") {
+            pTicketHeadName = "Crop Loss Intimation";
+          }
+          setFarmersTicketSummaryData([]);
+          setfetchfarmersummary(selectedFarmer ? selectedFarmer.farmerID : "");
+          const pMobileNo = selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "";
+          const pSupportTicketNo = result.response.responseData.SupportTicketNo ? result.response.responseData.SupportTicketNo : "";
+
+          if (selectedValidateOption === "5") {
+            setSelectedFarmer(selectedFarmer);
+          }
+          setgetSupportTicketNo(pSupportTicketNo);
+          clearInsuranceFieldsAndTicketCreation();
+          handleStepClick(4);
+          setSessionStorage("servicesuccess", "TC");
+          setServiceSuccessState("SUCCESS");
+          // A navigate("/ServiceSuccess");
+          let ptemplateID = "";
+          if (selectedClaimOrGrievence === "CI") {
+            if (selectsetfetchfarmersummaryedOption === "1") {
+              ptemplateID = "G";
+            } else if (selectedOption === "2") {
+              ptemplateID = "I";
+            }
+          } else {
+            ptemplateID = "G";
+          }
+          if (selectedOption === "1" || selectedOption === "2") {
+            SendSMSToFarmerAgaintSupportTicket(ptemplateID, pMobileNo, pSupportTicketNo);
+          }
+        }
+      } else {
         setAlertMessage({
           type: "error",
-          message: error,
+          message: result.response.responseMessage,
         });
       }
-    };
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+    }
+  };
 
   const servicesuccessData = getSessionStorage("servicesuccess");
-    
+
   const CreateMoreBtnOnClick = () => {
-        debugger;
-        setServiceSuccessState("UNSUCCESS");
-        handleStepClick(1);
+    debugger;
+    setServiceSuccessState("UNSUCCESS");
+    handleStepClick(1);
   };
 
   // A const [runningCurrentYear, setRunningCurrentYear] = useState("");
@@ -4345,250 +4343,253 @@ function KrphAllActivitiesND() {
           <div className="row">
             <div className="col-md-12">
               <div style={{ width: "100%", textAlign: "center", position: "relative" }}>
-               <Stepper activeStep={activeStep} alternativeLabel connector={<CustomStepConnector activeStep={activeStep} />}>
-                       {steps.map((label, index) => (
-                         <Step
-                           key={label}
-                           className={index < activeStep ? "completed-step" : index == activeStep ? "active-step" : index == activeStep + 1 ? "upcoming-step" : ""}
-                           completed={index < activeStep}
-                           // A onClick={() => handleStepClick(index)}
-                         >
-                           <StepLabel
-                             icon={icons[index]}
-                             sx={{
-                               color: activeStep === index ? "primary.main" : "gray",
-                               cursor: "pointer",
-                               transition: "color 0.3s ease",
-                             }}
-                           >
-                             {label}
-                           </StepLabel>
-                         </Step>
-                       ))}
-                     </Stepper>
+                <Stepper activeStep={activeStep} alternativeLabel connector={<CustomStepConnector activeStep={activeStep} />}>
+                  {steps.map((label, index) => (
+                    <Step
+                      key={label}
+                      className={index < activeStep ? "completed-step" : index == activeStep ? "active-step" : index == activeStep + 1 ? "upcoming-step" : ""}
+                      completed={index < activeStep}
+                      // A onClick={() => handleStepClick(index)}
+                    >
+                      <StepLabel
+                        icon={icons[index]}
+                        sx={{
+                          color: activeStep === index ? "primary.main" : "gray",
+                          cursor: "pointer",
+                          transition: "color 0.3s ease",
+                        }}
+                      >
+                        {label}
+                      </StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
               </div>
             </div>
           </div>
         </div>
         {/* Caller Information Start  */}
-        {serviceSuccessState === "UNSUCCESS" ?
-        <div className="container my-3">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card csc-form-cards">
-                <div className="title-container">
-                  <h3>Caller Information</h3>
-                </div>
-                <form className="csc-form-container mt-3">
-                  <div className="row">
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label>
-                          Caller ID <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            name="txtCallerID"
-                            value={formValuesGI.txtCallerID}
-                            onChange={(e) => updateStateGI("txtCallerID", e.target.value)}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label>
-                          Caller Mobile Number <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            name="txtMobileCallerNumber"
-                            value={formValuesGI.txtMobileCallerNumber}
-                            onChange={(e) => updateStateGI("txtMobileCallerNumber", e.target.value.replace(/\D/g, ""))}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label>
-                          Call Status <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="select"
-                            name="txtCallStatus"
-                            getOptionLabel={(option) => `${option.Value}`}
-                            value={formValuesGI.txtCallStatus}
-                            getOptionValue={(option) => `${option}`}
-                            options={callConnectedDropdownDataList}
-                            ControlTxt="Call Status"
-                            onChange={(e) => updateStateGI("txtCallStatus", e)}
-                          />
-                        </InputGroup>
-                        <span className="login_ErrorTxt">{formValidationKRPHError["txtCallStatus"]}</span>
-                      </div>
-                    </div>
-                    {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
+        {serviceSuccessState === "UNSUCCESS" ? (
+          <div className="container my-3">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="card csc-form-cards">
+                  <div className="title-container">
+                    <h3>Caller Information</h3>
+                  </div>
+                  <form className="csc-form-container mt-3">
+                    <div className="row">
                       <div className="col-md-4">
                         <div className="form-group">
                           <label>
-                            Reason <span className="asteriskCss">&#42;</span>
+                            Caller ID <span className="asteriskCss">&#42;</span>
+                          </label>
+                          <InputGroup>
+                            <InputControl
+                              Input_type="input"
+                              name="txtCallerID"
+                              value={formValuesGI.txtCallerID}
+                              onChange={(e) => updateStateGI("txtCallerID", e.target.value)}
+                              disabled={true}
+                            />
+                          </InputGroup>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className="form-group">
+                          <label>
+                            Caller Mobile Number <span className="asteriskCss">&#42;</span>
+                          </label>
+                          <InputGroup>
+                            <InputControl
+                              Input_type="input"
+                              name="txtMobileCallerNumber"
+                              value={formValuesGI.txtMobileCallerNumber}
+                              onChange={(e) => updateStateGI("txtMobileCallerNumber", e.target.value.replace(/\D/g, ""))}
+                              disabled={true}
+                            />
+                          </InputGroup>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className="form-group">
+                          <label>
+                            Call Status <span className="asteriskCss">&#42;</span>
                           </label>
                           <InputGroup>
                             <InputControl
                               Input_type="select"
-                              name="txtReason"
-                              value={formValuesGI.txtReason}
-                              options={reasonDropdownDataList}
+                              name="txtCallStatus"
                               getOptionLabel={(option) => `${option.Value}`}
+                              value={formValuesGI.txtCallStatus}
                               getOptionValue={(option) => `${option}`}
-                              onChange={(e) => updateStateGI("txtReason", e)}
+                              options={callConnectedDropdownDataList}
+                              ControlTxt="Call Status"
+                              onChange={(e) => updateStateGI("txtCallStatus", e)}
                             />
                           </InputGroup>
-                          <span className="login_ErrorTxt">{formValidationKRPHError["txtReason"]}</span>
+                          <span className="login_ErrorTxt">{formValidationKRPHError["txtCallStatus"]}</span>
                         </div>
                       </div>
-                    ) : null}
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label>
-                          State{" "}
-                          {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                            <span className="asteriskCss">&#42;</span>
-                          ) : null}
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="select"
-                            name="txtState"
-                            isLoading={isLoadingStateDKRPHropdownDataList}
-                            getOptionLabel={(option) => `${option.StateMasterName}`}
-                            value={formValuesGI.txtState}
-                            getOptionValue={(option) => `${option}`}
-                            options={stateKRPHDropdownDataList}
-                            ControlTxt="State"
-                            onChange={(e) => updateStateGI("txtState", e)}
-                            isDisabled={farmerAuthenticateByMobile}
-                          />
-                        </InputGroup>
-                        <span className="login_ErrorTxt">{formValidationKRPHError["txtState"]}</span>
+                      {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
+                        <div className="col-md-4">
+                          <div className="form-group">
+                            <label>
+                              Reason <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup>
+                              <InputControl
+                                Input_type="select"
+                                name="txtReason"
+                                value={formValuesGI.txtReason}
+                                options={reasonDropdownDataList}
+                                getOptionLabel={(option) => `${option.Value}`}
+                                getOptionValue={(option) => `${option}`}
+                                onChange={(e) => updateStateGI("txtReason", e)}
+                              />
+                            </InputGroup>
+                            <span className="login_ErrorTxt">{formValidationKRPHError["txtReason"]}</span>
+                          </div>
+                        </div>
+                      ) : null}
+                      <div className="col-md-4">
+                        <div className="form-group">
+                          <label>
+                            State{" "}
+                            {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                              <span className="asteriskCss">&#42;</span>
+                            ) : null}
+                          </label>
+                          <InputGroup>
+                            <InputControl
+                              Input_type="select"
+                              name="txtState"
+                              isLoading={isLoadingStateDKRPHropdownDataList}
+                              getOptionLabel={(option) => `${option.StateMasterName}`}
+                              value={formValuesGI.txtState}
+                              getOptionValue={(option) => `${option}`}
+                              options={stateKRPHDropdownDataList}
+                              ControlTxt="State"
+                              onChange={(e) => updateStateGI("txtState", e)}
+                              isDisabled={farmerAuthenticateByMobile}
+                            />
+                          </InputGroup>
+                          <span className="login_ErrorTxt">{formValidationKRPHError["txtState"]}</span>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className="form-group">
+                          <label>
+                            District{" "}
+                            {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                              <span className="asteriskCss">&#42;</span>
+                            ) : null}
+                          </label>
+                          <InputGroup>
+                            <InputControl
+                              Input_type="select"
+                              name="txtDistrict"
+                              isLoading={isLoadingDistrictKRPHDropdownDataList}
+                              getOptionLabel={(option) => `${option.level3Name}`}
+                              value={formValuesGI.txtDistrict}
+                              getOptionValue={(option) => `${option}`}
+                              options={districtKRPHDropdownDataList}
+                              ControlTxt="District"
+                              onChange={(e) => updateStateGI("txtDistrict", e)}
+                              isDisabled={farmerAuthenticateByMobile}
+                            />
+                          </InputGroup>
+                          <span className="login_ErrorTxt">{formValidationKRPHError["txtDistrict"]}</span>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div className="form-group">
+                          <label>
+                            Farmer Name{" "}
+                            {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                              <span className="asteriskCss">&#42;</span>
+                            ) : null}
+                          </label>
+                          <InputGroup>
+                            <InputControl
+                              Input_type="input"
+                              name="txtFarmerName"
+                              value={formValuesGI.txtFarmerName}
+                              onChange={(e) => updateStateGI("txtFarmerName", e.target.value.replace(/[^a-zA-Z ]+/g, ""))}
+                              autoComplete="off"
+                              disabled={farmerAuthenticateByMobile}
+                            />
+                          </InputGroup>
+                          <span className="login_ErrorTxt">{formValidationKRPHError["txtFarmerName"]}</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label>
-                          District{" "}
-                          {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                            <span className="asteriskCss">&#42;</span>
-                          ) : null}
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="select"
-                            name="txtDistrict"
-                            isLoading={isLoadingDistrictKRPHDropdownDataList}
-                            getOptionLabel={(option) => `${option.level3Name}`}
-                            value={formValuesGI.txtDistrict}
-                            getOptionValue={(option) => `${option}`}
-                            options={districtKRPHDropdownDataList}
-                            ControlTxt="District"
-                            onChange={(e) => updateStateGI("txtDistrict", e)}
-                            isDisabled={farmerAuthenticateByMobile}
-                          />
-                        </InputGroup>
-                        <span className="login_ErrorTxt">{formValidationKRPHError["txtDistrict"]}</span>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="form-group">
-                        <label>
-                          Farmer Name{" "}
-                          {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                            <span className="asteriskCss">&#42;</span>
-                          ) : null}
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            name="txtFarmerName"
-                            value={formValuesGI.txtFarmerName}
-                            onChange={(e) => updateStateGI("txtFarmerName", e.target.value.replace(/[^a-zA-Z ]+/g, ""))}
-                            autoComplete="off"
-                            disabled={farmerAuthenticateByMobile}
-                          />
-                        </InputGroup>
-                        <span className="login_ErrorTxt">{formValidationKRPHError["txtFarmerName"]}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="d-flex align-items-center justify-content-between">
-                        <div>
-                          <div className="">
-                            <img src={premiumcalculator} alt="Premium Calculator" onClick={onToggleChange} />
-                            {/* <div className="toggle-container" onClick={onToggleChange}>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="d-flex align-items-center justify-content-between">
+                          <div>
+                            <div className="">
+                              <img src={premiumcalculator} alt="Premium Calculator" onClick={onToggleChange} />
+                              {/* <div className="toggle-container" onClick={onToggleChange}>
                               <span className={toggleChange ? "" : "active"}>Generate Ticket</span>
                               <span className={toggleChange ? "active" : ""}>Premium Calculator</span>
                             </div> */}
+                            </div>
                           </div>
-                        </div>
-                        <div>
-                          <div className="btn-container">
-                            {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                              <KrphButton type="button" varient="primary" onClick={() => OnClickBtnAction("BTNNXT")}>
-                                Next
-                              </KrphButton>
-                            ) : formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
-                              <KrphButton type="button" varient="primary" onClick={() => OnClickBtnAction("BTNSBMT")}>
-                                Submit
-                              </KrphButton>
-                            ) : null}
+                          <div>
+                            <div className="btn-container">
+                              {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                                <KrphButton type="button" varient="primary" onClick={() => OnClickBtnAction("BTNNXT")}>
+                                  Next
+                                </KrphButton>
+                              ) : formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
+                                <KrphButton type="button" varient="primary" onClick={() => OnClickBtnAction("BTNSBMT")}>
+                                  Submit
+                                </KrphButton>
+                              ) : null}
 
-                            <button type="button" className="reset-btn" onClick={() => OnClickBtnReset()}>
-                              Reset
-                            </button>
+                              <button type="button" className="reset-btn" onClick={() => OnClickBtnReset()}>
+                                Reset
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div> : null }
+        ) : null}
         {/* Caller Information End */}
         {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                      <>
-                        {formValuesGI &&
-                        formValuesGI.txtCallStatus &&
-                        formValuesGI.txtCallStatus.ID === 1 &&
-                        activeKey === "PRMCAL" ?  (
-                          <div className="container my-3">
-                          <div className="row">
-                            <div className="col-md-12">
-                              <div className="card csc-form-cards">
-                          <PremiumCalculator
-                            objStateData={objStateData}
-                            objDistrictData={objDistrictData}
-                            formValuesGI={formValuesGI}
-                            dcryptUNQEID={dcryptUNQEID}
-                            dcryptUID={dcryptUID}
-                          />
-                          </div>
-                          </div>
-                          </div>
-                          </div>
-                        ) : null}
-                      </>
-                    ) : null}
-        {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 && serviceSuccessState === "UNSUCCESS" && activeKey === "TCKT" && activeBtnKey === "BTNNXT" ? (
+          <>
+            {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 && activeKey === "PRMCAL" ? (
+              <div className="container my-3">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="card csc-form-cards">
+                      <PremiumCalculator
+                        objStateData={objStateData}
+                        objDistrictData={objDistrictData}
+                        formValuesGI={formValuesGI}
+                        dcryptUNQEID={dcryptUNQEID}
+                        dcryptUID={dcryptUID}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </>
+        ) : null}
+        {formValuesGI &&
+        formValuesGI.txtCallStatus &&
+        formValuesGI.txtCallStatus.ID === 1 &&
+        serviceSuccessState === "UNSUCCESS" &&
+        activeKey === "TCKT" &&
+        activeBtnKey === "BTNNXT" ? (
           <>
             {openModal && (
               <FarmerListModal
@@ -4902,7 +4903,10 @@ function KrphAllActivitiesND() {
                         <div className="row">
                           <div className="col-md-4">
                             <div className="form-group">
-                              <label> Season <span className="asteriskCss">&#42;</span></label>
+                              <label>
+                                {" "}
+                                Season <span className="asteriskCss">&#42;</span>
+                              </label>
                               <InputGroup>
                                 <InputControl
                                   Input_type="select"
@@ -5090,11 +5094,11 @@ function KrphAllActivitiesND() {
                       )}
                       {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
                         <div className="col-md-4">
-                            <div className="form-group">
-                        <KrphButton type="button" varient="primary" trigger={btnLoaderActive && "true"} onClick={() => validateFarmerOnClick()}>
-                          Validate
-                        </KrphButton>
-                        </div>
+                          <div className="form-group">
+                            <KrphButton type="button" varient="primary" trigger={btnLoaderActive && "true"} onClick={() => validateFarmerOnClick()}>
+                              Validate
+                            </KrphButton>
+                          </div>
                         </div>
                       ) : null}
                       <div className="row my-3">
@@ -5110,19 +5114,19 @@ function KrphAllActivitiesND() {
                             placeholder={selectedFarmer && selectedFarmer.farmerName ? selectedFarmer.farmerName : ""}
                             disabled={true}
                           /> */}
-                        <div className="form-group">
-                        <label>
-                          Farmer Name <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            placeholder={selectedFarmer && selectedFarmer.farmerName ? selectedFarmer.farmerName : ""}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
-                      </div>
+                          <div className="form-group">
+                            <label>
+                              Farmer Name <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup>
+                              <InputControl
+                                Input_type="input"
+                                placeholder={selectedFarmer && selectedFarmer.farmerName ? selectedFarmer.farmerName : ""}
+                                disabled={true}
+                              />
+                            </InputGroup>
+                          </div>
+                        </div>
                         <div className="col-md-4">
                           {/* <Inputfield
                             type={"number"}
@@ -5131,17 +5135,17 @@ function KrphAllActivitiesND() {
                             disabled={true}
                           /> */}
                           <div className="form-group">
-                        <label>
-                        Mobile No <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            placeholder={selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : ""}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
+                            <label>
+                              Mobile No <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup>
+                              <InputControl
+                                Input_type="input"
+                                placeholder={selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : ""}
+                                disabled={true}
+                              />
+                            </InputGroup>
+                          </div>
                         </div>
                         <div className="col-md-4">
                           {/* <Inputfield
@@ -5159,23 +5163,25 @@ function KrphAllActivitiesND() {
                             disabled={true}
                           /> */}
                           <div className="form-group">
-                        <label>
-                        State <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            placeholder={selectedFarmer && selectedFarmer.state
-                              ? selectedFarmer.state
-                              : selectedFarmer.stateName
-                                ? selectedFarmer.stateName
-                                : selectedFarmer.resState
-                                  ? selectedFarmer.resState
-                                  : ""}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
+                            <label>
+                              State <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup>
+                              <InputControl
+                                Input_type="input"
+                                placeholder={
+                                  selectedFarmer && selectedFarmer.state
+                                    ? selectedFarmer.state
+                                    : selectedFarmer.stateName
+                                    ? selectedFarmer.stateName
+                                    : selectedFarmer.resState
+                                    ? selectedFarmer.resState
+                                    : ""
+                                }
+                                disabled={true}
+                              />
+                            </InputGroup>
+                          </div>
                         </div>
                         <div className="col-md-4">
                           {/* <Inputfield
@@ -5193,23 +5199,25 @@ function KrphAllActivitiesND() {
                             disabled={true}
                           /> */}
                           <div className="form-group">
-                        <label>
-                        District <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            placeholder={selectedFarmer && selectedFarmer.district
-                              ? selectedFarmer.district
-                              : selectedFarmer.districtName
-                                ? selectedFarmer.districtName
-                                : selectedFarmer.resDistrict
-                                  ? selectedFarmer.resDistrict
-                                  : ""}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
+                            <label>
+                              District <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup>
+                              <InputControl
+                                Input_type="input"
+                                placeholder={
+                                  selectedFarmer && selectedFarmer.district
+                                    ? selectedFarmer.district
+                                    : selectedFarmer.districtName
+                                    ? selectedFarmer.districtName
+                                    : selectedFarmer.resDistrict
+                                    ? selectedFarmer.resDistrict
+                                    : ""
+                                }
+                                disabled={true}
+                              />
+                            </InputGroup>
+                          </div>
                         </div>
                         <div className="col-md-4">
                           {/* <Inputfield
@@ -5225,21 +5233,23 @@ function KrphAllActivitiesND() {
                             disabled={true}
                           /> */}
                           <div className="form-group">
-                        <label>
-                        Taluka <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            placeholder={selectedFarmer && selectedFarmer.subDistrict
-                              ? selectedFarmer.subDistrict
-                              : selectedFarmer.resSubDistrict
-                                ? selectedFarmer.resSubDistrict
-                                : ""}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
+                            <label>
+                              Taluka <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup>
+                              <InputControl
+                                Input_type="input"
+                                placeholder={
+                                  selectedFarmer && selectedFarmer.subDistrict
+                                    ? selectedFarmer.subDistrict
+                                    : selectedFarmer.resSubDistrict
+                                    ? selectedFarmer.resSubDistrict
+                                    : ""
+                                }
+                                disabled={true}
+                              />
+                            </InputGroup>
+                          </div>
                         </div>
                         <div className="col-md-4">
                           {/* <Inputfield
@@ -5257,23 +5267,25 @@ function KrphAllActivitiesND() {
                             disabled={true}
                           /> */}
                           <div className="form-group">
-                        <label>
-                        Village <span className="asteriskCss">&#42;</span>
-                        </label>
-                        <InputGroup>
-                          <InputControl
-                            Input_type="input"
-                            placeholder={selectedFarmer && selectedFarmer.village
-                              ? selectedFarmer.village
-                              : selectedFarmer.villageName
-                                ? selectedFarmer.villageName
-                                : selectedFarmer.resVillage
-                                  ? selectedFarmer.resVillage
-                                  : ""}
-                            disabled={true}
-                          />
-                        </InputGroup>
-                      </div>
+                            <label>
+                              Village <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup>
+                              <InputControl
+                                Input_type="input"
+                                placeholder={
+                                  selectedFarmer && selectedFarmer.village
+                                    ? selectedFarmer.village
+                                    : selectedFarmer.villageName
+                                    ? selectedFarmer.villageName
+                                    : selectedFarmer.resVillage
+                                    ? selectedFarmer.resVillage
+                                    : ""
+                                }
+                                disabled={true}
+                              />
+                            </InputGroup>
+                          </div>
                         </div>
                         <div className="col-md-4">
                           <div className="form-group">
@@ -5298,7 +5310,9 @@ function KrphAllActivitiesND() {
                         </div>
                         <div className="col-md-4">
                           <div className="form-group">
-                            <label>Season <span className="asteriskCss">&#42;</span></label>
+                            <label>
+                              Season <span className="asteriskCss">&#42;</span>
+                            </label>
                             <InputGroup>
                               <InputControl
                                 Input_type="select"
@@ -5317,7 +5331,9 @@ function KrphAllActivitiesND() {
                         </div>
                         <div className="col-md-4">
                           <div className="form-group">
-                            <label>Scheme <span className="asteriskCss">&#42;</span></label>
+                            <label>
+                              Scheme <span className="asteriskCss">&#42;</span>
+                            </label>
                             <InputGroup>
                               <InputControl
                                 Input_type="select"
@@ -5340,12 +5356,22 @@ function KrphAllActivitiesND() {
                           <div className="d-flex align-items-center justify-content-between">
                             <div>
                               <div className="btn-container">
-                              <KrphButton type="button" varient="primary"  trigger={btnLoaderFarmerGreivenceInfoActive && "true"} onClick={() => getPolicyOfFarmerGreivenceOnClick()}>
+                                <KrphButton
+                                  type="button"
+                                  varient="primary"
+                                  trigger={btnLoaderFarmerGreivenceInfoActive && "true"}
+                                  onClick={() => getPolicyOfFarmerGreivenceOnClick()}
+                                >
                                   Fetch Details
                                 </KrphButton>
-                              <KrphButton type="button" varient="secondary" trigger={btnLoaderClaimStatusActive && "true"} onClick={() => getClaimStatusOnClick()}>
+                                <KrphButton
+                                  type="button"
+                                  varient="secondary"
+                                  trigger={btnLoaderClaimStatusActive && "true"}
+                                  onClick={() => getClaimStatusOnClick()}
+                                >
                                   Claim Status
-                              </KrphButton>
+                                </KrphButton>
                               </div>
                             </div>
                             <div>
@@ -5385,8 +5411,8 @@ function KrphAllActivitiesND() {
                                   ? selectedInsuranceDetails.applicationNo
                                   : ""
                                 : selectedInsuranceDetails && selectedInsuranceDetails.applicationNo
-                                  ? selectedInsuranceDetails.applicationNo
-                                  : ".........................."
+                                ? selectedInsuranceDetails.applicationNo
+                                : ".........................."
                             }
                           />
                         </div>
@@ -5399,8 +5425,8 @@ function KrphAllActivitiesND() {
                                   ? selectedInsuranceDetails.farmerPremium
                                   : ""
                                 : selectedInsuranceDetails && selectedInsuranceDetails.policyPremium
-                                  ? selectedInsuranceDetails.policyPremium
-                                  : "............................"
+                                ? selectedInsuranceDetails.policyPremium
+                                : "............................"
                             }
                           />
                         </div>
@@ -5413,8 +5439,8 @@ function KrphAllActivitiesND() {
                                   ? selectedInsuranceDetails.plotVillageName
                                   : ""
                                 : selectedInsuranceDetails && selectedInsuranceDetails.plotVillageName
-                                  ? selectedInsuranceDetails.plotVillageName
-                                  : ".............................."
+                                ? selectedInsuranceDetails.plotVillageName
+                                : ".............................."
                             }
                           />
                         </div>
@@ -5427,8 +5453,8 @@ function KrphAllActivitiesND() {
                                   ? selectedInsuranceDetails.area
                                   : ""
                                 : selectedInsuranceDetails && selectedInsuranceDetails.policyArea
-                                  ? selectedInsuranceDetails.policyArea
-                                  : "................................"
+                                ? selectedInsuranceDetails.policyArea
+                                : "................................"
                             }
                           />
                         </div>
@@ -5441,8 +5467,8 @@ function KrphAllActivitiesND() {
                                   ? selectedInsuranceDetails.cropName
                                   : ""
                                 : selectedInsuranceDetails && selectedInsuranceDetails.cropName
-                                  ? selectedInsuranceDetails.cropName
-                                  : "..............................."
+                                ? selectedInsuranceDetails.cropName
+                                : "..............................."
                             }
                           />
                         </div>
@@ -5453,29 +5479,53 @@ function KrphAllActivitiesND() {
                     </div>
                     <div className="farmer-ticket-summary">
                       <div className="row  my-4">
-                      {farmersTicketSummaryData && farmersTicketSummaryData.length > 0 ? (
-                                        farmersTicketSummaryData.map((x) => {
-                                          return (<div className="col-md-4" onClick={() => getTicketHistoryOnClick(x.TicketStatusID)}><Ticketcard bgclass={x.TicketStatusID === 109301 ? "pnkbg": x.TicketStatusID === 109303 ? "orangebg" : "bluebggr"} name={x.TicketStatus + " Tickets"} value={x.Total} img={x.TicketStatusID === 109301 ? openticket : x.TicketStatusID === 109303 ? resolvedticket : ticketdata} /></div>);
-                                        })
-                                      ) : (<><div className="col-md-4">
-                                        <Ticketcard bgclass={"bluebggr"} name={"Total Tickets"} value={"0"} img={ticketdata} />
-                                      </div>
-                                      <div className="col-md-4">
-                                        <Ticketcard bgclass={"pnkbg"} name={"Open Tickets"} value={"0"} img={openticket} />
-                                      </div>
-                                      <div className="col-md-4">
-                                        <Ticketcard bgclass={"orangebg"} name={"Resolved Tickets"} value={"0"} img={resolvedticket} />
-                                      </div></>) }
+                        {farmersTicketSummaryData && farmersTicketSummaryData.length > 0 ? (
+                          farmersTicketSummaryData.map((x) => {
+                            return (
+                              <div className="col-md-4" onClick={() => getTicketHistoryOnClick(x.TicketStatusID)}>
+                                <Ticketcard
+                                  bgclass={x.TicketStatusID === 109301 ? "pnkbg" : x.TicketStatusID === 109303 ? "orangebg" : "bluebggr"}
+                                  name={x.TicketStatus + " Tickets"}
+                                  value={x.Total}
+                                  img={x.TicketStatusID === 109301 ? openticket : x.TicketStatusID === 109303 ? resolvedticket : ticketdata}
+                                />
+                              </div>
+                            );
+                          })
+                        ) : (
+                          <>
+                            <div className="col-md-4">
+                              <Ticketcard bgclass={"bluebggr"} name={"Total Tickets"} value={"0"} img={ticketdata} />
+                            </div>
+                            <div className="col-md-4">
+                              <Ticketcard bgclass={"pnkbg"} name={"Open Tickets"} value={"0"} img={openticket} />
+                            </div>
+                            <div className="col-md-4">
+                              <Ticketcard bgclass={"orangebg"} name={"Resolved Tickets"} value={"0"} img={resolvedticket} />
+                            </div>
+                          </>
+                        )}
                       </div>
                       <div className="d-flex align-items-center justify-content-center ">
                         <div>
                           <div className="btn-container">
-                          {fetchfarmersummary !== "" ? (
-                            <>
-                            <button type="button" className="orange-button" style={{display:"none"}}>Tickets against application</button>
-                            <KrphButton type="button" title="click here to fetch tickets" varient="primary"  trigger={btnLoaderActiveTicketSummary && "true"} onClick={() => fetchfarmersTicketSummary()}>Fetch Tickets</KrphButton>
-                            </>) : null }
-                            </div>
+                            {fetchfarmersummary !== "" ? (
+                              <>
+                                <button type="button" className="orange-button" style={{ display: "none" }}>
+                                  Tickets against application
+                                </button>
+                                <KrphButton
+                                  type="button"
+                                  title="click here to fetch tickets"
+                                  varient="primary"
+                                  trigger={btnLoaderActiveTicketSummary && "true"}
+                                  onClick={() => fetchfarmersTicketSummary()}
+                                >
+                                  Fetch Tickets
+                                </KrphButton>
+                              </>
+                            ) : null}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -5505,47 +5555,54 @@ function KrphAllActivitiesND() {
                                         formValuesForFarmerInfo.txtYearForFarmerInfo.Value < runningCurrentYear ? null : (
                               <FormControlLabel value="4" control={<Radio />} label="Crop Loss Intimation" onClick={() => selectedOptionOnClick("LO")} />
                               )} */}
-                              </RadioGroup>
+                            </RadioGroup>
                           </div>
                         </div>
                       </div>
                       {selectedOption === "4" ? (
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="text-democation-ready">
-                            <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue={selectedOptionCropStage} name="radio-buttons-group">
-                              <FormControlLabel value="1" control={<Radio />} label="Standing Crop Stage" onClick={() => selectedOptionOnClickCropStage("SCS")} />
-                              <FormControlLabel value="2" control={<Radio />} label="Harvested Stage" onClick={() => selectedOptionOnClickCropStage("HS")} />
-                            </RadioGroup>
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div className="text-democation-ready">
+                              <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue={selectedOptionCropStage} name="radio-buttons-group">
+                                <FormControlLabel
+                                  value="1"
+                                  control={<Radio />}
+                                  label="Standing Crop Stage"
+                                  onClick={() => selectedOptionOnClickCropStage("SCS")}
+                                />
+                                <FormControlLabel value="2" control={<Radio />} label="Harvested Stage" onClick={() => selectedOptionOnClickCropStage("HS")} />
+                              </RadioGroup>
+                            </div>
                           </div>
                         </div>
-                      </div> ) : null }
+                      ) : null}
                       <div className="row">
-                      {selectedOption === "4" ? (
-                        <div className="col-md-12">
+                        {selectedOption === "4" ? (
+                          <div className="col-md-12">
+                            <div className="form-group">
+                              <label>
+                                Loss At <span className="asteriskCss">&#42;</span>
+                              </label>
+                              <InputGroup>
+                                <InputControl
+                                  Input_type="select"
+                                  name="txtLossAt"
+                                  getOptionLabel={(option) => `${option.CropStageSelection}`}
+                                  value={formValuesTicketCreation.txtLossAt}
+                                  getOptionValue={(option) => `${option}`}
+                                  options={lossAtList}
+                                  ControlTxt="Loss At"
+                                  onChange={(e) => updateStateTicketCreation("txtLossAt", e)}
+                                />
+                              </InputGroup>
+                              <span className="login_ErrorTxt">{formValidationSupportTicketError["txtLossAt"]}</span>
+                            </div>
+                          </div>
+                        ) : null}
+                        <div className="col-md-6">
                           <div className="form-group">
                             <label>
-                            Loss At <span className="asteriskCss">&#42;</span>
-                            </label>
-                            <InputGroup>
-                              <InputControl
-                                Input_type="select"
-                                name="txtLossAt"
-                                getOptionLabel={(option) => `${option.CropStageSelection}`}
-                                value={formValuesTicketCreation.txtLossAt}
-                                getOptionValue={(option) => `${option}`}
-                                options={lossAtList}
-                                ControlTxt="Loss At"
-                                onChange={(e) => updateStateTicketCreation("txtLossAt", e)}
-                              />
-                            </InputGroup>
-                            <span className="login_ErrorTxt">{formValidationSupportTicketError["txtLossAt"]}</span>
-                          </div>
-                        </div> ) : null}
-                        <div className="col-md-6">
-                        <div className="form-group">
-                            <label>
-                            Category <span className="asteriskCss">&#42;</span>
+                              Category <span className="asteriskCss">&#42;</span>
                             </label>
                             <InputGroup>
                               <InputControl
@@ -5564,8 +5621,8 @@ function KrphAllActivitiesND() {
                         </div>
                         <div className="col-md-6">
                           <div className="form-group">
-                          <label>
-                           Sub Category <span className="asteriskCss">&#42;</span>
+                            <label>
+                              Sub Category <span className="asteriskCss">&#42;</span>
                             </label>
                             <InputGroup>
                               <InputControl
@@ -5583,60 +5640,66 @@ function KrphAllActivitiesND() {
                           </div>
                         </div>
                         {(formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
-                                      : 0) ||
-                                    (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
-                                      : 0) ||
-                                    (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
-                                      : 0) ||
-                                    (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
-                                      : 0) ? 
-                        <div className="col-md-12">
-                          <div className="form-group">
-                            <label>Other Sub Category *</label>
-                            <InputGroup>
-                              <InputControl
-                                Input_type="select"
-                                name="txtOtherSubCategory"
-                                getOptionLabel={(option) => `${option.OtherCategoryName}`}
-                                value={formValuesTicketCreation.txtOtherSubCategory}
-                                getOptionValue={(option) => `${option}`}
-                                options={ticketCategoryOtherList}
-                                ControlTxt="Other Sub Category"
-                                onChange={(e) => updateStateTicketCreation("txtOtherSubCategory", e)}
-                              />
-                            </InputGroup>
-                            <span className="login_ErrorTxt">{formValidationSupportTicketError["txtOtherSubCategory"]}</span>
+                          ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
+                          : 0) ||
+                        (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                          ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
+                          : 0) ||
+                        (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                          ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
+                          : 0) ||
+                        (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                          ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
+                          : 0) ? (
+                          <div className="col-md-12">
+                            <div className="form-group">
+                              <label>Other Sub Category *</label>
+                              <InputGroup>
+                                <InputControl
+                                  Input_type="select"
+                                  name="txtOtherSubCategory"
+                                  getOptionLabel={(option) => `${option.OtherCategoryName}`}
+                                  value={formValuesTicketCreation.txtOtherSubCategory}
+                                  getOptionValue={(option) => `${option}`}
+                                  options={ticketCategoryOtherList}
+                                  ControlTxt="Other Sub Category"
+                                  onChange={(e) => updateStateTicketCreation("txtOtherSubCategory", e)}
+                                />
+                              </InputGroup>
+                              <span className="login_ErrorTxt">{formValidationSupportTicketError["txtOtherSubCategory"]}</span>
+                            </div>
                           </div>
-                        </div> : null}
+                        ) : null}
                         {selectedOption === "4" ? (
-                        <div className="col-md-12">
-                          <div className="form-group">
-                            <label>Crop Stage <span className="asteriskCss">&#42;</span></label>
-                            <InputGroup>
-                              <InputControl
-                                Input_type="select"
-                                name="txtCropStage"
-                                getOptionLabel={(option) => `${option.CropStageMaster}`}
-                                value={formValuesTicketCreation.txtCropStage}
-                                getOptionValue={(option) => `${option}`}
-                                options={cropStageList}
-                                ControlTxt="Crop Stage"
-                                onChange={(e) => updateStateTicketCreation("txtCropStage", e)}
-                              />
-                            </InputGroup>
-                            <span className="login_ErrorTxt">{formValidationSupportTicketError["txtCropStage"]}</span>
+                          <div className="col-md-12">
+                            <div className="form-group">
+                              <label>
+                                Crop Stage <span className="asteriskCss">&#42;</span>
+                              </label>
+                              <InputGroup>
+                                <InputControl
+                                  Input_type="select"
+                                  name="txtCropStage"
+                                  getOptionLabel={(option) => `${option.CropStageMaster}`}
+                                  value={formValuesTicketCreation.txtCropStage}
+                                  getOptionValue={(option) => `${option}`}
+                                  options={cropStageList}
+                                  ControlTxt="Crop Stage"
+                                  onChange={(e) => updateStateTicketCreation("txtCropStage", e)}
+                                />
+                              </InputGroup>
+                              <span className="login_ErrorTxt">{formValidationSupportTicketError["txtCropStage"]}</span>
+                            </div>
                           </div>
-                        </div> ) : null}
-                       
-                        {selectedOption === "4" && selectedOptionCropStage === "2" ? 
-                        <div className="col-md-4">
-                          <div className="form-group">
-                          <label>Harvest Date <span className="asteriskCss">&#42;</span></label>
-                          <InputGroup>
+                        ) : null}
+
+                        {selectedOption === "4" && selectedOptionCropStage === "2" ? (
+                          <div className="col-md-4">
+                            <div className="form-group">
+                              <label>
+                                Harvest Date <span className="asteriskCss">&#42;</span>
+                              </label>
+                              <InputGroup>
                                 <InputControl
                                   Input_type="input"
                                   type="date"
@@ -5648,51 +5711,59 @@ function KrphAllActivitiesND() {
                                 />
                               </InputGroup>
                               <span className="login_ErrorTxt">{formValidationSupportTicketError["txtCropHarvestDate"]}</span>
+                            </div>
+                          </div>
+                        ) : null}
+                        {selectedOption === "4" && (selectedOptionCropStage === "2" || selectedOptionCropStage === "1") ? (
+                          <>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <label>
+                                  Loss Date <span className="asteriskCss">&#42;</span>
+                                </label>
+                                <InputGroup>
+                                  <InputControl
+                                    Input_type="input"
+                                    type="date"
+                                    name="txtCropLossDate"
+                                    value={formValuesTicketCreation.txtCropLossDate}
+                                    onChange={(e) => updateStateTicketCreation("txtCropLossDate", e.target.value)}
+                                    min={dateToSpecificFormat(moment().subtract(1, "months"), "YYYY-MM-DD")}
+                                    max={dateToSpecificFormat(moment(), "YYYY-MM-DD")}
+                                    onKeyDown={(e) => e.preventDefault()}
+                                  />
+                                </InputGroup>
+                                <span className="login_ErrorTxt">{formValidationSupportTicketError["txtCropLossDate"]}</span>
                               </div>
-                        </div> : null }
-                        {selectedOption === "4" && (selectedOptionCropStage === "2" || selectedOptionCropStage === "1") ? <>
-                        <div className="col-md-4">
-                        <div className="form-group">
-                          <label>Loss Date <span className="asteriskCss">&#42;</span></label>
-                          <InputGroup>
-                                <InputControl
-                                  Input_type="input"
-                                  type="date"
-                                  name="txtCropLossDate"
-                                  value={formValuesTicketCreation.txtCropLossDate}
-                                  onChange={(e) => updateStateTicketCreation("txtCropLossDate", e.target.value)}
-                                  min={dateToSpecificFormat(moment().subtract(1, "months"), "YYYY-MM-DD")}
-                                  max={dateToSpecificFormat(moment(), "YYYY-MM-DD")}
-                                  onKeyDown={(e) => e.preventDefault()}
-                                />
-                              </InputGroup>
-                              <span className="login_ErrorTxt">{formValidationSupportTicketError["txtCropLossDate"]}</span>
+                            </div>
+                            <div className="col-md-4">
+                              <div className="form-group">
+                                <lable>.</lable>
+                                <InputGroup>
+                                  <InputControl
+                                    Input_type="input"
+                                    name="txtCropLossDate"
+                                    value={formValuesTicketCreation.txtCropLossIntimation}
+                                    onChange={(e) => updateStateTicketCreation("txtCropLossIntimation", e.target.value)}
+                                    style={
+                                      stateCropLossIntimation === "YES" || stateCropLossIntimation === "NA"
+                                        ? { color: "#3f4254", background: "#ffffff" }
+                                        : { color: "#ffffff", background: "#f30722" }
+                                    }
+                                    readOnly={true}
+                                  />
+                                </InputGroup>
                               </div>
-                        </div>
-                        <div className="col-md-4">
-                        <div className="form-group">
-                          <lable>.</lable>
-                        <InputGroup>
-                                <InputControl
-                                  Input_type="input"
-                                  name="txtCropLossDate"
-                                  value={formValuesTicketCreation.txtCropLossIntimation}
-                                  onChange={(e) => updateStateTicketCreation("txtCropLossIntimation", e.target.value)}
-                                  style={
-                                    stateCropLossIntimation === "YES" || stateCropLossIntimation === "NA"
-                                      ? { color: "#3f4254", background: "#ffffff" }
-                                      : { color: "#ffffff", background: "#f30722"  }
-                                  }
-                                  readOnly={true}
-                                />
-                              </InputGroup>
-                              </div>
-                        </div> </> : null }
+                            </div>{" "}
+                          </>
+                        ) : null}
                         {selectedOption === "4" ? (
-                        <div className="col-md-12">
-                             <div className="form-group">
-                             <label>Crop Name <span className="asteriskCss">&#42;</span></label>
-                        <InputGroup>
+                          <div className="col-md-12">
+                            <div className="form-group">
+                              <label>
+                                Crop Name <span className="asteriskCss">&#42;</span>
+                              </label>
+                              <InputGroup>
                                 <InputControl
                                   Input_type="input"
                                   name="txtCropName"
@@ -5701,38 +5772,48 @@ function KrphAllActivitiesND() {
                                 />
                               </InputGroup>
                               <span className="login_ErrorTxt">{formValidationSupportTicketError["txtCropName"]}</span>
-                              </div>
-                        </div> ) : null }
-                        <div className="col-md-12">
-                        <div className="form-group">
-                            <label>Description <span className="asteriskCss">&#42;</span></label>
-                            <InputGroup Row="4">
-                                <InputControl
-                                  Input_type="textarea"
-                                  name="txtTicketDescription"
-                                  value={formValuesTicketCreation.txtTicketDescription}
-                                  maxLength="500"
-                                  rows="4"
-                                  onChange={(e) => updateStateTicketCreation("txtTicketDescription", e.target.value)}
-                                />
-                              </InputGroup>
-                              <p className={BizClass.CounterDescKRPH} >
-                                        {formValuesTicketCreation.txtTicketDescription && formValuesTicketCreation.txtTicketDescription.length
-                                          ? formValuesTicketCreation.txtTicketDescription.length
-                                          : 0}{" "}
-                                        / {500}
-                                      </p>
-                              <span className="login_ErrorTxt">{formValidationSupportTicketError["txtTicketDescription"]}</span>
-                              </div>
+                            </div>
                           </div>
+                        ) : null}
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label>
+                              Description <span className="asteriskCss">&#42;</span>
+                            </label>
+                            <InputGroup Row="4">
+                              <InputControl
+                                Input_type="textarea"
+                                name="txtTicketDescription"
+                                value={formValuesTicketCreation.txtTicketDescription}
+                                maxLength="500"
+                                rows="4"
+                                onChange={(e) => updateStateTicketCreation("txtTicketDescription", e.target.value)}
+                              />
+                            </InputGroup>
+                            <p className={BizClass.CounterDescKRPH}>
+                              {formValuesTicketCreation.txtTicketDescription && formValuesTicketCreation.txtTicketDescription.length
+                                ? formValuesTicketCreation.txtTicketDescription.length
+                                : 0}{" "}
+                              / {500}
+                            </p>
+                            <span className="login_ErrorTxt">{formValidationSupportTicketError["txtTicketDescription"]}</span>
+                          </div>
+                        </div>
                       </div>
                       <div className="row">
                         <div className="col-md-12">
                           <div className="d-flex align-items-center justify-content-between">
                             <div>
                               <div className="btn-container">
-                              <KrphButton type="button" varient="secondary" disabled={isBtndisabled}
-                                        trigger={btnLoaderSupportTicketActive && "true"} onClick={() => supportTicketOnClick()}>Submit</KrphButton>
+                                <KrphButton
+                                  type="button"
+                                  varient="secondary"
+                                  disabled={isBtndisabled}
+                                  trigger={btnLoaderSupportTicketActive && "true"}
+                                  onClick={() => supportTicketOnClick()}
+                                >
+                                  Submit
+                                </KrphButton>
                               </div>
                             </div>
                           </div>
@@ -5745,36 +5826,50 @@ function KrphAllActivitiesND() {
             </div>
           </>
         ) : null}
-        {serviceSuccessState === "SUCCESS" ? <div className="container my-3">
-      <div className="row">
-        <div className="col-md-12">
-          <div className="card csc-form-cards"><div className="p-4 success-card">
-        <div className="icon">
-        {servicesuccessData && servicesuccessData === "TC" ?<img src={successtick} className="success-tick w-100" alt="Success" /> : <img src={callDisconnected} className="success-tick w-100" alt="Call-Disconnected" />}
-          
-        </div>
-        {servicesuccessData && servicesuccessData === "TC" ? <>
-        <div className="ticket-number-container">
-          <p className="ticket_number">{getSupportTicketNo}</p>
-          <p className="ticket_message">Ticket Created Successfully</p>
-        </div>
-        <div className="content-area">
-          <p>
-            Congratulations! A ticket with a reference number above has been generated. Click the "create more" button if you wish to create more tickets, or
-            else you can ask for the farmer’s feedback or Please close the tab.
-          </p>
-        </div>
-        <div className="d-flex align-items-center justify-content-center">
-          <button type="button" className="green-button mx-2" onClick={() => CreateMoreBtnOnClick()}>Create More</button>
-        </div> </> : servicesuccessData === "CD"
-                  ?  <div className="content-area"><p>Call is disconnected, Please close the tab</p></div>
-                  : "" }
-
-      </div>
-      </div>
-        </div>
-      </div>
-    </div> : null }
+        {serviceSuccessState === "SUCCESS" ? (
+          <div className="container my-3">
+            <div className="row">
+              <div className="col-md-12">
+                <div className="card csc-form-cards">
+                  <div className="p-4 success-card">
+                    <div className="icon">
+                      {servicesuccessData && servicesuccessData === "TC" ? (
+                        <img src={successtick} className="success-tick w-100" alt="Success" />
+                      ) : (
+                        <img src={callDisconnected} className="success-tick w-100" alt="Call-Disconnected" />
+                      )}
+                    </div>
+                    {servicesuccessData && servicesuccessData === "TC" ? (
+                      <>
+                        <div className="ticket-number-container">
+                          <p className="ticket_number">{getSupportTicketNo}</p>
+                          <p className="ticket_message">Ticket Created Successfully</p>
+                        </div>
+                        <div className="content-area">
+                          <p>
+                            Congratulations! A ticket with a reference number above has been generated. Click the "create more" button if you wish to create
+                            more tickets, or else you can ask for the farmer’s feedback or Please close the tab.
+                          </p>
+                        </div>
+                        <div className="d-flex align-items-center justify-content-center">
+                          <button type="button" className="green-button mx-2" onClick={() => CreateMoreBtnOnClick()}>
+                            Create More
+                          </button>
+                        </div>{" "}
+                      </>
+                    ) : servicesuccessData === "CD" ? (
+                      <div className="content-area">
+                        <p>Call is disconnected, Please close the tab</p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </>
   );
@@ -5887,7 +5982,7 @@ function InsuranceCompanyModalGreivence({
     <Modal title="Grievance" varient="bottom" width="99vw" show={toggleInsuranceCompanyModalGreivence} right={0} height="60vh">
       <Modal.Body>
         <div className={BizClass.ModalBox}>
-          <PageBar >
+          <PageBar>
             <PageBar.Search />
           </PageBar>
           <DataGrid
@@ -5954,8 +6049,8 @@ function InsuranceCompanyModalGreivence({
                 return node.data.scheme === "WBCIS"
                   ? "Weather Based Crop Insurance Scheme(WBCIS)"
                   : node.data.scheme === "PMFBY"
-                    ? "Pradhan Mantri Fasal Bima Yojna(PMFBY)"
-                    : "";
+                  ? "Pradhan Mantri Fasal Bima Yojna(PMFBY)"
+                  : "";
               }}
             />
             <DataGrid.Column
@@ -6042,15 +6137,7 @@ function ClaimStatusModal({
   customeWindowHeight,
 }) {
   return (
-    <Modal
-      title="Claim Status"
-      varient="bottom"
-      width={customeWindowWidth}
-      show={toggleClaimStatusModal}
-      left="0px"
-      bottom="0px"
-      height={customeWindowHeight}
-    >
+    <Modal title="Claim Status" varient="bottom" width={customeWindowWidth} show={toggleClaimStatusModal} left="0px" bottom="0px" height={customeWindowHeight}>
       <Modal.Header>
         <span style={{ width: "100%" }} />
         {openCustomeWindow === "S" ? (
@@ -6061,7 +6148,7 @@ function ClaimStatusModal({
       </Modal.Header>
       <Modal.Body>
         <div className={BizClass.ModalBox}>
-          <PageBar >
+          <PageBar>
             <PageBar.Search onChange={(e) => onChangeClamStatus(e.target.value)} />
           </PageBar>
           <DataGrid
@@ -6141,7 +6228,7 @@ function TicketHistoryModal({
     >
       <Modal.Body>
         <div className={BizClass.ModalBox}>
-          <PageBar >
+          <PageBar>
             <PageBar.Search onChange={(e) => onChangeTicketHistory(e.target.value)} />
           </PageBar>
           <DataGrid

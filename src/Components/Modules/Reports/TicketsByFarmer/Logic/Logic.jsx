@@ -16,9 +16,7 @@ function TicketsByFarmerReportLogics() {
     txtSearchFilter: "",
   });
 
-  const searchByoptionsFilter = [
-    { value: "1", label: "Mobile No" },
-  ];
+  const searchByoptionsFilter = [{ value: "1", label: "Mobile No" }];
 
   const [ticketsByFarmerDataList, setTicketsByFarmerDataList] = useState(false);
   const [filteredTicketsByFarmerDataList, setFilteredTicketsByFarmerDataList] = useState([]);
@@ -130,7 +128,7 @@ function TicketsByFarmerReportLogics() {
           });
           return;
         }
-      } 
+      }
     }
     getTicketsByFarmertData();
   };
@@ -306,48 +304,46 @@ function TicketsByFarmerReportLogics() {
     downloadExcel(rearrangedData);
   };
 
-    const [stateList, setStateList] = useState([]);
-    const [isLoadingStateList, setIsLoadingStateList] = useState(false);
-    const getStateListData = async () => {
-      try {
-        setStateList([]);
-        setIsLoadingStateList(true);
-        const userData = getSessionStorage("user");
-        const formdata = {
-          filterID: userData && userData.LoginID ? userData.LoginID : 0,
-          filterID1: 0,
-          masterName: "STATASIGN",
-          searchText: "#ALL",
-          searchCriteria: "AW",
-        };
-        const result = await getMasterDataBinding(formdata);
-        setIsLoadingStateList(false);
-        if (result.response.responseCode === 1) {
-          if (result.response.responseData && result.response.responseData.masterdatabinding && result.response.responseData.masterdatabinding.length > 0) {
-            setStateList(result.response.responseData.masterdatabinding);
-          } else {
-            setStateList([]);
-          }
+  const [stateList, setStateList] = useState([]);
+  const [isLoadingStateList, setIsLoadingStateList] = useState(false);
+  const getStateListData = async () => {
+    try {
+      setStateList([]);
+      setIsLoadingStateList(true);
+      const userData = getSessionStorage("user");
+      const formdata = {
+        filterID: userData && userData.LoginID ? userData.LoginID : 0,
+        filterID1: 0,
+        masterName: "STATASIGN",
+        searchText: "#ALL",
+        searchCriteria: "AW",
+      };
+      const result = await getMasterDataBinding(formdata);
+      setIsLoadingStateList(false);
+      if (result.response.responseCode === 1) {
+        if (result.response.responseData && result.response.responseData.masterdatabinding && result.response.responseData.masterdatabinding.length > 0) {
+          setStateList(result.response.responseData.masterdatabinding);
         } else {
-          setAlertMessage({
-            type: "error",
-            message: result.response.responseMessage,
-          });
+          setStateList([]);
         }
-      } catch (error) {
-        console.log(error);
+      } else {
         setAlertMessage({
           type: "error",
-          message: error,
+          message: result.response.responseMessage,
         });
       }
-    };
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+    }
+  };
 
-    
-      useEffect(() => {
-        getStateListData();
-      }, []);
-  
+  useEffect(() => {
+    getStateListData();
+  }, []);
 
   return {
     ticketsByFarmerDataList,

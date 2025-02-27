@@ -91,7 +91,7 @@ function InsuranceCompLogics() {
             setSatatusCountInfomn([jsonStatusCntInfomn]);
 
             setSessionStorage("satatusCountSsnStrg", result.response.responseData);
-            if(pRefressh !== "yes") {
+            if (pRefressh !== "yes") {
               getChartTypeWiseData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYHDR", "");
             }
           } else {
@@ -157,7 +157,7 @@ function InsuranceCompLogics() {
           }
         });
         setSatatusCountInfomn([jsonStatusCntInfomn]);
-        if(pRefressh !== "yes") {
+        if (pRefressh !== "yes") {
           getChartTypeWiseData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYHDR", "");
         }
       }
@@ -325,7 +325,7 @@ function InsuranceCompLogics() {
             setSessionStorage("state4SsnStrg", result.response.responseData.dashboard);
             if (pRefressh !== "yes") {
               getChartCategoryLossIntimationWiseData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYCLCTZ", "");
-           }
+            }
           } else {
             setstate4({});
           }
@@ -386,7 +386,7 @@ function InsuranceCompLogics() {
         setstate4(jsonstate4);
         if (pRefressh !== "yes") {
           getChartCategoryLossIntimationWiseData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYCLCTZ", "");
-       }
+        }
       }
     } catch (error) {
       console.log(error);
@@ -597,7 +597,7 @@ function InsuranceCompLogics() {
             };
             setstate(josnstate);
             setSessionStorage("stateSsnStrg", result.response.responseData.dashboard);
-            if(pRefressh !== "yes") {
+            if (pRefressh !== "yes") {
               getDistrictWiseData(1, userData && userData.LoginID ? userData.LoginID : 0, "BYDSCT", "");
             }
           } else {
@@ -684,7 +684,7 @@ function InsuranceCompLogics() {
           },
         };
         setstate(josnstate);
-        if(pRefressh !== "yes") {
+        if (pRefressh !== "yes") {
           getDistrictWiseData(1, userData && userData.LoginID ? userData.LoginID : 0, "BYDSCT", "");
         }
       }
@@ -931,7 +931,7 @@ function InsuranceCompLogics() {
             };
             setstate5(jsonstate5);
             setSessionStorage("state5SsnStrg", result.response.responseData.dashboard);
-            if(pRefressh !== "yes") {
+            if (pRefressh !== "yes") {
               getChartLastMonthDataInsuranceComp(2, userData && userData.LoginID ? userData.LoginID : 0, "BYDUR", "");
             }
           } else {
@@ -992,7 +992,7 @@ function InsuranceCompLogics() {
           },
         };
         setstate5(jsonstate5);
-        if(pRefressh !== "yes") {
+        if (pRefressh !== "yes") {
           getChartLastMonthDataInsuranceComp(2, userData && userData.LoginID ? userData.LoginID : 0, "BYDUR", "");
         }
       }

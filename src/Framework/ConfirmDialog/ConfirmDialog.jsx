@@ -37,21 +37,13 @@ const ConfirmDialog = (props) => {
   return (
     <div className="Biz_ConfirmDialog_Overlay">
       <div className="Biz_ConfirmDialog">
-        <h2 className="Biz_ConfirmDialog_Heading">
-          {props.confirmAlert.title}
-        </h2>
+        <h2 className="Biz_ConfirmDialog_Heading">{props.confirmAlert.title}</h2>
         <p className="Biz_ConfirmDialog_BodyTxt">{props.confirmAlert.msg}</p>
         <div className="Biz_ConfirmDialog_BtnBox">
-          <button
-            onClick={() => onCancel()}
-            className="Biz_ConfirmDialog_CloseBtn"
-          >
+          <button onClick={() => onCancel()} className="Biz_ConfirmDialog_CloseBtn">
             {props.confirmAlert.button.abortText}
           </button>
-          <button
-            onClick={() => onConfirm()}
-            className={"Biz_ConfirmDialog_OpenBtn " + className}
-          >
+          <button onClick={() => onConfirm()} className={"Biz_ConfirmDialog_OpenBtn " + className}>
             {props.confirmAlert.button.confirmText}
           </button>
         </div>

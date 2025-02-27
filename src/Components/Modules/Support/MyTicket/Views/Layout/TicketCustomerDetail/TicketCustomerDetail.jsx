@@ -91,8 +91,7 @@ function TicketCustomerDetail({
       policyPremium: "Premium Amount",
       applicationSource: "Source of Enrolment",
       scheme: "Scheme",
-      applicationStatus:"Application Status",
-
+      applicationStatus: "Application Status",
     };
     const mappedData = [
       {
@@ -281,7 +280,11 @@ function TicketCustomerDetail({
           <div className={BizClass.SubBox}>
             <RiNewspaperLine />
             <p>
-              Application Status : <span id="spnApplicationStatus"> {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].applicationStatus : ""}</span>
+              Application Status :{" "}
+              <span id="spnApplicationStatus">
+                {" "}
+                {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].applicationStatus : ""}
+              </span>
             </p>
             <FiCopy onClick={() => copyToClipboard("spnApplicationStatus")} />
           </div>

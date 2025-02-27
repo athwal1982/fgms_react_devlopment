@@ -41,7 +41,7 @@ function SelectPopup(props) {
         </div>
       </Draggable>
     </React.Fragment>
-  ) 
+  );
 }
 
 export default SelectPopup;
@@ -81,8 +81,8 @@ export const SelectPopupContent = (props) => {
       const selectedData = search.result[search.cursor - 1];
       if (selectedData && selectedData.ref.current)
         selectedData.ref.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
+          behavior: "smooth",
+          block: "end",
         });
     } else if (e.keyCode === 40 && cursor < result.length - 1) {
       e.preventDefault();
@@ -93,8 +93,8 @@ export const SelectPopupContent = (props) => {
       const selectedData = search.result[search.cursor + 1];
       if (selectedData && selectedData.ref.current)
         selectedData.ref.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
+          behavior: "smooth",
+          block: "end",
         });
     } else if (e.keyCode === 13) {
       e.preventDefault();
@@ -123,7 +123,7 @@ export const SelectAddressCard = (props) => {
   return (
     <React.Fragment>
       <div className={BizClass.AddressMainBox}>
-        <input onClick={onClick}  type="radio" name="DynBiz_RadioClick" {...rest} />
+        <input onClick={onClick} type="radio" name="DynBiz_RadioClick" {...rest} />
         <div className={BizClass.AddressCard}>
           <h4>{AddressTitle}</h4>
           <p>{`${AddressBody}`}</p>

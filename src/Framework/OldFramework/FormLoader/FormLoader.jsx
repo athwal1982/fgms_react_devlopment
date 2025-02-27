@@ -1,5 +1,5 @@
-import React from 'react';
-import './FormLoader.scss';
+import React from "react";
+import "./FormLoader.scss";
 
 const PageLoader = () => {
   return (

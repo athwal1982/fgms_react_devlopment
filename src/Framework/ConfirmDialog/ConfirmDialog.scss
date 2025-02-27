@@ -22,10 +22,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  -webkit-animation: DynBizPopup_animatetoppopup 0.6s
-    cubic-bezier(0.165, 0.84, 0.44, 1) backwards;
-  animation: DynBizPopup_animatetoppopup 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)
-    backwards;
+  -webkit-animation: DynBizPopup_animatetoppopup 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) backwards;
+  animation: DynBizPopup_animatetoppopup 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) backwards;
 }
 
 .Biz_ConfirmDialog_BtnBox {

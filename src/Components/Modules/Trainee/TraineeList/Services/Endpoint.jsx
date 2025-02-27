@@ -1,7 +1,7 @@
 const APIEndpoints = {
   Common: {
     GetAllAgent: "FGMS/agentList",
-    statusUpdate:"FGMS/statusUpdate"
+    statusUpdate: "FGMS/statusUpdate",
   },
 };
 

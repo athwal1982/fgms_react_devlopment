@@ -10,7 +10,6 @@
     display: flex;
     justify-content: right;
   }
-  
 
   .SummaryBoard {
     display: grid;
@@ -109,14 +108,14 @@
       font-weight: 600;
       padding-bottom: 0px;
       text-decoration: underline;
-     }
+    }
 
     .SummaryBoard {
       display: grid;
       grid-auto-columns: 1fr;
       grid-auto-flow: column;
       column-gap: 8px;
-  
+
       .ScoreBoard {
         display: block;
         border-radius: 4px;
@@ -127,67 +126,67 @@
         text-decoration: none;
         letter-spacing: 0.2px;
         background: #307ef4;
-  
+
         span {
           color: #ffffff;
           display: block;
           text-align: center;
-  
+
           &:nth-child(1) {
             font-weight: 500;
             margin-bottom: 4px;
             font-size: 16px;
           }
-  
+
           &:nth-child(2) {
             font-weight: 700;
             font-size: 24px;
           }
         }
-  
+
         &:nth-child(1) {
           background: #307ef4;
-  
+
           span {
             color: #ffffff;
           }
         }
-  
+
         &:nth-child(2) {
           background: #ffb057;
-  
+
           span {
             color: #183247;
           }
         }
-  
+
         &:nth-child(3) {
           background: #49b6c2;
-  
+
           span {
             color: #ffffff;
           }
         }
-  
+
         &:nth-child(4) {
           background: #ff814d;
-  
+
           span {
             color: #ffffff;
           }
         }
-  
+
         &:nth-child(5) {
           background: #fa5b5a;
-  
+
           span {
             color: #ffffff;
           }
         }
-  
+
         &:nth-child(6) {
           background: #29b873;
-  
+
           span {
             color: #ffffff;
           }
@@ -209,14 +208,14 @@
       font-weight: 600;
       padding-bottom: 0px;
       text-decoration: underline;
-     }
+    }
 
     .SummaryBoard {
       display: grid;
       grid-auto-columns: 1fr;
       grid-auto-flow: column;
       column-gap: 8px;
-  
+
       .ScoreBoard {
         display: block;
         border-radius: 4px;
@@ -227,24 +226,24 @@
         text-decoration: none;
         letter-spacing: 0.2px;
         background: #307ef4;
-  
+
         span {
           color: #ffffff;
           display: block;
           text-align: center;
-  
+
           &:nth-child(1) {
             font-weight: 500;
             margin-bottom: 4px;
             font-size: 16px;
           }
-  
+
           &:nth-child(2) {
             font-weight: 700;
             font-size: 24px;
           }
         }
-  
+
         &:nth-child(1) {
           background: #29b873;
 
@@ -309,14 +308,14 @@
       font-weight: 600;
       padding-bottom: 0px;
       text-decoration: underline;
-     }
+    }
 
     .SummaryBoard {
       display: grid;
       grid-auto-columns: 1fr;
       grid-auto-flow: column;
       column-gap: 8px;
-  
+
       .ScoreBoard {
         display: block;
         border-radius: 4px;
@@ -327,24 +326,24 @@
         text-decoration: none;
         letter-spacing: 0.2px;
         background: #307ef4;
-  
+
         span {
           color: #ffffff;
           display: block;
           text-align: center;
-  
+
           &:nth-child(1) {
             font-weight: 500;
             margin-bottom: 4px;
             font-size: 16px;
           }
-  
+
           &:nth-child(2) {
             font-weight: 700;
             font-size: 24px;
           }
         }
-  
+
         &:nth-child(1) {
           background: #cc681b;
 
@@ -395,7 +394,6 @@
       }
     }
   }
- 
 
   .ChartBox {
     display: grid;

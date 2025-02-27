@@ -46,7 +46,6 @@ function AddUser({ showfunc, referenceTypeOptions, updateUserData, setConfirmAle
       onConfirm: () => showfunc(),
     });
   };
-  
 
   return (
     <>
@@ -69,7 +68,7 @@ function AddUser({ showfunc, referenceTypeOptions, updateUserData, setConfirmAle
           </p>
         </div>
       )}
-      <Modal onlyfooter ="true" onlyCancel="true" onSubmit={(e) => handleSave(e, updateUserData)} varient="center" title="Add User" show={showfunc} right="0">
+      <Modal onlyfooter="true" onlyCancel="true" onSubmit={(e) => handleSave(e, updateUserData)} varient="center" title="Add User" show={showfunc} right="0">
         <Modal.Body>
           <Form>
             <Form.Group column={2} controlwidth="280px">
@@ -216,7 +215,7 @@ function AddUser({ showfunc, referenceTypeOptions, updateUserData, setConfirmAle
           <Button type="submit" varient="secondary" trigger={btnLoaderActive}>
             Save
           </Button>
-          <Button type="button" varient="grey"  onClick={() => handleCancel()}>
+          <Button type="button" varient="grey" onClick={() => handleCancel()}>
             Cancel
           </Button>
         </Modal.Footer>

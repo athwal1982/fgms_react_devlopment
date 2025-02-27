@@ -68,7 +68,7 @@ function PremiumCalculatorReport({
         <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
         <DataGrid.Column field="MobileNumber" headerName="Caller Mobile Number" width="170px" />
         <DataGrid.Column field="StateMasterName" headerName="State" width="150px" />
-        <DataGrid.Column field="District" headerName="District" width="150px" /> 
+        <DataGrid.Column field="District" headerName="District" width="150px" />
         <DataGrid.Column field="Years" headerName="Year" width="90px" />
         <DataGrid.Column field="CropName" headerName="Crop" width="210px" />
         <DataGrid.Column field="SchemeName" headerName="Scheme" width="290px" />
@@ -77,19 +77,19 @@ function PremiumCalculatorReport({
         <DataGrid.Column field="InsuranceMasterName" headerName="Insurance Company" width="290px" />
         <DataGrid.Column field="AREA" headerName="Area(In Hectare)" width="145px" />
         <DataGrid.Column field="CalculatedPremium" headerName="Calculated Premium" width="170px" />
-         <DataGrid.Column
-                  field="#"
-                  headerName="Created At"
-                  width="150px"
-                  valueGetter={(node) => {
-                    return node.data.CreatedAt
-                      ? dateToSpecificFormat(
-                          `${node.data.CreatedAt.split("T")[0]} ${Convert24FourHourAndMinute(node.data.CreatedAt.split("T")[1])}`,
-                          "DD-MM-YYYY HH:mm",
-                        )
-                      : null;
-                  }}
-                />
+        <DataGrid.Column
+          field="#"
+          headerName="Created At"
+          width="150px"
+          valueGetter={(node) => {
+            return node.data.CreatedAt
+              ? dateToSpecificFormat(
+                  `${node.data.CreatedAt.split("T")[0]} ${Convert24FourHourAndMinute(node.data.CreatedAt.split("T")[1])}`,
+                  "DD-MM-YYYY HH:mm",
+                )
+              : null;
+          }}
+        />
       </DataGrid>
     </div>
   );

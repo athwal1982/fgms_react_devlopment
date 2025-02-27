@@ -1019,13 +1019,14 @@ function AddTicket({ showfunc, updateFarmersTickets, openMyTicketPage }) {
                         <div className={BizClass.ValidateTabCheckBox} />
                         <span>Information</span>
                       </button>
-                      {(formValuesForFarmerInfo.txtYearForFarmerInfo &&
+                      {formValuesForFarmerInfo.txtYearForFarmerInfo &&
                       formValuesForFarmerInfo.txtYearForFarmerInfo.Value &&
-                      formValuesForFarmerInfo.txtYearForFarmerInfo.Value <= 2023) ? null :
-                      <button type="button" className={selectedOption === "4" && BizClass.Active} onClick={() => selectedOptionOnClick("LO")}>
+                      formValuesForFarmerInfo.txtYearForFarmerInfo.Value <= 2023 ? null : (
+                        <button type="button" className={selectedOption === "4" && BizClass.Active} onClick={() => selectedOptionOnClick("LO")}>
                           <div className={BizClass.ValidateTabCheckBox} />
                           <span>Crop Loss Intimation</span>
-                        </button> }
+                        </button>
+                      )}
                       {/* {formValuesForFarmerInfo.txtYearForFarmerInfo &&
                       formValuesForFarmerInfo.txtYearForFarmerInfo.Value &&
                       formValuesForFarmerInfo.txtYearForFarmerInfo.Value < runningCurrentYear ? null : (

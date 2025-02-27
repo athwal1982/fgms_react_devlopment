@@ -31,7 +31,7 @@ import {
 } from "../../Modules/Support/ManageTicket/Views/Modals/AddTicket/Services/Methods";
 import { getCropListDistrictWiseDataList } from "Components/Common/Calculator/Service/Method";
 import { getMasterDataBinding } from "../../Modules/Support/ManageTicket/Services/Methods";
-import { addKRPHSupportTicketdata,krphFarmerCallingHistorydata,checkKRPHFarmerByMobileNumber } from "./Services/Methods";
+import { addKRPHSupportTicketdata, krphFarmerCallingHistorydata, checkKRPHFarmerByMobileNumber } from "./Services/Methods";
 import BizClass from "./CreateTicket.module.scss";
 
 function CreateTicket({
@@ -882,7 +882,7 @@ function CreateTicket({
       let result = "";
       let formData = "";
       formData = {
-        mobilenumber: formValuesMN && formValuesMN.txtMobileNumber ? formValuesMN.txtMobileNumber : "" ,
+        mobilenumber: formValuesMN && formValuesMN.txtMobileNumber ? formValuesMN.txtMobileNumber : "",
       };
       setBtnLoaderActive(true);
       result = await checkKRPHFarmerByMobileNumber(formData);
@@ -1193,7 +1193,7 @@ function CreateTicket({
 
   const validateFarmerOnClick = () => {
     clearInsuranceFields();
-    
+
     if (selectedValidateOption === "1") {
       validateFarmerByMobileNumber();
     } else if (selectedValidateOption === "2") {
@@ -2207,15 +2207,15 @@ function CreateTicket({
         farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
         callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
         reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
-        stateCodeAlpha:
-          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
-        districtCodeAlpha:
-          formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        stateCodeAlpha: formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        districtCodeAlpha: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
         isRegistered: pvalisRegistered,
       };
       const result = await krphFarmerCallingHistorydata(formData);
       if (result.response.responseCode === 1) {
-        CreateTicketBAuthOptions(result.response.responseData && result.response.responseData.CallingMasterID ? result.response.responseData.CallingMasterID : 0);
+        CreateTicketBAuthOptions(
+          result.response.responseData && result.response.responseData.CallingMasterID ? result.response.responseData.CallingMasterID : 0,
+        );
       } else {
         setAlertMessage({
           type: "error",
@@ -2269,32 +2269,41 @@ function CreateTicket({
   const [btnLoaderSupportTicketActive, setBtnLoaderSupportTicketActive] = useState(false);
   const supportTicketOnClick = async () => {
     try {
-
       if (selectedValidateOption !== "6" && selectedValidateOption !== "7") {
         if (selectedFarmer.length === 0 && selectedFarmer.length !== undefined) {
           setAlertMessage({
             type: "warning",
             message: "Farmer Authentication is required!",
           });
-  
+
           return;
         }
-  
+
         if (selectedInsuranceDetails.length === 0 && selectedInsuranceDetails.length !== undefined) {
           setAlertMessage({
             type: "warning",
             message: "Insurance Company is required!",
           });
-  
+
           return;
         }
         if (!handleValidationSupportTicket()) {
           return;
-        }  
-      const pvalisRegistered = (selectedValidateOption === "1" || selectedValidateOption === "2" || selectedValidateOption === "3" || selectedValidateOption === "4" || selectedValidateOption === "5") ? "R" : selectedValidateOption === "6" ? "U" : selectedValidateOption === "7" ? "O" : "";
-      SavevalidateFarmerOnClick(pvalisRegistered);
+        }
+        const pvalisRegistered =
+          selectedValidateOption === "1" ||
+          selectedValidateOption === "2" ||
+          selectedValidateOption === "3" ||
+          selectedValidateOption === "4" ||
+          selectedValidateOption === "5"
+            ? "R"
+            : selectedValidateOption === "6"
+            ? "U"
+            : selectedValidateOption === "7"
+            ? "O"
+            : "";
+        SavevalidateFarmerOnClick(pvalisRegistered);
       }
-      
     } catch (error) {
       console.log(error);
       setAlertMessage({
@@ -2304,7 +2313,7 @@ function CreateTicket({
     }
   };
 
-  const CreateTicketBAuthOptions = async(pCallingMasterID) => {
+  const CreateTicketBAuthOptions = async (pCallingMasterID) => {
     try {
       let pticketStatusID = 0;
       let pticketStatusNoneBMCG = 0;
@@ -2314,7 +2323,7 @@ function CreateTicket({
       let pticketHeaderID = 0;
       const pticketHeaderName =
         selectedOption === "1" ? "Grievance" : selectedOption === "2" ? "Information" : selectedOption === "4" ? "Crop Loss Intimation" : "";
-  
+
       if (selectedOption === "1" || selectedOption === "4") {
         pticketStatusID = 109019;
         pticketStatus = "Open";
@@ -2334,7 +2343,7 @@ function CreateTicket({
         pPolicyID = selectedInsuranceDetails && selectedInsuranceDetails.policyID ? selectedInsuranceDetails.policyID : "";
       }
       const user = getSessionStorage("user");
-      const  pcreationMode =
+      const pcreationMode =
         selectedValidateOption === "1"
           ? "MOB"
           : selectedValidateOption === "2"
@@ -2346,12 +2355,12 @@ function CreateTicket({
           : selectedValidateOption === "5"
           ? "LOC"
           : "";
-        let pselectedOptionCropStage = ""  ;  
-        if (selectedOption === "4") {
-          pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : ""; 
-        }  
-          
-       const formData = {
+      let pselectedOptionCropStage = "";
+      if (selectedOption === "4") {
+        pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : "";
+      }
+
+      const formData = {
         creationMode: pcreationMode,
         subCategoryName:
           formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
@@ -2371,9 +2380,9 @@ function CreateTicket({
         requestorAccountNo: selectedFarmer && selectedFarmer.accountNumber ? selectedFarmer.accountNumber : "",
         requestorAadharNo: selectedFarmer && selectedFarmer.aadharNumber ? selectedFarmer.aadharNumber : "",
         ticketCategoryID:
-        formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-        ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-        : 0,
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            : 0,
         // A cropCategoryOthers: formValuesTicketCreation.txtOtherSubCategory ? formValuesTicketCreation.txtOtherSubCategory : "",
         cropCategoryOthers:
           formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
@@ -2383,12 +2392,12 @@ function CreateTicket({
           formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMasterID
             ? formValuesTicketCreation.txtCropStage.CropStageMasterID
             : 0,
-        cropStageMaster: formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
-        ? formValuesTicketCreation.txtCropStage.CropStageMaster
-        : "",
-        cropLossDetailID: formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID
-        ? formValuesTicketCreation.txtLossAt.CropLossDetailID
-        : 0,
+        cropStageMaster:
+          formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
+            ? formValuesTicketCreation.txtCropStage.CropStageMaster
+            : "",
+        cropLossDetailID:
+          formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID ? formValuesTicketCreation.txtLossAt.CropLossDetailID : 0,
         cropStage: pselectedOptionCropStage,
         ticketHeaderID: pticketHeaderID,
         requestYear:
@@ -2399,7 +2408,7 @@ function CreateTicket({
           formValuesForFarmerInfo.txtSeasonForFarmerInfo && formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
             ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
             : 0,
-  
+
         ticketDescription: formValuesTicketCreation.txtTicketDescription,
         lossDate: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossDate ? dateToCompanyFormat(formValuesTicketCreation.txtCropLossDate) : "",
         lossTime: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossTime ? formValuesTicketCreation.txtCropLossTime : "",
@@ -2422,28 +2431,34 @@ function CreateTicket({
             ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonName
             : "",
         ticketCategoryName:
-        formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-        ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-        : "",
-        ticketSubCategoryID:  formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-        ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-        : 0,    
-        ticketSubCategoryName: formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-        ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-        : "",
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            : "",
+        ticketSubCategoryID:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            : 0,
+        ticketSubCategoryName:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            : "",
         ticketHeadName: pticketHeaderName,
-        nyayPanchayatID: formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5ID
-        ? formValuesForByLocation.txtlevel5ByLocation.level5ID
-        : "0",
-        nyayPanchayat: formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5Name
-        ? formValuesForByLocation.txtlevel5ByLocation.level5Name
-        : "",
-        gramPanchayatID: formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6ID
-        ? formValuesForByLocation.txtlevel6ByLocation.level6ID
-        : "0",
-        gramPanchayat: formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6Name
-        ? formValuesForByLocation.txtlevel6ByLocation.level6Name
-        : "",
+        nyayPanchayatID:
+          formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5ID
+            ? formValuesForByLocation.txtlevel5ByLocation.level5ID
+            : "0",
+        nyayPanchayat:
+          formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5Name
+            ? formValuesForByLocation.txtlevel5ByLocation.level5Name
+            : "",
+        gramPanchayatID:
+          formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6ID
+            ? formValuesForByLocation.txtlevel6ByLocation.level6ID
+            : "0",
+        gramPanchayat:
+          formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6Name
+            ? formValuesForByLocation.txtlevel6ByLocation.level6Name
+            : "",
         businessRelationName: user && user.UserCompanyType ? user.UserCompanyType : "",
         schemeName:
           formValuesForFarmerInfo.txtSchemeForFarmerInfo && formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeName
@@ -2521,7 +2536,6 @@ function CreateTicket({
           const pMobileNo = selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "";
           const pSupportTicketNo = result.response.responseData.SupportTicketNo ? result.response.responseData.SupportTicketNo : "";
           if (selectedOption === "1" || selectedOption === "2") {
-           
             // A SendSMSToFarmerAgaintSupportTicket(ptemplateID, pMobileNo, pSupportTicketNo);
           }
           setgetSupportTicketNo(pSupportTicketNo);
@@ -2529,7 +2543,7 @@ function CreateTicket({
           setSessionStorage("servicesuccess", "TC");
           setServiceSuccessState("SUCCESS");
           // A navigate("/ServiceSuccess");
-        } 
+        }
       } else {
         setAlertMessage({
           type: "error",
@@ -2543,7 +2557,6 @@ function CreateTicket({
         message: error,
       });
     }
-    
   };
 
   const [formValues, setFormValues] = useState({
@@ -2578,7 +2591,7 @@ function CreateTicket({
 
   const [formValuesForByNonRegFarmerOrOffline, setFormValuesForByNonRegFarmerOrOffline] = useState({
     txtMobileForNonRegFarmerOrOffline: "",
-    txtFarmerNameForNonRegFarmerOrOffline:"",
+    txtFarmerNameForNonRegFarmerOrOffline: "",
     txtStateForByNonRegFarmerOrOffline: null,
     txtDistrictForByNonRegFarmerOrOffline: null,
     txtSubDistrictForByNonRegFarmerOrOffline: null,
@@ -3609,11 +3622,11 @@ function CreateTicket({
                       // A className={selectedValidateOption === "1" && BizClass.Active}
                       className={
                         selectedValidateOption === "1" && farmerAuthenticateByMobile === true
-                          ? classNames(BizClass.Active,BizClass.disabledradioFarmerAuthenticationBoxWithouOpacity)
+                          ? classNames(BizClass.Active, BizClass.disabledradioFarmerAuthenticationBoxWithouOpacity)
                           : selectedValidateOption === "1"
                           ? BizClass.Active
                           : null
-                       }
+                      }
                       onClick={() => OnClickSelectedValidateOption("MN")}
                     >
                       <div className={BizClass.ValidateTabCheckBox} />
@@ -3621,9 +3634,9 @@ function CreateTicket({
                     </button>
                     <button
                       type="button"
-                     // A className={selectedValidateOption === "2" && BizClass.Active}
+                      // A className={selectedValidateOption === "2" && BizClass.Active}
                       className={
-                      selectedValidateOption === "2" && farmerAuthenticateByMobile === false
+                        selectedValidateOption === "2" && farmerAuthenticateByMobile === false
                           ? BizClass.Active
                           : farmerAuthenticateByMobile === true
                           ? BizClass.disabledradioFarmerAuthenticationBox
@@ -3654,9 +3667,9 @@ function CreateTicket({
                     <button
                       type="button"
                       // A className={selectedValidateOption === "4" && BizClass.Active}
-                       className={
+                      className={
                         selectedValidateOption === "4" && farmerAuthenticateByMobile === false
-                         ? BizClass.Active
+                          ? BizClass.Active
                           : farmerAuthenticateByMobile === true
                           ? BizClass.disabledradioFarmerAuthenticationBox
                           : null
@@ -3686,7 +3699,7 @@ function CreateTicket({
                     <button
                       type="button"
                       // A className={selectedValidateOption === "6" && BizClass.Active}
-                       className={
+                      className={
                         selectedValidateOption === "6" && farmerAuthenticateByMobile === false
                           ? BizClass.Active
                           : farmerAuthenticateByMobile === true
@@ -3701,7 +3714,7 @@ function CreateTicket({
                     <button
                       type="button"
                       // A className={selectedValidateOption === "7" && BizClass.Active}
-                       className={
+                      className={
                         selectedValidateOption === "7" && farmerAuthenticateByMobile === false
                           ? BizClass.Active
                           : farmerAuthenticateByMobile === true
@@ -3994,9 +4007,11 @@ function CreateTicket({
                 )}
                 {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
                   <div className={BizClass.ValidateFormFooter}>
-                      {farmerAuthenticateByMobile ? null : <Button className={BizClass.FormFooterButton} trigger={btnLoaderActive && "true"} onClick={() => validateFarmerOnClick()}>
+                    {farmerAuthenticateByMobile ? null : (
+                      <Button className={BizClass.FormFooterButton} trigger={btnLoaderActive && "true"} onClick={() => validateFarmerOnClick()}>
                         Validate
-                      </Button> }
+                      </Button>
+                    )}
                   </div>
                 ) : null}
               </form>
@@ -4191,26 +4206,26 @@ function CreateTicket({
               ) : (
                 <div className={BizClass.Content}>
                   <Form.Group column="4" controlwidth="360px">
-                  <Form.InputGroup req="true" label="Farmer Mobile No." errorMsg={formValidationFarmersError["txtMobileForNonRegFarmerOrOffline"]}>
-                          <Form.InputControl
-                            control="input"
-                            type="text"
-                            name="txtMobileForNonRegFarmerOrOffline"
-                            value={formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline}
-                            maxLength={10}
-                            minLength={10}
-                            onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtMobileForNonRegFarmerOrOffline", e.target.value.replace(/\D/g, ""))}
-                          />
-                        </Form.InputGroup>
-                        <Form.InputGroup req="true" label="Farmer Name" errorMsg={formValidationFarmersError["txtMobileForNonRegFarmerOrOffline"]}>
-                          <Form.InputControl
-                            control="input"
-                            type="text"
-                            name="txtFarmerNameForNonRegFarmerOrOffline"
-                            value={formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline}
-                            onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtFarmerNameForNonRegFarmerOrOffline", e.target.value)}
-                          />
-                        </Form.InputGroup>    
+                    <Form.InputGroup req="true" label="Farmer Mobile No." errorMsg={formValidationFarmersError["txtMobileForNonRegFarmerOrOffline"]}>
+                      <Form.InputControl
+                        control="input"
+                        type="text"
+                        name="txtMobileForNonRegFarmerOrOffline"
+                        value={formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline}
+                        maxLength={10}
+                        minLength={10}
+                        onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtMobileForNonRegFarmerOrOffline", e.target.value.replace(/\D/g, ""))}
+                      />
+                    </Form.InputGroup>
+                    <Form.InputGroup req="true" label="Farmer Name" errorMsg={formValidationFarmersError["txtMobileForNonRegFarmerOrOffline"]}>
+                      <Form.InputControl
+                        control="input"
+                        type="text"
+                        name="txtFarmerNameForNonRegFarmerOrOffline"
+                        value={formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline}
+                        onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtFarmerNameForNonRegFarmerOrOffline", e.target.value)}
+                      />
+                    </Form.InputGroup>
                     <Form.InputGroup label="Season" req="true" errorMsg={formValidationFarmersError["txtSeasonForNonRegFarmerOrOffline"]}>
                       <Form.InputControl
                         control="select"
@@ -4654,7 +4669,12 @@ function CreateTicket({
                       }
                     >
                       {selectedOptionCropStage === "2" ? (
-                        <Form.InputGroup label="Harvest Date" style={{paddingLeft:"9px"}} req="true" errorMsg={formValidationSupportTicketError["txtCropHarvestDate"]}>
+                        <Form.InputGroup
+                          label="Harvest Date"
+                          style={{ paddingLeft: "9px" }}
+                          req="true"
+                          errorMsg={formValidationSupportTicketError["txtCropHarvestDate"]}
+                        >
                           <Form.InputControl
                             control="input"
                             type="date"
@@ -4668,7 +4688,12 @@ function CreateTicket({
                         </Form.InputGroup>
                       ) : null}
                       {selectedOptionCropStage === "2" || selectedOptionCropStage === "1" ? (
-                        <Form.InputGroup label="Loss Date" style={{paddingLeft:"12px"}} req="true" errorMsg={formValidationSupportTicketError["txtCropLossDate"]}>
+                        <Form.InputGroup
+                          label="Loss Date"
+                          style={{ paddingLeft: "12px" }}
+                          req="true"
+                          errorMsg={formValidationSupportTicketError["txtCropLossDate"]}
+                        >
                           <Form.InputControl
                             control="input"
                             type="date"
@@ -4754,7 +4779,7 @@ function CreateTicket({
                     >
                       Submit
                     </Button>
-                    <Button className={BizClass.FormFooterButton} onClick={() => clearAddTicketForm()} style={{display:"none"}}>
+                    <Button className={BizClass.FormFooterButton} onClick={() => clearAddTicketForm()} style={{ display: "none" }}>
                       Clear
                     </Button>
                   </div>
@@ -5101,7 +5126,6 @@ function TicketHistoryModal({
   isLoadingTicketHistory,
   onChangeTicketHistory,
 }) {
-
   return (
     <Modal
       title={`Ticket History - ${selectedFarmer ? selectedFarmer.farmerName : ""}(${selectedFarmer ? selectedFarmer.mobile : ""})`}
@@ -5116,11 +5140,7 @@ function TicketHistoryModal({
           <PageBar>
             <PageBar.Search onChange={(e) => onChangeTicketHistory(e.target.value)} />
           </PageBar>
-          <DataGrid
-            rowData={ticketHistoryData}
-            loader={isLoadingTicketHistory ? <Loader /> : null}
-            onGridReady={onGridReadyTicketHistory}
-          >
+          <DataGrid rowData={ticketHistoryData} loader={isLoadingTicketHistory ? <Loader /> : null} onGridReady={onGridReadyTicketHistory}>
             <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
             <DataGrid.Column field="SupportTicketNo" headerName="Ticket No" width="150px" />
             <DataGrid.Column field="TicketStatus" headerName="Ticket Status" width="120px" />

@@ -60,8 +60,6 @@ function TicketAssignment({
     setOpenToggleViewTicketAssignmentPopup((prevState) => !prevState);
   };
 
-  
-
   const checkboxSelection = (params) => {
     console.log(params);
     if (params.node.data.isAssign === 1) {

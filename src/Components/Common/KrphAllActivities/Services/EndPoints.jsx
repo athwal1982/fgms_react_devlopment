@@ -30,7 +30,7 @@ const APIEndpoints = {
     AddKRPHSupportTicket: "FGMS/AddKRPHSupportTicket",
     KrphFarmerCallingHistory: "FGMS/KrphFarmerCallingHistory",
     CheckKRPHFarmerByMobileNumber: "FGMS/CheckKRPHFarmerByMobileNumber",
-    KRPHFarmerSelect:"FGMS/KRPHFarmerSelect",
+    KRPHFarmerSelect: "FGMS/KRPHFarmerSelect",
     AddKRPHFarmerSupportTicket: "FGMS/AddKRPHFarmerSupportTicket",
   },
 };

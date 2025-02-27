@@ -37,7 +37,13 @@ import {
 } from "../../Modules/Support/ManageTicket/Views/Modals/AddTicket/Services/Methods";
 import { getCropListDistrictWiseDataList } from "Components/Common/Calculator/Service/Method";
 import { getMasterDataBinding } from "../../Modules/Support/ManageTicket/Services/Methods";
-import { addKRPHSupportTicketdata,krphFarmerCallingHistorydata,checkKRPHFarmerByMobileNumber,farmerTicketSummaryKRPH,addKRPHFarmerSupportTicketData } from "./Services/Methods";
+import {
+  addKRPHSupportTicketdata,
+  krphFarmerCallingHistorydata,
+  checkKRPHFarmerByMobileNumber,
+  farmerTicketSummaryKRPH,
+  addKRPHFarmerSupportTicketData,
+} from "./Services/Methods";
 import { getUserRightData } from "../../Modules/Setup/MenuManagement/Services/Methods";
 import PremiumCalculator from "./PremiumCalculator";
 import { KrphToggleSwitch } from "./KrphToggleSwitch";
@@ -130,11 +136,10 @@ function KrphAllActivities() {
         errors["txtReason"] = validateKRPHInfoField("txtReason", formValuesGI.txtReason);
       }
       if (formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1) {
-      errors["txtState"] = validateKRPHInfoField("txtState", formValuesGI.txtState);
-      errors["txtDistrict"] = validateKRPHInfoField("txtDistrict", formValuesGI.txtDistrict);
-      errors["txtFarmerName"] = validateKRPHInfoField("txtFarmerName", formValuesGI.txtFarmerName);
+        errors["txtState"] = validateKRPHInfoField("txtState", formValuesGI.txtState);
+        errors["txtDistrict"] = validateKRPHInfoField("txtDistrict", formValuesGI.txtDistrict);
+        errors["txtFarmerName"] = validateKRPHInfoField("txtFarmerName", formValuesGI.txtFarmerName);
       }
-
 
       if (Object.values(errors).join("").toString()) {
         formIsValid = false;
@@ -171,7 +176,7 @@ function KrphAllActivities() {
         txtDistrict: value,
       });
       setobjDistrictData({});
-      if(farmerAuthenticateByMobile === false) {
+      if (farmerAuthenticateByMobile === false) {
         SavevalidateFarmerOnClick(value && value.level3ID ? value.level3ID : "", value && value.level3Name ? value.level3Name : "");
       }
     }
@@ -205,13 +210,11 @@ function KrphAllActivities() {
         farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
         callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
         reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
-        stateCodeAlpha:
-          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
-        districtCodeAlpha:
-          formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        stateCodeAlpha: formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        districtCodeAlpha: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
         farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
-        farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
-          // A isRegistered: farmerAuthenticateByMobile === true ? "R" : farmerAuthenticateByMobile === false ? "U" : "" ,
+        farmerDistrictName: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
+        // A isRegistered: farmerAuthenticateByMobile === true ? "R" : farmerAuthenticateByMobile === false ? "U" : "" ,
         isRegistered: valisRegistered,
       };
       const result = await krphFarmerCallingHistorydata(formData);
@@ -240,18 +243,26 @@ function KrphAllActivities() {
     if (!handleKRPHInfoValidation()) {
       return;
     }
-    
+
     if (pType === "BTNNXT") {
       setActiveBtnKey(pType);
-       if(farmerAuthenticateByMobile === false) {
-        SavevalidateFarmerOnClick(formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "", formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "");
-       } else {
-        SavevalidateFarmerRegisteredFarmerOnClick(selectedFarmer ? selectedFarmer.farmerName : "", selectedFarmer.stateID  ? selectedFarmer.stateID : "", selectedFarmer && selectedFarmer.districtID ? selectedFarmer.districtID : "", selectedFarmer && selectedFarmer.state ? selectedFarmer.state : "",selectedFarmer && selectedFarmer.district ? selectedFarmer.district : "");
-       }
+      if (farmerAuthenticateByMobile === false) {
+        SavevalidateFarmerOnClick(
+          formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+          formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
+        );
+      } else {
+        SavevalidateFarmerRegisteredFarmerOnClick(
+          selectedFarmer ? selectedFarmer.farmerName : "",
+          selectedFarmer.stateID ? selectedFarmer.stateID : "",
+          selectedFarmer && selectedFarmer.districtID ? selectedFarmer.districtID : "",
+          selectedFarmer && selectedFarmer.state ? selectedFarmer.state : "",
+          selectedFarmer && selectedFarmer.district ? selectedFarmer.district : "",
+        );
+      }
     } else if (pType === "BTNSBMT") {
       setActiveBtnKey(pType);
       SavevalidateFarmerDisconnectedOnClick();
-
     }
   };
 
@@ -373,7 +384,7 @@ function KrphAllActivities() {
       let result = "";
       let formData = "";
       formData = {
-        mobilenumber: dcryptUMBLENO ,
+        mobilenumber: dcryptUMBLENO,
       };
       result = await checkKRPHFarmerByMobileNumber(formData);
       setSelectedFarmer([]);
@@ -394,14 +405,26 @@ function KrphAllActivities() {
             ...formValuesGI,
             txtCallerID: dcryptUNQEID,
             txtMobileCallerNumber: dcryptUMBLENO,
-            txtState: parseFarmerData.data.result && parseFarmerData.data.result.stateID && parseFarmerData.data.result.state ? {StateCodeAlpha : parseFarmerData.data.result.stateID, StateMasterName: parseFarmerData.data.result.state } : null,
-            txtDistrict: parseFarmerData.data.result && parseFarmerData.data.result.districtID && parseFarmerData.data.result.district ? {level3ID : parseFarmerData.data.result.districtID, level3Name: parseFarmerData.data.result.district } : null,
+            txtState:
+              parseFarmerData.data.result && parseFarmerData.data.result.stateID && parseFarmerData.data.result.state
+                ? { StateCodeAlpha: parseFarmerData.data.result.stateID, StateMasterName: parseFarmerData.data.result.state }
+                : null,
+            txtDistrict:
+              parseFarmerData.data.result && parseFarmerData.data.result.districtID && parseFarmerData.data.result.district
+                ? { level3ID: parseFarmerData.data.result.districtID, level3Name: parseFarmerData.data.result.district }
+                : null,
             txtCallStatus: { ID: 1, Value: "Connected" },
             txtFarmerName: parseFarmerData.data.result ? parseFarmerData.data.result.farmerName : "",
             txtReason: null,
           });
           setvalisRegistered("R");
-          SavevalidateFarmerRegisteredFarmerOnClick(parseFarmerData.data.result ? parseFarmerData.data.result.farmerName : "", parseFarmerData.data.result && parseFarmerData.data.result.stateID  ? parseFarmerData.data.result.stateID : "", parseFarmerData.data.result && parseFarmerData.data.result.districtID ? parseFarmerData.data.result.districtID : "", parseFarmerData.data.result && parseFarmerData.data.result.state ? parseFarmerData.data.result.state : "",parseFarmerData.data.result && parseFarmerData.data.result.district? parseFarmerData.data.result.district : "");
+          SavevalidateFarmerRegisteredFarmerOnClick(
+            parseFarmerData.data.result ? parseFarmerData.data.result.farmerName : "",
+            parseFarmerData.data.result && parseFarmerData.data.result.stateID ? parseFarmerData.data.result.stateID : "",
+            parseFarmerData.data.result && parseFarmerData.data.result.districtID ? parseFarmerData.data.result.districtID : "",
+            parseFarmerData.data.result && parseFarmerData.data.result.state ? parseFarmerData.data.result.state : "",
+            parseFarmerData.data.result && parseFarmerData.data.result.district ? parseFarmerData.data.result.district : "",
+          );
         }
       } else {
         setAlertMessage({
@@ -442,7 +465,7 @@ function KrphAllActivities() {
       let result = "";
       let formData = "";
       formData = {
-        mobilenumber: formValuesMN && formValuesMN.txtMobileNumber ? formValuesMN.txtMobileNumber : "" ,
+        mobilenumber: formValuesMN && formValuesMN.txtMobileNumber ? formValuesMN.txtMobileNumber : "",
       };
       setBtnLoaderActive(true);
       result = await checkKRPHFarmerByMobileNumber(formData);
@@ -1575,34 +1598,34 @@ function KrphAllActivities() {
 
     if (name === "txtYearForFarmerInfo") {
       if (value) {
-          setSelectedOption("1");
-          setSelectedOptionCropStage("1");
-          setTicketCategoryTypeList([]);
-          setTicketCategoryList([]);
-          setLossAtList([]);
-          setCropStageList([]);
-          getTicketCategoryTypeListData("1", 0, "TCKTYP");
-          setFormValuesTicketCreation({
-            ...formValuesTicketCreation,
-            txtTicketCategoryType: null,
-            txtTicketCategory: null,
-            txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-            txtCropLossIntimation: "On-time",
-            txtCropLossTime: "",
-            txtTicketDescription: "",
-            txtLossAt: null,
-            txtOtherSubCategory: null,
-            txtCropStage: null,
-            txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-            txtCropName: "",
-          });
-        }
+        setSelectedOption("1");
+        setSelectedOptionCropStage("1");
+        setTicketCategoryTypeList([]);
+        setTicketCategoryList([]);
+        setLossAtList([]);
+        setCropStageList([]);
+        getTicketCategoryTypeListData("1", 0, "TCKTYP");
+        setFormValuesTicketCreation({
+          ...formValuesTicketCreation,
+          txtTicketCategoryType: null,
+          txtTicketCategory: null,
+          txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+          txtCropLossIntimation: "On-time",
+          txtCropLossTime: "",
+          txtTicketDescription: "",
+          txtLossAt: null,
+          txtOtherSubCategory: null,
+          txtCropStage: null,
+          txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+          txtCropName: "",
+        });
+      }
     }
   };
 
   const validateFarmerOnClick = () => {
     clearInsuranceFields();
-    
+
     if (selectedValidateOption === "1") {
       validateFarmerByMobileNumberCreateTicket();
     } else if (selectedValidateOption === "2") {
@@ -1979,7 +2002,7 @@ function KrphAllActivities() {
       txtPinCode: "",
       txtAreaInHectareForCalculator: "",
       txtCropForCalculate: null,
-      CalculatedSumInsured: ","
+      CalculatedSumInsured: ",",
     });
 
     setDistrictForByNonRegFarmerOrOfflineDropdownDataList([]);
@@ -2020,7 +2043,7 @@ function KrphAllActivities() {
       txtPinCode: "",
       txtAreaInHectareForCalculator: "",
       txtCropForCalculate: null,
-      CalculatedSumInsured: ","
+      CalculatedSumInsured: ",",
     });
     setDistrictForByNonRegFarmerOrOfflineDropdownDataList([]);
     setSubDistrictForByNonRegFarmerOrOfflineDropdownDataList([]);
@@ -2034,7 +2057,7 @@ function KrphAllActivities() {
     setlevel5ByNonRegFarmerOrOfflineDropdownDataList([]);
     setlevel6ByNonRegFarmerOrOfflineDropdownDataList([]);
     setformValidationFarmersErrorForNonRegFarmerOrOffline({});
-    
+
     setFormValuesTicketCreation({
       ...formValuesTicketCreation,
       txtTicketCategory: null,
@@ -2079,7 +2102,6 @@ function KrphAllActivities() {
         ...formValuesForByLocation,
         txtFarmerNameForNonRegFarmerOrOffline: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
         txtMobileForNonRegFarmerOrOffline: dcryptUMBLENO,
-        
       });
       getStateForByNonRegFarmerOrOfflineListData();
       getNonRegisteresFarmerDetailsByMobile();
@@ -2286,7 +2308,7 @@ function KrphAllActivities() {
                 });
               });
               setInsuranceCompanyDataGreivence(farmerAndApplicationData);
-              if(getCallingMasterID === 0) {
+              if (getCallingMasterID === 0) {
                 const callingformData = {
                   CallingMasterID: getCallingMasterID,
                   callerMobileNumber: formValuesGI.txtMobileCallerNumber ? formValuesGI.txtMobileCallerNumber : "",
@@ -2296,17 +2318,15 @@ function KrphAllActivities() {
                   farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
                   callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
                   reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
-                  stateCodeAlpha:
-                    formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
-                  districtCodeAlpha:
-                    formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+                  stateCodeAlpha: formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+                  districtCodeAlpha: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
                   farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
-                  farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
+                  farmerDistrictName: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
                   isRegistered: valisRegistered,
                 };
                 SavevalidateFarmerCallingMaserIDFail(callingformData);
               }
-             
+
               toggleInsuranceCompanyModalGreivence();
             } else {
               setInsuranceCompanyDataGreivence([]);
@@ -2713,23 +2733,21 @@ function KrphAllActivities() {
         farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
         callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
         reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
-        stateCodeAlpha:
-          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
-        districtCodeAlpha:  formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        stateCodeAlpha: formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        districtCodeAlpha: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
         farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
-        farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
+        farmerDistrictName: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
         isRegistered: pisRegistered,
       };
       const result = await krphFarmerCallingHistorydata(formData);
       if (result.response.responseCode === 1) {
-        if(result.response.responseData.CallingMasterID > 0) {
+        if (result.response.responseData.CallingMasterID > 0) {
           setgetCallingMasterID(result.response.responseData.CallingMasterID);
         } else {
-          SavevalidateFarmerCallingMaserIDFail(formData); 
+          SavevalidateFarmerCallingMaserIDFail(formData);
         }
-        
       } else {
-        SavevalidateFarmerCallingMaserIDFail(formData); 
+        SavevalidateFarmerCallingMaserIDFail(formData);
       }
     } catch (error) {
       console.log(error);
@@ -2753,8 +2771,7 @@ function KrphAllActivities() {
         farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
         callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
         reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
-        stateCodeAlpha:
-          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        stateCodeAlpha: formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
         districtCodeAlpha: pdistrictCodeAlpha,
         farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
         farmerDistrictName: pdistrictName,
@@ -2762,14 +2779,13 @@ function KrphAllActivities() {
       };
       const result = await krphFarmerCallingHistorydata(formData);
       if (result.response.responseCode === 1) {
-        if(result.response.responseData.CallingMasterID > 0) {
+        if (result.response.responseData.CallingMasterID > 0) {
           setgetCallingMasterID(result.response.responseData.CallingMasterID);
         } else {
-          SavevalidateFarmerCallingMaserIDFail(formData); 
+          SavevalidateFarmerCallingMaserIDFail(formData);
         }
-        
       } else {
-        SavevalidateFarmerCallingMaserIDFail(formData); 
+        SavevalidateFarmerCallingMaserIDFail(formData);
       }
     } catch (error) {
       console.log(error);
@@ -2781,7 +2797,7 @@ function KrphAllActivities() {
     }
   };
 
-  const SavevalidateFarmerRegisteredFarmerOnClick = async (pFarmerName,pstateCodeAlpha,pdistrictCodeAlpha,pstateName,pdistrictName) => {
+  const SavevalidateFarmerRegisteredFarmerOnClick = async (pFarmerName, pstateCodeAlpha, pdistrictCodeAlpha, pstateName, pdistrictName) => {
     debugger;
     try {
       const formData = {
@@ -2801,13 +2817,13 @@ function KrphAllActivities() {
       };
       const result = await krphFarmerCallingHistorydata(formData);
       if (result.response.responseCode === 1) {
-        if(result.response.responseData.CallingMasterID > 0) {
+        if (result.response.responseData.CallingMasterID > 0) {
           setgetCallingMasterID(result.response.responseData.CallingMasterID);
         } else {
-          SavevalidateFarmerCallingMaserIDFail(formData);  
+          SavevalidateFarmerCallingMaserIDFail(formData);
         }
       } else {
-        SavevalidateFarmerCallingMaserIDFail(formData); 
+        SavevalidateFarmerCallingMaserIDFail(formData);
       }
     } catch (error) {
       console.log(error);
@@ -2872,36 +2888,34 @@ function KrphAllActivities() {
   const supportTicketOnClick = async () => {
     debugger;
     try {
-
       if (selectedValidateOption !== "6" && selectedValidateOption !== "7") {
         if (selectedFarmer.length === 0 && selectedFarmer.length !== undefined) {
           setAlertMessage({
             type: "warning",
             message: "Farmer Authentication is required!",
           });
-  
+
           return;
         }
-  
+
         if (selectedInsuranceDetails.length === 0 && selectedInsuranceDetails.length !== undefined) {
           setAlertMessage({
             type: "warning",
             message: "Insurance Company is required!",
           });
-  
+
           return;
         }
         if (!handleValidationSupportTicket()) {
           return;
-        }  
+        }
         CreateTicketBAuthOptions();
-      } else if(selectedValidateOption === "6") {
+      } else if (selectedValidateOption === "6") {
         if (!handleFarmersValidationForNonRegFarmerOrOffline()) {
           return;
         }
-        CreateTicketNonRegisteredFarmer();      
+        CreateTicketNonRegisteredFarmer();
       }
-      
     } catch (error) {
       console.log(error);
       setAlertMessage({
@@ -2934,7 +2948,7 @@ function KrphAllActivities() {
     }
   };
 
-  const CreateTicketBAuthOptions = async() => {
+  const CreateTicketBAuthOptions = async () => {
     try {
       let pticketStatusID = 0;
       // A let pticketStatusNoneBMCG = 0;
@@ -2944,9 +2958,9 @@ function KrphAllActivities() {
       let pticketHeaderID = 0;
       const pticketHeaderName =
         selectedOption === "1" ? "Grievance" : selectedOption === "2" ? "Information" : selectedOption === "4" ? "Crop Loss Intimation" : "";
-  
+
       if (selectedOption === "1" || selectedOption === "4") {
-       // A pticketStatusID = 109019;
+        // A pticketStatusID = 109019;
         pticketStatusID = 109301;
         pticketStatus = "Open";
         // A pticketStatusNoneBMCG = "109301";
@@ -2966,7 +2980,7 @@ function KrphAllActivities() {
         pPolicyID = selectedInsuranceDetails && selectedInsuranceDetails.policyID ? selectedInsuranceDetails.policyID : "";
       }
       const user = getSessionStorage("user");
-      const  pcreationMode =
+      const pcreationMode =
         selectedValidateOption === "1"
           ? "MOB"
           : selectedValidateOption === "2"
@@ -2978,12 +2992,12 @@ function KrphAllActivities() {
           : selectedValidateOption === "5"
           ? "LOC"
           : "";
-        let pselectedOptionCropStage = ""  ;  
-        if (selectedOption === "4") {
-          pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : ""; 
-        }  
-          
-       const formData = {
+      let pselectedOptionCropStage = "";
+      if (selectedOption === "4") {
+        pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : "";
+      }
+
+      const formData = {
         creationMode: pcreationMode,
         subCategoryName:
           formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
@@ -3003,9 +3017,9 @@ function KrphAllActivities() {
         requestorAccountNo: selectedFarmer && selectedFarmer.accountNumber ? selectedFarmer.accountNumber : "",
         requestorAadharNo: selectedFarmer && selectedFarmer.aadharNumber ? selectedFarmer.aadharNumber : "",
         ticketCategoryID:
-        formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-        ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-        : 0,
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            : 0,
         // A cropCategoryOthers: formValuesTicketCreation.txtOtherSubCategory ? formValuesTicketCreation.txtOtherSubCategory : "",
         cropCategoryOthers:
           formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
@@ -3015,12 +3029,12 @@ function KrphAllActivities() {
           formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMasterID
             ? formValuesTicketCreation.txtCropStage.CropStageMasterID
             : 0,
-        cropStageMaster: formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
-        ? formValuesTicketCreation.txtCropStage.CropStageMaster
-        : "",
-        cropLossDetailID: formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID
-        ? formValuesTicketCreation.txtLossAt.CropLossDetailID
-        : 0,
+        cropStageMaster:
+          formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
+            ? formValuesTicketCreation.txtCropStage.CropStageMaster
+            : "",
+        cropLossDetailID:
+          formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID ? formValuesTicketCreation.txtLossAt.CropLossDetailID : 0,
         cropStage: pselectedOptionCropStage,
         ticketHeaderID: pticketHeaderID,
         requestYear:
@@ -3031,7 +3045,7 @@ function KrphAllActivities() {
           formValuesForFarmerInfo.txtSeasonForFarmerInfo && formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
             ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonID
             : 0,
-  
+
         ticketDescription: formValuesTicketCreation.txtTicketDescription,
         lossDate: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossDate ? dateToCompanyFormat(formValuesTicketCreation.txtCropLossDate) : "",
         lossTime: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossTime ? formValuesTicketCreation.txtCropLossTime : "",
@@ -3054,28 +3068,34 @@ function KrphAllActivities() {
             ? formValuesForFarmerInfo.txtSeasonForFarmerInfo.CropSeasonName
             : "",
         ticketCategoryName:
-        formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-        ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-        : "",
-        ticketSubCategoryID:  formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-        ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-        : 0,    
-        ticketSubCategoryName: formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-        ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-        : "",
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            : "",
+        ticketSubCategoryID:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            : 0,
+        ticketSubCategoryName:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            : "",
         ticketHeadName: pticketHeaderName,
-        nyayPanchayatID: formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5ID
-        ? formValuesForByLocation.txtlevel5ByLocation.level5ID
-        : "0",
-        nyayPanchayat: formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5Name
-        ? formValuesForByLocation.txtlevel5ByLocation.level5Name
-        : "",
-        gramPanchayatID: formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6ID
-        ? formValuesForByLocation.txtlevel6ByLocation.level6ID
-        : "0",
-        gramPanchayat: formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6Name
-        ? formValuesForByLocation.txtlevel6ByLocation.level6Name
-        : "",
+        nyayPanchayatID:
+          formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5ID
+            ? formValuesForByLocation.txtlevel5ByLocation.level5ID
+            : "0",
+        nyayPanchayat:
+          formValuesForByLocation && formValuesForByLocation.txtlevel5ByLocation && formValuesForByLocation.txtlevel5ByLocation.level5Name
+            ? formValuesForByLocation.txtlevel5ByLocation.level5Name
+            : "",
+        gramPanchayatID:
+          formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6ID
+            ? formValuesForByLocation.txtlevel6ByLocation.level6ID
+            : "0",
+        gramPanchayat:
+          formValuesForByLocation && formValuesForByLocation.txtlevel6ByLocation && formValuesForByLocation.txtlevel6ByLocation.level6Name
+            ? formValuesForByLocation.txtlevel6ByLocation.level6Name
+            : "",
         businessRelationName: user && user.UserCompanyType ? user.UserCompanyType : "",
         schemeName:
           formValuesForFarmerInfo.txtSchemeForFarmerInfo && formValuesForFarmerInfo.txtSchemeForFarmerInfo.SchemeName
@@ -3144,7 +3164,7 @@ function KrphAllActivities() {
           const pMobileNo = selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "";
           const pSupportTicketNo = result.response.responseData.SupportTicketNo ? result.response.responseData.SupportTicketNo : "";
 
-          if(selectedValidateOption === "5") {
+          if (selectedValidateOption === "5") {
             setSelectedFarmer(selectedFarmer);
           }
           setgetSupportTicketNo(pSupportTicketNo);
@@ -3167,8 +3187,8 @@ function KrphAllActivities() {
           } else if (selectedOption === "2") {
             ptemplateID = "I";
           }
-            SendSMSToFarmerAgaintSupportTicket(ptemplateID, pMobileNo, pSupportTicketNo);
-        } 
+          SendSMSToFarmerAgaintSupportTicket(ptemplateID, pMobileNo, pSupportTicketNo);
+        }
       } else {
         setAlertMessage({
           type: "error",
@@ -3182,10 +3202,9 @@ function KrphAllActivities() {
         message: error,
       });
     }
-    
   };
 
-  const CreateTicketNonRegisteredFarmer = async() => {
+  const CreateTicketNonRegisteredFarmer = async () => {
     try {
       let pticketStatusID = 0;
       // A let pticketStatusNoneBMCG = 0;
@@ -3193,9 +3212,9 @@ function KrphAllActivities() {
       let pticketHeaderID = 0;
       const pticketHeaderName =
         selectedOption === "1" ? "Grievance" : selectedOption === "2" ? "Information" : selectedOption === "4" ? "Crop Loss Intimation" : "";
-  
+
       if (selectedOption === "1" || selectedOption === "4") {
-       // A pticketStatusID = 109019;
+        // A pticketStatusID = 109019;
         pticketStatusID = 109301;
         pticketStatus = "Open";
         // A pticketStatusNoneBMCG = "109301";
@@ -3207,35 +3226,49 @@ function KrphAllActivities() {
         // A pticketStatusNoneBMCG = "109303";
         pticketHeaderID = Number(selectedOption);
       }
-      
+
       const user = getSessionStorage("user");
-      
-        let pselectedOptionCropStage = ""  ;  
-        if (selectedOption === "4") {
-          pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : ""; 
-        }  
-          
-       const formData = {
+
+      let pselectedOptionCropStage = "";
+      if (selectedOption === "4") {
+        pselectedOptionCropStage = selectedOptionCropStage === "1" ? "Standing Crop Stage" : selectedOptionCropStage === "2" ? "Harvested Stage" : "";
+      }
+
+      const formData = {
         subCategoryName:
           formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
             ? formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
             : "",
         callerContactNumber: formValuesGI.txtMobileCallerNumber ? formValuesGI.txtMobileCallerNumber : "",
         supportTicketID: 0,
-        ticketRequestorID:  "",
-        stateCodeAlpha: formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateCodeAlpha ? formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateCodeAlpha : "",
+        ticketRequestorID: "",
+        stateCodeAlpha:
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateCodeAlpha
+            ? formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateCodeAlpha
+            : "",
         districtRequestorID:
-        formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3ID ? formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3ID : "",
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3ID
+            ? formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3ID
+            : "",
         villageRequestorID:
-        formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7ID ? formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7ID : "",
+          formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7ID
+            ? formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7ID
+            : "",
         farmerSupportTicketNo: "0",
-        requestorName: formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline ? formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline : "",
-        requestorMobileNo: formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline ? formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline : "",
+        requestorName: formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline
+          ? formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline
+          : "",
+        requestorMobileNo: formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline
+          ? formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline
+          : "",
         requestorAccountNo: "",
         ticketCategoryID:
-        formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-        ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
-        : 0,
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeID
+            : 0,
         // A cropCategoryOthers: formValuesTicketCreation.txtOtherSubCategory ? formValuesTicketCreation.txtOtherSubCategory : "",
         cropCategoryOthers:
           formValuesTicketCreation.txtOtherSubCategory && formValuesTicketCreation.txtOtherSubCategory.OtherCategoryName
@@ -3245,23 +3278,24 @@ function KrphAllActivities() {
           formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMasterID
             ? formValuesTicketCreation.txtCropStage.CropStageMasterID
             : 0,
-        cropStageMaster: formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
-        ? formValuesTicketCreation.txtCropStage.CropStageMaster
-        : "",
-        cropLossDetailID: formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID
-        ? formValuesTicketCreation.txtLossAt.CropLossDetailID
-        : 0,
+        cropStageMaster:
+          formValuesTicketCreation.txtCropStage && formValuesTicketCreation.txtCropStage.CropStageMaster
+            ? formValuesTicketCreation.txtCropStage.CropStageMaster
+            : "",
+        cropLossDetailID:
+          formValuesTicketCreation.txtLossAt && formValuesTicketCreation.txtLossAt.CropLossDetailID ? formValuesTicketCreation.txtLossAt.CropLossDetailID : 0,
         cropStage: pselectedOptionCropStage,
         ticketHeaderID: pticketHeaderID,
         requestYear:
-        formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline.Value
+          formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline.Value
             ? formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline.Value
             : 0,
         requestSeason:
-        formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonID
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonID
             ? formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonID
             : 0,
-  
+
         ticketDescription: formValuesTicketCreation.txtTicketDescription,
         lossDate: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossDate ? dateToCompanyFormat(formValuesTicketCreation.txtCropLossDate) : "",
         lossTime: selectedOption !== "4" ? null : formValuesTicketCreation.txtCropLossTime ? formValuesTicketCreation.txtCropLossTime : "",
@@ -3277,91 +3311,148 @@ function KrphAllActivities() {
         ticketStatus: pticketStatus,
         applicationNo: "",
         insuranceCompanyID: 0,
-        insuranceCompany: formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
-        ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
-        : "",
-        insuranceCompanyCode:  formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyCode
-        ? Number(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyCode)
-        : 0,
+        insuranceCompany:
+          formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
+            ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
+            : "",
+        insuranceCompanyCode:
+          formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyCode
+            ? Number(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyCode)
+            : 0,
         cropSeasonName:
-        formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonName
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonName
             ? formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline.CropSeasonName
             : "",
         ticketCategoryName:
-        formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-        ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
-        : "",
-        ticketSubCategoryID:  formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-        ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-        : 0,    
-        ticketSubCategoryName: formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-        ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
-        : "",
+          formValuesTicketCreation.txtTicketCategoryType && formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            ? formValuesTicketCreation.txtTicketCategoryType.SupportTicketTypeName
+            : "",
+        ticketSubCategoryID:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+            : 0,
+        ticketSubCategoryName:
+          formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryName
+            : "",
         ticketHeadName: pticketHeaderName,
-        nyayPanchayatID: formValuesForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5ID
-        ? formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5ID
-        : "",
-        nyayPanchayat: formValuesForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5Name
-        ? formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5Name
-        : "",
-        gramPanchayatID: formValuesForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6ID
-        ? formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6ID
-        : "",
-        gramPanchayat: formValuesForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6Name
-        ? formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6Name
-        : "",
+        nyayPanchayatID:
+          formValuesForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5ID
+            ? formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5ID
+            : "",
+        nyayPanchayat:
+          formValuesForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5Name
+            ? formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline.level5Name
+            : "",
+        gramPanchayatID:
+          formValuesForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6ID
+            ? formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6ID
+            : "",
+        gramPanchayat:
+          formValuesForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6Name
+            ? formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline.level6Name
+            : "",
         businessRelationName: user && user.UserCompanyType ? user.UserCompanyType : "",
         schemeName:
-        formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeName
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeName
             ? formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeName
             : "",
         agentName: user && user.UserDisplayName ? user.UserDisplayName : "",
         createdBY: user && user.UserDisplayName ? user.UserDisplayName : "",
         createdOn: null,
-        farmerName: formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline ? formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline : "",
+        farmerName: formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline
+          ? formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline
+          : "",
         callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
         insurancePolicyNo: "",
         agentUserID: user && user.LoginID ? user.LoginID.toString() : "0",
         bankMasterID: 0,
         schemeID:
-        formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeID
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeID
             ? formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline.SchemeID
             : 0,
         onTimeIntimationFlag: stateCropLossIntimation,
         hasDocument: 0,
         attachmentPath: "",
         pinCode: formValuesForByNonRegFarmerOrOffline.txtPinCode ? formValuesForByNonRegFarmerOrOffline.txtPinCode : "",
-	      address: formValuesForByNonRegFarmerOrOffline.txtAddress ? formValuesForByNonRegFarmerOrOffline.txtAddress : "",
+        address: formValuesForByNonRegFarmerOrOffline.txtAddress ? formValuesForByNonRegFarmerOrOffline.txtAddress : "",
         callingMasterID: getCallingMasterID,
         cropName: formValuesTicketCreation.txtCropName ? formValuesTicketCreation.txtCropName : "",
-        applicationCropName:  formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropName
-        ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropName
-        : "",
-        cropID: formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropID
-        ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropID
-        : "",
-        area:  formValuesForByNonRegFarmerOrOffline.txtAreaInHectareForCalculator ? Number(formValuesForByNonRegFarmerOrOffline.txtAreaInHectareForCalculator) : "0",
+        applicationCropName:
+          formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropName
+            ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropName
+            : "",
+        cropID:
+          formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropID
+            ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.cropID
+            : "",
+        area: formValuesForByNonRegFarmerOrOffline.txtAreaInHectareForCalculator
+          ? Number(formValuesForByNonRegFarmerOrOffline.txtAreaInHectareForCalculator)
+          : "0",
         calculatedPremium: formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured ? Number(formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured) : "0",
-        villageName: formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name ? formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name : "",
-        relation:  "",
+        villageName:
+          formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name
+            ? formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name
+            : "",
+        relation: "",
         relativeName: "",
-        stateMasterName:  formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName ? formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName : "",
-        districtMasterName: formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name ? formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name : "",
-        subDistrictID: formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4ID ? formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4ID : "",
-        subDistrictName: formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4Name ? formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4Name : "",
-        policyPremium:  "0",
-        policyArea:  "0",
+        stateMasterName:
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName
+            ? formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName
+            : "",
+        districtMasterName:
+          formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name
+            ? formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name
+            : "",
+        subDistrictID:
+          formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4ID
+            ? formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4ID
+            : "",
+        subDistrictName:
+          formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4Name
+            ? formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline.level4Name
+            : "",
+        policyPremium: "0",
+        policyArea: "0",
         policyType: "",
-        landSurveyNumber:  "",
+        landSurveyNumber: "",
         landDivisionNumber: "",
-        plotVillageName:  formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name ? formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name : "",
-        plotDistrictName:   formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name ? formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name : "",
-        plotStateName:  formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline && formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName ? formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName : "",
-        applicationSource:  "",
+        plotVillageName:
+          formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name
+            ? formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline.level7Name
+            : "",
+        plotDistrictName:
+          formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name
+            ? formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline.level3Name
+            : "",
+        plotStateName:
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName
+            ? formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateMasterName
+            : "",
+        applicationSource: "",
         cropShare: "",
-        iFSCCode:  "",
-        farmerShare:  "",
-        sowingDate:  "",
+        iFSCCode: "",
+        farmerShare: "",
+        sowingDate: "",
       };
       setisBtndisabled(1);
       setBtnLoaderSupportTicketActive(true);
@@ -3372,13 +3463,14 @@ function KrphAllActivities() {
         if (result.response && result.response.responseData) {
           const pSupportTicketNo = result.response.responseData.SupportTicketNo ? result.response.responseData.SupportTicketNo : "";
           setgetSupportTicketNo(pSupportTicketNo);
-          setNonRegisteredFarmerDetails([{SupportTicketID : result.response.responseData.SupportTicketID ,SupportTicketNo: result.response.responseData.SupportTicketNo }]);
+          setNonRegisteredFarmerDetails([
+            { SupportTicketID: result.response.responseData.SupportTicketID, SupportTicketNo: result.response.responseData.SupportTicketNo },
+          ]);
           clearFormForNonRegisteredFarmer();
           setSessionStorage("servicesuccess", "TC");
           setServiceSuccessState("SUCCESS");
           // A navigate("/ServiceSuccess");
-          
-        } 
+        }
       } else {
         setAlertMessage({
           type: "error",
@@ -3426,7 +3518,7 @@ function KrphAllActivities() {
 
   const [formValuesForByNonRegFarmerOrOffline, setFormValuesForByNonRegFarmerOrOffline] = useState({
     txtMobileForNonRegFarmerOrOffline: "",
-    txtFarmerNameForNonRegFarmerOrOffline:"",
+    txtFarmerNameForNonRegFarmerOrOffline: "",
     txtStateForByNonRegFarmerOrOffline: null,
     txtDistrictForByNonRegFarmerOrOffline: null,
     txtSubDistrictForByNonRegFarmerOrOffline: null,
@@ -3774,26 +3866,26 @@ function KrphAllActivities() {
     }
   };
 
-  const getCalculatorDataOnClick = (value,pCropForCalculate) => {
+  const getCalculatorDataOnClick = (value, pCropForCalculate) => {
     debugger;
     if (value || typeof value !== "undefined") {
       if (formValuesForByNonRegFarmerOrOffline.txtCropForCalculate && formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.sumInsured) {
-        const calculatedSumInsured =
-          parseFloat(value) * parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.sumInsured);
+        const calculatedSumInsured = parseFloat(value) * parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.sumInsured);
         const actualRate =
-          parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.goiShare) + parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.stateShare);
+          parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.goiShare) +
+          parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.stateShare);
         const acturialRate =
           parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.farmerShare) +
           parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.goiShare) +
           parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.stateShare);
-        const preminumpaidbyfarmer = (parseFloat(calculatedSumInsured) * parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.farmerShare)) / 100;
+        const preminumpaidbyfarmer =
+          (parseFloat(calculatedSumInsured) * parseFloat(formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.farmerShare)) / 100;
         const preminumpaidbygovt = (parseFloat(calculatedSumInsured) * parseFloat(actualRate)) / 100;
         setFormValuesForByNonRegFarmerOrOffline({
           ...formValuesForByNonRegFarmerOrOffline,
           CalculatedSumInsured: calculatedSumInsured,
           txtCropForCalculate: pCropForCalculate,
           txtAreaInHectareForCalculator: value,
-          
         });
         console.log({
           CalculatedSumInsured: calculatedSumInsured,
@@ -3817,18 +3909,17 @@ function KrphAllActivities() {
     let errorsMsg = "";
     const regex = new RegExp("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$");
 
-
     if (selectedValidateOption === "6") {
       if (name === "txtMobileForNonRegFarmerOrOffline") {
         if (!value || typeof value === "undefined") {
-             errorsMsg = "Mobile Number is required!";
-            } else if (value) {
-              if (!regex.test(value)) {
-               errorsMsg = "Mobile Number is not valid!";
-              } else if (value.length < 10) {
-              errorsMsg = "Enter Valid 10 digit Mobile Number!";
-              }
-           }
+          errorsMsg = "Mobile Number is required!";
+        } else if (value) {
+          if (!regex.test(value)) {
+            errorsMsg = "Mobile Number is not valid!";
+          } else if (value.length < 10) {
+            errorsMsg = "Enter Valid 10 digit Mobile Number!";
+          }
+        }
       }
       if (name === "txtFarmerNameForNonRegFarmerOrOffline") {
         if (!value || typeof value === "undefined") {
@@ -3900,20 +3991,53 @@ function KrphAllActivities() {
       const errors = {};
       let formIsValid = true;
 
-      errors["txtMobileForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtMobileForNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline);
-      errors["txtFarmerNameForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtFarmerNameForNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline);
-      errors["txtStateForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtStateForByNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline);
-      errors["txtDistrictForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtDistrictForByNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline);
-     
-      errors["txtSubDistrictForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtSubDistrictForByNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline. txtSubDistrictForByNonRegFarmerOrOffline);
-      errors["txtlevel5ByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtlevel5ByNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline);
+      errors["txtMobileForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtMobileForNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline,
+      );
+      errors["txtFarmerNameForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtFarmerNameForNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline,
+      );
+      errors["txtStateForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtStateForByNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline,
+      );
+      errors["txtDistrictForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtDistrictForByNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline,
+      );
+
+      errors["txtSubDistrictForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtSubDistrictForByNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline,
+      );
+      errors["txtlevel5ByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtlevel5ByNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline,
+      );
       if (lablelevel6NonRegFarmerOrOffline !== null) {
-        errors["txtlevel6ByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtlevel6ByNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline);
+        errors["txtlevel6ByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+          "txtlevel6ByNonRegFarmerOrOffline",
+          formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline,
+        );
       }
-      errors["txtVillageForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtVillageForByNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline);
-      errors["txtYearForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtYearForNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline);
-      errors["txtSeasonForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtSeasonForNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline);
-      errors["txtSchemeForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline("txtSchemeForNonRegFarmerOrOffline", formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline);
+      errors["txtVillageForByNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtVillageForByNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline,
+      );
+      errors["txtYearForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtYearForNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline,
+      );
+      errors["txtSeasonForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtSeasonForNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline,
+      );
+      errors["txtSchemeForNonRegFarmerOrOffline"] = validateFarmersFieldForNonRegFarmerOrOffline(
+        "txtSchemeForNonRegFarmerOrOffline",
+        formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline,
+      );
       if (Object.values(errors).join("").toString()) {
         formIsValid = false;
       }
@@ -3933,7 +4057,7 @@ function KrphAllActivities() {
     debugger;
     setFormValuesForByNonRegFarmerOrOffline({ ...formValuesForByNonRegFarmerOrOffline, [name]: value });
     formValidationFarmersErrorForNonRegFarmerOrOffline[name] = validateFarmersFieldForNonRegFarmerOrOffline(name, value);
-    
+
     if (name === "txtSeasonForNonRegFarmerOrOffline") {
       setFormValuesForByNonRegFarmerOrOffline({
         ...formValuesForByNonRegFarmerOrOffline,
@@ -3956,9 +4080,12 @@ function KrphAllActivities() {
       if (value) {
         const pSeasonVal = value.CropSeasonID === 1 ? "01" : value.CropSeasonID === 2 ? "02" : "";
         if (
-          formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== undefined &&
-          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== undefined &&
-          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== undefined
+          formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== undefined &&
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== undefined &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== undefined
         ) {
           getNonRegFarmerOrOfflineHierarchyListData(
             formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateCodeAlpha,
@@ -3992,9 +4119,12 @@ function KrphAllActivities() {
       if (value) {
         const pYearVal = value.Value.toString().substr(value.Value.length - 2);
         if (
-          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== undefined &&
-          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== undefined &&
-          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== null &&  formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== undefined
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== undefined &&
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline !== undefined &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== undefined
         ) {
           getNonRegFarmerOrOfflineHierarchyListData(
             formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateCodeAlpha,
@@ -4028,9 +4158,12 @@ function KrphAllActivities() {
       if (value) {
         const pShemeVal = value.SchemeID === 2 ? "02" : value.SchemeID === 4 ? "04" : "";
         if (
-          formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== undefined &&
-          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== undefined &&
-          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== null && formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== undefined
+          formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline !== undefined &&
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline !== undefined &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== null &&
+          formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline !== undefined
         ) {
           getNonRegFarmerOrOfflineHierarchyListData(
             formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline.StateCodeAlpha,
@@ -4208,7 +4341,7 @@ function KrphAllActivities() {
         );
       }
     }
-    if( name === "txtAreaInHectareForCalculator") {
+    if (name === "txtAreaInHectareForCalculator") {
       setFormValuesForByNonRegFarmerOrOffline({
         ...formValuesForByNonRegFarmerOrOffline,
         txtAreaInHectareForCalculator: value,
@@ -4499,7 +4632,6 @@ function KrphAllActivities() {
       if (result.response.responseCode === 1) {
         if (result.response.responseData && result.response.responseData.UserProfileRight.length > 0) {
           setSessionStorage("UserRights", result.response.responseData.UserProfileRight);
-          
         } else {
           setSessionStorage("UserRights", []);
         }
@@ -4588,11 +4720,10 @@ function KrphAllActivities() {
       });
     }
   };
-  
-  const [nonRegisteredFarmerDetails,setNonRegisteredFarmerDetails] = useState([]);
+
+  const [nonRegisteredFarmerDetails, setNonRegisteredFarmerDetails] = useState([]);
   const getNonRegisteresFarmerDetailsByMobile = async () => {
     try {
-      
       const formData = {
         viewMode: "MOBILE",
         ticketRequestorID: "",
@@ -4601,21 +4732,21 @@ function KrphAllActivities() {
         accountNumber: "",
       };
       const result = await farmerTicketSummaryKRPH(formData);
-      
+
       if (result.response.responseCode.toString() === "1") {
         const farmersTicketData = Object.values(result.response.responseData.data.result);
         if (farmersTicketData && farmersTicketData.length > 0) {
           setNonRegisteredFarmerDetails(farmersTicketData);
           setFormValuesForByNonRegFarmerOrOffline({
             ...formValuesForByNonRegFarmerOrOffline,
-            txtFarmerNameForNonRegFarmerOrOffline: result.response.responseData && result.response.responseData.data.result[0].farmerName ? result.response.responseData.data.result[0].farmerName : "",
-            txtMobileForNonRegFarmerOrOffline: dcryptUMBLENO,          
-            
+            txtFarmerNameForNonRegFarmerOrOffline:
+              result.response.responseData && result.response.responseData.data.result[0].farmerName
+                ? result.response.responseData.data.result[0].farmerName
+                : "",
+            txtMobileForNonRegFarmerOrOffline: dcryptUMBLENO,
           });
-
         } else {
           setNonRegisteredFarmerDetails([]);
-          
         }
       } else {
         setNonRegisteredFarmerDetails([]);
@@ -4671,110 +4802,122 @@ function KrphAllActivities() {
 
   return (
     <>
-      {serviceSuccessState === "UNSUCCESS" ?
-      <div className={BizClass.Box}>
-        <div className={BizClass.Div}>
-          <div className={BizClass.InfoDiv}>
-            <div className={BizClass.CreationDiv}>
-              <div className={BizClass.Title}>
-                <h3>Caller Information</h3>
-              </div>
+      {serviceSuccessState === "UNSUCCESS" ? (
+        <div className={BizClass.Box}>
+          <div className={BizClass.Div}>
+            <div className={BizClass.InfoDiv}>
               <div className={BizClass.CreationDiv}>
-                <div className={BizClass.Content}>
-                  <div className={BizClass.ContainerPnl}>
-                    <Form.Group column={4} controlwidth="25%">
-                      <Form.InputGroup label="Caller ID" req="true">
-                        <Form.InputControl
-                          control="input"
-                          name="txtCallerID"
-                          value={formValuesGI.txtCallerID}
-                          onChange={(e) => updateStateGI("txtCallerID", e.target.value.replace(/\D/g, ""))}
-                          disabled={true}
-                        />
-                      </Form.InputGroup>
-                      <Form.InputGroup label="Caller Mobile Number" req="true">
-                        <Form.InputControl
-                          control="input"
-                          name="txtMobileCallerNumber"
-                          value={formValuesGI.txtMobileCallerNumber}
-                          onChange={(e) => updateStateGI("txtMobileCallerNumber", e.target.value.replace(/\D/g, ""))}
-                          disabled={true}
-                          autoComplete="off"
-                        />
-                      </Form.InputGroup>
-                      <Form.InputGroup label="Call Status" req="true" errorMsg={formValidationKRPHError["txtCallStatus"]}>
-                        <Form.InputControl
-                          control="select"
-                          name="txtCallStatus"
-                          value={formValuesGI.txtCallStatus}
-                          options={callConnectedDropdownDataList}
-                          getOptionLabel={(option) => `${option.Value}`}
-                          getOptionValue={(option) => `${option}`}
-                          onChange={(e) => updateStateGI("txtCallStatus", e)}
-                        />
-                      </Form.InputGroup>
-                      {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                        <Form.InputGroup label="1">
-                          <Form.InputControl control="" />
-                        </Form.InputGroup>
-                      ) : null}
-                      {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
-                        <Form.InputGroup label="Reason" req="true" errorMsg={formValidationKRPHError["txtReason"]}>
+                <div className={BizClass.Title}>
+                  <h3>Caller Information</h3>
+                </div>
+                <div className={BizClass.CreationDiv}>
+                  <div className={BizClass.Content}>
+                    <div className={BizClass.ContainerPnl}>
+                      <Form.Group column={4} controlwidth="25%">
+                        <Form.InputGroup label="Caller ID" req="true">
                           <Form.InputControl
-                            control="select"
-                            name="txtReason"
-                            value={formValuesGI.txtReason}
-                            options={reasonDropdownDataList}
-                            getOptionLabel={(option) => `${option.Value}`}
-                            getOptionValue={(option) => `${option}`}
-                            onChange={(e) => updateStateGI("txtReason", e)}
+                            control="input"
+                            name="txtCallerID"
+                            value={formValuesGI.txtCallerID}
+                            onChange={(e) => updateStateGI("txtCallerID", e.target.value.replace(/\D/g, ""))}
+                            disabled={true}
                           />
                         </Form.InputGroup>
-                      ) : null}
-                      <Form.InputGroup req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" :"false"} label="State" errorMsg={formValidationKRPHError["txtState"]}>
-                        <Form.InputControl
-                          control="select"
-                          name="txtState"
-                          value={formValuesGI.txtState}
-                          options={stateKRPHDropdownDataList}
-                          isLoading={isLoadingStateDKRPHropdownDataList}
-                          getOptionLabel={(option) => `${option.StateMasterName}`}
-                          getOptionValue={(option) => `${option}`}
-                          onChange={(e) => updateStateGI("txtState", e)}
-                          isDisabled ={farmerAuthenticateByMobile}
-                        />
-                      </Form.InputGroup>
+                        <Form.InputGroup label="Caller Mobile Number" req="true">
+                          <Form.InputControl
+                            control="input"
+                            name="txtMobileCallerNumber"
+                            value={formValuesGI.txtMobileCallerNumber}
+                            onChange={(e) => updateStateGI("txtMobileCallerNumber", e.target.value.replace(/\D/g, ""))}
+                            disabled={true}
+                            autoComplete="off"
+                          />
+                        </Form.InputGroup>
+                        <Form.InputGroup label="Call Status" req="true" errorMsg={formValidationKRPHError["txtCallStatus"]}>
+                          <Form.InputControl
+                            control="select"
+                            name="txtCallStatus"
+                            value={formValuesGI.txtCallStatus}
+                            options={callConnectedDropdownDataList}
+                            getOptionLabel={(option) => `${option.Value}`}
+                            getOptionValue={(option) => `${option}`}
+                            onChange={(e) => updateStateGI("txtCallStatus", e)}
+                          />
+                        </Form.InputGroup>
+                        {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                          <Form.InputGroup label="1">
+                            <Form.InputControl control="" />
+                          </Form.InputGroup>
+                        ) : null}
+                        {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
+                          <Form.InputGroup label="Reason" req="true" errorMsg={formValidationKRPHError["txtReason"]}>
+                            <Form.InputControl
+                              control="select"
+                              name="txtReason"
+                              value={formValuesGI.txtReason}
+                              options={reasonDropdownDataList}
+                              getOptionLabel={(option) => `${option.Value}`}
+                              getOptionValue={(option) => `${option}`}
+                              onChange={(e) => updateStateGI("txtReason", e)}
+                            />
+                          </Form.InputGroup>
+                        ) : null}
+                        <Form.InputGroup
+                          req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" : "false"}
+                          label="State"
+                          errorMsg={formValidationKRPHError["txtState"]}
+                        >
+                          <Form.InputControl
+                            control="select"
+                            name="txtState"
+                            value={formValuesGI.txtState}
+                            options={stateKRPHDropdownDataList}
+                            isLoading={isLoadingStateDKRPHropdownDataList}
+                            getOptionLabel={(option) => `${option.StateMasterName}`}
+                            getOptionValue={(option) => `${option}`}
+                            onChange={(e) => updateStateGI("txtState", e)}
+                            isDisabled={farmerAuthenticateByMobile}
+                          />
+                        </Form.InputGroup>
 
-                      <Form.InputGroup label="District" req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" :"false" } errorMsg={formValidationKRPHError["txtDistrict"]}>
-                        <Form.InputControl
-                          control="select"
-                          name="txtDistrict"
-                          value={formValuesGI.txtDistrict}
-                          options={districtKRPHDropdownDataList}
-                          isLoading={isLoadingDistrictKRPHDropdownDataList}
-                          getOptionLabel={(option) => `${option.level3Name}`}
-                          getOptionValue={(option) => `${option}`}
-                          onChange={(e) => updateStateGI("txtDistrict", e)}
-                          isDisabled ={farmerAuthenticateByMobile}
-                        />
-                      </Form.InputGroup>
-                      <Form.InputGroup label="Farmer Name" req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" :"false" } errorMsg={formValidationKRPHError["txtFarmerName"]}>
-                        <Form.InputControl
-                          control="input"
-                          name="txtFarmerName"
-                          value={formValuesGI.txtFarmerName}
-                          onChange={(e) => updateStateGI("txtFarmerName", e.target.value)}
-                          autoComplete="off"
-                          disabled ={farmerAuthenticateByMobile}
-                        />
-                      </Form.InputGroup>
-                    </Form.Group>
-                    {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                      <div className={BizClass.toggleContainerKrphCenter}>
-                        <KrphToggleSwitch leftText={"Generate Ticket"} rightText={"Premium Calculator"} callback={onToggleChange} checked={toggleChange} />{" "}
-                      </div>
-                    ) : null}
-                    {/* {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                        <Form.InputGroup
+                          label="District"
+                          req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" : "false"}
+                          errorMsg={formValidationKRPHError["txtDistrict"]}
+                        >
+                          <Form.InputControl
+                            control="select"
+                            name="txtDistrict"
+                            value={formValuesGI.txtDistrict}
+                            options={districtKRPHDropdownDataList}
+                            isLoading={isLoadingDistrictKRPHDropdownDataList}
+                            getOptionLabel={(option) => `${option.level3Name}`}
+                            getOptionValue={(option) => `${option}`}
+                            onChange={(e) => updateStateGI("txtDistrict", e)}
+                            isDisabled={farmerAuthenticateByMobile}
+                          />
+                        </Form.InputGroup>
+                        <Form.InputGroup
+                          label="Farmer Name"
+                          req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" : "false"}
+                          errorMsg={formValidationKRPHError["txtFarmerName"]}
+                        >
+                          <Form.InputControl
+                            control="input"
+                            name="txtFarmerName"
+                            value={formValuesGI.txtFarmerName}
+                            onChange={(e) => updateStateGI("txtFarmerName", e.target.value)}
+                            autoComplete="off"
+                            disabled={farmerAuthenticateByMobile}
+                          />
+                        </Form.InputGroup>
+                      </Form.Group>
+                      {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                        <div className={BizClass.toggleContainerKrphCenter}>
+                          <KrphToggleSwitch leftText={"Generate Ticket"} rightText={"Premium Calculator"} callback={onToggleChange} checked={toggleChange} />{" "}
+                        </div>
+                      ) : null}
+                      {/* {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
                       <div className={BizClass.SummaryBoardCenter}>
                         <div className={BizClass.SummaryBoard}>
                           <div
@@ -4792,1006 +4935,1076 @@ function KrphAllActivities() {
                         </div>
                       </div>
                     ) : null} */}
-                    <div className={BizClass.ValidateFormFooterBG}>
-                      <div className={BizClass.ValidateFormFooter}>
-                        <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnReset()}>
-                          Reset
-                        </Button>
-                        {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                          <Button className={BizClass.FormFooterButton}   onClick={() => OnClickBtnAction("BTNNXT")}>
-                            Next
+                      <div className={BizClass.ValidateFormFooterBG}>
+                        <div className={BizClass.ValidateFormFooter}>
+                          <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnReset()}>
+                            Reset
                           </Button>
-                        ) : formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
-                          <Button className={BizClass.FormFooterButton}   onClick={() => OnClickBtnAction("BTNSBMT")}>
-                            Submit
-                          </Button>
-                        ) : null}
+                          {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                            <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnAction("BTNNXT")}>
+                              Next
+                            </Button>
+                          ) : formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
+                            <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnAction("BTNSBMT")}>
+                              Submit
+                            </Button>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <br />
-                  {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                    <>
-                      {formValuesGI &&
-                      formValuesGI.txtCallStatus &&
-                      formValuesGI.txtCallStatus.ID === 1 &&
-                      activeKey === "PRMCAL" &&
-                      activeBtnKey === "BTNNXT" ? (
-                        <PremiumCalculator objStateData={objStateData} objDistrictData={objDistrictData} formValuesGI={formValuesGI} dcryptUNQEID={dcryptUNQEID} dcryptUID={dcryptUID} />
-                      ) : null}{" "}
-                    </>
-                  ) : null}
-                  {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 && activeKey === "TCKT" && activeBtnKey === "BTNNXT" ? (
-                     <>
-                     {openModal && (
-                       <FarmerListModal
-                         toggleModal={toggleModal}
-                         farmersData={farmersData}
-                         onGridReady={onGridReady}
-                         onCellDoubleClicked={onCellDoubleClicked}
-                         onChangeFarmersDetails={onChangeFarmersDetails}
-                       />
-                     )}
-                     {openInsuranceCompanyModalGreivence && (
-                       <InsuranceCompanyModalGreivence
-                         toggleInsuranceCompanyModalGreivence={toggleInsuranceCompanyModalGreivence}
-                         // A onGridReadySupportTicketGreivence={onGridReadySupportTicketGreivence}
-                         onCellDoubleClickedDetailsGreivence={onCellDoubleClickedDetailsGreivence}
-                         insuranceCompanyDataGreivence={insuranceCompanyDataGreivence}
-                         isLoadingApplicationNoDataGreivence={isLoadingApplicationNoDataGreivence}
-                         getClaimStatusOnClick={getClaimStatusOnClick}
-                       />
-                     )}
-                     {openTicketHistoryModal && (
-                       <TicketHistoryModal
-                         toggleTicketHistoryModal={toggleTicketHistoryModal}
-                         selectedFarmer={selectedFarmer}
-                         ticketHistoryData={ticketHistoryData}
-                         onGridReadyTicketHistory={onGridReadyTicketHistory}
-                         isLoadingTicketHistory={isLoadingTicketHistory}
-                         onChangeTicketHistory={onChangeTicketHistory}
-                         openMyTicketPage={openMyTicketPage}
-                       />
-                     )}
-                     {openClaimStatusModal && (
-                       <ClaimStatusModal
-                         toggleClaimStatusModal={toggleClaimStatusModal}
-                         onGridReadyClaimStatus={onGridReadyClaimStatus}
-                         claimStatusData={claimStatusData}
-                         onChangeClamStatus={onChangeClamStatus}
-                         isLoadingClaimStatusData={isLoadingClaimStatusData}
-                         openCustomeWindow={openCustomeWindow}
-                         OnClickCustomeWindow={OnClickCustomeWindow}
-                         customeWindowWidth={customeWindowWidth}
-                         customeWindowHeight={customeWindowHeight}
-                       />
-                     )}
-                     {openMyTicketModal && <MyTicketPage showfunc={openMyTicketPage} selectedData={selectedData} />}
-                     <div className={BizClass.CreateTicketeBox}>
-                       <div className={BizClass.Div}>
-                         <div className={BizClass.ValidateBox}>
-                           <div className={BizClass.ValidateTitle}>
-                             <h3>Farmer Authentication</h3>
-                           </div>
-                           <div className={BizClass.ValidateContent}>
-                             <div className={BizClass.validateFormHorizontal}>
-                               <Form.InputGroup errorMsg="">
-                                 <ul className={BizClass.ValidateTabGroup}>
-                                   <button
-                                     type="button"
-                                     className={selectedValidateOption === "1" && BizClass.Active}
-                                    // A className={
-                                    // A   selectedValidateOption === "1" && farmerAuthenticateByMobile === true
-                                    // A     ? classNames(BizClass.Active,BizClass.disabledradioFarmerAuthenticationBoxWithouOpacity)
-                                    // A     : selectedValidateOption === "1"
-                                    // A     ? BizClass.Active
-                                    // A     : null
-                                    // A  }
-                                     onClick={() => OnClickSelectedValidateOption("MN")}
-                                   >
-                                     <div className={BizClass.ValidateTabCheckBox} />
-                                     <span>Farmer Mobile Number</span>
-                                   </button>
-                                   <button
-                                     type="button"
-                                    className={selectedValidateOption === "2" && BizClass.Active}
-                                    // A  className={
-                                    // A selectedValidateOption === "2" && farmerAuthenticateByMobile === false
-                                    // A     ? BizClass.Active
-                                    // A     : farmerAuthenticateByMobile === true
-                                    // A     ? BizClass.disabledradioFarmerAuthenticationBox
-                                    // A     : null
-                                    // A }
-                                     onClick={() => OnClickSelectedValidateOption("AN")}
-                                     style={{ minWidth: "0px", width: "150px" }}
-                                   >
-                                     <div className={BizClass.ValidateTabCheckBox} />
-                                     <span>Aadhar Number</span>
-                                   </button>
-                                   <button
-                                     type="button"
-                                    className={selectedValidateOption === "3" && BizClass.Active}
-                                    // A className={
-                                    // A   selectedValidateOption === "3" && farmerAuthenticateByMobile === false
-                                    // A     ? BizClass.Active
-                                    // A     : farmerAuthenticateByMobile === true
-                                    // A     ? BizClass.disabledradioFarmerAuthenticationBox
-                                    // A     : null
-                                    // A }
-                                     onClick={() => OnClickSelectedValidateOption("BAN")}
-                                     style={{ minWidth: "0px", width: "160px" }}
-                                   >
-                                     <div className={BizClass.ValidateTabCheckBox} />
-                                     <span>Bank A/C Number</span>
-                                   </button>
-                                   <button
-                                     type="button"
-                                     className={selectedValidateOption === "4" && BizClass.Active}
-                                    // A  className={
-                                    // A   selectedValidateOption === "4" && farmerAuthenticateByMobile === false
-                                    // A    ? BizClass.Active
-                                    // A     : farmerAuthenticateByMobile === true
-                                    // A     ? BizClass.disabledradioFarmerAuthenticationBox
-                                    // A     : null
-                                    // A }
-                                     onClick={() => OnClickSelectedValidateOption("PN")}
-                                     style={{ minWidth: "0px", width: "150px" }}
-                                   >
-                                     <div className={BizClass.ValidateTabCheckBox} />
-                                     <span>Policy Number</span>
-                                   </button>
-                                   <button
-                                     type="button"
-                                     className={selectedValidateOption === "5" && BizClass.Active}
-                                    // A className={
-                                    // A   selectedValidateOption === "5" && farmerAuthenticateByMobile === false
-                                    // A     ? BizClass.Active
-                                    // A     : farmerAuthenticateByMobile === true
-                                    // A     ? BizClass.disabledradioFarmerAuthenticationBox
-                                    // A     : null
-                                    // A }
-                                     onClick={() => OnClickSelectedValidateOption("BL")}
-                                     style={{ minWidth: "0px", width: "140px" }}
-                                   >
-                                     <div className={BizClass.ValidateTabCheckBox} />
-                                     <span>By Location</span>
-                                   </button>
-                                   <button
-                                     type="button"
-                                     className={selectedValidateOption === "6" && BizClass.Active}
-                                    // A  className={
-                                    // A   selectedValidateOption === "6" && farmerAuthenticateByMobile === false
-                                    // A     ? BizClass.Active
-                                    // A     : farmerAuthenticateByMobile === true
-                                    // A     ? BizClass.disabledradioFarmerAuthenticationBox
-                                    // A     : null
-                                    // A }
-                                     onClick={() => OnClickSelectedValidateOption("NRF")}
-                                   >
-                                     <div className={BizClass.ValidateTabCheckBox} />
-                                     <span>Non-Registered Farmer</span>
-                                   </button>
-                                   <button
-                                     type="button"
-                                    className={selectedValidateOption === "7" && BizClass.Active}
-                                    // A  className={
-                                    // A   selectedValidateOption === "7" && farmerAuthenticateByMobile === false
-                                    // A     ? BizClass.Active
-                                    // A     : farmerAuthenticateByMobile === true
-                                    // A     ? BizClass.disabledradioFarmerAuthenticationBox
-                                    // A     : null
-                                    // A }
-                                     onClick={() => OnClickSelectedValidateOption("OFFLN")}
-                                     style={{ minWidth: "0px", width: "120px", display:"none" }}
-                                   >
-                                     <div className={BizClass.ValidateTabCheckBox} />
-                                     <span>Offline</span>
-                                   </button>
-                                 </ul>
-                               </Form.InputGroup>
-                             </div>
-                             <form className={selectedValidateOption !== "6" && selectedValidateOption !== "7" ? BizClass.ValidateForm : ""}>
-                               {selectedValidateOption === "1" && (
-                                 <div className={BizClass.ValidateControlGroup}>
-                                   <Form.Group column="1" controlwidth="auto">
-                                     <Form.InputGroup label="Farmer Mobile Number" req="true" errorMsg={formValidationFarmersError["txtMobileNumber"]}>
-                                       <Form.InputControl
-                                         control="input"
-                                         name="txtMobileNumber"
-                                         value={formValuesMN.txtMobileNumber}
-                                         minLength={10}
-                                         maxLength={10}
-                                         onChange={(e) => updateStateMN("txtMobileNumber", e.target.value)}
-                                         autoComplete="off"
-                                       />
-                                     </Form.InputGroup>
-                                   </Form.Group>
-                                 </div>
-                               )}
-                               {selectedValidateOption === "2" && (
-                                 <div className={BizClass.ValidateControlGroup}>
-                                   <Form.Group column="1" controlwidth="auto">
-                                     <Form.InputGroup label="Aadhar Number" req="true" errorMsg={formValidationFarmersError["txtAadharNumber"]}>
-                                       <Form.InputControl
-                                         control="input"
-                                         name="txtAadharNumber"
-                                         minLength={12}
-                                         maxLength={12}
-                                         value={formValuesAN.txtAadharNumber}
-                                         onChange={(e) => updateStateAN("txtAadharNumber", e.target.value)}
-                                         autoComplete="off"
-                                       />
-                                     </Form.InputGroup>
-                                   </Form.Group>
-                                 </div>
-                               )}
-                               {selectedValidateOption === "3" && (
-                                 <div className={BizClass.ValidateControlGroup}>
-                                   <Form.Group column={4} controlwidth="25%">
-                                     <Form.InputGroup label="State" req="true" errorMsg={formValidationFarmersError["txtState"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtState"
-                                         value={formValues.txtState}
-                                         options={stateDropdownDataList}
-                                         loader={isLoadingStateDropdownDataList ? <Loader /> : null}
-                                         isLoading={isLoadingStateDropdownDataList}
-                                         getOptionLabel={(option) => `${option.StateMasterName}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateState("txtState", e)}
-                                         focus="true"
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="District" req="true" errorMsg={formValidationFarmersError["txtDistrict"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtDistrict"
-                                         value={formValues.txtDistrict}
-                                         options={districtDropdownDataList}
-                                         loader={isLoadingDistrictDropdownDataList ? <Loader /> : null}
-                                         isLoading={isLoadingDistrictDropdownDataList}
-                                         getOptionLabel={(option) => `${option.level3Name}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateState("txtDistrict", e)}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Bank Name" req="true" errorMsg={formValidationFarmersError["txtBankName"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtBankName"
-                                         value={formValues.txtBankName}
-                                         options={bankDropdownDataList}
-                                         loader={isLoadingBankDropdownDataList ? <Loader /> : null}
-                                         isLoading={isLoadingBankDropdownDataList}
-                                         getOptionLabel={(option) => `${option.bankName}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateState("txtBankName", e)}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Bank Branch" req="true" errorMsg={formValidationFarmersError["txtBranchName"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtBranchName"
-                                         value={formValues.txtBranchName}
-                                         options={bankBranchDropdownDataList}
-                                         loader={isLoadingBankBranchDropdownDataList ? <Loader /> : null}
-                                         isLoading={isLoadingBankBranchDropdownDataList}
-                                         getOptionLabel={(option) => `${option.branchName}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateState("txtBranchName", e)}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Account Number" errorMsg={formValidationFarmersError["txtAccountNumber"]}>
-                                       <Form.InputControl
-                                         control="input"
-                                         label="Account Number"
-                                         name="txtAccountNumber"
-                                         minLength={14}
-                                         maxLength={18}
-                                         value={formValues.txtAccountNumber}
-                                         onChange={(e) => updateState("txtAccountNumber", e.target.value.replace(/\D/g, ""))}
-                                       />
-                                     </Form.InputGroup>
-                                   </Form.Group>
-                                 </div>
-                               )}
-                               {selectedValidateOption === "4" && (
-                                 <div className={BizClass.ValidateControlGroup}>
-                                   <Form.Group column={4} controlwidth="auto">
-                                     <Form.InputGroup label="Policy Number" req="true" errorMsg={formValidationFarmersError["txtPolicyNumber"]}>
-                                       <Form.InputControl
-                                         id="inputPolicyNumber"
-                                         control="input"
-                                         name="txtPolicyNumber"
-                                         minLength={19}
-                                         maxLength={19}
-                                         onPaste={(e) => {
-                                           e.preventDefault();
-                                           return false;
-                                         }}
-                                         onCopy={(e) => {
-                                           e.preventDefault();
-                                           return false;
-                                         }}
-                                         value={formValuesForPolicyNumber.txtPolicyNumber}
-                                         onChange={(e) => updateStateForPolicyNumber("txtPolicyNumber", e.target.value)}
-                                         autoComplete="off"
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Scheme">
-                                       <Form.InputControl
-                                         control="input"
-                                         name="txtSchemeForPolicyNumber"
-                                         value={formValuesForPolicyNumber.txtSchemeForPolicyNumber}
-                                         onChange={(e) => updateStateForPolicyNumber("txtSchemeForPolicyNumber", e.target.value)}
-                                         disabled={true}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Season">
-                                       <Form.InputControl
-                                         control="input"
-                                         name="txtSeasonForPolicyNumber"
-                                         value={formValuesForPolicyNumber.txtSeasonForPolicyNumber}
-                                         onChange={(e) => updateStateForPolicyNumber("txtSeasonForPolicyNumber", e.target.value)}
-                                         disabled={true}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="State & Year">
-                                       <Form.InputControl
-                                         control="input"
-                                         name="txtStateAndYearForPolicyNumber"
-                                         value={formValuesForPolicyNumber.txtStateAndYearForPolicyNumber}
-                                         onChange={(e) => updateStateForPolicyNumber("txtStateAndYearForPolicyNumber", e.target.value)}
-                                         disabled={true}
-                                       />
-                                     </Form.InputGroup>
-                                   </Form.Group>
-                                 </div>
-                               )}
-                               {selectedValidateOption === "5" && (
-                                 <div className={BizClass.ValidateControlGroup}>
-                                   <Form.Group column={4} controlwidth="25%">
-                                     <Form.InputGroup label="Season" req="true" errorMsg={formValidationFarmersError["txtSeasonForLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtSeasonForLocation"
-                                         value={formValuesForByLocation.txtSeasonForLocation}
-                                         options={seasonForPolicyNumberDropdownDataList}
-                                         getOptionLabel={(option) => `${option.CropSeasonName}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtSeasonForLocation", e)}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Year" req="true" errorMsg={formValidationFarmersError["txtYearForLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtYearForLocation"
-                                         value={formValuesForByLocation.txtYearForLocation}
-                                         options={yearList}
-                                         getOptionLabel={(option) => `${option.Name}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtYearForLocation", e)}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Scheme" req="true" errorMsg={formValidationFarmersError["txtSchemeForLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtSchemeForLocation"
-                                         value={formValuesForByLocation.txtSchemeForLocation}
-                                         options={schemeList}
-                                         getOptionLabel={(option) => `${option.SchemeName}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtSchemeForLocation", e)}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="State" req="true" errorMsg={formValidationFarmersError["txtStateForByLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtStateForByLocation"
-                                         value={formValuesForByLocation.txtStateForByLocation}
-                                         options={stateForByLocationDropdownDataList}
-                                         loader={isLoadingStateForByLocationDropdownDataList ? <Loader /> : null}
-                                         getOptionLabel={(option) => `${option.StateMasterName}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtStateForByLocation", e)}
-                                         focus="true"
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="District" req="true" errorMsg={formValidationFarmersError["txtDistrictForByLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtDistrictForByLocation"
-                                         value={formValuesForByLocation.txtDistrictForByLocation}
-                                         options={districtForByLocationDropdownDataList}
-                                         loader={isLoadingDistrictForByLocationDropdownDataList ? <Loader /> : null}
-                                         getOptionLabel={(option) => `${option.level3Name}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtDistrictForByLocation", e)}
-                                       />
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label={lableTalukAnything} req="true" errorMsg={formValidationFarmersError["txtSubDistrictForByLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtSubDistrictForByLocation"
-                                         value={formValuesForByLocation.txtSubDistrictForByLocation}
-                                         options={subDistrictForByLocationDropdownDataList}
-                                         loader={isLoadingSubDistrictForByLocationDropdownDataList ? <Loader /> : null}
-                                         getOptionLabel={(option) => `${option.level4Name}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtSubDistrictForByLocation", e)}
-                                       />
-                                     </Form.InputGroup>
-               
-                                     <Form.InputGroup label={lablelevel5} req="true" errorMsg={formValidationFarmersError["txtlevel5ByLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtlevel5ByLocation"
-                                         value={formValuesForByLocation.txtlevel5ByLocation}
-                                         options={level5ByLocationDropdownDataList}
-                                         loader={isLoadinglevel5ByLocationDropdownDataList ? <Loader /> : null}
-                                         getOptionLabel={(option) => `${option.level5Name}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtlevel5ByLocation", e)}
-                                       />
-                                     </Form.InputGroup>
-               
-                                     {lablelevel6 === null ? null : (
-                                       <Form.InputGroup label={lablelevel6} req="true" errorMsg={formValidationFarmersError["txtlevel6ByLocation"]}>
-                                         <Form.InputControl
-                                           control="select"
-                                           name="txtlevel6ByLocation"
-                                           value={formValuesForByLocation.txtlevel6ByLocation}
-                                           options={level6ByLocationDropdownDataList}
-                                           loader={isLoadinglevel6ByLocationDropdownDataList ? <Loader /> : null}
-                                           getOptionLabel={(option) => `${option.level6Name}`}
-                                           getOptionValue={(option) => `${option}`}
-                                           onChange={(e) => updateStateForByLocation("txtlevel6ByLocation", e)}
-                                         />
-                                       </Form.InputGroup>
-                                     )}
-                                     <Form.InputGroup label={lableVillageForByLocation} req="true" errorMsg={formValidationFarmersError["txtVillageForByLocation"]}>
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtVillageForByLocation"
-                                         value={formValuesForByLocation.txtVillageForByLocation}
-                                         options={villageForByLocationDropdownDataList}
-                                         loader={isLoadingVillageForByLocationDropdownDataList ? <Loader /> : null}
-                                         getOptionLabel={(option) => `${option.level7Name}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByLocation("txtVillageForByLocation", e)}
-                                       />
-                                     </Form.InputGroup>
-                                   </Form.Group>
-                                 </div>
-                               )}
-                               {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
-                                 <div className={BizClass.ValidateFormFooter}>
-                                     <Button className={BizClass.FormFooterButton} trigger={btnLoaderActive && "true"} onClick={() => validateFarmerOnClick()}>
-                                       Validate
-                                     </Button> 
-                                 </div>
-                               ) : null}
-                             </form>
-                           </div>
-                         </div>
-                       </div>
-                       <div className={BizClass.Div}>
-                         <div className={BizClass.InfoDiv}>
-                           <div className={BizClass.FarmerInfoDiv}>
-                             <div className={BizClass.Title}>
-                               <h3>Farmer Information</h3>
-                             </div>
-                             {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
-                               <div className={BizClass.Content}>
-                                 <Form.Group column="3" controlwidth="360px">
-                                   <Form.InputGroup label="Farmer Name">
-                                     <p className={BizClass.ContentPresenter}>{selectedFarmer && selectedFarmer.farmerName}</p>
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="Mobile No">
-                                     <p className={BizClass.ContentPresenter}>{selectedFarmer && selectedFarmer.mobile}</p>
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="State">
-                                     <p className={BizClass.ContentPresenter}>
-                                       {selectedFarmer && selectedFarmer.state
-                                         ? selectedFarmer.state
-                                         : selectedFarmer.stateName
-                                         ? selectedFarmer.stateName
-                                         : selectedFarmer.resState
-                                         ? selectedFarmer.resState
-                                         : ""}
-                                     </p>
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="District">
-                                     <p className={BizClass.ContentPresenter}>
-                                       {selectedFarmer && selectedFarmer.district
-                                         ? selectedFarmer.district
-                                         : selectedFarmer.districtName
-                                         ? selectedFarmer.districtName
-                                         : selectedFarmer.resDistrict
-                                         ? selectedFarmer.resDistrict
-                                         : ""}
-                                     </p>
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="Taluka">
-                                     <p className={BizClass.ContentPresenter}>
-                                       {selectedFarmer && selectedFarmer.subDistrict
-                                         ? selectedFarmer.subDistrict
-                                         : selectedFarmer.resSubDistrict
-                                         ? selectedFarmer.resSubDistrict
-                                         : ""}
-                                     </p>
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="Village">
-                                     <p className={BizClass.ContentPresenter}>
-                                       {selectedFarmer && selectedFarmer.village
-                                         ? selectedFarmer.village
-                                         : selectedFarmer.villageName
-                                         ? selectedFarmer.villageName
-                                         : selectedFarmer.resVillage
-                                         ? selectedFarmer.resVillage
-                                         : ""}
-                                     </p>
-                                   </Form.InputGroup>
-                                 </Form.Group>
-                                 <div className={BizClass.ContentDiv}>
-                                   <div className={BizClass.fetch_claim_reset_btn}>
-                                     <Form.Group column="2" controlwidth="360px">
-                                       <Form.CustomGroup column={4} columntemplate="140px 140px auto">
-                                         <Form.InputGroup label="" req="true" errorMsg={formValidationFarmersInfoError["txtYearForFarmerInfo"]}>
-                                           <Form.InputControl
-                                             control="select"
-                                             label="Year"
-                                             name="txtYearForFarmerInfo"
-                                             value={formValuesForFarmerInfo.txtYearForFarmerInfo}
-                                             options={yearList}
-                                             getOptionLabel={(option) => `${option.Name}`}
-                                             getOptionValue={(option) => `${option}`}
-                                             onChange={(e) => updateStateForFarmerInfo("txtYearForFarmerInfo", e)}
-                                             isDisabled={stateYearAndSeason === "YRSSNNO"}
-                                           />
-                                         </Form.InputGroup>
-                                         <Form.InputGroup label="" req="true" errorMsg={formValidationFarmersInfoError["txtSeasonForFarmerInfo"]}>
-                                           <Form.InputControl
-                                             control="select"
-                                             label="Season"
-                                             name="txtSeasonForFarmerInfo"
-                                             value={formValuesForFarmerInfo.txtSeasonForFarmerInfo}
-                                             options={seasonForPolicyNumberDropdownDataList}
-                                             getOptionLabel={(option) => `${option.CropSeasonName}`}
-                                             getOptionValue={(option) => `${option}`}
-                                             onChange={(e) => updateStateForFarmerInfo("txtSeasonForFarmerInfo", e)}
-                                             isDisabled={stateYearAndSeason === "YRSSNNO"}
-                                           />
-                                         </Form.InputGroup>
-                                         <Form.InputGroup label="" req="true" errorMsg={formValidationFarmersInfoError["txtSchemeForFarmerInfo"]}>
-                                           <Form.InputControl
-                                             control="select"
-                                             label="Scheme"
-                                             name="txtSchemeForFarmerInfo"
-                                             value={formValuesForFarmerInfo.txtSchemeForFarmerInfo}
-                                             options={schemeList}
-                                             getOptionLabel={(option) => `${option.SchemeName}`}
-                                             getOptionValue={(option) => `${option}`}
-                                             onChange={(e) => updateStateForFarmerInfo("txtSchemeForFarmerInfo", e)}
-                                             isDisabled={true}
-                                           />
-                                         </Form.InputGroup>
-                                       </Form.CustomGroup>
-                                     </Form.Group>
-                                     <Form.Group column="3" controlwidth="">
-                                       <div className={BizClass.InputBox} style={{ display: "flex" }}>
-                                         <Button
-                                           className={BizClass.Button}
-                                           trigger={btnLoaderFarmerGreivenceInfoActive && "true"}
-                                           onClick={() => getPolicyOfFarmerGreivenceOnClick()}
-                                         >
-                                           Fetch Details
-                                         </Button>
-                                         <Button className={BizClass.Button} trigger={btnLoaderClaimStatusActive && "true"} onClick={() => getClaimStatusOnClick()}>
-                                           Claim Status
-                                         </Button>
-                                         <Button className={BizClass.Button} onClick={() => ResetYrSsnSchmApplicationDataOnClick()}>
-                                           Reset
-                                         </Button>
-                                       </div>
-                                     </Form.Group>
-                                   </div>
-                                   <Form.Group column="3" controlwidth="360px" style={{ background: "#d6dbdf", padding: "5px", "border-radius": "4px" }}>
-                                     <Form.InputGroup label="Insurance Company">
-                                       <p className={BizClass.ContentPresenter}>
-                                         {selectedInsuranceDetails && selectedInsuranceDetails.insuranceCompanyName ? selectedInsuranceDetails.insuranceCompanyName : ""}
-                                       </p>
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Application No.">
-                                       <p className={BizClass.ContentPresenter}>
-                                         {selectedClaimOrGrievence === "CI"
-                                           ? selectedInsuranceDetails && selectedInsuranceDetails.applicationNo
-                                             ? selectedInsuranceDetails.applicationNo
-                                             : ""
-                                           : selectedInsuranceDetails && selectedInsuranceDetails.applicationNo
-                                           ? selectedInsuranceDetails.applicationNo
-                                           : ""}
-                                       </p>
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Farmer Premium">
-                                       <p className={BizClass.ContentPresenter}>
-                                         {selectedClaimOrGrievence === "CI"
-                                           ? selectedInsuranceDetails && selectedInsuranceDetails.farmerPremium
-                                             ? selectedInsuranceDetails.farmerPremium
-                                             : ""
-                                           : selectedInsuranceDetails && selectedInsuranceDetails.policyPremium
-                                           ? selectedInsuranceDetails.policyPremium
-                                           : ""}
-                                       </p>
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Village">
-                                       <p className={BizClass.ContentPresenter}>
-                                         {selectedClaimOrGrievence === "CI"
-                                           ? selectedInsuranceDetails && selectedInsuranceDetails.plotVillageName
-                                             ? selectedInsuranceDetails.plotVillageName
-                                             : ""
-                                           : selectedInsuranceDetails && selectedInsuranceDetails.plotVillageName
-                                           ? selectedInsuranceDetails.plotVillageName
-                                           : ""}
-                                       </p>
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Area In Hactare">
-                                       <p className={BizClass.ContentPresenter}>
-                                         {selectedClaimOrGrievence === "CI"
-                                           ? selectedInsuranceDetails && selectedInsuranceDetails.area
-                                             ? selectedInsuranceDetails.area
-                                             : ""
-                                           : selectedInsuranceDetails && selectedInsuranceDetails.policyArea
-                                           ? selectedInsuranceDetails.policyArea
-                                           : ""}
-                                       </p>
-                                     </Form.InputGroup>
-                                     <Form.InputGroup label="Crop Name">
-                                       <p className={BizClass.ContentPresenter}>
-                                         {selectedClaimOrGrievence === "CI"
-                                           ? selectedInsuranceDetails && selectedInsuranceDetails.cropName
-                                             ? selectedInsuranceDetails.cropName
-                                             : ""
-                                           : selectedInsuranceDetails && selectedInsuranceDetails.cropName
-                                           ? selectedInsuranceDetails.cropName
-                                           : ""}
-                                       </p>
-                                     </Form.InputGroup>
-                                   </Form.Group>
-                                 </div>
-                               </div>
-                             ) : (
-                               <div className={BizClass.Content}>
-                                 <Form.Group column="4" controlwidth="360px">
-                                 <Form.InputGroup req="true" label="Farmer Mobile No." errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtMobileForNonRegFarmerOrOffline"]}>
-                                         <Form.InputControl
-                                           control="input"
-                                           type="text"
-                                           name="txtMobileForNonRegFarmerOrOffline"
-                                           value={formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline}
-                                           maxLength={10}
-                                           minLength={10}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtMobileForNonRegFarmerOrOffline", e.target.value.replace(/\D/g, ""))}
-                                           disabled={nonRegisteredFarmerDetails && nonRegisteredFarmerDetails.length > 0}
+                    <br />
+                    {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                      <>
+                        {formValuesGI &&
+                        formValuesGI.txtCallStatus &&
+                        formValuesGI.txtCallStatus.ID === 1 &&
+                        activeKey === "PRMCAL" &&
+                        activeBtnKey === "BTNNXT" ? (
+                          <PremiumCalculator
+                            objStateData={objStateData}
+                            objDistrictData={objDistrictData}
+                            formValuesGI={formValuesGI}
+                            dcryptUNQEID={dcryptUNQEID}
+                            dcryptUID={dcryptUID}
+                          />
+                        ) : null}{" "}
+                      </>
+                    ) : null}
+                    {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 && activeKey === "TCKT" && activeBtnKey === "BTNNXT" ? (
+                      <>
+                        {openModal && (
+                          <FarmerListModal
+                            toggleModal={toggleModal}
+                            farmersData={farmersData}
+                            onGridReady={onGridReady}
+                            onCellDoubleClicked={onCellDoubleClicked}
+                            onChangeFarmersDetails={onChangeFarmersDetails}
+                          />
+                        )}
+                        {openInsuranceCompanyModalGreivence && (
+                          <InsuranceCompanyModalGreivence
+                            toggleInsuranceCompanyModalGreivence={toggleInsuranceCompanyModalGreivence}
+                            // A onGridReadySupportTicketGreivence={onGridReadySupportTicketGreivence}
+                            onCellDoubleClickedDetailsGreivence={onCellDoubleClickedDetailsGreivence}
+                            insuranceCompanyDataGreivence={insuranceCompanyDataGreivence}
+                            isLoadingApplicationNoDataGreivence={isLoadingApplicationNoDataGreivence}
+                            getClaimStatusOnClick={getClaimStatusOnClick}
+                          />
+                        )}
+                        {openTicketHistoryModal && (
+                          <TicketHistoryModal
+                            toggleTicketHistoryModal={toggleTicketHistoryModal}
+                            selectedFarmer={selectedFarmer}
+                            ticketHistoryData={ticketHistoryData}
+                            onGridReadyTicketHistory={onGridReadyTicketHistory}
+                            isLoadingTicketHistory={isLoadingTicketHistory}
+                            onChangeTicketHistory={onChangeTicketHistory}
+                            openMyTicketPage={openMyTicketPage}
+                          />
+                        )}
+                        {openClaimStatusModal && (
+                          <ClaimStatusModal
+                            toggleClaimStatusModal={toggleClaimStatusModal}
+                            onGridReadyClaimStatus={onGridReadyClaimStatus}
+                            claimStatusData={claimStatusData}
+                            onChangeClamStatus={onChangeClamStatus}
+                            isLoadingClaimStatusData={isLoadingClaimStatusData}
+                            openCustomeWindow={openCustomeWindow}
+                            OnClickCustomeWindow={OnClickCustomeWindow}
+                            customeWindowWidth={customeWindowWidth}
+                            customeWindowHeight={customeWindowHeight}
+                          />
+                        )}
+                        {openMyTicketModal && <MyTicketPage showfunc={openMyTicketPage} selectedData={selectedData} />}
+                        <div className={BizClass.CreateTicketeBox}>
+                          <div className={BizClass.Div}>
+                            <div className={BizClass.ValidateBox}>
+                              <div className={BizClass.ValidateTitle}>
+                                <h3>Farmer Authentication</h3>
+                              </div>
+                              <div className={BizClass.ValidateContent}>
+                                <div className={BizClass.validateFormHorizontal}>
+                                  <Form.InputGroup errorMsg="">
+                                    <ul className={BizClass.ValidateTabGroup}>
+                                      <button
+                                        type="button"
+                                        className={selectedValidateOption === "1" && BizClass.Active}
+                                        // A className={
+                                        // A   selectedValidateOption === "1" && farmerAuthenticateByMobile === true
+                                        // A     ? classNames(BizClass.Active,BizClass.disabledradioFarmerAuthenticationBoxWithouOpacity)
+                                        // A     : selectedValidateOption === "1"
+                                        // A     ? BizClass.Active
+                                        // A     : null
+                                        // A  }
+                                        onClick={() => OnClickSelectedValidateOption("MN")}
+                                      >
+                                        <div className={BizClass.ValidateTabCheckBox} />
+                                        <span>Farmer Mobile Number</span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        className={selectedValidateOption === "2" && BizClass.Active}
+                                        // A  className={
+                                        // A selectedValidateOption === "2" && farmerAuthenticateByMobile === false
+                                        // A     ? BizClass.Active
+                                        // A     : farmerAuthenticateByMobile === true
+                                        // A     ? BizClass.disabledradioFarmerAuthenticationBox
+                                        // A     : null
+                                        // A }
+                                        onClick={() => OnClickSelectedValidateOption("AN")}
+                                        style={{ minWidth: "0px", width: "150px" }}
+                                      >
+                                        <div className={BizClass.ValidateTabCheckBox} />
+                                        <span>Aadhar Number</span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        className={selectedValidateOption === "3" && BizClass.Active}
+                                        // A className={
+                                        // A   selectedValidateOption === "3" && farmerAuthenticateByMobile === false
+                                        // A     ? BizClass.Active
+                                        // A     : farmerAuthenticateByMobile === true
+                                        // A     ? BizClass.disabledradioFarmerAuthenticationBox
+                                        // A     : null
+                                        // A }
+                                        onClick={() => OnClickSelectedValidateOption("BAN")}
+                                        style={{ minWidth: "0px", width: "160px" }}
+                                      >
+                                        <div className={BizClass.ValidateTabCheckBox} />
+                                        <span>Bank A/C Number</span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        className={selectedValidateOption === "4" && BizClass.Active}
+                                        // A  className={
+                                        // A   selectedValidateOption === "4" && farmerAuthenticateByMobile === false
+                                        // A    ? BizClass.Active
+                                        // A     : farmerAuthenticateByMobile === true
+                                        // A     ? BizClass.disabledradioFarmerAuthenticationBox
+                                        // A     : null
+                                        // A }
+                                        onClick={() => OnClickSelectedValidateOption("PN")}
+                                        style={{ minWidth: "0px", width: "150px" }}
+                                      >
+                                        <div className={BizClass.ValidateTabCheckBox} />
+                                        <span>Policy Number</span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        className={selectedValidateOption === "5" && BizClass.Active}
+                                        // A className={
+                                        // A   selectedValidateOption === "5" && farmerAuthenticateByMobile === false
+                                        // A     ? BizClass.Active
+                                        // A     : farmerAuthenticateByMobile === true
+                                        // A     ? BizClass.disabledradioFarmerAuthenticationBox
+                                        // A     : null
+                                        // A }
+                                        onClick={() => OnClickSelectedValidateOption("BL")}
+                                        style={{ minWidth: "0px", width: "140px" }}
+                                      >
+                                        <div className={BizClass.ValidateTabCheckBox} />
+                                        <span>By Location</span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        className={selectedValidateOption === "6" && BizClass.Active}
+                                        // A  className={
+                                        // A   selectedValidateOption === "6" && farmerAuthenticateByMobile === false
+                                        // A     ? BizClass.Active
+                                        // A     : farmerAuthenticateByMobile === true
+                                        // A     ? BizClass.disabledradioFarmerAuthenticationBox
+                                        // A     : null
+                                        // A }
+                                        onClick={() => OnClickSelectedValidateOption("NRF")}
+                                      >
+                                        <div className={BizClass.ValidateTabCheckBox} />
+                                        <span>Non-Registered Farmer</span>
+                                      </button>
+                                      <button
+                                        type="button"
+                                        className={selectedValidateOption === "7" && BizClass.Active}
+                                        // A  className={
+                                        // A   selectedValidateOption === "7" && farmerAuthenticateByMobile === false
+                                        // A     ? BizClass.Active
+                                        // A     : farmerAuthenticateByMobile === true
+                                        // A     ? BizClass.disabledradioFarmerAuthenticationBox
+                                        // A     : null
+                                        // A }
+                                        onClick={() => OnClickSelectedValidateOption("OFFLN")}
+                                        style={{ minWidth: "0px", width: "120px", display: "none" }}
+                                      >
+                                        <div className={BizClass.ValidateTabCheckBox} />
+                                        <span>Offline</span>
+                                      </button>
+                                    </ul>
+                                  </Form.InputGroup>
+                                </div>
+                                <form className={selectedValidateOption !== "6" && selectedValidateOption !== "7" ? BizClass.ValidateForm : ""}>
+                                  {selectedValidateOption === "1" && (
+                                    <div className={BizClass.ValidateControlGroup}>
+                                      <Form.Group column="1" controlwidth="auto">
+                                        <Form.InputGroup label="Farmer Mobile Number" req="true" errorMsg={formValidationFarmersError["txtMobileNumber"]}>
+                                          <Form.InputControl
+                                            control="input"
+                                            name="txtMobileNumber"
+                                            value={formValuesMN.txtMobileNumber}
+                                            minLength={10}
+                                            maxLength={10}
+                                            onChange={(e) => updateStateMN("txtMobileNumber", e.target.value)}
+                                            autoComplete="off"
+                                          />
+                                        </Form.InputGroup>
+                                      </Form.Group>
+                                    </div>
+                                  )}
+                                  {selectedValidateOption === "2" && (
+                                    <div className={BizClass.ValidateControlGroup}>
+                                      <Form.Group column="1" controlwidth="auto">
+                                        <Form.InputGroup label="Aadhar Number" req="true" errorMsg={formValidationFarmersError["txtAadharNumber"]}>
+                                          <Form.InputControl
+                                            control="input"
+                                            name="txtAadharNumber"
+                                            minLength={12}
+                                            maxLength={12}
+                                            value={formValuesAN.txtAadharNumber}
+                                            onChange={(e) => updateStateAN("txtAadharNumber", e.target.value)}
+                                            autoComplete="off"
+                                          />
+                                        </Form.InputGroup>
+                                      </Form.Group>
+                                    </div>
+                                  )}
+                                  {selectedValidateOption === "3" && (
+                                    <div className={BizClass.ValidateControlGroup}>
+                                      <Form.Group column={4} controlwidth="25%">
+                                        <Form.InputGroup label="State" req="true" errorMsg={formValidationFarmersError["txtState"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtState"
+                                            value={formValues.txtState}
+                                            options={stateDropdownDataList}
+                                            loader={isLoadingStateDropdownDataList ? <Loader /> : null}
+                                            isLoading={isLoadingStateDropdownDataList}
+                                            getOptionLabel={(option) => `${option.StateMasterName}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateState("txtState", e)}
+                                            focus="true"
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="District" req="true" errorMsg={formValidationFarmersError["txtDistrict"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtDistrict"
+                                            value={formValues.txtDistrict}
+                                            options={districtDropdownDataList}
+                                            loader={isLoadingDistrictDropdownDataList ? <Loader /> : null}
+                                            isLoading={isLoadingDistrictDropdownDataList}
+                                            getOptionLabel={(option) => `${option.level3Name}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateState("txtDistrict", e)}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Bank Name" req="true" errorMsg={formValidationFarmersError["txtBankName"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtBankName"
+                                            value={formValues.txtBankName}
+                                            options={bankDropdownDataList}
+                                            loader={isLoadingBankDropdownDataList ? <Loader /> : null}
+                                            isLoading={isLoadingBankDropdownDataList}
+                                            getOptionLabel={(option) => `${option.bankName}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateState("txtBankName", e)}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Bank Branch" req="true" errorMsg={formValidationFarmersError["txtBranchName"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtBranchName"
+                                            value={formValues.txtBranchName}
+                                            options={bankBranchDropdownDataList}
+                                            loader={isLoadingBankBranchDropdownDataList ? <Loader /> : null}
+                                            isLoading={isLoadingBankBranchDropdownDataList}
+                                            getOptionLabel={(option) => `${option.branchName}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateState("txtBranchName", e)}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Account Number" errorMsg={formValidationFarmersError["txtAccountNumber"]}>
+                                          <Form.InputControl
+                                            control="input"
+                                            label="Account Number"
+                                            name="txtAccountNumber"
+                                            minLength={14}
+                                            maxLength={18}
+                                            value={formValues.txtAccountNumber}
+                                            onChange={(e) => updateState("txtAccountNumber", e.target.value.replace(/\D/g, ""))}
+                                          />
+                                        </Form.InputGroup>
+                                      </Form.Group>
+                                    </div>
+                                  )}
+                                  {selectedValidateOption === "4" && (
+                                    <div className={BizClass.ValidateControlGroup}>
+                                      <Form.Group column={4} controlwidth="auto">
+                                        <Form.InputGroup label="Policy Number" req="true" errorMsg={formValidationFarmersError["txtPolicyNumber"]}>
+                                          <Form.InputControl
+                                            id="inputPolicyNumber"
+                                            control="input"
+                                            name="txtPolicyNumber"
+                                            minLength={19}
+                                            maxLength={19}
+                                            onPaste={(e) => {
+                                              e.preventDefault();
+                                              return false;
+                                            }}
+                                            onCopy={(e) => {
+                                              e.preventDefault();
+                                              return false;
+                                            }}
+                                            value={formValuesForPolicyNumber.txtPolicyNumber}
+                                            onChange={(e) => updateStateForPolicyNumber("txtPolicyNumber", e.target.value)}
+                                            autoComplete="off"
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Scheme">
+                                          <Form.InputControl
+                                            control="input"
+                                            name="txtSchemeForPolicyNumber"
+                                            value={formValuesForPolicyNumber.txtSchemeForPolicyNumber}
+                                            onChange={(e) => updateStateForPolicyNumber("txtSchemeForPolicyNumber", e.target.value)}
+                                            disabled={true}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Season">
+                                          <Form.InputControl
+                                            control="input"
+                                            name="txtSeasonForPolicyNumber"
+                                            value={formValuesForPolicyNumber.txtSeasonForPolicyNumber}
+                                            onChange={(e) => updateStateForPolicyNumber("txtSeasonForPolicyNumber", e.target.value)}
+                                            disabled={true}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="State & Year">
+                                          <Form.InputControl
+                                            control="input"
+                                            name="txtStateAndYearForPolicyNumber"
+                                            value={formValuesForPolicyNumber.txtStateAndYearForPolicyNumber}
+                                            onChange={(e) => updateStateForPolicyNumber("txtStateAndYearForPolicyNumber", e.target.value)}
+                                            disabled={true}
+                                          />
+                                        </Form.InputGroup>
+                                      </Form.Group>
+                                    </div>
+                                  )}
+                                  {selectedValidateOption === "5" && (
+                                    <div className={BizClass.ValidateControlGroup}>
+                                      <Form.Group column={4} controlwidth="25%">
+                                        <Form.InputGroup label="Season" req="true" errorMsg={formValidationFarmersError["txtSeasonForLocation"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtSeasonForLocation"
+                                            value={formValuesForByLocation.txtSeasonForLocation}
+                                            options={seasonForPolicyNumberDropdownDataList}
+                                            getOptionLabel={(option) => `${option.CropSeasonName}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtSeasonForLocation", e)}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Year" req="true" errorMsg={formValidationFarmersError["txtYearForLocation"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtYearForLocation"
+                                            value={formValuesForByLocation.txtYearForLocation}
+                                            options={yearList}
+                                            getOptionLabel={(option) => `${option.Name}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtYearForLocation", e)}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Scheme" req="true" errorMsg={formValidationFarmersError["txtSchemeForLocation"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtSchemeForLocation"
+                                            value={formValuesForByLocation.txtSchemeForLocation}
+                                            options={schemeList}
+                                            getOptionLabel={(option) => `${option.SchemeName}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtSchemeForLocation", e)}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="State" req="true" errorMsg={formValidationFarmersError["txtStateForByLocation"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtStateForByLocation"
+                                            value={formValuesForByLocation.txtStateForByLocation}
+                                            options={stateForByLocationDropdownDataList}
+                                            loader={isLoadingStateForByLocationDropdownDataList ? <Loader /> : null}
+                                            getOptionLabel={(option) => `${option.StateMasterName}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtStateForByLocation", e)}
+                                            focus="true"
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="District" req="true" errorMsg={formValidationFarmersError["txtDistrictForByLocation"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtDistrictForByLocation"
+                                            value={formValuesForByLocation.txtDistrictForByLocation}
+                                            options={districtForByLocationDropdownDataList}
+                                            loader={isLoadingDistrictForByLocationDropdownDataList ? <Loader /> : null}
+                                            getOptionLabel={(option) => `${option.level3Name}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtDistrictForByLocation", e)}
+                                          />
+                                        </Form.InputGroup>
+                                        <Form.InputGroup
+                                          label={lableTalukAnything}
+                                          req="true"
+                                          errorMsg={formValidationFarmersError["txtSubDistrictForByLocation"]}
+                                        >
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtSubDistrictForByLocation"
+                                            value={formValuesForByLocation.txtSubDistrictForByLocation}
+                                            options={subDistrictForByLocationDropdownDataList}
+                                            loader={isLoadingSubDistrictForByLocationDropdownDataList ? <Loader /> : null}
+                                            getOptionLabel={(option) => `${option.level4Name}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtSubDistrictForByLocation", e)}
+                                          />
+                                        </Form.InputGroup>
+
+                                        <Form.InputGroup label={lablelevel5} req="true" errorMsg={formValidationFarmersError["txtlevel5ByLocation"]}>
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtlevel5ByLocation"
+                                            value={formValuesForByLocation.txtlevel5ByLocation}
+                                            options={level5ByLocationDropdownDataList}
+                                            loader={isLoadinglevel5ByLocationDropdownDataList ? <Loader /> : null}
+                                            getOptionLabel={(option) => `${option.level5Name}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtlevel5ByLocation", e)}
+                                          />
+                                        </Form.InputGroup>
+
+                                        {lablelevel6 === null ? null : (
+                                          <Form.InputGroup label={lablelevel6} req="true" errorMsg={formValidationFarmersError["txtlevel6ByLocation"]}>
+                                            <Form.InputControl
+                                              control="select"
+                                              name="txtlevel6ByLocation"
+                                              value={formValuesForByLocation.txtlevel6ByLocation}
+                                              options={level6ByLocationDropdownDataList}
+                                              loader={isLoadinglevel6ByLocationDropdownDataList ? <Loader /> : null}
+                                              getOptionLabel={(option) => `${option.level6Name}`}
+                                              getOptionValue={(option) => `${option}`}
+                                              onChange={(e) => updateStateForByLocation("txtlevel6ByLocation", e)}
+                                            />
+                                          </Form.InputGroup>
+                                        )}
+                                        <Form.InputGroup
+                                          label={lableVillageForByLocation}
+                                          req="true"
+                                          errorMsg={formValidationFarmersError["txtVillageForByLocation"]}
+                                        >
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtVillageForByLocation"
+                                            value={formValuesForByLocation.txtVillageForByLocation}
+                                            options={villageForByLocationDropdownDataList}
+                                            loader={isLoadingVillageForByLocationDropdownDataList ? <Loader /> : null}
+                                            getOptionLabel={(option) => `${option.level7Name}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByLocation("txtVillageForByLocation", e)}
+                                          />
+                                        </Form.InputGroup>
+                                      </Form.Group>
+                                    </div>
+                                  )}
+                                  {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
+                                    <div className={BizClass.ValidateFormFooter}>
+                                      <Button className={BizClass.FormFooterButton} trigger={btnLoaderActive && "true"} onClick={() => validateFarmerOnClick()}>
+                                        Validate
+                                      </Button>
+                                    </div>
+                                  ) : null}
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <div className={BizClass.Div}>
+                            <div className={BizClass.InfoDiv}>
+                              <div className={BizClass.FarmerInfoDiv}>
+                                <div className={BizClass.Title}>
+                                  <h3>Farmer Information</h3>
+                                </div>
+                                {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
+                                  <div className={BizClass.Content}>
+                                    <Form.Group column="3" controlwidth="360px">
+                                      <Form.InputGroup label="Farmer Name">
+                                        <p className={BizClass.ContentPresenter}>{selectedFarmer && selectedFarmer.farmerName}</p>
+                                      </Form.InputGroup>
+                                      <Form.InputGroup label="Mobile No">
+                                        <p className={BizClass.ContentPresenter}>{selectedFarmer && selectedFarmer.mobile}</p>
+                                      </Form.InputGroup>
+                                      <Form.InputGroup label="State">
+                                        <p className={BizClass.ContentPresenter}>
+                                          {selectedFarmer && selectedFarmer.state
+                                            ? selectedFarmer.state
+                                            : selectedFarmer.stateName
+                                            ? selectedFarmer.stateName
+                                            : selectedFarmer.resState
+                                            ? selectedFarmer.resState
+                                            : ""}
+                                        </p>
+                                      </Form.InputGroup>
+                                      <Form.InputGroup label="District">
+                                        <p className={BizClass.ContentPresenter}>
+                                          {selectedFarmer && selectedFarmer.district
+                                            ? selectedFarmer.district
+                                            : selectedFarmer.districtName
+                                            ? selectedFarmer.districtName
+                                            : selectedFarmer.resDistrict
+                                            ? selectedFarmer.resDistrict
+                                            : ""}
+                                        </p>
+                                      </Form.InputGroup>
+                                      <Form.InputGroup label="Taluka">
+                                        <p className={BizClass.ContentPresenter}>
+                                          {selectedFarmer && selectedFarmer.subDistrict
+                                            ? selectedFarmer.subDistrict
+                                            : selectedFarmer.resSubDistrict
+                                            ? selectedFarmer.resSubDistrict
+                                            : ""}
+                                        </p>
+                                      </Form.InputGroup>
+                                      <Form.InputGroup label="Village">
+                                        <p className={BizClass.ContentPresenter}>
+                                          {selectedFarmer && selectedFarmer.village
+                                            ? selectedFarmer.village
+                                            : selectedFarmer.villageName
+                                            ? selectedFarmer.villageName
+                                            : selectedFarmer.resVillage
+                                            ? selectedFarmer.resVillage
+                                            : ""}
+                                        </p>
+                                      </Form.InputGroup>
+                                    </Form.Group>
+                                    <div className={BizClass.ContentDiv}>
+                                      <div className={BizClass.fetch_claim_reset_btn}>
+                                        <Form.Group column="2" controlwidth="360px">
+                                          <Form.CustomGroup column={4} columntemplate="140px 140px auto">
+                                            <Form.InputGroup label="" req="true" errorMsg={formValidationFarmersInfoError["txtYearForFarmerInfo"]}>
+                                              <Form.InputControl
+                                                control="select"
+                                                label="Year"
+                                                name="txtYearForFarmerInfo"
+                                                value={formValuesForFarmerInfo.txtYearForFarmerInfo}
+                                                options={yearList}
+                                                getOptionLabel={(option) => `${option.Name}`}
+                                                getOptionValue={(option) => `${option}`}
+                                                onChange={(e) => updateStateForFarmerInfo("txtYearForFarmerInfo", e)}
+                                                isDisabled={stateYearAndSeason === "YRSSNNO"}
+                                              />
+                                            </Form.InputGroup>
+                                            <Form.InputGroup label="" req="true" errorMsg={formValidationFarmersInfoError["txtSeasonForFarmerInfo"]}>
+                                              <Form.InputControl
+                                                control="select"
+                                                label="Season"
+                                                name="txtSeasonForFarmerInfo"
+                                                value={formValuesForFarmerInfo.txtSeasonForFarmerInfo}
+                                                options={seasonForPolicyNumberDropdownDataList}
+                                                getOptionLabel={(option) => `${option.CropSeasonName}`}
+                                                getOptionValue={(option) => `${option}`}
+                                                onChange={(e) => updateStateForFarmerInfo("txtSeasonForFarmerInfo", e)}
+                                                isDisabled={stateYearAndSeason === "YRSSNNO"}
+                                              />
+                                            </Form.InputGroup>
+                                            <Form.InputGroup label="" req="true" errorMsg={formValidationFarmersInfoError["txtSchemeForFarmerInfo"]}>
+                                              <Form.InputControl
+                                                control="select"
+                                                label="Scheme"
+                                                name="txtSchemeForFarmerInfo"
+                                                value={formValuesForFarmerInfo.txtSchemeForFarmerInfo}
+                                                options={schemeList}
+                                                getOptionLabel={(option) => `${option.SchemeName}`}
+                                                getOptionValue={(option) => `${option}`}
+                                                onChange={(e) => updateStateForFarmerInfo("txtSchemeForFarmerInfo", e)}
+                                                isDisabled={true}
+                                              />
+                                            </Form.InputGroup>
+                                          </Form.CustomGroup>
+                                        </Form.Group>
+                                        <Form.Group column="3" controlwidth="">
+                                          <div className={BizClass.InputBox} style={{ display: "flex" }}>
+                                            <Button
+                                              className={BizClass.Button}
+                                              trigger={btnLoaderFarmerGreivenceInfoActive && "true"}
+                                              onClick={() => getPolicyOfFarmerGreivenceOnClick()}
+                                            >
+                                              Fetch Details
+                                            </Button>
+                                            <Button
+                                              className={BizClass.Button}
+                                              trigger={btnLoaderClaimStatusActive && "true"}
+                                              onClick={() => getClaimStatusOnClick()}
+                                            >
+                                              Claim Status
+                                            </Button>
+                                            <Button className={BizClass.Button} onClick={() => ResetYrSsnSchmApplicationDataOnClick()}>
+                                              Reset
+                                            </Button>
+                                          </div>
+                                        </Form.Group>
+                                      </div>
+                                      <Form.Group column="3" controlwidth="360px" style={{ background: "#d6dbdf", padding: "5px", "border-radius": "4px" }}>
+                                        <Form.InputGroup label="Insurance Company">
+                                          <p className={BizClass.ContentPresenter}>
+                                            {selectedInsuranceDetails && selectedInsuranceDetails.insuranceCompanyName
+                                              ? selectedInsuranceDetails.insuranceCompanyName
+                                              : ""}
+                                          </p>
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Application No.">
+                                          <p className={BizClass.ContentPresenter}>
+                                            {selectedClaimOrGrievence === "CI"
+                                              ? selectedInsuranceDetails && selectedInsuranceDetails.applicationNo
+                                                ? selectedInsuranceDetails.applicationNo
+                                                : ""
+                                              : selectedInsuranceDetails && selectedInsuranceDetails.applicationNo
+                                              ? selectedInsuranceDetails.applicationNo
+                                              : ""}
+                                          </p>
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Farmer Premium">
+                                          <p className={BizClass.ContentPresenter}>
+                                            {selectedClaimOrGrievence === "CI"
+                                              ? selectedInsuranceDetails && selectedInsuranceDetails.farmerPremium
+                                                ? selectedInsuranceDetails.farmerPremium
+                                                : ""
+                                              : selectedInsuranceDetails && selectedInsuranceDetails.policyPremium
+                                              ? selectedInsuranceDetails.policyPremium
+                                              : ""}
+                                          </p>
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Village">
+                                          <p className={BizClass.ContentPresenter}>
+                                            {selectedClaimOrGrievence === "CI"
+                                              ? selectedInsuranceDetails && selectedInsuranceDetails.plotVillageName
+                                                ? selectedInsuranceDetails.plotVillageName
+                                                : ""
+                                              : selectedInsuranceDetails && selectedInsuranceDetails.plotVillageName
+                                              ? selectedInsuranceDetails.plotVillageName
+                                              : ""}
+                                          </p>
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Area In Hactare">
+                                          <p className={BizClass.ContentPresenter}>
+                                            {selectedClaimOrGrievence === "CI"
+                                              ? selectedInsuranceDetails && selectedInsuranceDetails.area
+                                                ? selectedInsuranceDetails.area
+                                                : ""
+                                              : selectedInsuranceDetails && selectedInsuranceDetails.policyArea
+                                              ? selectedInsuranceDetails.policyArea
+                                              : ""}
+                                          </p>
+                                        </Form.InputGroup>
+                                        <Form.InputGroup label="Crop Name">
+                                          <p className={BizClass.ContentPresenter}>
+                                            {selectedClaimOrGrievence === "CI"
+                                              ? selectedInsuranceDetails && selectedInsuranceDetails.cropName
+                                                ? selectedInsuranceDetails.cropName
+                                                : ""
+                                              : selectedInsuranceDetails && selectedInsuranceDetails.cropName
+                                              ? selectedInsuranceDetails.cropName
+                                              : ""}
+                                          </p>
+                                        </Form.InputGroup>
+                                      </Form.Group>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className={BizClass.Content}>
+                                    <Form.Group column="4" controlwidth="360px">
+                                      <Form.InputGroup
+                                        req="true"
+                                        label="Farmer Mobile No."
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtMobileForNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="input"
+                                          type="text"
+                                          name="txtMobileForNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtMobileForNonRegFarmerOrOffline}
+                                          maxLength={10}
+                                          minLength={10}
+                                          onChange={(e) =>
+                                            updateStateForByNonRegFarmerOrOffline("txtMobileForNonRegFarmerOrOffline", e.target.value.replace(/\D/g, ""))
+                                          }
+                                          disabled={nonRegisteredFarmerDetails && nonRegisteredFarmerDetails.length > 0}
                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup req="true" label="Farmer Name" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtFarmerNameForNonRegFarmerOrOffline"]}>
-                                         <Form.InputControl
-                                           control="input"
-                                           type="text"
-                                           name="txtFarmerNameForNonRegFarmerOrOffline"
-                                           value={formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtFarmerNameForNonRegFarmerOrOffline", e.target.value)}
-                                           disabled={nonRegisteredFarmerDetails && nonRegisteredFarmerDetails.length > 0}
+                                      </Form.InputGroup>
+                                      <Form.InputGroup
+                                        req="true"
+                                        label="Farmer Name"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtFarmerNameForNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="input"
+                                          type="text"
+                                          name="txtFarmerNameForNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtFarmerNameForNonRegFarmerOrOffline}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtFarmerNameForNonRegFarmerOrOffline", e.target.value)}
+                                          disabled={nonRegisteredFarmerDetails && nonRegisteredFarmerDetails.length > 0}
                                         />
-                                       </Form.InputGroup>    
-                                   <Form.InputGroup label="Season" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtSeasonForNonRegFarmerOrOffline"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtSeasonForNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline}
-                                       options={seasonForPolicyNumberDropdownDataList}
-                                       getOptionLabel={(option) => `${option.CropSeasonName}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtSeasonForNonRegFarmerOrOffline", e)}
-                                       
-                                    />
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="Year" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtYearForNonRegFarmerOrOffline"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtYearForNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline}
-                                       options={yearList}
-                                       getOptionLabel={(option) => `${option.Name}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtYearForNonRegFarmerOrOffline", e)}
-                                       
-                                     />
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="Scheme" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtSchemeForNonRegFarmerOrOffline"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtSchemeForNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline}
-                                       options={schemeList}
-                                       getOptionLabel={(option) => `${option.SchemeName}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtSchemeForNonRegFarmerOrOffline", e)}
-                                       
-                                     />
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="State" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtStateForByNonRegFarmerOrOffline"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtStateForByNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline}
-                                       options={stateForByNonRegFarmerOrOfflineDropdownDataList}
-                                       loader={isLoadingStateForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
-                                       getOptionLabel={(option) => `${option.StateMasterName}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtStateForByNonRegFarmerOrOffline", e)}
-                                       
-                                     />
-                                   </Form.InputGroup>
-                                   <Form.InputGroup label="District" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtDistrictForByNonRegFarmerOrOffline"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtDistrictForByNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline}
-                                       options={districtForByNonRegFarmerOrOfflineDropdownDataList}
-                                       loader={isLoadingDistrictForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
-                                       getOptionLabel={(option) => `${option.level3Name}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtDistrictForByNonRegFarmerOrOffline", e)}
-                                       
-                                     />
-                                   </Form.InputGroup>
-                                   <Form.InputGroup
-                                     label={lableTalukAnythingNonRegFarmerOrOffline}
-                                     req="true"
-                                     errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtSubDistrictForByNonRegFarmerOrOffline"]}
-                                   >
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtSubDistrictForByNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline}
-                                       options={subDistrictForByNonRegFarmerOrOfflineDropdownDataList}
-                                       loader={isLoadingSubDistrictForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
-                                       getOptionLabel={(option) => `${option.level4Name}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtSubDistrictForByNonRegFarmerOrOffline", e)}
-                                       
-                                     />
-                                   </Form.InputGroup>
-               
-                                   <Form.InputGroup
-                                     label={lablelevel5NonRegFarmerOrOffline}
-                                     req="true"
-                                     errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtlevel5ByNonRegFarmerOrOffline"]}
-                                   >
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtlevel5ByNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline}
-                                       options={level5ByNonRegFarmerOrOfflineDropdownDataList}
-                                       loader={isLoadinglevel5ByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
-                                       getOptionLabel={(option) => `${option.level5Name}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtlevel5ByNonRegFarmerOrOffline", e)}
-                                       
-                                     />
-                                   </Form.InputGroup>
-               
-                                   {lablelevel6NonRegFarmerOrOffline === null ? null : (
-                                     <Form.InputGroup
-                                       label={lablelevel6NonRegFarmerOrOffline}
-                                       req="true"
-                                       errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtlevel6ByNonRegFarmerOrOffline"]}
-                                     >
-                                       <Form.InputControl
-                                         control="select"
-                                         name="txtlevel6ByNonRegFarmerOrOffline"
-                                         value={formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline}
-                                         options={level6ByNonRegFarmerOrOfflineDropdownDataList}
-                                         loader={isLoadinglevel6ByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
-                                         getOptionLabel={(option) => `${option.level6Name}`}
-                                         getOptionValue={(option) => `${option}`}
-                                         onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtlevel6ByNonRegFarmerOrOffline", e)}
-                                         
-                                      />
-                                     </Form.InputGroup>
-                                   )}
-                                   <Form.InputGroup
-                                     label={lableVillageForByNonRegFarmerOrOffline}
-                                     req="true"
-                                     errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtVillageForByNonRegFarmerOrOffline"]}
-                                   >
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtVillageForByNonRegFarmerOrOffline"
-                                       value={formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline}
-                                       options={villageForByNonRegFarmerOrOfflineDropdownDataList}
-                                       loader={isLoadingVillageForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
-                                       getOptionLabel={(option) => `${option.level7Name}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtVillageForByNonRegFarmerOrOffline", e)}
-                                       
-                                    />
-                                   </Form.InputGroup>
-                                   {selectedValidateOption === "6" ? (
-                                     <>
-                                       <Form.InputGroup req="false" label="PinCode">
-                                         <Form.InputControl
-                                           control="input"
-                                           type="text"
-                                           name="txtPinCode"
-                                           value={formValuesForByNonRegFarmerOrOffline.txtPinCode}
-                                           maxLength={6}
-                                           minLength={6}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtPinCode", e.target.value.replace(/\D/g, ""))}
-                                           
-                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup column={3} row={1} label="Address">
-                                         <Form.InputControl
-                                           control="textarea"
-                                           name="txtAddress"
-                                           value={formValuesForByNonRegFarmerOrOffline.txtAddress}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtAddress", e.target.value)}
-                                           
-                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup req="false" label="Crop"  errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtCropForCalculate"]}>
-                                         <Form.InputControl
-                                           control="select"
-                                           name="txtCropForCalculate"
-                                           value={formValuesForByNonRegFarmerOrOffline.txtCropForCalculate}
-                                           options={cropForNonRegFarmerOrOfflineDropdownDataList}
-                                           isLoading={isLoadingCropForNonRegFarmerOrOfflineDropdownDataList}
-                                           getOptionLabel={(option) => `${option.cropName}`}
-                                           getOptionValue={(option) => `${option}`}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtCropForCalculate", e)}
-                                           
-                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup label="Insurance Company" col={1}>
-                                         <p className={BizClass.ContentPresenter}>
-                                           {formValuesForByNonRegFarmerOrOffline.txtCropForCalculate &&
-                                           formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
-                                             ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
-                                             : ""}
-                                         </p>
-                                       </Form.InputGroup>
-                                       <Form.InputGroup label="Area In Hectare"  req="false"
-                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtAreaInHectareForCalculator"]}>
-                                         <Form.InputControl
-                                           control="input"
-                                           maxlength="6"
-                                           minlength="3"
-                                           type="text"
-                                           name="txtAreaInHectareForCalculator"
-                                           value={formValuesForByNonRegFarmerOrOffline.txtAreaInHectareForCalculator}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtAreaInHectareForCalculator", e.target.value)}
-                                          
-                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup label="Premiums">
-                                         <p className={BizClass.ContentPresenter}>
-                                           {formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured && formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured
-                                             ? formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured
-                                             : ""}
-                                         </p>
-                                       </Form.InputGroup>{" "}
-                                     </>
-                                   ) : null}
-                                   {selectedValidateOption === "7" ? (
-                                     <>
-                                       <Form.InputGroup label="Insurance Company" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtInsuranceCompany"]}>
-                                         <Form.InputControl
-                                           control="select"
-                                           label=""
-                                           name="txtInsuranceCompany"
-                                           loader={isLoadingInsuranceCompanyList ? <Loader /> : null}
-                                           options={insuranceCompanyList}
-                                           value={formValuesForByNonRegFarmerOrOffline.txtInsuranceCompany}
-                                           getOptionLabel={(option) => `${option.CompanyName}`}
-                                           getOptionValue={(option) => `${option}`}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtInsuranceCompany", e)}
-                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup label="Policy No" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtPolicy"]}>
-                                         <Form.InputControl
-                                           control="input"
-                                           name="txtPolicy"
-                                           maxLength={20}
-                                           value={formValuesForByNonRegFarmerOrOffline.txtPolicy}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtPolicy", e.target.value)}
-                                         />
-                                       </Form.InputGroup>{" "}
-                                       <Form.InputGroup label="Application No" req="true" errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtApplication"]}>
-                                         <Form.InputControl
-                                           control="input"
-                                           name="txtApplication"
-                                           maxLength={50}
-                                           value={formValuesForByNonRegFarmerOrOffline.txtApplication}
-                                           onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtApplication", e.target.value)}
-                                         />
-                                       </Form.InputGroup>
-                                     </>
-                                   ) : null}
-                                 </Form.Group>
-                               </div>
-                             )}
-                           </div>
-                           {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
-                             <div className={BizClass.ValidateBox}>
-                               <div className={BizClass.ValidateTitle}>
-                                 <h3>Farmer Ticket Summary And Tick History</h3>{" "}
-                                 {fetchfarmersummary !== "" ? (
-                                   <Button trigger={btnLoaderActiveTicketSummary && "true"} className={BizClass.FormFooterButton} onClick={() => fetchfarmersTicketSummary()}>
-                                     Show Old Tickets
-                                   </Button>
-                                 ) : null}
-                               </div>
-                               <div className={BizClass.Farmer_Ticket_Box}>
-                                 {/* {isLoadingPageData ? <Loader /> : null} */}
-                                 <div className={BizClass.Farmer_Ticket_SummaryBoard}>
-                                   {farmersTicketSummaryData && farmersTicketSummaryData.length > 0 ? (
-                                     farmersTicketSummaryData.map((x) => {
-                                       return (
-                                         <button className={BizClass.Farmer_Ticket_ScoreBoard} type="button" onClick={() => getTicketHistoryOnClick(x.TicketStatusID)}>
-                                           <div>
-                                             <span>{x.TicketStatus}</span>
-                                             <span>{x.Total}</span>
-                                           </div>
-                                         </button>
-                                       );
-                                     })
-                                   ) : (
-                                     <>
-                                       <div className={BizClass.Farmer_Ticket_ScoreBoard}>
-                                         <span>Open</span>
-                                         <span>0</span>
-                                       </div>
-                                       <div className={BizClass.Farmer_Ticket_ScoreBoard}>
-                                         <span>Resolved</span>
-                                         <span>0</span>
-                                       </div>
-                                       <div className={BizClass.Farmer_Ticket_ScoreBoard}>
-                                         <span>Total</span>
-                                         <span>0</span>
-                                       </div>
-                                     </>
-                                   )}
-                                 </div>
-                               </div>
-                             </div>
-                           ) : null}
-                           <div className={BizClass.CreationDiv}>
-                             <div className={BizClass.Title}>
-                               <h3>Ticket Creation</h3>
-                             </div>
-                             <div className={BizClass.Content}>
-                               <Form.Group column="2" controlwidth="360px">
-                                 <Form.InputGroup label="Ticket Type" errorMsg="" column={3}>
-                                   <ul className={BizClass.ValidateTabGroup}>
-                                     <button type="button" className={selectedOption === "1" && BizClass.Active} onClick={() => selectedOptionOnClick("GR")}>
-                                       <div className={BizClass.ValidateTabCheckBox} />
-                                       <span>Grievance</span>
-                                     </button>
-                                     <button type="button" className={selectedOption === "2" && BizClass.Active} onClick={() => selectedOptionOnClick("IN")}>
-                                       <div className={BizClass.ValidateTabCheckBox} />
-                                       <span>Information</span>
-                                     </button>
-                                     {(formValuesForFarmerInfo.txtYearForFarmerInfo &&
-                      formValuesForFarmerInfo.txtYearForFarmerInfo.Value &&
-                      formValuesForFarmerInfo.txtYearForFarmerInfo.Value <= 2023) ? null :
-                      <button type="button" className={selectedOption === "4" && BizClass.Active} onClick={() => selectedOptionOnClick("LO")}>
-                          <div className={BizClass.ValidateTabCheckBox} />
-                          <span>Crop Loss Intimation</span>
-                        </button> }
-                                     {/* {formValuesForFarmerInfo.txtYearForFarmerInfo &&
+                                      </Form.InputGroup>
+                                      <Form.InputGroup
+                                        label="Season"
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtSeasonForNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtSeasonForNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtSeasonForNonRegFarmerOrOffline}
+                                          options={seasonForPolicyNumberDropdownDataList}
+                                          getOptionLabel={(option) => `${option.CropSeasonName}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtSeasonForNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+                                      <Form.InputGroup
+                                        label="Year"
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtYearForNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtYearForNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtYearForNonRegFarmerOrOffline}
+                                          options={yearList}
+                                          getOptionLabel={(option) => `${option.Name}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtYearForNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+                                      <Form.InputGroup
+                                        label="Scheme"
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtSchemeForNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtSchemeForNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtSchemeForNonRegFarmerOrOffline}
+                                          options={schemeList}
+                                          getOptionLabel={(option) => `${option.SchemeName}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtSchemeForNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+                                      <Form.InputGroup
+                                        label="State"
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtStateForByNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtStateForByNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtStateForByNonRegFarmerOrOffline}
+                                          options={stateForByNonRegFarmerOrOfflineDropdownDataList}
+                                          loader={isLoadingStateForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
+                                          getOptionLabel={(option) => `${option.StateMasterName}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtStateForByNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+                                      <Form.InputGroup
+                                        label="District"
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtDistrictForByNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtDistrictForByNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtDistrictForByNonRegFarmerOrOffline}
+                                          options={districtForByNonRegFarmerOrOfflineDropdownDataList}
+                                          loader={isLoadingDistrictForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
+                                          getOptionLabel={(option) => `${option.level3Name}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtDistrictForByNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+                                      <Form.InputGroup
+                                        label={lableTalukAnythingNonRegFarmerOrOffline}
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtSubDistrictForByNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtSubDistrictForByNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtSubDistrictForByNonRegFarmerOrOffline}
+                                          options={subDistrictForByNonRegFarmerOrOfflineDropdownDataList}
+                                          loader={isLoadingSubDistrictForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
+                                          getOptionLabel={(option) => `${option.level4Name}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtSubDistrictForByNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+
+                                      <Form.InputGroup
+                                        label={lablelevel5NonRegFarmerOrOffline}
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtlevel5ByNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtlevel5ByNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtlevel5ByNonRegFarmerOrOffline}
+                                          options={level5ByNonRegFarmerOrOfflineDropdownDataList}
+                                          loader={isLoadinglevel5ByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
+                                          getOptionLabel={(option) => `${option.level5Name}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtlevel5ByNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+
+                                      {lablelevel6NonRegFarmerOrOffline === null ? null : (
+                                        <Form.InputGroup
+                                          label={lablelevel6NonRegFarmerOrOffline}
+                                          req="true"
+                                          errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtlevel6ByNonRegFarmerOrOffline"]}
+                                        >
+                                          <Form.InputControl
+                                            control="select"
+                                            name="txtlevel6ByNonRegFarmerOrOffline"
+                                            value={formValuesForByNonRegFarmerOrOffline.txtlevel6ByNonRegFarmerOrOffline}
+                                            options={level6ByNonRegFarmerOrOfflineDropdownDataList}
+                                            loader={isLoadinglevel6ByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
+                                            getOptionLabel={(option) => `${option.level6Name}`}
+                                            getOptionValue={(option) => `${option}`}
+                                            onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtlevel6ByNonRegFarmerOrOffline", e)}
+                                          />
+                                        </Form.InputGroup>
+                                      )}
+                                      <Form.InputGroup
+                                        label={lableVillageForByNonRegFarmerOrOffline}
+                                        req="true"
+                                        errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtVillageForByNonRegFarmerOrOffline"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtVillageForByNonRegFarmerOrOffline"
+                                          value={formValuesForByNonRegFarmerOrOffline.txtVillageForByNonRegFarmerOrOffline}
+                                          options={villageForByNonRegFarmerOrOfflineDropdownDataList}
+                                          loader={isLoadingVillageForByNonRegFarmerOrOfflineDropdownDataList ? <Loader /> : null}
+                                          getOptionLabel={(option) => `${option.level7Name}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtVillageForByNonRegFarmerOrOffline", e)}
+                                        />
+                                      </Form.InputGroup>
+                                      {selectedValidateOption === "6" ? (
+                                        <>
+                                          <Form.InputGroup req="false" label="PinCode">
+                                            <Form.InputControl
+                                              control="input"
+                                              type="text"
+                                              name="txtPinCode"
+                                              value={formValuesForByNonRegFarmerOrOffline.txtPinCode}
+                                              maxLength={6}
+                                              minLength={6}
+                                              onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtPinCode", e.target.value.replace(/\D/g, ""))}
+                                            />
+                                          </Form.InputGroup>
+                                          <Form.InputGroup column={3} row={1} label="Address">
+                                            <Form.InputControl
+                                              control="textarea"
+                                              name="txtAddress"
+                                              value={formValuesForByNonRegFarmerOrOffline.txtAddress}
+                                              onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtAddress", e.target.value)}
+                                            />
+                                          </Form.InputGroup>
+                                          <Form.InputGroup
+                                            req="false"
+                                            label="Crop"
+                                            errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtCropForCalculate"]}
+                                          >
+                                            <Form.InputControl
+                                              control="select"
+                                              name="txtCropForCalculate"
+                                              value={formValuesForByNonRegFarmerOrOffline.txtCropForCalculate}
+                                              options={cropForNonRegFarmerOrOfflineDropdownDataList}
+                                              isLoading={isLoadingCropForNonRegFarmerOrOfflineDropdownDataList}
+                                              getOptionLabel={(option) => `${option.cropName}`}
+                                              getOptionValue={(option) => `${option}`}
+                                              onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtCropForCalculate", e)}
+                                            />
+                                          </Form.InputGroup>
+                                          <Form.InputGroup label="Insurance Company" col={1}>
+                                            <p className={BizClass.ContentPresenter}>
+                                              {formValuesForByNonRegFarmerOrOffline.txtCropForCalculate &&
+                                              formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
+                                                ? formValuesForByNonRegFarmerOrOffline.txtCropForCalculate.insuranceCompanyName
+                                                : ""}
+                                            </p>
+                                          </Form.InputGroup>
+                                          <Form.InputGroup
+                                            label="Area In Hectare"
+                                            req="false"
+                                            errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtAreaInHectareForCalculator"]}
+                                          >
+                                            <Form.InputControl
+                                              control="input"
+                                              maxlength="6"
+                                              minlength="3"
+                                              type="text"
+                                              name="txtAreaInHectareForCalculator"
+                                              value={formValuesForByNonRegFarmerOrOffline.txtAreaInHectareForCalculator}
+                                              onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtAreaInHectareForCalculator", e.target.value)}
+                                            />
+                                          </Form.InputGroup>
+                                          <Form.InputGroup label="Premiums">
+                                            <p className={BizClass.ContentPresenter}>
+                                              {formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured &&
+                                              formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured
+                                                ? formValuesForByNonRegFarmerOrOffline.CalculatedSumInsured
+                                                : ""}
+                                            </p>
+                                          </Form.InputGroup>{" "}
+                                        </>
+                                      ) : null}
+                                      {selectedValidateOption === "7" ? (
+                                        <>
+                                          <Form.InputGroup
+                                            label="Insurance Company"
+                                            req="true"
+                                            errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtInsuranceCompany"]}
+                                          >
+                                            <Form.InputControl
+                                              control="select"
+                                              label=""
+                                              name="txtInsuranceCompany"
+                                              loader={isLoadingInsuranceCompanyList ? <Loader /> : null}
+                                              options={insuranceCompanyList}
+                                              value={formValuesForByNonRegFarmerOrOffline.txtInsuranceCompany}
+                                              getOptionLabel={(option) => `${option.CompanyName}`}
+                                              getOptionValue={(option) => `${option}`}
+                                              onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtInsuranceCompany", e)}
+                                            />
+                                          </Form.InputGroup>
+                                          <Form.InputGroup
+                                            label="Policy No"
+                                            req="true"
+                                            errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtPolicy"]}
+                                          >
+                                            <Form.InputControl
+                                              control="input"
+                                              name="txtPolicy"
+                                              maxLength={20}
+                                              value={formValuesForByNonRegFarmerOrOffline.txtPolicy}
+                                              onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtPolicy", e.target.value)}
+                                            />
+                                          </Form.InputGroup>{" "}
+                                          <Form.InputGroup
+                                            label="Application No"
+                                            req="true"
+                                            errorMsg={formValidationFarmersErrorForNonRegFarmerOrOffline["txtApplication"]}
+                                          >
+                                            <Form.InputControl
+                                              control="input"
+                                              name="txtApplication"
+                                              maxLength={50}
+                                              value={formValuesForByNonRegFarmerOrOffline.txtApplication}
+                                              onChange={(e) => updateStateForByNonRegFarmerOrOffline("txtApplication", e.target.value)}
+                                            />
+                                          </Form.InputGroup>
+                                        </>
+                                      ) : null}
+                                    </Form.Group>
+                                  </div>
+                                )}
+                              </div>
+                              {selectedValidateOption !== "6" && selectedValidateOption !== "7" ? (
+                                <div className={BizClass.ValidateBox}>
+                                  <div className={BizClass.ValidateTitle}>
+                                    <h3>Farmer Ticket Summary And Tick History</h3>{" "}
+                                    {fetchfarmersummary !== "" ? (
+                                      <Button
+                                        trigger={btnLoaderActiveTicketSummary && "true"}
+                                        className={BizClass.FormFooterButton}
+                                        onClick={() => fetchfarmersTicketSummary()}
+                                      >
+                                        Show Old Tickets
+                                      </Button>
+                                    ) : null}
+                                  </div>
+                                  <div className={BizClass.Farmer_Ticket_Box}>
+                                    {/* {isLoadingPageData ? <Loader /> : null} */}
+                                    <div className={BizClass.Farmer_Ticket_SummaryBoard}>
+                                      {farmersTicketSummaryData && farmersTicketSummaryData.length > 0 ? (
+                                        farmersTicketSummaryData.map((x) => {
+                                          return (
+                                            <button
+                                              className={BizClass.Farmer_Ticket_ScoreBoard}
+                                              type="button"
+                                              onClick={() => getTicketHistoryOnClick(x.TicketStatusID)}
+                                            >
+                                              <div>
+                                                <span>{x.TicketStatus}</span>
+                                                <span>{x.Total}</span>
+                                              </div>
+                                            </button>
+                                          );
+                                        })
+                                      ) : (
+                                        <>
+                                          <div className={BizClass.Farmer_Ticket_ScoreBoard}>
+                                            <span>Open</span>
+                                            <span>0</span>
+                                          </div>
+                                          <div className={BizClass.Farmer_Ticket_ScoreBoard}>
+                                            <span>Resolved</span>
+                                            <span>0</span>
+                                          </div>
+                                          <div className={BizClass.Farmer_Ticket_ScoreBoard}>
+                                            <span>Total</span>
+                                            <span>0</span>
+                                          </div>
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              ) : null}
+                              <div className={BizClass.CreationDiv}>
+                                <div className={BizClass.Title}>
+                                  <h3>Ticket Creation</h3>
+                                </div>
+                                <div className={BizClass.Content}>
+                                  <Form.Group column="2" controlwidth="360px">
+                                    <Form.InputGroup label="Ticket Type" errorMsg="" column={3}>
+                                      <ul className={BizClass.ValidateTabGroup}>
+                                        <button type="button" className={selectedOption === "1" && BizClass.Active} onClick={() => selectedOptionOnClick("GR")}>
+                                          <div className={BizClass.ValidateTabCheckBox} />
+                                          <span>Grievance</span>
+                                        </button>
+                                        <button type="button" className={selectedOption === "2" && BizClass.Active} onClick={() => selectedOptionOnClick("IN")}>
+                                          <div className={BizClass.ValidateTabCheckBox} />
+                                          <span>Information</span>
+                                        </button>
+                                        {formValuesForFarmerInfo.txtYearForFarmerInfo &&
+                                        formValuesForFarmerInfo.txtYearForFarmerInfo.Value &&
+                                        formValuesForFarmerInfo.txtYearForFarmerInfo.Value <= 2023 ? null : (
+                                          <button
+                                            type="button"
+                                            className={selectedOption === "4" && BizClass.Active}
+                                            onClick={() => selectedOptionOnClick("LO")}
+                                          >
+                                            <div className={BizClass.ValidateTabCheckBox} />
+                                            <span>Crop Loss Intimation</span>
+                                          </button>
+                                        )}
+                                        {/* {formValuesForFarmerInfo.txtYearForFarmerInfo &&
                                      formValuesForFarmerInfo.txtYearForFarmerInfo.Value &&
                                      formValuesForFarmerInfo.txtYearForFarmerInfo.Value < runningCurrentYear ? null : (
                                        <button type="button" className={selectedOption === "4" && BizClass.Active} onClick={() => selectedOptionOnClick("LO")}>
@@ -5799,292 +6012,329 @@ function KrphAllActivities() {
                                          <span>Crop Loss Intimation</span>
                                        </button>
                                      )} */}
-                                   </ul>
-                                 </Form.InputGroup>
-                                 {selectedOption === "4" ? (
-                                   <Form.InputGroup label="" req="true" errorMsg="" column={4}>
-                                     <ul className={BizClass.ValidateTabGroup}>
-                                       {(formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
-                                         : 0) ||
-                                       (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
-                                         : 0) ||
-                                       (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
-                                         : 0) ||
-                                       (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
-                                         : 0) ? (
-                                         <button type="button" style={{ border: "none", width: "102px" }} />
-                                       ) : selectedOptionCropStage === "2" || selectedOptionCropStage === "1" ? (
-                                         <button type="button" style={{ border: "none", width: "84px" }} />
-                                       ) : null}
-               
-                                       <button
-                                         type="button"
-                                         className={selectedOptionCropStage === "1" && BizClass.Active}
-                                         onClick={() => selectedOptionOnClickCropStage("SCS")}
-                                       >
-                                         <div className={BizClass.ValidateTabCheckBox} />
-                                         <span>Standing Crop Stage</span>
-                                       </button>
-                                       <button
-                                         type="button"
-                                         className={selectedOptionCropStage === "2" && BizClass.Active}
-                                         onClick={() => selectedOptionOnClickCropStage("HS")}
-                                       >
-                                         <div className={BizClass.ValidateTabCheckBox} />
-                                         <span>Harvested Stage</span>
-                                       </button>
-                                     </ul>
-                                   </Form.InputGroup>
-                                 ) : null}
-                                 {selectedOption === "4" ? (
-                                   <Form.InputGroup column={3} label="Loss At" req="true" errorMsg={formValidationSupportTicketError["txtLossAt"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtLossAt"
-                                       value={formValuesTicketCreation.txtLossAt}
-                                       options={lossAtList}
-                                       // A loader={isLoadingLossAtList ? <Loader /> : null}
-                                       isLoading={isLoadingLossAtList}
-                                       getOptionLabel={(option) => `${option.CropStageSelection}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateTicketCreation("txtLossAt", e)}
-                                     />
-                                   </Form.InputGroup>
-                                 ) : null}
-                                 <Form.InputGroup label="Category" req="true" errorMsg={formValidationSupportTicketError["txtTicketCategoryType"]}>
-                                   <Form.InputControl
-                                     control="select"
-                                     name="txtTicketCategoryType"
-                                     value={formValuesTicketCreation.txtTicketCategoryType}
-                                     options={ticketCategoryTypeList}
-                                     // A loader={isLoadingTicketCategoryTypeList ? <Loader /> : null}
-                                     isLoading={isLoadingTicketCategoryTypeList}
-                                     getOptionLabel={(option) => `${option.SupportTicketTypeName}`}
-                                     getOptionValue={(option) => `${option}`}
-                                     onChange={(e) => updateStateTicketCreation("txtTicketCategoryType", e)}
-                                   />
-                                 </Form.InputGroup>
-                                 <Form.InputGroup label="Sub Category" req="true" errorMsg={formValidationSupportTicketError["txtTicketCategory"]}>
-                                   <Form.InputControl
-                                     control="select"
-                                     name="txtTicketCategory"
-                                     value={formValuesTicketCreation.txtTicketCategory}
-                                     options={ticketCategoryList}
-                                     // A loader={isLoadingTicketCategoryList ? <Loader /> : null}
-                                     isLoading={isLoadingTicketCategoryList}
-                                     getOptionLabel={(option) => `${option.TicketCategoryName}`}
-                                     getOptionValue={(option) => `${option}`}
-                                     onChange={(e) => updateStateTicketCreation("txtTicketCategory", e)}
-                                   />
-                                 </Form.InputGroup>
-                                 {(formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                   ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
-                                   : 0) ||
-                                 (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                   ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
-                                   : 0) ||
-                                 (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                   ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
-                                   : 0) ||
-                                 (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                   ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
-                                   : 0) ? (
-                                   <Form.InputGroup column={3} req="true" label="Other Sub Cat." errorMsg={formValidationSupportTicketError["txtOtherSubCategory"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtOtherSubCategory"
-                                       value={formValuesTicketCreation.txtOtherSubCategory}
-                                       options={ticketCategoryOtherList}
-                                       isLoading={isLoadingTicketCategoryOtherList}
-                                       getOptionLabel={(option) => `${option.OtherCategoryName}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateTicketCreation("txtOtherSubCategory", e)}
-                                     />
-                                   </Form.InputGroup>
-                                 ) : null}
-                                 {selectedOption === "4" ? (
-                                   <Form.InputGroup column={3} req="true" label="Crop Stage" errorMsg={formValidationSupportTicketError["txtCropStage"]}>
-                                     <Form.InputControl
-                                       control="select"
-                                       name="txtCropStage"
-                                       value={formValuesTicketCreation.txtCropStage}
-                                       options={cropStageList}
-                                       // A loader={isLoadingCropStageList ? <Loader /> : null}
-                                       isLoading={isLoadingCropStageList}
-                                       getOptionLabel={(option) => `${option.CropStageMaster}`}
-                                       getOptionValue={(option) => `${option}`}
-                                       onChange={(e) => updateStateTicketCreation("txtCropStage", e)}
-                                     />
-                                   </Form.InputGroup>
-                                 ) : null}
-                                 {selectedOption === "4" ? (
-                                   <Form.CustomGroup
-                                     column={4}
-                                     columntemplate={
-                                       (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
-                                         : 0) ||
-                                       (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
-                                         : 0) ||
-                                       (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
-                                         : 0) ||
-                                       (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
-                                         ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
-                                         : 0)
-                                         ? "90px 110px 68px 110px 85px auto"
-                                         : selectedOptionCropStage === "2"
-                                         ? "75px 110px 60px 110px 85px auto"
-                                         : selectedOptionCropStage === "1"
-                                         ? "70px 110px 85px auto"
-                                         : null
-                                     }
-                                   >
-                                     {selectedOptionCropStage === "2" ? (
-                                       <Form.InputGroup label="Harvest Date" style={{paddingLeft:"9px"}} req="true" errorMsg={formValidationSupportTicketError["txtCropHarvestDate"]}>
-                                         <Form.InputControl
-                                           control="input"
-                                           type="date"
-                                           name="txtCropHarvestDate"
-                                           style={{ width: "100px" }}
-                                           value={formValuesTicketCreation.txtCropHarvestDate}
-                                           onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
-                                           max={dateToSpecificFormat(moment().subtract(0, "days"), "YYYY-MM-DD")}
-                                           onKeyDown={(e) => e.preventDefault()}
-                                         />
-                                       </Form.InputGroup>
-                                     ) : null}
-                                     {selectedOptionCropStage === "2" || selectedOptionCropStage === "1" ? (
-                                       <Form.InputGroup label="Loss Date" style={{paddingLeft:"12px"}} req="true" errorMsg={formValidationSupportTicketError["txtCropLossDate"]}>
-                                         <Form.InputControl
-                                           control="input"
-                                           type="date"
-                                           name="txtCropLossDate"
-                                           style={{ width: "100px" }}
-                                           value={formValuesTicketCreation.txtCropLossDate}
-                                           onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
-                                           min={dateToSpecificFormat(moment().subtract(1, "months"), "YYYY-MM-DD")}
-                                           max={dateToSpecificFormat(moment(), "YYYY-MM-DD")}
-                                           onKeyDown={(e) => e.preventDefault()}
-                                         />
-                                       </Form.InputGroup>
-                                     ) : null}
-                                     {selectedOptionCropStage === "2" || selectedOptionCropStage === "1" ? (
-                                       <Form.InputGroup label="">
-                                         <Form.InputControl
-                                           control="input"
-                                           type="text"
-                                           name="txtCropLossIntimation"
-                                           value={formValuesTicketCreation.txtCropLossIntimation}
-                                           onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
-                                           style={
-                                             stateCropLossIntimation === "YES" || stateCropLossIntimation === "NA"
-                                               ? { color: "#3f4254", background: "#ffffff" }
-                                               : { color: "#ffffff" }
-                                           }
-                                           className={
-                                             stateCropLossIntimation === "YES" || stateCropLossIntimation === "NA"
-                                               ? BizClass.disabledOnIntimationTextBox
-                                               : BizClass.disabledLateIntimationTextBox
-                                           }
-                                         />
-                                       </Form.InputGroup>
-                                     ) : null}
-                                     <Form.InputGroup label="" req={false} errorMsg={formValidationSupportTicketError["txtCropLossTime"]} style={{ display: "none" }}>
-                                       <Form.InputControl
-                                         control="input"
-                                         type="time"
-                                         name="txtCropLossTime"
-                                         value={formValuesTicketCreation.txtCropLossTime}
-                                         onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
-                                       />
-                                     </Form.InputGroup>
-                                   </Form.CustomGroup>
-                                 ) : null}
-                                 {selectedOption === "4" ? (
-                                   <Form.InputGroup column={3} req="true" errorMsg={formValidationSupportTicketError["txtCropName"]} label="Crop Name">
-                                     <Form.InputControl
-                                       control="input"
-                                       autoComplete="off"
-                                       name="txtCropName"
-                                       value={formValuesTicketCreation.txtCropName}
-                                       placeholder=""
-                                       onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
-                                     />
-                                   </Form.InputGroup>
-                                 ) : null}
-                                 <Form.InputGroup label="Description" req="true" column={3} row={11} errorMsg={formValidationSupportTicketError["txtTicketDescription"]}>
-                                   <Form.InputControl
-                                     control="textarea"
-                                     row="11"
-                                     maxLength="500"
-                                     name="txtTicketDescription"
-                                     value={formValuesTicketCreation.txtTicketDescription}
-                                     onChange={(e) => updateStateTicketCreation("txtTicketDescription", e.target.value)}
-                                   />
-                                   <p className={BizClass.CounterDesc}>
-                                     {formValuesTicketCreation.txtTicketDescription && formValuesTicketCreation.txtTicketDescription.length
-                                       ? formValuesTicketCreation.txtTicketDescription.length
-                                       : 0}{" "}
-                                     / {500}
-                                   </p>
-                                 </Form.InputGroup>
-                               </Form.Group>
-                               <br />
-                               <div className={BizClass.ValidateFormFooterBG}>
-                                 <div className={BizClass.ValidateFormFooter}>
-                                   <Button
-                                     className={isBtndisabled === 0 ? BizClass.FormFooterButton : classNames(BizClass.disableFormFooterButton, BizClass.FormFooterButton)}
-                                     disabled={isBtndisabled}
-                                     trigger={btnLoaderSupportTicketActive && "true"}
-                                     onClick={() => supportTicketOnClick()}
-                                   >
-                                     Submit
-                                   </Button>
-                                   <Button className={BizClass.FormFooterButton} onClick={() => clearAddTicketForm()} style={{display:"none"}}>
-                                     Clear
-                                   </Button>
-                                 </div>
-                               </div>
-                             </div>
-                           </div>
-                         </div>
-                       </div>
-                     </div>
-                   </>
-                  ) : null}
+                                      </ul>
+                                    </Form.InputGroup>
+                                    {selectedOption === "4" ? (
+                                      <Form.InputGroup label="" req="true" errorMsg="" column={4}>
+                                        <ul className={BizClass.ValidateTabGroup}>
+                                          {(formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
+                                            : 0) ||
+                                          (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
+                                            : 0) ||
+                                          (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
+                                            : 0) ||
+                                          (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
+                                            : 0) ? (
+                                            <button type="button" style={{ border: "none", width: "102px" }} />
+                                          ) : selectedOptionCropStage === "2" || selectedOptionCropStage === "1" ? (
+                                            <button type="button" style={{ border: "none", width: "84px" }} />
+                                          ) : null}
+
+                                          <button
+                                            type="button"
+                                            className={selectedOptionCropStage === "1" && BizClass.Active}
+                                            onClick={() => selectedOptionOnClickCropStage("SCS")}
+                                          >
+                                            <div className={BizClass.ValidateTabCheckBox} />
+                                            <span>Standing Crop Stage</span>
+                                          </button>
+                                          <button
+                                            type="button"
+                                            className={selectedOptionCropStage === "2" && BizClass.Active}
+                                            onClick={() => selectedOptionOnClickCropStage("HS")}
+                                          >
+                                            <div className={BizClass.ValidateTabCheckBox} />
+                                            <span>Harvested Stage</span>
+                                          </button>
+                                        </ul>
+                                      </Form.InputGroup>
+                                    ) : null}
+                                    {selectedOption === "4" ? (
+                                      <Form.InputGroup column={3} label="Loss At" req="true" errorMsg={formValidationSupportTicketError["txtLossAt"]}>
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtLossAt"
+                                          value={formValuesTicketCreation.txtLossAt}
+                                          options={lossAtList}
+                                          // A loader={isLoadingLossAtList ? <Loader /> : null}
+                                          isLoading={isLoadingLossAtList}
+                                          getOptionLabel={(option) => `${option.CropStageSelection}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateTicketCreation("txtLossAt", e)}
+                                        />
+                                      </Form.InputGroup>
+                                    ) : null}
+                                    <Form.InputGroup label="Category" req="true" errorMsg={formValidationSupportTicketError["txtTicketCategoryType"]}>
+                                      <Form.InputControl
+                                        control="select"
+                                        name="txtTicketCategoryType"
+                                        value={formValuesTicketCreation.txtTicketCategoryType}
+                                        options={ticketCategoryTypeList}
+                                        // A loader={isLoadingTicketCategoryTypeList ? <Loader /> : null}
+                                        isLoading={isLoadingTicketCategoryTypeList}
+                                        getOptionLabel={(option) => `${option.SupportTicketTypeName}`}
+                                        getOptionValue={(option) => `${option}`}
+                                        onChange={(e) => updateStateTicketCreation("txtTicketCategoryType", e)}
+                                      />
+                                    </Form.InputGroup>
+                                    <Form.InputGroup label="Sub Category" req="true" errorMsg={formValidationSupportTicketError["txtTicketCategory"]}>
+                                      <Form.InputControl
+                                        control="select"
+                                        name="txtTicketCategory"
+                                        value={formValuesTicketCreation.txtTicketCategory}
+                                        options={ticketCategoryList}
+                                        // A loader={isLoadingTicketCategoryList ? <Loader /> : null}
+                                        isLoading={isLoadingTicketCategoryList}
+                                        getOptionLabel={(option) => `${option.TicketCategoryName}`}
+                                        getOptionValue={(option) => `${option}`}
+                                        onChange={(e) => updateStateTicketCreation("txtTicketCategory", e)}
+                                      />
+                                    </Form.InputGroup>
+                                    {(formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
+                                      : 0) ||
+                                    (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
+                                      : 0) ||
+                                    (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
+                                      : 0) ||
+                                    (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                      ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
+                                      : 0) ? (
+                                      <Form.InputGroup
+                                        column={3}
+                                        req="true"
+                                        label="Other Sub Cat."
+                                        errorMsg={formValidationSupportTicketError["txtOtherSubCategory"]}
+                                      >
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtOtherSubCategory"
+                                          value={formValuesTicketCreation.txtOtherSubCategory}
+                                          options={ticketCategoryOtherList}
+                                          isLoading={isLoadingTicketCategoryOtherList}
+                                          getOptionLabel={(option) => `${option.OtherCategoryName}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateTicketCreation("txtOtherSubCategory", e)}
+                                        />
+                                      </Form.InputGroup>
+                                    ) : null}
+                                    {selectedOption === "4" ? (
+                                      <Form.InputGroup column={3} req="true" label="Crop Stage" errorMsg={formValidationSupportTicketError["txtCropStage"]}>
+                                        <Form.InputControl
+                                          control="select"
+                                          name="txtCropStage"
+                                          value={formValuesTicketCreation.txtCropStage}
+                                          options={cropStageList}
+                                          // A loader={isLoadingCropStageList ? <Loader /> : null}
+                                          isLoading={isLoadingCropStageList}
+                                          getOptionLabel={(option) => `${option.CropStageMaster}`}
+                                          getOptionValue={(option) => `${option}`}
+                                          onChange={(e) => updateStateTicketCreation("txtCropStage", e)}
+                                        />
+                                      </Form.InputGroup>
+                                    ) : null}
+                                    {selectedOption === "4" ? (
+                                      <Form.CustomGroup
+                                        column={4}
+                                        columntemplate={
+                                          (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 51
+                                            : 0) ||
+                                          (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 52
+                                            : 0) ||
+                                          (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 53
+                                            : 0) ||
+                                          (formValuesTicketCreation.txtTicketCategory && formValuesTicketCreation.txtTicketCategory.TicketCategoryID
+                                            ? formValuesTicketCreation.txtTicketCategory.TicketCategoryID === 58
+                                            : 0)
+                                            ? "90px 110px 68px 110px 85px auto"
+                                            : selectedOptionCropStage === "2"
+                                            ? "75px 110px 60px 110px 85px auto"
+                                            : selectedOptionCropStage === "1"
+                                            ? "70px 110px 85px auto"
+                                            : null
+                                        }
+                                      >
+                                        {selectedOptionCropStage === "2" ? (
+                                          <Form.InputGroup
+                                            label="Harvest Date"
+                                            style={{ paddingLeft: "9px" }}
+                                            req="true"
+                                            errorMsg={formValidationSupportTicketError["txtCropHarvestDate"]}
+                                          >
+                                            <Form.InputControl
+                                              control="input"
+                                              type="date"
+                                              name="txtCropHarvestDate"
+                                              style={{ width: "100px" }}
+                                              value={formValuesTicketCreation.txtCropHarvestDate}
+                                              onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
+                                              max={dateToSpecificFormat(moment().subtract(0, "days"), "YYYY-MM-DD")}
+                                              onKeyDown={(e) => e.preventDefault()}
+                                            />
+                                          </Form.InputGroup>
+                                        ) : null}
+                                        {selectedOptionCropStage === "2" || selectedOptionCropStage === "1" ? (
+                                          <Form.InputGroup
+                                            label="Loss Date"
+                                            style={{ paddingLeft: "12px" }}
+                                            req="true"
+                                            errorMsg={formValidationSupportTicketError["txtCropLossDate"]}
+                                          >
+                                            <Form.InputControl
+                                              control="input"
+                                              type="date"
+                                              name="txtCropLossDate"
+                                              style={{ width: "100px" }}
+                                              value={formValuesTicketCreation.txtCropLossDate}
+                                              onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
+                                              min={dateToSpecificFormat(moment().subtract(1, "months"), "YYYY-MM-DD")}
+                                              max={dateToSpecificFormat(moment(), "YYYY-MM-DD")}
+                                              onKeyDown={(e) => e.preventDefault()}
+                                            />
+                                          </Form.InputGroup>
+                                        ) : null}
+                                        {selectedOptionCropStage === "2" || selectedOptionCropStage === "1" ? (
+                                          <Form.InputGroup label="">
+                                            <Form.InputControl
+                                              control="input"
+                                              type="text"
+                                              name="txtCropLossIntimation"
+                                              value={formValuesTicketCreation.txtCropLossIntimation}
+                                              onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
+                                              style={
+                                                stateCropLossIntimation === "YES" || stateCropLossIntimation === "NA"
+                                                  ? { color: "#3f4254", background: "#ffffff" }
+                                                  : { color: "#ffffff" }
+                                              }
+                                              className={
+                                                stateCropLossIntimation === "YES" || stateCropLossIntimation === "NA"
+                                                  ? BizClass.disabledOnIntimationTextBox
+                                                  : BizClass.disabledLateIntimationTextBox
+                                              }
+                                            />
+                                          </Form.InputGroup>
+                                        ) : null}
+                                        <Form.InputGroup
+                                          label=""
+                                          req={false}
+                                          errorMsg={formValidationSupportTicketError["txtCropLossTime"]}
+                                          style={{ display: "none" }}
+                                        >
+                                          <Form.InputControl
+                                            control="input"
+                                            type="time"
+                                            name="txtCropLossTime"
+                                            value={formValuesTicketCreation.txtCropLossTime}
+                                            onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
+                                          />
+                                        </Form.InputGroup>
+                                      </Form.CustomGroup>
+                                    ) : null}
+                                    {selectedOption === "4" ? (
+                                      <Form.InputGroup column={3} req="true" errorMsg={formValidationSupportTicketError["txtCropName"]} label="Crop Name">
+                                        <Form.InputControl
+                                          control="input"
+                                          autoComplete="off"
+                                          name="txtCropName"
+                                          value={formValuesTicketCreation.txtCropName}
+                                          placeholder=""
+                                          onChange={(e) => updateStateTicketCreation(e.target.name, e.target.value)}
+                                        />
+                                      </Form.InputGroup>
+                                    ) : null}
+                                    <Form.InputGroup
+                                      label="Description"
+                                      req="true"
+                                      column={3}
+                                      row={11}
+                                      errorMsg={formValidationSupportTicketError["txtTicketDescription"]}
+                                    >
+                                      <Form.InputControl
+                                        control="textarea"
+                                        row="11"
+                                        maxLength="500"
+                                        name="txtTicketDescription"
+                                        value={formValuesTicketCreation.txtTicketDescription}
+                                        onChange={(e) => updateStateTicketCreation("txtTicketDescription", e.target.value)}
+                                      />
+                                      <p className={BizClass.CounterDesc}>
+                                        {formValuesTicketCreation.txtTicketDescription && formValuesTicketCreation.txtTicketDescription.length
+                                          ? formValuesTicketCreation.txtTicketDescription.length
+                                          : 0}{" "}
+                                        / {500}
+                                      </p>
+                                    </Form.InputGroup>
+                                  </Form.Group>
+                                  <br />
+                                  <div className={BizClass.ValidateFormFooterBG}>
+                                    <div className={BizClass.ValidateFormFooter}>
+                                      <Button
+                                        className={
+                                          isBtndisabled === 0
+                                            ? BizClass.FormFooterButton
+                                            : classNames(BizClass.disableFormFooterButton, BizClass.FormFooterButton)
+                                        }
+                                        disabled={isBtndisabled}
+                                        trigger={btnLoaderSupportTicketActive && "true"}
+                                        onClick={() => supportTicketOnClick()}
+                                      >
+                                        Submit
+                                      </Button>
+                                      <Button className={BizClass.FormFooterButton} onClick={() => clearAddTicketForm()} style={{ display: "none" }}>
+                                        Clear
+                                      </Button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div> : <div className="ServiceSuccessPage__Div">
-      <div className="ServiceSuccessPage__ContentBox">
-      {servicesuccessData && servicesuccessData === "TC" ?
-        <h2>Success!</h2> : <h2>Unfortunately!</h2> }
-        <p>
-        {servicesuccessData && servicesuccessData === "TC"
-            ? `Thanks, a ticket has been generated"
+      ) : (
+        <div className="ServiceSuccessPage__Div">
+          <div className="ServiceSuccessPage__ContentBox">
+            {servicesuccessData && servicesuccessData === "TC" ? <h2>Success!</h2> : <h2>Unfortunately!</h2>}
+            <p>
+              {servicesuccessData && servicesuccessData === "TC"
+                ? `Thanks, a ticket has been generated"
               with Ticket No. ${getSupportTicketNo}`
-            : servicesuccessData === "CD"
-             ? "Call is disconnected"
-             :""
-            }
-        </p>
-        {servicesuccessData && servicesuccessData === "TC" ? <>
-        <p>if you want to Create more ticket then Click on Create More Button <Button onClick={() => CreateMoreBtnOnClick()}>Create More</Button> </p>
-        <p>Otherwise Please Close The Tab, Please ask for the feedback to the farmer</p></> : <><p>Please Close The Tab</p></> }
-      </div>
-      {servicesuccessData && servicesuccessData === "TC" ?
-      <img src={success} alt="Success" /> : <img src={callDisconnected} alt="Call-Disconnected" />  }
-      
-      
-    </div>}
+                : servicesuccessData === "CD"
+                ? "Call is disconnected"
+                : ""}
+            </p>
+            {servicesuccessData && servicesuccessData === "TC" ? (
+              <>
+                <p>
+                  if you want to Create more ticket then Click on Create More Button <Button onClick={() => CreateMoreBtnOnClick()}>Create More</Button>{" "}
+                </p>
+                <p>Otherwise Please Close The Tab, Please ask for the feedback to the farmer</p>
+              </>
+            ) : (
+              <>
+                <p>Please Close The Tab</p>
+              </>
+            )}
+          </div>
+          {servicesuccessData && servicesuccessData === "TC" ? <img src={success} alt="Success" /> : <img src={callDisconnected} alt="Call-Disconnected" />}
+        </div>
+      )}
     </>
   );
 }
@@ -6092,376 +6342,376 @@ function KrphAllActivities() {
 export default KrphAllActivities;
 
 function FarmerListModal({ toggleModal, farmersData, onGridReady, onCellDoubleClicked, onChangeFarmersDetails }) {
-    return (
-      <Modal
-        title={`Farmer List - Number Of Records(${farmersData && farmersData.length > 0 ? farmersData.length : 0})`}
-        varient="bottom"
-        show={toggleModal}
-        width="100vw"
-        right={0}
-        height="60vh"
-      >
-        <Modal.Body>
-          <div className={BizClass.ModalBox}>
-            <PageBar>
-              <PageBar.Search onChange={(e) => onChangeFarmersDetails(e.target.value)} />
-            </PageBar>
-            <DataGrid
-              rowData={farmersData}
-              onGridReady={onGridReady}
-              rowSelection="single"
-              suppressRowClickSelection="true"
-              onCellDoubleClicked={(event) => onCellDoubleClicked(event)}
-            >
-              <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
-              <DataGrid.Column field="mobile" headerName="Mobile No" width="120px" />
-              <DataGrid.Column field="farmerName" headerName="Farmer Name" width="190px" />
-              <DataGrid.Column field="relation" headerName="Relation" width="140px" />
-              <DataGrid.Column field="relativeName" headerName="Relative Name" width="180px" />
-              <DataGrid.Column field="resState" headerName="State Name" width="150px" />
-              <DataGrid.Column field="resDistrict" headerName="District Name" width="140px" />
-              <DataGrid.Column field="resVillage" headerName="Village Name" width="160px" />
-              <DataGrid.Column
-                field="policyPremium"
-                headerName="Policy Premium"
-                width="140px"
-                cellRenderer={(node) => {
-                  return node.data && node.data.policyPremium ? parseFloat(node.data.policyPremium).toFixed(2) : null;
-                }}
-              />
-              <DataGrid.Column
-                field="policyArea"
-                headerName="Policy Area"
-                width="135px"
-                cellRenderer={(node) => {
-                  return node.data && node.data.policyArea ? parseFloat(node.data.policyArea).toFixed(4) : null;
-                }}
-              />
-              <DataGrid.Column
-                field="#"
-                headerName="Land Survey Number"
-                width="180"
-                cellRenderer={(node) => {
-                  return node.data.applicationList.length > 0 ? node.data.applicationList[0].landSurveyNumber : null;
-                }}
-              />
-              <DataGrid.Column
-                field="#"
-                headerName="Land Division Number"
-                width="180"
-                cellRenderer={(node) => {
-                  return node.data.applicationList.length > 0 ? node.data.applicationList[0].landDivisionNumber : null;
-                }}
-              />
-              <DataGrid.Column
-                field="#"
-                headerName="Application Status"
-                width="190"
-                cellRenderer={(node) => {
-                  return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationStatus : null;
-                }}
-              />
-            </DataGrid>
-          </div>
-        </Modal.Body>
-        <Modal.Footer />
-      </Modal>
-    );
-  }
-  
-  const actionTemplateGreivence = (props) => {
-    return (
-      <div style={{ display: "flex", gap: "4px", marginTop: "2px" }}>
-        <CgFileDocument
-          style={{ fontSize: "16px", color: "#000000", cursor: "pointer" }}
-          onClick={() => props.toggleClaimStatusModal(props.data)}
-          title="Cliam Status"
-        />
-      </div>
-    );
-  };
-  
-  function InsuranceCompanyModalGreivence({
-    toggleInsuranceCompanyModalGreivence,
-    onCellDoubleClickedDetailsGreivence,
-    // A onGridReadySupportTicketGreivence,
-    insuranceCompanyDataGreivence,
-    isLoadingApplicationNoDataGreivence,
-    getClaimStatusOnClick,
-  }) {
-    const toggleClaimStatusModal = (data) => {
-      getClaimStatusOnClick(data.applicationNo);
-    };
-    return (
-      <Modal title="Grievance" varient="bottom" width="100vw" show={toggleInsuranceCompanyModalGreivence} right={0} height="60vh">
-        <Modal.Body>
-          <div className={BizClass.ModalBox}>
-            <PageBar>
-              <PageBar.Search />
-            </PageBar>
-            <DataGrid
-              rowData={insuranceCompanyDataGreivence}
-              loader={isLoadingApplicationNoDataGreivence ? <Loader /> : null}
-              rowSelection="single"
-              suppressRowClickSelection="true"
-              // A onGridReady={onGridReadySupportTicketGreivence}
-              onCellDoubleClicked={(event) => onCellDoubleClickedDetailsGreivence(event)}
-              components={{
-                actionTemplate: actionTemplateGreivence,
+  return (
+    <Modal
+      title={`Farmer List - Number Of Records(${farmersData && farmersData.length > 0 ? farmersData.length : 0})`}
+      varient="bottom"
+      show={toggleModal}
+      width="100vw"
+      right={0}
+      height="60vh"
+    >
+      <Modal.Body>
+        <div className={BizClass.ModalBox}>
+          <PageBar>
+            <PageBar.Search onChange={(e) => onChangeFarmersDetails(e.target.value)} />
+          </PageBar>
+          <DataGrid
+            rowData={farmersData}
+            onGridReady={onGridReady}
+            rowSelection="single"
+            suppressRowClickSelection="true"
+            onCellDoubleClicked={(event) => onCellDoubleClicked(event)}
+          >
+            <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
+            <DataGrid.Column field="mobile" headerName="Mobile No" width="120px" />
+            <DataGrid.Column field="farmerName" headerName="Farmer Name" width="190px" />
+            <DataGrid.Column field="relation" headerName="Relation" width="140px" />
+            <DataGrid.Column field="relativeName" headerName="Relative Name" width="180px" />
+            <DataGrid.Column field="resState" headerName="State Name" width="150px" />
+            <DataGrid.Column field="resDistrict" headerName="District Name" width="140px" />
+            <DataGrid.Column field="resVillage" headerName="Village Name" width="160px" />
+            <DataGrid.Column
+              field="policyPremium"
+              headerName="Policy Premium"
+              width="140px"
+              cellRenderer={(node) => {
+                return node.data && node.data.policyPremium ? parseFloat(node.data.policyPremium).toFixed(2) : null;
               }}
-              tooltipShowDelay={500}
-              tooltipMouseTrack={true}
-              tooltipInteraction={true}
-            >
-              <DataGrid.Column
-                headerName="Action"
-                lockPosition="1"
-                pinned="left"
-                width={80}
-                cellRenderer="actionTemplate"
-                cellRendererParams={{
-                  toggleClaimStatusModal,
-                }}
-              />
-              <DataGrid.Column field="insuranceCompanyName" headerName="Insurance Company Name" width="280px" headerTooltip="Name of the insurance company" />
-              <DataGrid.Column
-                field="policyID"
-                headerName="Policy Number"
-                width="180"
-                headerTooltip="Policy no.: <scheme code><season code><state code><YY><Insurance policy>"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].policyID : null;
-                // A }}
-              />
-              <DataGrid.Column
-                field="policyPremium"
-                headerName="Total Premium"
-                width="132px"
-                headerTooltip="Total Premium of policy for all the applications against the policy"
-              />
-              <DataGrid.Column
-                field="policyArea"
-                headerName="Total Area"
-                width="110px"
-                headerTooltip="Total Area of policy in hectare, for all the applications against the policy"
-              />
-              <DataGrid.Column
-                field="applicationNo"
-                headerName="Application Number"
-                width="170"
-                headerTooltip="Application number against respective land and crop. It may be multiple against the same policy ID for different land"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationNo : null;
-                // A  }}
-              />
-              <DataGrid.Column
-                field="#"
-                headerName="Scheme"
-                width="275"
-                headerTooltip="Scheme"
-                cellRenderer={(node) => {
-                  return node.data.scheme === "WBCIS"
-                    ? "Weather Based Crop Insurance Scheme(WBCIS)"
-                    : node.data.scheme === "PMFBY"
-                    ? "Pradhan Mantri Fasal Bima Yojna(PMFBY)"
-                    : "";
-                }}
-              />
-              <DataGrid.Column
-                field="cropName"
-                headerName="Crop Name"
-                width="140"
-                headerTooltip="Crop Covered for the particular application against the policy"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].cropName : null;
-                // A }}
-              />
-              <DataGrid.Column
-                field="farmerShare"
-                headerName="Premium Share"
-                width="140"
-                headerTooltip="Premium Share of particular Application"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].farmerShare : null;
-                // A }}
-              />
-              <DataGrid.Column
-                field="cropShare"
-                headerName="Area covered under Application"
-                width="235"
-                headerTooltip="sowing crop area in land"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].cropShare : null;
-                // A }}
-              />
-              <DataGrid.Column
-                field="landSurveyNumber"
-                headerName="Land Number"
-                width="125"
-                headerTooltip="Registered Number of Total Land (Khata Number)"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].landSurveyNumber : null;
-                // A }}
-              />
-              <DataGrid.Column
-                field="landDivisionNumber"
-                headerName="Division Number"
-                width="140"
-                headerTooltip="Division number against of that particular Land"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].landDivisionNumber : null;
-                // A }}
-              />
-  
-              <DataGrid.Column
-                field="applicationSource"
-                headerName="Source"
-                width="90"
-                headerTooltip="Source of the application submitted by Farmer"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationSource : null;
-                // A  }}
-              />
-              <DataGrid.Column
-                field="applicationStatus"
-                headerName="Application Status"
-                width="190"
-                headerTooltip="Status of the application submitted by farmer"
-                // A cellRenderer={(node) => {
-                // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationStatus : null;
-                // A }}
-              />
-            </DataGrid>
-          </div>
-        </Modal.Body>
-        <Modal.Footer />
-      </Modal>
-    );
-  }
-  
-  function ClaimStatusModal({
-    toggleClaimStatusModal,
-    onGridReadyClaimStatus,
-    claimStatusData,
-    onChangeClamStatus,
-    isLoadingClaimStatusDataData,
-    openCustomeWindow,
-    OnClickCustomeWindow,
-    customeWindowWidth,
-    customeWindowHeight,
-  }) {
-    return (
-      <Modal
-        title="Claim Status"
-        varient="bottom"
-        width={customeWindowWidth}
-        show={toggleClaimStatusModal}
-        left="90px"
-        bottom="12.5px"
-        height={customeWindowHeight}
-      >
-        <Modal.Header>
-          <span style={{ width: "100%" }} />
-          {openCustomeWindow === "S" ? (
-            <AiOutlinePlusSquare title="Maximize The Window" style={{ cursor: "pointer", fontSize: "20px" }} onClick={() => OnClickCustomeWindow("S")} />
-          ) : openCustomeWindow === "B" ? (
-            <AiOutlineMinusSquare title="Minimize The Window" style={{ cursor: "pointer", fontSize: "20px" }} onClick={() => OnClickCustomeWindow("B")} />
-          ) : null}
-        </Modal.Header>
-        <Modal.Body>
-          <div className={BizClass.ModalBox}>
-            <PageBar>
-              <PageBar.Search onChange={(e) => onChangeClamStatus(e.target.value)} />
-            </PageBar>
-            <DataGrid
-              rowData={claimStatusData}
-              loader={isLoadingClaimStatusDataData ? <Loader /> : null}
-              rowSelection="single"
-              suppressRowClickSelection="true"
-              onGridReady={onGridReadyClaimStatus}
-            >
-              <DataGrid.Column field="applicationNo" headerName="Application Number" width="175px" />
-              <DataGrid.Column
-                field="claimDate"
-                headerName="Claim Date"
-                width="115px"
-                cellRenderer={(node) => {
-                  return dateFormatDDMMYY(node.data.claimDate);
-                }}
-              />
-              <DataGrid.Column field="amount" headerName="Claim Amount" width="135px" />
-              <DataGrid.Column field="ClaimType" headerName="Claim Type" width="150px" />
-              <DataGrid.Column field="UtrNumber" headerName="UTR Number" width="140px" />
-              <DataGrid.Column field="aadharPaymentAccountNumber" headerName="Payment To Account Number" width="220px" />
-              <DataGrid.Column field="aadharPaymentBankName" headerName="Payment To Bank Name" width="220px" />
-              <DataGrid.Column field="aadharPaymentFarmerName" headerName="Farmer Name" width="290px" />
-              <DataGrid.Column
-                field="aadharPaymentAadharNumber"
-                headerName="Aadhar Number"
-                width="140px"
-                valueGetter={(node) => {
-                  return node.data.aadharPaymentAadharNumber ? node.data.aadharPaymentAadharNumber.replace(/.(?=.{4})/g, "x") : null;
-                }}
-              />
-              <DataGrid.Column field="ClaimStatus" headerName="Claim Status" width="220px" />
-              <DataGrid.Column field="paymentMode" headerName="Payment Mode" width="140px" />
-              <DataGrid.Column field="Status" headerName="Status" width="155px" />
-            </DataGrid>
-          </div>
-        </Modal.Body>
-        <Modal.Footer />
-      </Modal>
-    );
-  }
+            />
+            <DataGrid.Column
+              field="policyArea"
+              headerName="Policy Area"
+              width="135px"
+              cellRenderer={(node) => {
+                return node.data && node.data.policyArea ? parseFloat(node.data.policyArea).toFixed(4) : null;
+              }}
+            />
+            <DataGrid.Column
+              field="#"
+              headerName="Land Survey Number"
+              width="180"
+              cellRenderer={(node) => {
+                return node.data.applicationList.length > 0 ? node.data.applicationList[0].landSurveyNumber : null;
+              }}
+            />
+            <DataGrid.Column
+              field="#"
+              headerName="Land Division Number"
+              width="180"
+              cellRenderer={(node) => {
+                return node.data.applicationList.length > 0 ? node.data.applicationList[0].landDivisionNumber : null;
+              }}
+            />
+            <DataGrid.Column
+              field="#"
+              headerName="Application Status"
+              width="190"
+              cellRenderer={(node) => {
+                return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationStatus : null;
+              }}
+            />
+          </DataGrid>
+        </div>
+      </Modal.Body>
+      <Modal.Footer />
+    </Modal>
+  );
+}
 
-  const cellActionTemplate = (props) => {
-    return (
-      <div style={{ display: "flex", gap: "4px", marginTop: "2px" }}>
-        <FcViewDetails
-          style={{ fontSize: "16px", color: "#000000", cursor: "pointer" }}
-          onClick={() => props.toggleSupportTicketDetailsModal(props.data)}
-          title="Ticket Details"
-        />
-      </div>
-    );
+const actionTemplateGreivence = (props) => {
+  return (
+    <div style={{ display: "flex", gap: "4px", marginTop: "2px" }}>
+      <CgFileDocument
+        style={{ fontSize: "16px", color: "#000000", cursor: "pointer" }}
+        onClick={() => props.toggleClaimStatusModal(props.data)}
+        title="Cliam Status"
+      />
+    </div>
+  );
+};
+
+function InsuranceCompanyModalGreivence({
+  toggleInsuranceCompanyModalGreivence,
+  onCellDoubleClickedDetailsGreivence,
+  // A onGridReadySupportTicketGreivence,
+  insuranceCompanyDataGreivence,
+  isLoadingApplicationNoDataGreivence,
+  getClaimStatusOnClick,
+}) {
+  const toggleClaimStatusModal = (data) => {
+    getClaimStatusOnClick(data.applicationNo);
   };
-  
-  function TicketHistoryModal({
-    toggleTicketHistoryModal,
-    ticketHistoryData,
-    selectedFarmer,
-    onGridReadyTicketHistory,
-    isLoadingTicketHistory,
-    onChangeTicketHistory,
-    openMyTicketPage,
-  }) {
-    const toggleSupportTicketDetailsModal = (data) => {
-      openMyTicketPage(data);
-    };
-  
-    return (
-      <Modal
-        title={`Ticket History - ${selectedFarmer ? selectedFarmer.farmerName : ""}(${selectedFarmer ? selectedFarmer.mobile : ""})`}
-        varient="bottom"
-        width="94vw"
-        show={toggleTicketHistoryModal}
-        right={0}
-        height="60vh"
-      >
-        <Modal.Body>
-          <div className={BizClass.ModalBox}>
-            <PageBar>
-              <PageBar.Search onChange={(e) => onChangeTicketHistory(e.target.value)} />
-            </PageBar>
-            <DataGrid
-              rowData={ticketHistoryData}
-              loader={isLoadingTicketHistory ? <Loader /> : null}
-              onGridReady={onGridReadyTicketHistory}
-              components={{
-                actionTemplate: cellActionTemplate,
+  return (
+    <Modal title="Grievance" varient="bottom" width="100vw" show={toggleInsuranceCompanyModalGreivence} right={0} height="60vh">
+      <Modal.Body>
+        <div className={BizClass.ModalBox}>
+          <PageBar>
+            <PageBar.Search />
+          </PageBar>
+          <DataGrid
+            rowData={insuranceCompanyDataGreivence}
+            loader={isLoadingApplicationNoDataGreivence ? <Loader /> : null}
+            rowSelection="single"
+            suppressRowClickSelection="true"
+            // A onGridReady={onGridReadySupportTicketGreivence}
+            onCellDoubleClicked={(event) => onCellDoubleClickedDetailsGreivence(event)}
+            components={{
+              actionTemplate: actionTemplateGreivence,
+            }}
+            tooltipShowDelay={500}
+            tooltipMouseTrack={true}
+            tooltipInteraction={true}
+          >
+            <DataGrid.Column
+              headerName="Action"
+              lockPosition="1"
+              pinned="left"
+              width={80}
+              cellRenderer="actionTemplate"
+              cellRendererParams={{
+                toggleClaimStatusModal,
               }}
-            >
-              <DataGrid.Column
+            />
+            <DataGrid.Column field="insuranceCompanyName" headerName="Insurance Company Name" width="280px" headerTooltip="Name of the insurance company" />
+            <DataGrid.Column
+              field="policyID"
+              headerName="Policy Number"
+              width="180"
+              headerTooltip="Policy no.: <scheme code><season code><state code><YY><Insurance policy>"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].policyID : null;
+              // A }}
+            />
+            <DataGrid.Column
+              field="policyPremium"
+              headerName="Total Premium"
+              width="132px"
+              headerTooltip="Total Premium of policy for all the applications against the policy"
+            />
+            <DataGrid.Column
+              field="policyArea"
+              headerName="Total Area"
+              width="110px"
+              headerTooltip="Total Area of policy in hectare, for all the applications against the policy"
+            />
+            <DataGrid.Column
+              field="applicationNo"
+              headerName="Application Number"
+              width="170"
+              headerTooltip="Application number against respective land and crop. It may be multiple against the same policy ID for different land"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationNo : null;
+              // A  }}
+            />
+            <DataGrid.Column
+              field="#"
+              headerName="Scheme"
+              width="275"
+              headerTooltip="Scheme"
+              cellRenderer={(node) => {
+                return node.data.scheme === "WBCIS"
+                  ? "Weather Based Crop Insurance Scheme(WBCIS)"
+                  : node.data.scheme === "PMFBY"
+                  ? "Pradhan Mantri Fasal Bima Yojna(PMFBY)"
+                  : "";
+              }}
+            />
+            <DataGrid.Column
+              field="cropName"
+              headerName="Crop Name"
+              width="140"
+              headerTooltip="Crop Covered for the particular application against the policy"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].cropName : null;
+              // A }}
+            />
+            <DataGrid.Column
+              field="farmerShare"
+              headerName="Premium Share"
+              width="140"
+              headerTooltip="Premium Share of particular Application"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].farmerShare : null;
+              // A }}
+            />
+            <DataGrid.Column
+              field="cropShare"
+              headerName="Area covered under Application"
+              width="235"
+              headerTooltip="sowing crop area in land"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].cropShare : null;
+              // A }}
+            />
+            <DataGrid.Column
+              field="landSurveyNumber"
+              headerName="Land Number"
+              width="125"
+              headerTooltip="Registered Number of Total Land (Khata Number)"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].landSurveyNumber : null;
+              // A }}
+            />
+            <DataGrid.Column
+              field="landDivisionNumber"
+              headerName="Division Number"
+              width="140"
+              headerTooltip="Division number against of that particular Land"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].landDivisionNumber : null;
+              // A }}
+            />
+
+            <DataGrid.Column
+              field="applicationSource"
+              headerName="Source"
+              width="90"
+              headerTooltip="Source of the application submitted by Farmer"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationSource : null;
+              // A  }}
+            />
+            <DataGrid.Column
+              field="applicationStatus"
+              headerName="Application Status"
+              width="190"
+              headerTooltip="Status of the application submitted by farmer"
+              // A cellRenderer={(node) => {
+              // A  return node.data.applicationList.length > 0 ? node.data.applicationList[0].applicationStatus : null;
+              // A }}
+            />
+          </DataGrid>
+        </div>
+      </Modal.Body>
+      <Modal.Footer />
+    </Modal>
+  );
+}
+
+function ClaimStatusModal({
+  toggleClaimStatusModal,
+  onGridReadyClaimStatus,
+  claimStatusData,
+  onChangeClamStatus,
+  isLoadingClaimStatusDataData,
+  openCustomeWindow,
+  OnClickCustomeWindow,
+  customeWindowWidth,
+  customeWindowHeight,
+}) {
+  return (
+    <Modal
+      title="Claim Status"
+      varient="bottom"
+      width={customeWindowWidth}
+      show={toggleClaimStatusModal}
+      left="90px"
+      bottom="12.5px"
+      height={customeWindowHeight}
+    >
+      <Modal.Header>
+        <span style={{ width: "100%" }} />
+        {openCustomeWindow === "S" ? (
+          <AiOutlinePlusSquare title="Maximize The Window" style={{ cursor: "pointer", fontSize: "20px" }} onClick={() => OnClickCustomeWindow("S")} />
+        ) : openCustomeWindow === "B" ? (
+          <AiOutlineMinusSquare title="Minimize The Window" style={{ cursor: "pointer", fontSize: "20px" }} onClick={() => OnClickCustomeWindow("B")} />
+        ) : null}
+      </Modal.Header>
+      <Modal.Body>
+        <div className={BizClass.ModalBox}>
+          <PageBar>
+            <PageBar.Search onChange={(e) => onChangeClamStatus(e.target.value)} />
+          </PageBar>
+          <DataGrid
+            rowData={claimStatusData}
+            loader={isLoadingClaimStatusDataData ? <Loader /> : null}
+            rowSelection="single"
+            suppressRowClickSelection="true"
+            onGridReady={onGridReadyClaimStatus}
+          >
+            <DataGrid.Column field="applicationNo" headerName="Application Number" width="175px" />
+            <DataGrid.Column
+              field="claimDate"
+              headerName="Claim Date"
+              width="115px"
+              cellRenderer={(node) => {
+                return dateFormatDDMMYY(node.data.claimDate);
+              }}
+            />
+            <DataGrid.Column field="amount" headerName="Claim Amount" width="135px" />
+            <DataGrid.Column field="ClaimType" headerName="Claim Type" width="150px" />
+            <DataGrid.Column field="UtrNumber" headerName="UTR Number" width="140px" />
+            <DataGrid.Column field="aadharPaymentAccountNumber" headerName="Payment To Account Number" width="220px" />
+            <DataGrid.Column field="aadharPaymentBankName" headerName="Payment To Bank Name" width="220px" />
+            <DataGrid.Column field="aadharPaymentFarmerName" headerName="Farmer Name" width="290px" />
+            <DataGrid.Column
+              field="aadharPaymentAadharNumber"
+              headerName="Aadhar Number"
+              width="140px"
+              valueGetter={(node) => {
+                return node.data.aadharPaymentAadharNumber ? node.data.aadharPaymentAadharNumber.replace(/.(?=.{4})/g, "x") : null;
+              }}
+            />
+            <DataGrid.Column field="ClaimStatus" headerName="Claim Status" width="220px" />
+            <DataGrid.Column field="paymentMode" headerName="Payment Mode" width="140px" />
+            <DataGrid.Column field="Status" headerName="Status" width="155px" />
+          </DataGrid>
+        </div>
+      </Modal.Body>
+      <Modal.Footer />
+    </Modal>
+  );
+}
+
+const cellActionTemplate = (props) => {
+  return (
+    <div style={{ display: "flex", gap: "4px", marginTop: "2px" }}>
+      <FcViewDetails
+        style={{ fontSize: "16px", color: "#000000", cursor: "pointer" }}
+        onClick={() => props.toggleSupportTicketDetailsModal(props.data)}
+        title="Ticket Details"
+      />
+    </div>
+  );
+};
+
+function TicketHistoryModal({
+  toggleTicketHistoryModal,
+  ticketHistoryData,
+  selectedFarmer,
+  onGridReadyTicketHistory,
+  isLoadingTicketHistory,
+  onChangeTicketHistory,
+  openMyTicketPage,
+}) {
+  const toggleSupportTicketDetailsModal = (data) => {
+    openMyTicketPage(data);
+  };
+
+  return (
+    <Modal
+      title={`Ticket History - ${selectedFarmer ? selectedFarmer.farmerName : ""}(${selectedFarmer ? selectedFarmer.mobile : ""})`}
+      varient="bottom"
+      width="94vw"
+      show={toggleTicketHistoryModal}
+      right={0}
+      height="60vh"
+    >
+      <Modal.Body>
+        <div className={BizClass.ModalBox}>
+          <PageBar>
+            <PageBar.Search onChange={(e) => onChangeTicketHistory(e.target.value)} />
+          </PageBar>
+          <DataGrid
+            rowData={ticketHistoryData}
+            loader={isLoadingTicketHistory ? <Loader /> : null}
+            onGridReady={onGridReadyTicketHistory}
+            components={{
+              actionTemplate: cellActionTemplate,
+            }}
+          >
+            <DataGrid.Column
               headerName="Action"
               lockPosition="1"
               pinned="left"
@@ -6471,35 +6721,35 @@ function FarmerListModal({ toggleModal, farmersData, onGridReady, onCellDoubleCl
                 toggleSupportTicketDetailsModal,
               }}
             />
-              <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
-              <DataGrid.Column field="SupportTicketNo" headerName="Ticket No" width="150px" />
-              <DataGrid.Column field="TicketStatus" headerName="Ticket Status" width="120px" />
-              <DataGrid.Column field="TicketHeadName" headerName="Type" width="150px" />
-              <DataGrid.Column field="TicketTypeName" headerName="Category" width="160px" />
-              <DataGrid.Column field="TicketCategoryName" headerName="Sub Category" width="190px" />
-              <DataGrid.Column field="CreatedBY" headerName="Created By" width="160px" />
-              <DataGrid.Column
-                field="#"
-                headerName="Created At"
-                width="125px"
-                valueGetter={(node) => {
-                  // A return node.data.CreatedAt ? `${dateFormat(node.data.CreatedAt.split("T")[0])} ${tConvert(node.data.CreatedAt.split("T")[1])}` : null;
-                  return node.data.CreatedAt
-                    ? dateToSpecificFormat(
-                        `${node.data.CreatedAt.split("T")[0]} ${Convert24FourHourAndMinute(node.data.CreatedAt.split("T")[1])}`,
-                        "DD-MM-YYYY HH:mm",
-                      )
-                    : null;
-                }}
-              />
-              <DataGrid.Column field="InsuranceCompany" headerName="Insurance Company" width="290px" />
-              <DataGrid.Column field="ApplicationNo" headerName="Application No" width="190px" />
-              <DataGrid.Column field="InsurancePolicyNo" headerName="Policy No" width="160px" />
-              <DataGrid.Column field="StateMasterName" headerName="State" width="160px" />
-            </DataGrid>
-          </div>
-        </Modal.Body>
-        <Modal.Footer />
-      </Modal>
-    );
-  }
+            <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
+            <DataGrid.Column field="SupportTicketNo" headerName="Ticket No" width="150px" />
+            <DataGrid.Column field="TicketStatus" headerName="Ticket Status" width="120px" />
+            <DataGrid.Column field="TicketHeadName" headerName="Type" width="150px" />
+            <DataGrid.Column field="TicketTypeName" headerName="Category" width="160px" />
+            <DataGrid.Column field="TicketCategoryName" headerName="Sub Category" width="190px" />
+            <DataGrid.Column field="CreatedBY" headerName="Created By" width="160px" />
+            <DataGrid.Column
+              field="#"
+              headerName="Created At"
+              width="125px"
+              valueGetter={(node) => {
+                // A return node.data.CreatedAt ? `${dateFormat(node.data.CreatedAt.split("T")[0])} ${tConvert(node.data.CreatedAt.split("T")[1])}` : null;
+                return node.data.CreatedAt
+                  ? dateToSpecificFormat(
+                      `${node.data.CreatedAt.split("T")[0]} ${Convert24FourHourAndMinute(node.data.CreatedAt.split("T")[1])}`,
+                      "DD-MM-YYYY HH:mm",
+                    )
+                  : null;
+              }}
+            />
+            <DataGrid.Column field="InsuranceCompany" headerName="Insurance Company" width="290px" />
+            <DataGrid.Column field="ApplicationNo" headerName="Application No" width="190px" />
+            <DataGrid.Column field="InsurancePolicyNo" headerName="Policy No" width="160px" />
+            <DataGrid.Column field="StateMasterName" headerName="State" width="160px" />
+          </DataGrid>
+        </div>
+      </Modal.Body>
+      <Modal.Footer />
+    </Modal>
+  );
+}

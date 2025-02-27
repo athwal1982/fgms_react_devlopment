@@ -10,10 +10,7 @@ export const getAllAgent = async (formData) => {
         ...formData,
       },
     };
-    const result = await ApiCalling(
-      requestData,
-      APIEndpoints.Common.GetAllAgent,
-    );
+    const result = await ApiCalling(requestData, APIEndpoints.Common.GetAllAgent);
     if (result.responseCode === 1) {
       if (result.responseData) {
         return { response: result };
@@ -37,10 +34,7 @@ export const statusUpdate = async (formData) => {
         ...formData,
       },
     };
-    const result = await ApiCalling(
-      requestData,
-      APIEndpoints.Common.statusUpdate,
-    );
+    const result = await ApiCalling(requestData, APIEndpoints.Common.statusUpdate);
     if (result.responseCode === 1) {
       if (result.responseData) {
         return { response: result };

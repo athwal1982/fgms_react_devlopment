@@ -104,7 +104,27 @@ function StatewiseICTicketsLogics() {
 
     // Append totals row to worksheet
     XLSX.utils.sheet_add_json(worksheet, [totals], { skipHeader: true, origin: -1 });
-    worksheet["!cols"] = [{ width: 60 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 },{ width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 },{ width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 }, { width: 20 },{ width: 20 }];
+    worksheet["!cols"] = [
+      { width: 60 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+      { width: 20 },
+    ];
     XLSX.writeFile(
       workbook,
       `Statewise_IC_Tickets${formValues.txtYearFilter && formValues.txtYearFilter.label ? `_${formValues.txtYearFilter.label}` : ""}${
@@ -253,8 +273,7 @@ function StatewiseICTicketsLogics() {
         TATA_AIG: value.TATA_AIG ? Number(value.TATA_AIG) : 0,
         United_India: value.United_India ? Number(value.United_India) : 0,
         Universal_Sompo: value.Universal_Sompo ? Number(value.Universal_Sompo) : 0,
-        
-        
+
         Total:
           (value.AIC ? Number(value.AIC) : 0) +
           (value.Bajaj_Allianz ? Number(value.Bajaj_Allianz) : 0) +

@@ -611,7 +611,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
-            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
+            UserType: user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             // A HasDocument: phasDocument,
             HasDocument: 0,
@@ -726,10 +726,10 @@ function MyTicketLogics() {
         ticketData && ticketData.RightResolved && ticketData.RightResolved === 1
           ? true
           : ticketData.RightResolved === 0
-            ? false
-            : ticketData.RightResolved === undefined
-              ? ""
-              : "";
+          ? false
+          : ticketData.RightResolved === undefined
+          ? ""
+          : "";
       if (chkAccessALL === "E") {
         if (chkRightResolved === false) {
           setAlertMessage({
@@ -963,7 +963,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
-            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
+            UserType: user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             HasDocument: 0,
             InsertIPAddress: ip,

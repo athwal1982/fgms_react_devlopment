@@ -276,7 +276,7 @@ function HomeLogics() {
             };
             setstate(josnstate);
             setSessionStorage("stateSsnStrg", result.response.responseData.dashboard);
-            if(pRefressh !== "yes") {
+            if (pRefressh !== "yes") {
               getDistrictWiseData(1, userData && userData.LoginID ? userData.LoginID : 0, "BYDSCT", "");
             }
           } else {
@@ -363,7 +363,7 @@ function HomeLogics() {
           },
         };
         setstate(josnstate);
-        if(pRefressh !== "yes") {
+        if (pRefressh !== "yes") {
           getDistrictWiseData(1, userData && userData.LoginID ? userData.LoginID : 0, "BYDSCT", "");
         }
       }
@@ -466,7 +466,7 @@ function HomeLogics() {
             };
             setstate3(josnstate3);
             setSessionStorage("state3SsnStrg", result.response.responseData.dashboard);
-            if(pRefressh !== "yes") {
+            if (pRefressh !== "yes") {
               getChartLastMonthData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYDUR", "");
             }
           } else {
@@ -548,7 +548,7 @@ function HomeLogics() {
           },
         };
         setstate3(josnstate3);
-        if(pRefressh !== "yes") {
+        if (pRefressh !== "yes") {
           getChartLastMonthData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYDUR", "");
         }
       }
@@ -628,7 +628,7 @@ function HomeLogics() {
             setstate4(jsonstate4);
             setSessionStorage("state4SsnStrg", result.response.responseData.dashboard);
             if (pRefressh !== "yes") {
-               getChartCategoryLossIntimationWiseData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYCLCTZ", "");
+              getChartCategoryLossIntimationWiseData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYCLCTZ", "");
             }
           } else {
             setstate4({});
@@ -690,7 +690,7 @@ function HomeLogics() {
         setstate4(jsonstate4);
         if (pRefressh !== "yes") {
           getChartCategoryLossIntimationWiseData(2, userData && userData.LoginID ? userData.LoginID : 0, "BYCLCTZ", "");
-       }
+        }
       }
     } catch (error) {
       console.log(error);
@@ -1015,9 +1015,9 @@ function HomeLogics() {
             };
             setstate5(jsonstate5);
             setSessionStorage("state5SsnStrg", result.response.responseData.dashboard);
-            if(pRefressh !== "yes") {
+            if (pRefressh !== "yes") {
               getChartInsuranceCompanyData(1, userData && userData.LoginID ? userData.LoginID : 0, "BYINS", "");
-            }     
+            }
           } else {
             setstate5({});
           }
@@ -1076,9 +1076,9 @@ function HomeLogics() {
           },
         };
         setstate5(jsonstate5);
-        if(pRefressh !== "yes") {
+        if (pRefressh !== "yes") {
           getChartInsuranceCompanyData(1, userData && userData.LoginID ? userData.LoginID : 0, "BYINS", "");
-        }  
+        }
       }
     } catch (error) {
       console.log(error);

@@ -1,8 +1,8 @@
-import React from 'react';
-import './Button.scss';
+import React from "react";
+import "./Button.scss";
 
 function Button(props) {
-  const { varient = '', add = '', children, ...rest } = props;
+  const { varient = "", add = "", children, ...rest } = props;
   return (
     <button className={`DynBiz_Btn DynBiz_${varient}_Btn DynBiz_${add}_Btn`} {...rest}>
       {props.trigger ? (

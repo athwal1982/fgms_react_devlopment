@@ -23,7 +23,6 @@ const TrainingList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
 
-
   const [trainers, setTrainers] = useState([]);
   const [center, setCenter] = useState([]);
 
@@ -41,9 +40,9 @@ const TrainingList = () => {
       let data = response.response.responseData;
       let responseCode = response.response.responseCode;
       if (responseCode === 1) {
-        const updatedData = data.map(item => ({
+        const updatedData = data.map((item) => ({
           ...item,
-          Assigned: item.Assigned === 1 ? "Yes" : "No"
+          Assigned: item.Assigned === 1 ? "Yes" : "No",
         }));
         setRowData(updatedData);
         setFilteredData(updatedData);
@@ -72,9 +71,8 @@ const TrainingList = () => {
           data.map((center) => ({
             value: center.CenterMasterID,
             label: `${center.Center} - ${center.Center}`,
-          }))
+          })),
         );
-
       } else {
         setCenter([]);
       }
@@ -100,7 +98,7 @@ const TrainingList = () => {
           data.map((trainer) => ({
             value: trainer.UserID,
             label: trainer.Name,
-          }))
+          })),
         );
       } else {
         setTrainers([]);
@@ -109,7 +107,6 @@ const TrainingList = () => {
       console.error("Error fetching trainers:", error);
     }
   };
-
 
   const handleCenterChange = (selectedOption) => {
     debugger;
@@ -122,7 +119,7 @@ const TrainingList = () => {
 
   const setTrainer = async () => {
     debugger;
-    const selectedTrainerIds = selectedTrainers.map(trainer => trainer.value);
+    const selectedTrainerIds = selectedTrainers.map((trainer) => trainer.value);
     const selectedCenterId = selectedCenter ? parseInt(selectedCenter.value, 10) : null;
 
     // A const selectedCenterId = selectedCenter.length > 0 ? parseInt(selectedCenter[0].value, 10) : null;
@@ -162,8 +159,6 @@ const TrainingList = () => {
     }
   };
 
-
-
   const handleShow = async (training) => {
     debugger;
     setSelectedTraining(null);
@@ -179,15 +174,12 @@ const TrainingList = () => {
     }
   };
 
-
   const handleClose = () => {
     setShowModal(false);
-    setSelectedTraining(null); 
+    setSelectedTraining(null);
   };
 
-  const assignunassigncenterOnClick = async () => {
-
-  };
+  const assignunassigncenterOnClick = async () => {};
 
   const ActionCellRenderer = (props) => {
     return (
@@ -200,27 +192,20 @@ const TrainingList = () => {
               onClick={() => handleShow(props.data)}
               title="Save">
             </i> */}
-            <i class="fa fa-tasks"  
+            <i
+              class="fa fa-tasks"
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
               onClick={() => assignunassigncenterOnClick(props.data)}
-              title="Assign/Unassign Center"></i>
-            <i
-              className="fas fa-edit"
-              style={{ cursor: "pointer", color: "green" }}
-              onClick={() => handleEdit(props.data)}
-              title="Edit"
+              title="Assign/Unassign Center"
             ></i>
+            <i className="fas fa-edit" style={{ cursor: "pointer", color: "green" }} onClick={() => handleEdit(props.data)} title="Edit"></i>
           </>
         )}
       </>
     );
   };
 
-
-
   const [columnDefs] = useState([
-
-
     {
       headerName: "Action",
       field: "action",
@@ -241,8 +226,7 @@ const TrainingList = () => {
       sortable: true,
       filter: true,
       width: 110,
-      valueFormatter: (param) =>
-        param.value ? moment(param.value).format("DD-MM-YYYY") : "",
+      valueFormatter: (param) => (param.value ? moment(param.value).format("DD-MM-YYYY") : ""),
     },
     {
       headerName: "Start Time",
@@ -250,8 +234,7 @@ const TrainingList = () => {
       sortable: true,
       filter: true,
       width: 100,
-      valueGetter: (node) =>
-        node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null,
+      valueGetter: (node) => (node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null),
     },
     {
       headerName: "End Time",
@@ -259,8 +242,7 @@ const TrainingList = () => {
       sortable: true,
       filter: true,
       width: 100,
-      valueGetter: (node) =>
-        node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null,
+      valueGetter: (node) => (node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null),
     },
     {
       headerName: "Created By",
@@ -278,11 +260,9 @@ const TrainingList = () => {
       valueGetter: (node) => {
         return node.data.InsertedDateTime
           ? dateToSpecificFormat(
-            `${node.data.InsertedDateTime.split("T")[0]} ${Convert24FourHourAndMinute(
-              node.data.InsertedDateTime.split("T")[1]
-            )}`,
-            "DD-MM-YYYY HH:mm"
-          )
+              `${node.data.InsertedDateTime.split("T")[0]} ${Convert24FourHourAndMinute(node.data.InsertedDateTime.split("T")[1])}`,
+              "DD-MM-YYYY HH:mm",
+            )
           : null;
       },
     },
@@ -302,16 +282,13 @@ const TrainingList = () => {
       valueGetter: (node) => {
         return node.data.UpdateDateTime
           ? dateToSpecificFormat(
-            `${node.data.UpdateDateTime.split("T")[0]} ${Convert24FourHourAndMinute(
-              node.data.UpdateDateTime.split("T")[1]
-            )}`,
-            "DD-MM-YYYY HH:mm"
-          )
+              `${node.data.UpdateDateTime.split("T")[0]} ${Convert24FourHourAndMinute(node.data.UpdateDateTime.split("T")[1])}`,
+              "DD-MM-YYYY HH:mm",
+            )
           : null;
       },
     },
   ]);
-
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -321,19 +298,13 @@ const TrainingList = () => {
 
   const renderPagination = () => (
     <div className="pagination-container">
-      <button
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
+      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
         <i className="fas fas fa-arrow-left"></i>
       </button>
       <span>
         Page {currentPage} of {totalPages}
       </span>
-      <button
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
+      <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
         <i className="fas fas fa-arrow-right"></i>
       </button>
     </div>
@@ -347,9 +318,6 @@ const TrainingList = () => {
   const handleEdit = (trainingData) => {
     navigate("/CreateNewTraining", { state: trainingData });
   };
-
-
-
 
   useEffect(() => {
     debugger;
@@ -374,10 +342,7 @@ const TrainingList = () => {
             </div>
 
             {accessCode === 999 && (
-              <button
-                className="create-agent-button"
-                onClick={() => navigate("/CreateNewTraining")}
-              >
+              <button className="create-agent-button" onClick={() => navigate("/CreateNewTraining")}>
                 Create Training &nbsp; <i className="fas fas fa-arrow-right"></i>
               </button>
             )}
@@ -386,10 +351,7 @@ const TrainingList = () => {
           <div className="ag-theme-alpine ag-grid-container">
             <AgGridReact
               rowData={filteredData}
-              columnDefs={[
-                { headerName: "S.No", valueGetter: (params) => params.node.rowIndex + 1, width: 80 },
-                ...columnDefs,
-              ]}
+              columnDefs={[{ headerName: "S.No", valueGetter: (params) => params.node.rowIndex + 1, width: 80 }, ...columnDefs]}
               components={{ ActionCellRenderer }}
               defaultColDef={{
                 resizable: true,
@@ -400,10 +362,8 @@ const TrainingList = () => {
               rowHeight={30}
             />
 
-           
             {selectedTraining && (
               <Modal show={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
-
                 <Modal.Header closeButton className="py-2" style={{ backgroundColor: "#004d00", color: "white" }}>
                   <Modal.Title style={{ fontSize: "1rem" }}>Edit Training Details</Modal.Title>
                   <style>
@@ -419,28 +379,22 @@ const TrainingList = () => {
                   <form>
                     <div className="row mb-3">
                       <div className="col-md-4">
-                        <label htmlFor="trainingId" className="form-label small-bold-label">Training ID *</label>
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          id="trainingId"
-                          value={selectedTraining.TrainingMasterId}
-                          readOnly
-                        />
+                        <label htmlFor="trainingId" className="form-label small-bold-label">
+                          Training ID *
+                        </label>
+                        <input type="text" className="form-control form-control-sm" id="trainingId" value={selectedTraining.TrainingMasterId} readOnly />
                       </div>
 
                       <div className="col-md-4">
-                        <label htmlFor="trainingName" className="form-label small-bold-label">Training Name *</label>
-                        <input
-                          type="text"
-                          className="form-control form-control-sm"
-                          id="trainingName"
-                          value={selectedTraining.TrainingName}
-                          readOnly
-                        />
+                        <label htmlFor="trainingName" className="form-label small-bold-label">
+                          Training Name *
+                        </label>
+                        <input type="text" className="form-control form-control-sm" id="trainingName" value={selectedTraining.TrainingName} readOnly />
                       </div>
                       <div className="col-md-4">
-                        <label htmlFor="trainingDate" className="form-label small-bold-label">Training Date *</label>
+                        <label htmlFor="trainingDate" className="form-label small-bold-label">
+                          Training Date *
+                        </label>
                         <input
                           type="text"
                           className="form-control form-control-sm"
@@ -452,10 +406,10 @@ const TrainingList = () => {
                     </div>
 
                     <div className="row mb-3">
-
-
                       <div className="col-md-4">
-                        <label htmlFor="startTime" className="form-label small-bold-label">Start Time *</label>
+                        <label htmlFor="startTime" className="form-label small-bold-label">
+                          Start Time *
+                        </label>
                         <input
                           type="text"
                           className="form-control form-control-sm"
@@ -465,7 +419,9 @@ const TrainingList = () => {
                         />
                       </div>
                       <div className="col-md-4">
-                        <label htmlFor="endTime" className="form-label small-bold-label">End Time *</label>
+                        <label htmlFor="endTime" className="form-label small-bold-label">
+                          End Time *
+                        </label>
                         <input
                           type="text"
                           className="form-control form-control-sm"
@@ -477,9 +433,6 @@ const TrainingList = () => {
                     </div>
 
                     <div className="row mb-3">
-
-
-
                       <div className="col-md-4">
                         <label htmlFor="center" className="form-label small-bold-label">
                           Center *
@@ -508,37 +461,21 @@ const TrainingList = () => {
                           placeholder="Select Trainee(s)"
                         />
                       </div>
-
-
-
-
                     </div>
                   </form>
                 </Modal.Body>
 
                 <Modal.Footer className="py-2" style={{ fontSize: "0.875rem" }}>
-                  <Button
-                    size="sm"
-                    onClick={() => setTrainer()}
-                    style={{ backgroundColor: "#004d00", border: "none", pointerEvents: "auto" }}
-                  >
+                  <Button size="sm" onClick={() => setTrainer()} style={{ backgroundColor: "#004d00", border: "none", pointerEvents: "auto" }}>
                     Assign
                   </Button>
 
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={handleClose}
-                    style={{ backgroundColor: "#6c757d", border: "none", pointerEvents: "auto" }}
-                  >
+                  <Button variant="secondary" size="sm" onClick={handleClose} style={{ backgroundColor: "#6c757d", border: "none", pointerEvents: "auto" }}>
                     Close
                   </Button>
-
                 </Modal.Footer>
               </Modal>
             )}
-
-
           </div>
 
           {renderPagination()}

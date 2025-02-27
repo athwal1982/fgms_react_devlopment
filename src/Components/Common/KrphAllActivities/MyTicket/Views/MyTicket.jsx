@@ -59,29 +59,32 @@ function MyTicket({ children, replyBoxCollapsed, setReplyBoxCollapsed, setTicket
 
   return (
     <>
-    <Modal style={{ zIndex: "999999999" }} varient="half" title="" right="0" width="95.5vw" show={showfunc}>
-    <Modal.Body>
-    <div className={BizClass.Box}>
-      <div className={BizClass.ActionDiv}>
-        {/* <PageBar.Button onClick={() => navigate("/ManageTicket")}>Back</PageBar.Button>
-         */}
-        <PageBar.Button onClick={() => showfunc(null)}>Back</PageBar.Button>
-        {replyTicketRight ? (
-          ticketData.TicketStatusID && ticketData.TicketStatusID.toString() !== "109303" ? (
-            <PageBar.Button onClick={() => toggelReplyCloseButton("Reply")}>Reply</PageBar.Button>
-          ) : null
-        ) : null}
-        {reopenTicketRight ? (
-          ticketData.TicketStatusID && ticketData.TicketStatusID.toString() === "109303" && ticketData.TicketHeaderID && ticketData.TicketHeaderID !== 2 ? (
-            <PageBar.Button onClick={() => toggelReOpenButton()}>Re-Open</PageBar.Button>
-          ) : null
-        ) : null}
-      </div>
-      <div className={BizClass.ContentDiv}>{children}</div>
-    </div>
-    </Modal.Body>
-      <Modal.Footer />
-    </Modal>
+      <Modal style={{ zIndex: "999999999" }} varient="half" title="" right="0" width="95.5vw" show={showfunc}>
+        <Modal.Body>
+          <div className={BizClass.Box}>
+            <div className={BizClass.ActionDiv}>
+              {/* <PageBar.Button onClick={() => navigate("/ManageTicket")}>Back</PageBar.Button>
+               */}
+              <PageBar.Button onClick={() => showfunc(null)}>Back</PageBar.Button>
+              {replyTicketRight ? (
+                ticketData.TicketStatusID && ticketData.TicketStatusID.toString() !== "109303" ? (
+                  <PageBar.Button onClick={() => toggelReplyCloseButton("Reply")}>Reply</PageBar.Button>
+                ) : null
+              ) : null}
+              {reopenTicketRight ? (
+                ticketData.TicketStatusID &&
+                ticketData.TicketStatusID.toString() === "109303" &&
+                ticketData.TicketHeaderID &&
+                ticketData.TicketHeaderID !== 2 ? (
+                  <PageBar.Button onClick={() => toggelReOpenButton()}>Re-Open</PageBar.Button>
+                ) : null
+              ) : null}
+            </div>
+            <div className={BizClass.ContentDiv}>{children}</div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer />
+      </Modal>
     </>
   );
 }

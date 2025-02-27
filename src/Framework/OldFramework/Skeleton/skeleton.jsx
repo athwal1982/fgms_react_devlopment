@@ -1,6 +1,6 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
-import Skeleton from 'react-loading-skeleton';
+import React from "react";
+import ContentLoader from "react-content-loader";
+import Skeleton from "react-loading-skeleton";
 
 export const SkeletonCrmList = () => {
   return (
@@ -36,7 +36,7 @@ export const SkeletonCrmDataV2 = () => {
 
 export const SkeletonCrmTaxComData = () => {
   return (
-    <div style={{ display: 'grid', height: '100%', gridGap: '8px' }}>
+    <div style={{ display: "grid", height: "100%", gridGap: "8px" }}>
       <p>
         <Skeleton duration={0} width={160} />
       </p>

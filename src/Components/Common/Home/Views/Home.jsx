@@ -83,64 +83,63 @@ function Home() {
           <FaSync onClick={() => handleRefreshChartSatatusCount()} className={BizClass.refreshIcon} />
         </div>
         <div className={BizClass.SummaryBoardTicketTypeGrievence}>
-        <h6>Grievance Ticket</h6>
-        <div className={BizClass.SummaryBoard}>
-          <div className={BizClass.ScoreBoard}>
-            <span>Open</span>
-            <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].Open)) : 0}</span>
+          <h6>Grievance Ticket</h6>
+          <div className={BizClass.SummaryBoard}>
+            <div className={BizClass.ScoreBoard}>
+              <span>Open</span>
+              <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].Open)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>In-Progress</span>
+              <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].InProgress)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>Resolved</span>
+              <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].Resolved)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>Re-Open</span>
+              <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].ReOpen)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>Total</span>
+              <span>{totalSatatusCountGrvnce ? numberWithCommas(Number(totalSatatusCountGrvnce)) : 0}</span>
+            </div>
           </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>In-Progress</span>
-            <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].InProgress)) : 0}</span>
-          </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>Resolved</span>
-            <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].Resolved)) : 0}</span>
-          </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>Re-Open</span>
-            <span>{satatusCountGrvnce && satatusCountGrvnce.length > 0 ? numberWithCommas(Number(satatusCountGrvnce[0].ReOpen)) : 0}</span>
-          </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>Total</span>
-            <span>{totalSatatusCountGrvnce ? numberWithCommas(Number(totalSatatusCountGrvnce)) : 0}</span>
-          </div>
-        </div>
         </div>
         <div className={BizClass.SummaryBoardTicketTypeCropLoss}>
-        <h6>Crop Loss Intimations</h6>
-        <div className={BizClass.SummaryBoard}>
-          <div className={BizClass.ScoreBoard}>
-            <span>Open</span>
-            <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].Open)) : 0}</span>
+          <h6>Crop Loss Intimations</h6>
+          <div className={BizClass.SummaryBoard}>
+            <div className={BizClass.ScoreBoard}>
+              <span>Open</span>
+              <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].Open)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>In-Progress</span>
+              <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].InProgress)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>Resolved</span>
+              <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].Resolved)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>Re-Open</span>
+              <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].ReOpen)) : 0}</span>
+            </div>
+            <div className={BizClass.ScoreBoard}>
+              <span>Total</span>
+              <span>{totalSatatusCountCrpLos ? numberWithCommas(Number(totalSatatusCountCrpLos)) : 0}</span>
+            </div>
           </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>In-Progress</span>
-            <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].InProgress)) : 0}</span>
-          </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>Resolved</span>
-            <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].Resolved)) : 0}</span>
-          </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>Re-Open</span>
-            <span>{satatusCountCrpLos && satatusCountCrpLos.length > 0 ? numberWithCommas(Number(satatusCountCrpLos[0].ReOpen)) : 0}</span>
-          </div>
-          <div className={BizClass.ScoreBoard}>
-            <span>Total</span>
-            <span>{totalSatatusCountCrpLos ? numberWithCommas(Number(totalSatatusCountCrpLos)) : 0}</span>
-          </div>
-        </div>
         </div>
         <div className={BizClass.SummaryBoardTicketTypeInformation}>
-        <h6>Information</h6>
-        <div className={BizClass.SummaryBoard}>
-          
-        <div className={BizClass.ScoreBoard}>
-            <span>Resolved</span>
-            <span>{satatusCountInfomn && satatusCountInfomn.length > 0 ? numberWithCommas(Number(satatusCountInfomn[0].ResolvedInformation)) : 0}</span>
+          <h6>Information</h6>
+          <div className={BizClass.SummaryBoard}>
+            <div className={BizClass.ScoreBoard}>
+              <span>Resolved</span>
+              <span>{satatusCountInfomn && satatusCountInfomn.length > 0 ? numberWithCommas(Number(satatusCountInfomn[0].ResolvedInformation)) : 0}</span>
+            </div>
           </div>
-        </div>
         </div>
         <div className={BizClass.PieCharBox}>
           <div className={BizClass.PieChart}>

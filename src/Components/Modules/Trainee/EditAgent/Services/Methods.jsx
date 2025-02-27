@@ -25,7 +25,6 @@ export const setUpdateUser = async (formData) => {
   }
 };
 
-
 export const getAllRegion = async (formData) => {
   debugger;
   try {
@@ -49,4 +48,3 @@ export const getAllRegion = async (formData) => {
     };
   }
 };
-

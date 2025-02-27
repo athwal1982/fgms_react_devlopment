@@ -270,7 +270,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
-            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
+            UserType: user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             HasDocument: 0,
             InsertIPAddress: ip,
@@ -609,7 +609,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
-            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
+            UserType: user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             HasDocument: phasDocument,
             InsertIPAddress: ip,
@@ -1001,7 +1001,7 @@ function MyTicketLogics() {
           const user = getSessionStorage("user");
           const newlyAddedEntry = {
             CreatedBY: user && user.UserDisplayName ? user.UserDisplayName.toString() : "",
-            UserType:user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
+            UserType: user && user.UserCompanyType ? user.UserCompanyType.toString() : "",
             AgentUserID: ticketData.AgentUserID ? ticketData.AgentUserID : "0",
             HasDocument: 0,
             InsertIPAddress: ip,

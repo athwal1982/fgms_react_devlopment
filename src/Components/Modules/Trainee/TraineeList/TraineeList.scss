@@ -83,7 +83,7 @@
       }
     }
   }
-  .ag-grid-container:hover{
+  .ag-grid-container:hover {
     color: black;
     font-size: small;
   }
@@ -138,7 +138,7 @@
     font-size: 11px;
     color: #004d00;
     border: 2px solid #006400;
-    background-color: #E3F7B6;
+    background-color: #e3f7b6;
     cursor: pointer;
     &:disabled {
       opacity: 0.5;
@@ -196,10 +196,10 @@
     color: #004d00;
   }
 }
-.custom-header-style{
+.custom-header-style {
   margin-left: 20px;
 }
-.custom-header-style-other{
+.custom-header-style-other {
   margin-left: 10px;
 }
 
@@ -303,6 +303,5 @@ input:checked + .slider:before {
 }
 
 .styled-button:disabled {
- 
   cursor: not-allowed;
 }

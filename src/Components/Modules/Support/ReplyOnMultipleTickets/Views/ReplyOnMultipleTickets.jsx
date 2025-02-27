@@ -12,7 +12,7 @@ import BizClass from "./ReplyOnMultipleTickets.module.scss";
 import HeaderPortal from "../../ManageTicket/Views/Layout/FarmerAuthenticateModal/HeaderPortal";
 import TicketStatus from "./Modals/TicketStatus/TicketStatus";
 import ReplyWithExcel from "./Modals/TicketStatus/ReplyWithExcel";
-import UploadedFileStatusList from  "./Modals/UploadedFileStatusList";
+import UploadedFileStatusList from "./Modals/UploadedFileStatusList";
 
 function ReplyOnMultipleTickets({
   isLoadingFarmersticket,
@@ -152,12 +152,7 @@ function ReplyOnMultipleTickets({
           settotalSatatusCount={settotalSatatusCount}
         />
       )}
-      {openUploadedFileStatusListModal && (
-        <UploadedFileStatusList
-        uploadedFileStatusOnClick={uploadedFileStatusOnClick}
-        setAlertMessage={setAlertMessage}
-        />
-      )}
+      {openUploadedFileStatusListModal && <UploadedFileStatusList uploadedFileStatusOnClick={uploadedFileStatusOnClick} setAlertMessage={setAlertMessage} />}
       <div className={BizClass.Box}>
         <div className={BizClass.PageBar}>
           {viewTicketRight ? (
@@ -174,10 +169,10 @@ function ReplyOnMultipleTickets({
               <p>{satatusCount && satatusCount.length > 0 ? satatusCount[0].ReOpen : 0}</p>
               <span>Total :</span>
               <p>{totalSatatusCount}</p>
-              <p style={{margin:"10px"}}>
+              <p style={{ margin: "10px" }}>
                 <FaFileUpload style={{ cursor: "pointer", width: "32px" }} onClick={() => openReplyWithExcelPopUp(gridApi)} />
-                <Button type="button" varient="title" onClick={() =>  uploadedFileStatusOnClick()} >
-                               Uploaded File Status
+                <Button type="button" varient="title" onClick={() => uploadedFileStatusOnClick()}>
+                  Uploaded File Status
                 </Button>
               </p>
             </div>

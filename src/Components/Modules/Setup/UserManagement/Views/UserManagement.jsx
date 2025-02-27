@@ -147,7 +147,7 @@ function UserManagement({
     <div className={BizClass.PageStart}>
       <PageBar>
         <PageBar.Search value={userListItemSearch} onChange={(e) => onChangeUserList(e.target.value)} onClick={() => getUsersList()} />
-        <MdOutlineCancel style={{fontSize: "28px" , color: "red",cursor: "pointer"}} onClick={() => onClearSearchClick()} />
+        <MdOutlineCancel style={{ fontSize: "28px", color: "red", cursor: "pointer" }} onClick={() => onClearSearchClick()} />
         {userData && userData.AppAccessTypeID.toString() !== "503" ? <PageBar.Button onClick={() => toggleAddVisitModal()}>Add User</PageBar.Button> : null}
       </PageBar>
       <DataGrid
@@ -201,18 +201,18 @@ function UserManagement({
           }}
         />
         <DataGrid.Column
-                              field="#"
-                              headerName="Created At"
-                              width="145px"
-                              valueGetter={(node) => {
-                                return node.data.InsertedTime
-                                  ? dateToSpecificFormat(
-                                      `${node.data.InsertedTime.split("T")[0]} ${Convert24FourHourAndMinute(node.data.InsertedTime.split("T")[1])}`,
-                                      "DD-MM-YYYY HH:mm",
-                                    )
-                                  : null;
-                              }}
-                            />
+          field="#"
+          headerName="Created At"
+          width="145px"
+          valueGetter={(node) => {
+            return node.data.InsertedTime
+              ? dateToSpecificFormat(
+                  `${node.data.InsertedTime.split("T")[0]} ${Convert24FourHourAndMinute(node.data.InsertedTime.split("T")[1])}`,
+                  "DD-MM-YYYY HH:mm",
+                )
+              : null;
+          }}
+        />
       </DataGrid>
     </div>
   );

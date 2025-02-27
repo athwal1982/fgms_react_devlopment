@@ -115,13 +115,10 @@ function UserManagementPage() {
 
   return (
     <>
-      {confirmAlert.open && (
-        <ConfirmDialog
-          confirmAlert={confirmAlert}
-          setConfirmAlert={setConfirmAlert}
-        />
-      )}
-      {addUserModal ? <AddUser showfunc={toggleAddVisitModal} updateUserData={updateUserData} referenceTypeOptions={referenceTypeOptions}  setConfirmAlert={setConfirmAlert} /> : null}
+      {confirmAlert.open && <ConfirmDialog confirmAlert={confirmAlert} setConfirmAlert={setConfirmAlert} />}
+      {addUserModal ? (
+        <AddUser showfunc={toggleAddVisitModal} updateUserData={updateUserData} referenceTypeOptions={referenceTypeOptions} setConfirmAlert={setConfirmAlert} />
+      ) : null}
       {profileListModal && <ProfileListModal showfunc={toggleProfileListModal} selectedUserData={selectedUserData} updateUserDataList={updateUserDataList} />}
       {assignStateListModal ? (
         <AssignStateListModal showfunc={toggleAssignStateListModal} selectedUserData={selectedUserData} updateUserDataList={updateUserDataList} />

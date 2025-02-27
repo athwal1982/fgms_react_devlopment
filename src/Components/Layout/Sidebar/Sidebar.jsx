@@ -69,12 +69,12 @@ function Sidebar() {
 
   const getCallingdashboard = async () => {
     let fgmsDashboardUrl = "https://fgms.smartping.io/admin/dashboard";
-    if(getSessionStorage("callingDashboard") === null) {
+    if (getSessionStorage("callingDashboard") === null) {
       const result = await fetchCallingDashboardlogin();
       if (result.responseCode === 1) {
         const validTillToken = new Date();
         validTillToken.setMinutes(validTillToken.getMinutes() + 60);
-        setSessionStorage("callingDashboard",{resultToken: result.responseData.access_token,validTillToken : validTillToken});
+        setSessionStorage("callingDashboard", { resultToken: result.responseData.access_token, validTillToken: validTillToken });
         window.open(fgmsDashboardUrl + `?token=${result.responseData.access_token}`, "_blank");
       } else {
         setAlertMessage({
@@ -98,13 +98,11 @@ function Sidebar() {
               message: result.responseMessage,
             });
           }
-          
         } else {
           window.open(fgmsDashboardUrl + `?token=${resultCallingDashboard.resultToken}`, "_blank");
         }
       }
     }
-    
   };
 
   const toggleMenu = (menu) => {
@@ -116,7 +114,7 @@ function Sidebar() {
       setSubMenuList([]);
       setCollapsed(true);
       setActiveSubMenuId("0");
-      if(menu.name === "Calling Dashboard") {
+      if (menu.name === "Calling Dashboard") {
         getCallingdashboard();
       } else {
         getUserRightDataList(userData && userData.LoginID ? userData.LoginID : 0, menu.menuMasterID, menu, "Menu");
@@ -193,17 +191,17 @@ function Sidebar() {
       case "Report":
         return <HiOutlineDocumentReport />;
       case "Calling Dashboard":
-          return <HiPhotograph />;
+        return <HiPhotograph />;
       case "SLA Dashboard":
-            return <HiPhotograph />;
+        return <HiPhotograph />;
       case "Offline Intimation":
-              return <FaTicketAlt />;   
+        return <FaTicketAlt />;
       case "Billing Dashboard":
-                return <HiPhotograph />;  
+        return <HiPhotograph />;
       case "Training Management":
-                return <FaChalkboardTeacher />;  
+        return <FaChalkboardTeacher />;
       case "Trainee":
-                return <FaUserGraduate />;                            
+        return <FaUserGraduate />;
       default:
         return <MdOutlineDisabledByDefault />;
     }

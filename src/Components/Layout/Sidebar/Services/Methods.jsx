@@ -15,13 +15,13 @@ export const fetchCallingDashboardlogin = async () => {
         },
       },
     );
-    if(response.status === 200) {
+    if (response.status === 200) {
       if (response.data) {
-        return {responseCode: 1,responseData: response.data,responseMessage: response.status};
+        return { responseCode: 1, responseData: response.data, responseMessage: response.status };
       }
-      return { responseCode: 0, responseData: null, responseMessage:  response.status };
-    } 
-    return { responseCode: 0, responseData: null, responseMessage:  response.status };
+      return { responseCode: 0, responseData: null, responseMessage: response.status };
+    }
+    return { responseCode: 0, responseData: null, responseMessage: response.status };
   } catch (error) {
     return {
       responseCode: 0,
@@ -44,10 +44,10 @@ export const fetchCallingDashboardlogOut = async (token) => {
         },
       },
     );
-    if(response.status === 200) {
-      return {responseCode: 1,responseData: [],responseMessage: response.status};
-    } 
-    return { responseCode: 0, responseData: null, responseMessage:  response.status };
+    if (response.status === 200) {
+      return { responseCode: 1, responseData: [], responseMessage: response.status };
+    }
+    return { responseCode: 0, responseData: null, responseMessage: response.status };
   } catch (error) {
     return {
       responseCode: 0,

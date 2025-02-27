@@ -1,5 +1,5 @@
 .form-wrapper {
-  margin: 2px;  
+  margin: 2px;
 }
 
 .form-container {
@@ -89,7 +89,7 @@
     background-color: #007bff;
     color: white;
   }
-  
+
   .scheduled-training-box {
     background-color: #f9f9f9;
     padding: 10px;
@@ -100,19 +100,19 @@
     width: 100%;
     box-sizing: border-box;
   }
-  
+
   .scheduled-training-box h5 {
     font-size: 16px;
     color: #333;
     font-weight: 600;
     margin-bottom: 15px;
   }
-  
+
   .training-timetable {
     width: 100%;
     border-collapse: collapse; /* Remove spacing between cells */
   }
-  
+
   .training-timetable th,
   .training-timetable td {
     padding: 8px;
@@ -121,29 +121,27 @@
     color: #555;
     border-bottom: 1px solid #ddd;
   }
-  
+
   .training-timetable th {
     background-color: #f1f1f1; /* Light background for the header */
     font-weight: bold;
     color: #333;
   }
-  
+
   .training-timetable tr:hover {
     background-color: #f1f1f1;
     cursor: pointer;
   }
-  
+
   .training-timetable tr.highlight-upcoming-training {
     background-color: #ffcc00;
     color: white;
   }
-  
 
   .submit-btn:hover {
     opacity: 0.8;
   }
 }
-
 
 .highlight-upcoming-training {
   background-color: #ffcc00 !important;

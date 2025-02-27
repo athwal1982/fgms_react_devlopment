@@ -6,10 +6,7 @@ import { Button } from "Framework/Components/Widgets";
 import BizClass from "./KrphAllActivities.module.scss";
 import { getSessionStorage, setSessionStorage, decryptStringData } from "Components/Common/Login/Auth/auth";
 import { ticketDataBindingData } from "Components/Common/Welcome/Service/Methods";
-import {
-  getMasterDataBindingDataList,
-  getDistrictByState,
-} from "../../Modules/Support/ManageTicket/Views/Modals/AddTicket/Services/Methods";
+import { getMasterDataBindingDataList, getDistrictByState } from "../../Modules/Support/ManageTicket/Views/Modals/AddTicket/Services/Methods";
 import { krphFarmerCallingHistorydata, checkKRPHFarmerByMobileNumber } from "./Services/Methods";
 import PremiumCalculator from "./PremiumCalculator";
 import CreateTicket from "./CreateTicket";
@@ -102,8 +99,8 @@ function KrphAllActivities() {
         errors["txtReason"] = validateKRPHInfoField("txtReason", formValuesGI.txtReason);
       }
       if (formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1) {
-      errors["txtState"] = validateKRPHInfoField("txtState", formValuesGI.txtState);
-      errors["txtDistrict"] = validateKRPHInfoField("txtDistrict", formValuesGI.txtDistrict);
+        errors["txtState"] = validateKRPHInfoField("txtState", formValuesGI.txtState);
+        errors["txtDistrict"] = validateKRPHInfoField("txtDistrict", formValuesGI.txtDistrict);
       }
       errors["txtFarmerName"] = validateKRPHInfoField("txtFarmerName", formValuesGI.txtFarmerName);
 
@@ -171,10 +168,8 @@ function KrphAllActivities() {
         farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
         callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
         reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
-        stateCodeAlpha:
-          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
-        districtCodeAlpha:
-          formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        stateCodeAlpha: formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        districtCodeAlpha: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
         isRegistered: "U",
       };
       const result = await krphFarmerCallingHistorydata(formData);
@@ -203,13 +198,12 @@ function KrphAllActivities() {
     if (!handleKRPHInfoValidation()) {
       return;
     }
-    
+
     if (pType === "BTNNXT") {
       setActiveBtnKey(pType);
     } else if (pType === "BTNSBMT") {
       setActiveBtnKey(pType);
       SavevalidateFarmerOnClick();
-
     }
   };
 
@@ -330,7 +324,7 @@ function KrphAllActivities() {
       let result = "";
       let formData = "";
       formData = {
-        mobilenumber: dcryptUMBLENO ,
+        mobilenumber: dcryptUMBLENO,
       };
       result = await checkKRPHFarmerByMobileNumber(formData);
       setSelectedFarmer([]);
@@ -351,8 +345,14 @@ function KrphAllActivities() {
             ...formValuesGI,
             txtCallerID: dcryptUNQEID,
             txtMobileCallerNumber: dcryptUMBLENO,
-            txtState: parseFarmerData.data.result.stateID && parseFarmerData.data.result.state ? {StateCodeAlpha : parseFarmerData.data.result.stateID, StateMasterName: parseFarmerData.data.result.state } : null,
-            txtDistrict: parseFarmerData.data.result.districtID && parseFarmerData.data.result.district ? {level3ID : parseFarmerData.data.result.districtID, level3Name: parseFarmerData.data.result.district } : null,
+            txtState:
+              parseFarmerData.data.result.stateID && parseFarmerData.data.result.state
+                ? { StateCodeAlpha: parseFarmerData.data.result.stateID, StateMasterName: parseFarmerData.data.result.state }
+                : null,
+            txtDistrict:
+              parseFarmerData.data.result.districtID && parseFarmerData.data.result.district
+                ? { level3ID: parseFarmerData.data.result.districtID, level3Name: parseFarmerData.data.result.district }
+                : null,
             txtCallStatus: { ID: 1, Value: "Connected" },
             txtFarmerName: parseFarmerData.data.result ? parseFarmerData.data.result.farmerName : "",
             txtReason: null,
@@ -393,110 +393,118 @@ function KrphAllActivities() {
 
   return (
     <>
-      {serviceSuccessState === "UNSUCCESS" ?
-      <div className={BizClass.Box}>
-        <div className={BizClass.Div}>
-          <div className={BizClass.InfoDiv}>
-            <div className={BizClass.CreationDiv}>
-              <div className={BizClass.Title}>
-                <h3>Caller Information</h3>
-              </div>
+      {serviceSuccessState === "UNSUCCESS" ? (
+        <div className={BizClass.Box}>
+          <div className={BizClass.Div}>
+            <div className={BizClass.InfoDiv}>
               <div className={BizClass.CreationDiv}>
-                <div className={BizClass.Content}>
-                  <div className={BizClass.ContainerPnl}>
-                    <Form.Group column={4} controlwidth="25%">
-                      <Form.InputGroup label="Caller ID" req="true">
-                        <Form.InputControl
-                          control="input"
-                          name="txtCallerID"
-                          value={formValuesGI.txtCallerID}
-                          onChange={(e) => updateStateGI("txtCallerID", e.target.value.replace(/\D/g, ""))}
-                          disabled={true}
-                        />
-                      </Form.InputGroup>
-                      <Form.InputGroup label="Caller Mobile Number" req="true">
-                        <Form.InputControl
-                          control="input"
-                          name="txtMobileCallerNumber"
-                          value={formValuesGI.txtMobileCallerNumber}
-                          onChange={(e) => updateStateGI("txtMobileCallerNumber", e.target.value.replace(/\D/g, ""))}
-                          disabled={true}
-                          autoComplete="off"
-                        />
-                      </Form.InputGroup>
-                      <Form.InputGroup label="Call Status" req="true" errorMsg={formValidationKRPHError["txtCallStatus"]}>
-                        <Form.InputControl
-                          control="select"
-                          name="txtCallStatus"
-                          value={formValuesGI.txtCallStatus}
-                          options={callConnectedDropdownDataList}
-                          getOptionLabel={(option) => `${option.Value}`}
-                          getOptionValue={(option) => `${option}`}
-                          onChange={(e) => updateStateGI("txtCallStatus", e)}
-                        />
-                      </Form.InputGroup>
-                      {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                        <Form.InputGroup label="1">
-                          <Form.InputControl control="" />
-                        </Form.InputGroup>
-                      ) : null}
-                      {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
-                        <Form.InputGroup label="Reason" req="true" errorMsg={formValidationKRPHError["txtReason"]}>
+                <div className={BizClass.Title}>
+                  <h3>Caller Information</h3>
+                </div>
+                <div className={BizClass.CreationDiv}>
+                  <div className={BizClass.Content}>
+                    <div className={BizClass.ContainerPnl}>
+                      <Form.Group column={4} controlwidth="25%">
+                        <Form.InputGroup label="Caller ID" req="true">
                           <Form.InputControl
-                            control="select"
-                            name="txtReason"
-                            value={formValuesGI.txtReason}
-                            options={reasonDropdownDataList}
-                            getOptionLabel={(option) => `${option.Value}`}
-                            getOptionValue={(option) => `${option}`}
-                            onChange={(e) => updateStateGI("txtReason", e)}
+                            control="input"
+                            name="txtCallerID"
+                            value={formValuesGI.txtCallerID}
+                            onChange={(e) => updateStateGI("txtCallerID", e.target.value.replace(/\D/g, ""))}
+                            disabled={true}
                           />
                         </Form.InputGroup>
-                      ) : null}
-                      <Form.InputGroup req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" :"false"} label="State" errorMsg={formValidationKRPHError["txtState"]}>
-                        <Form.InputControl
-                          control="select"
-                          name="txtState"
-                          value={formValuesGI.txtState}
-                          options={stateKRPHDropdownDataList}
-                          isLoading={isLoadingStateDKRPHropdownDataList}
-                          getOptionLabel={(option) => `${option.StateMasterName}`}
-                          getOptionValue={(option) => `${option}`}
-                          onChange={(e) => updateStateGI("txtState", e)}
-                          isDisabled ={farmerAuthenticateByMobile}
-                        />
-                      </Form.InputGroup>
+                        <Form.InputGroup label="Caller Mobile Number" req="true">
+                          <Form.InputControl
+                            control="input"
+                            name="txtMobileCallerNumber"
+                            value={formValuesGI.txtMobileCallerNumber}
+                            onChange={(e) => updateStateGI("txtMobileCallerNumber", e.target.value.replace(/\D/g, ""))}
+                            disabled={true}
+                            autoComplete="off"
+                          />
+                        </Form.InputGroup>
+                        <Form.InputGroup label="Call Status" req="true" errorMsg={formValidationKRPHError["txtCallStatus"]}>
+                          <Form.InputControl
+                            control="select"
+                            name="txtCallStatus"
+                            value={formValuesGI.txtCallStatus}
+                            options={callConnectedDropdownDataList}
+                            getOptionLabel={(option) => `${option.Value}`}
+                            getOptionValue={(option) => `${option}`}
+                            onChange={(e) => updateStateGI("txtCallStatus", e)}
+                          />
+                        </Form.InputGroup>
+                        {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                          <Form.InputGroup label="1">
+                            <Form.InputControl control="" />
+                          </Form.InputGroup>
+                        ) : null}
+                        {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
+                          <Form.InputGroup label="Reason" req="true" errorMsg={formValidationKRPHError["txtReason"]}>
+                            <Form.InputControl
+                              control="select"
+                              name="txtReason"
+                              value={formValuesGI.txtReason}
+                              options={reasonDropdownDataList}
+                              getOptionLabel={(option) => `${option.Value}`}
+                              getOptionValue={(option) => `${option}`}
+                              onChange={(e) => updateStateGI("txtReason", e)}
+                            />
+                          </Form.InputGroup>
+                        ) : null}
+                        <Form.InputGroup
+                          req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" : "false"}
+                          label="State"
+                          errorMsg={formValidationKRPHError["txtState"]}
+                        >
+                          <Form.InputControl
+                            control="select"
+                            name="txtState"
+                            value={formValuesGI.txtState}
+                            options={stateKRPHDropdownDataList}
+                            isLoading={isLoadingStateDKRPHropdownDataList}
+                            getOptionLabel={(option) => `${option.StateMasterName}`}
+                            getOptionValue={(option) => `${option}`}
+                            onChange={(e) => updateStateGI("txtState", e)}
+                            isDisabled={farmerAuthenticateByMobile}
+                          />
+                        </Form.InputGroup>
 
-                      <Form.InputGroup label="District" req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" :"false" } errorMsg={formValidationKRPHError["txtDistrict"]}>
-                        <Form.InputControl
-                          control="select"
-                          name="txtDistrict"
-                          value={formValuesGI.txtDistrict}
-                          options={districtKRPHDropdownDataList}
-                          isLoading={isLoadingDistrictKRPHDropdownDataList}
-                          getOptionLabel={(option) => `${option.level3Name}`}
-                          getOptionValue={(option) => `${option}`}
-                          onChange={(e) => updateStateGI("txtDistrict", e)}
-                          isDisabled ={farmerAuthenticateByMobile}
-                        />
-                      </Form.InputGroup>
-                      <Form.InputGroup label="Farmer Name" req="true" errorMsg={formValidationKRPHError["txtFarmerName"]}>
-                        <Form.InputControl
-                          control="input"
-                          name="txtFarmerName"
-                          value={formValuesGI.txtFarmerName}
-                          onChange={(e) => updateStateGI("txtFarmerName", e.target.value)}
-                          autoComplete="off"
-                          disabled ={farmerAuthenticateByMobile}
-                        />
-                      </Form.InputGroup>
-                    </Form.Group>
-                    {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                      <div className={BizClass.toggleContainerKrphCenter}>
-                        <KrphToggleSwitch leftText={"Generate Ticket"} rightText={"Premium Calculator"} callback={onToggleChange} checked={toggleChange} />{" "}
-                      </div>
-                    ) : null}
-                    {/* {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                        <Form.InputGroup
+                          label="District"
+                          req={formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? "true" : "false"}
+                          errorMsg={formValidationKRPHError["txtDistrict"]}
+                        >
+                          <Form.InputControl
+                            control="select"
+                            name="txtDistrict"
+                            value={formValuesGI.txtDistrict}
+                            options={districtKRPHDropdownDataList}
+                            isLoading={isLoadingDistrictKRPHDropdownDataList}
+                            getOptionLabel={(option) => `${option.level3Name}`}
+                            getOptionValue={(option) => `${option}`}
+                            onChange={(e) => updateStateGI("txtDistrict", e)}
+                            isDisabled={farmerAuthenticateByMobile}
+                          />
+                        </Form.InputGroup>
+                        <Form.InputGroup label="Farmer Name" req="true" errorMsg={formValidationKRPHError["txtFarmerName"]}>
+                          <Form.InputControl
+                            control="input"
+                            name="txtFarmerName"
+                            value={formValuesGI.txtFarmerName}
+                            onChange={(e) => updateStateGI("txtFarmerName", e.target.value)}
+                            autoComplete="off"
+                            disabled={farmerAuthenticateByMobile}
+                          />
+                        </Form.InputGroup>
+                      </Form.Group>
+                      {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                        <div className={BizClass.toggleContainerKrphCenter}>
+                          <KrphToggleSwitch leftText={"Generate Ticket"} rightText={"Premium Calculator"} callback={onToggleChange} checked={toggleChange} />{" "}
+                        </div>
+                      ) : null}
+                      {/* {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
                       <div className={BizClass.SummaryBoardCenter}>
                         <div className={BizClass.SummaryBoard}>
                           <div
@@ -514,64 +522,72 @@ function KrphAllActivities() {
                         </div>
                       </div>
                     ) : null} */}
-                    <div className={BizClass.ValidateFormFooterBG}>
-                      <div className={BizClass.ValidateFormFooter}>
-                        <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnReset()}>
-                          Reset
-                        </Button>
-                        {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                          <Button className={BizClass.FormFooterButton}   onClick={() => OnClickBtnAction("BTNNXT")}>
-                            Next
+                      <div className={BizClass.ValidateFormFooterBG}>
+                        <div className={BizClass.ValidateFormFooter}>
+                          <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnReset()}>
+                            Reset
                           </Button>
-                        ) : formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
-                          <Button className={BizClass.FormFooterButton}   onClick={() => OnClickBtnAction("BTNSBMT")}>
-                            Submit
-                          </Button>
-                        ) : null}
+                          {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                            <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnAction("BTNNXT")}>
+                              Next
+                            </Button>
+                          ) : formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 2 ? (
+                            <Button className={BizClass.FormFooterButton} onClick={() => OnClickBtnAction("BTNSBMT")}>
+                              Submit
+                            </Button>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
+                    <br />
+                    {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
+                      <>
+                        {formValuesGI &&
+                        formValuesGI.txtCallStatus &&
+                        formValuesGI.txtCallStatus.ID === 1 &&
+                        activeKey === "PRMCAL" &&
+                        activeBtnKey === "BTNNXT" ? (
+                          <PremiumCalculator
+                            objStateData={objStateData}
+                            objDistrictData={objDistrictData}
+                            formValuesGI={formValuesGI}
+                            dcryptUNQEID={dcryptUNQEID}
+                          />
+                        ) : null}{" "}
+                      </>
+                    ) : null}
+                    {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 && activeKey === "TCKT" && activeBtnKey === "BTNNXT" ? (
+                      <CreateTicket
+                        dcryptUNQEID={dcryptUNQEID}
+                        dcryptUMBLENO={dcryptUMBLENO}
+                        objStateData={objStateData}
+                        objDistrictData={objDistrictData}
+                        farmerName={farmerName}
+                        selectedFarmer={selectedFarmer}
+                        setSelectedFarmer={setSelectedFarmer}
+                        fetchfarmersummary={fetchfarmersummary}
+                        setfetchfarmersummary={setfetchfarmersummary}
+                        farmersTicketSummaryData={farmersTicketSummaryData}
+                        setFarmersTicketSummaryData={setFarmersTicketSummaryData}
+                        stateCropLossIntimation={stateCropLossIntimation}
+                        setStateCropLossIntimation={setStateCropLossIntimation}
+                        farmerAuthenticateByMobile={farmerAuthenticateByMobile}
+                        formValuesGI={formValuesGI}
+                        setFormValuesGI={setFormValuesGI}
+                        serviceSuccessState={serviceSuccessState}
+                        setServiceSuccessState={setServiceSuccessState}
+                        setgetSupportTicketNo={setgetSupportTicketNo}
+                      />
+                    ) : null}
                   </div>
-                  <br />
-                  {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 ? (
-                    <>
-                      {formValuesGI &&
-                      formValuesGI.txtCallStatus &&
-                      formValuesGI.txtCallStatus.ID === 1 &&
-                      activeKey === "PRMCAL" &&
-                      activeBtnKey === "BTNNXT" ? (
-                        <PremiumCalculator objStateData={objStateData} objDistrictData={objDistrictData} formValuesGI={formValuesGI} dcryptUNQEID={dcryptUNQEID} />
-                      ) : null}{" "}
-                    </>
-                  ) : null}
-                  {formValuesGI && formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.ID === 1 && activeKey === "TCKT" && activeBtnKey === "BTNNXT" ? (
-                    <CreateTicket
-                      dcryptUNQEID={dcryptUNQEID}
-                      dcryptUMBLENO={dcryptUMBLENO}
-                      objStateData={objStateData}
-                      objDistrictData={objDistrictData}
-                      farmerName={farmerName}
-                      selectedFarmer={selectedFarmer}
-                      setSelectedFarmer={setSelectedFarmer}
-                      fetchfarmersummary={fetchfarmersummary}
-                      setfetchfarmersummary={setfetchfarmersummary}
-                      farmersTicketSummaryData={farmersTicketSummaryData}
-                      setFarmersTicketSummaryData={setFarmersTicketSummaryData}
-                      stateCropLossIntimation={stateCropLossIntimation}
-                      setStateCropLossIntimation={setStateCropLossIntimation}
-                      farmerAuthenticateByMobile={farmerAuthenticateByMobile}
-                      formValuesGI={formValuesGI}
-                      setFormValuesGI={setFormValuesGI}
-                      serviceSuccessState={serviceSuccessState}
-                      setServiceSuccessState={setServiceSuccessState}
-                      setgetSupportTicketNo={setgetSupportTicketNo}
-                    />
-                  ) : null}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div> : <ServiceSuccess getSupportTicketNo ={getSupportTicketNo} setServiceSuccessState={setServiceSuccessState} />}
+      ) : (
+        <ServiceSuccess getSupportTicketNo={getSupportTicketNo} setServiceSuccessState={setServiceSuccessState} />
+      )}
     </>
   );
 }

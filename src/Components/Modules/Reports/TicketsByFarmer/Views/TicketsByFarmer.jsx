@@ -20,7 +20,6 @@ function TicketsByFarmerReport({
   onClickClearSearchFilter,
   exportClick,
 }) {
-
   return (
     <div className={BizClass.PageStart}>
       <PageBar>
@@ -41,28 +40,28 @@ function TicketsByFarmerReport({
           onChange={(e) => updateState("txtToDate", e.target.value)}
           max={dateToSpecificFormat(moment().subtract(0, "days"), "YYYY-MM-DD")}
         />
-         <PageBar.Select
-                  ControlTxt="State"
-                  name="txtState"
-                  value={formValues.txtState}
-                  loader={isLoadingStateList ? <Loader /> : null}
-                  options={stateList}
-                  getOptionLabel={(option) => `${option.StateMasterName}`}
-                  getOptionValue={(option) => `${option}`}
-                  onChange={(e) => updateState("txtState", e)}
-                />
         <PageBar.Select
-            ControlTxt="Search By"
-            name="SearchByFilter"
-            getOptionLabel={(option) => `${option.label}`}
-            getOptionValue={(option) => `${option}`}
-            options={searchByoptionsFilter}
-            value={formValues.SearchByFilter}
-            onChange={(e) => updateState("SearchByFilter", e)}
-          />        
+          ControlTxt="State"
+          name="txtState"
+          value={formValues.txtState}
+          loader={isLoadingStateList ? <Loader /> : null}
+          options={stateList}
+          getOptionLabel={(option) => `${option.StateMasterName}`}
+          getOptionValue={(option) => `${option}`}
+          onChange={(e) => updateState("txtState", e)}
+        />
+        <PageBar.Select
+          ControlTxt="Search By"
+          name="SearchByFilter"
+          getOptionLabel={(option) => `${option.label}`}
+          getOptionValue={(option) => `${option}`}
+          options={searchByoptionsFilter}
+          value={formValues.SearchByFilter}
+          onChange={(e) => updateState("SearchByFilter", e)}
+        />
         <PageBar.Search
-           name="txtSearchFilter"
-           value={formValues.txtSearchFilter}
+          name="txtSearchFilter"
+          value={formValues.txtSearchFilter}
           onChange={(e) => onChangeTicketsByFarmerReportList(e.target.value)}
           onClick={() => getTicketsByFarmerList()}
         />
@@ -148,7 +147,7 @@ TicketsByFarmerReport.propTypes = {
   getTicketsByFarmerList: PropTypes.func.isRequired,
   stateList: PropTypes.array.isRequired,
   isLoadingStateList: PropTypes.bool,
-  searchByoptionsFilter:PropTypes.array.isRequired,
+  searchByoptionsFilter: PropTypes.array.isRequired,
   formValues: PropTypes.object.isRequired,
   updateState: PropTypes.func.isRequired,
   onClickClearSearchFilter: PropTypes.func.isRequired,

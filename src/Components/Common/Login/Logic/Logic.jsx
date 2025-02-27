@@ -311,9 +311,9 @@ function AddLoginLogics() {
       const params = Object.fromEntries(urlSearchParams.entries());
       // A console.log(encryptStringData(params && params.userName ? params.userName : "uN"));
       // A console.log(encryptStringData(params && params.userID ? params.userID : "uID"));
-       console.log(encryptStringData(params && params.mobileNumber ? params.mobileNumber : "uMO"));
+      console.log(encryptStringData(params && params.mobileNumber ? params.mobileNumber : "uMO"));
       // A console.log(encryptStringData(params && params.uniqueID ? params.uniqueID : "UNQEID"));
-     
+
       // A const encptUN = decryptStringData(params && params.userName ? params.userName : "uN");
       const encptUID = decryptStringData(params && params.userID ? params.userID : "uID");
       const encptUMBLENO = decryptStringData(params && params.mobileNumber ? params.mobileNumber : "uMO");
@@ -353,7 +353,7 @@ function AddLoginLogics() {
         };
         setSessionStorage("user", user);
         navigate("/KrphAllActivities");
-        // A navigate("/KrphAllActivitiesND"); 
+        // A navigate("/KrphAllActivitiesND");
       } else if (result.responseCode === 0) {
         setAlertMessage({
           type: "error",

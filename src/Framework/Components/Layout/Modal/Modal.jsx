@@ -73,10 +73,11 @@ function Modal(props) {
               <header id="handle" className={BizClass.Header}>
                 <h2>{title}</h2>
                 <div className={BizClass.ContentBox}>{Header.length === 1 ? Header : null}</div>
-                {onlyCancel === "true" ? null :
-                <button type="button" className={BizClass.CloseBtn} onClick={show}>
-                  <FaTimes />
-                </button>}
+                {onlyCancel === "true" ? null : (
+                  <button type="button" className={BizClass.CloseBtn} onClick={show}>
+                    <FaTimes />
+                  </button>
+                )}
               </header>
             )}
             <form className={BizClass.FormContent} {...restProps}>

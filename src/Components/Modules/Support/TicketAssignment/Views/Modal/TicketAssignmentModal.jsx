@@ -5,12 +5,7 @@ import { Modal } from "../../../../../../Framework/Components/Layout";
 import BizClass from "./TicketAssignmentModal.module.scss";
 import { Loader } from "Framework/Components/Widgets";
 
-function TicketAssignmentModal({
-  toggleViewTicketAssignment,
-  selectedUser,
-  getUserWiseTicketLister,
-  isLoadingTicketAssignment,
-}) {
+function TicketAssignmentModal({ toggleViewTicketAssignment, selectedUser, getUserWiseTicketLister, isLoadingTicketAssignment }) {
   const [UserTicketList, setUserTicketList] = useState([]);
   const [gridReadyTicketCount, setGridReadyTicketCount] = useState();
   const [searchInput, setSearchInput] = useState("");
@@ -27,8 +22,8 @@ function TicketAssignmentModal({
   };
 
   const onChangeTicketAssignmentModalList = (val) => {
-    setSearchInput(val); 
-    gridReadyTicketCount.setQuickFilter(val); 
+    setSearchInput(val);
+    gridReadyTicketCount.setQuickFilter(val);
   };
 
   const onGridReadyTicketCount = (params) => {
@@ -44,17 +39,10 @@ function TicketAssignmentModal({
       <Modal.Body>
         <div className={BizClass.Card}>
           <PageBar>
-            <PageBar.Search
-              value={searchInput}
-              onChange={(e) => onChangeTicketAssignmentModalList(e.target.value)}
-            />
+            <PageBar.Search value={searchInput} onChange={(e) => onChangeTicketAssignmentModalList(e.target.value)} />
           </PageBar>
           <DataGrid rowData={UserTicketList} loader={isLoadingTicketAssignment ? <Loader /> : null} onGridReady={onGridReadyTicketCount}>
-            <DataGrid.Column
-              headerName="Sr No."
-              valueGetter={(params) => params.node.rowIndex + 1}
-              width="80px"
-            />
+            <DataGrid.Column headerName="Sr No." valueGetter={(params) => params.node.rowIndex + 1} width="80px" />
             <DataGrid.Column headerName="Ticket No" field="SupportTicketNo" width={150} />
             <DataGrid.Column headerName="Farmer Name" field="RequestorName" width={220} />
             <DataGrid.Column headerName="Mobile No" field="RequestorMobileNo" width={150} />

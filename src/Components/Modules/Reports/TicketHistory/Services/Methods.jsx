@@ -33,8 +33,7 @@ export const getSupportTicketDetailReportMongo = async (formData) => {
   }
 };
 
-export const getSupportTicketDetailReportMongoDownload
-= async (formData) => {
+export const getSupportTicketDetailReportMongoDownload = async (formData) => {
   debugger;
   try {
     const requestData = {
@@ -42,8 +41,7 @@ export const getSupportTicketDetailReportMongoDownload
         ...formData,
       },
     };
-    const result = await ApiCalling(requestData, APIEndpoints.Reports.GetSupportTicketDetailReportMongoDownload
-    );
+    const result = await ApiCalling(requestData, APIEndpoints.Reports.GetSupportTicketDetailReportMongoDownload);
     return result;
   } catch (error) {
     console.log(error);

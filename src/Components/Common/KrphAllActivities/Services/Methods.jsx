@@ -379,7 +379,6 @@ export const checkKRPHFarmerByMobileNumber = async (formData) => {
   }
 };
 
-
 export const farmerTicketSummaryKRPH = async (formData) => {
   try {
     const requestData = {

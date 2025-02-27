@@ -120,7 +120,7 @@ function TicketHistory({
         </PageBar.ExcelButton>
       </PageBar>
       <div className={BizClass.divGridPagination}>
-        <DataGrid rowData={filteredTicketHistoryDataList}  loader={isLoadingTicketHistoryDataList ? <Loader /> : false} onGridReady={onGridReady}>
+        <DataGrid rowData={filteredTicketHistoryDataList} loader={isLoadingTicketHistoryDataList ? <Loader /> : false} onGridReady={onGridReady}>
           <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
           <DataGrid.Column field="CallingUniqueID" headerName="Calling ID" width="160px" />
           <DataGrid.Column field="NCIPDocketNo" headerName="NCIP Docket No" width="160px" />
@@ -165,20 +165,11 @@ function TicketHistory({
           <DataGrid.Column field="RequestorMobileNo" headerName="Mobile No" width="125px" />
           <DataGrid.Column field="TicketDescription" headerName="Description" width="290px" />
         </DataGrid>
-        {
-          showHide === 1 ? (
-            filteredTicketHistoryDataList.length === 0 ? null : (
-              <ResponsivePagination
-                current={currentPage}
-                total={totalPages}
-                onPageChange={handlePageChange}
-              />
-            )
-          ) : (
-
-            null
+        {showHide === 1 ? (
+          filteredTicketHistoryDataList.length === 0 ? null : (
+            <ResponsivePagination current={currentPage} total={totalPages} onPageChange={handlePageChange} />
           )
-        }
+        ) : null}
       </div>
     </div>
   );

@@ -10,9 +10,7 @@ import EditAgent from "../EditAgent/EditAgent";
 import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
 import { getTrainerList } from "../../TrainingManagement/Services/Methods";
 
-
 const TraineeList = () => {
-
   const navigate = useNavigate();
   const [rowData, setRowData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -23,7 +21,6 @@ const TraineeList = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const setAlertMessage = AlertMessage();
-
 
   const [center, setCenter] = useState([]);
   const [selectedCenter, setSelectedCenter] = useState("");
@@ -38,18 +35,11 @@ const TraineeList = () => {
         const status = agent.Status;
         return (
           <div className="action-icons">
-            <FaEdit
-              className="icon edit-icon"
-              title="Edit"
-              onClick={() => handleEdit(agent.UserID)}
-            />
-
+            <FaEdit className="icon edit-icon" title="Edit" onClick={() => handleEdit(agent.UserID)} />
           </div>
         );
       },
     },
-
-
 
     {
       headerName: "Status",
@@ -65,9 +55,7 @@ const TraineeList = () => {
           </div>
         );
       },
-    }
-    ,
-
+    },
     {
       headerName: "Trainee Name",
       field: "Name",
@@ -77,51 +65,49 @@ const TraineeList = () => {
         if (params.value) {
           return params.value
             .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join(" ");
         } else {
           return "NA";
         }
-      }
+      },
     },
-
 
     {
       headerName: "User Name",
       field: "UserName",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
     {
       headerName: "Email ID",
       field: "Email",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
     {
       headerName: "Mobile No.",
       field: "MobileNo",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
     {
       headerName: "Alternate Mobile No.",
       field: "MobileNumber",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
     {
       headerName: "Designation",
       field: "Designation",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
-
 
     {
       headerName: "DOB",
@@ -139,7 +125,7 @@ const TraineeList = () => {
         } else {
           return "NA";
         }
-      }
+      },
     },
 
     {
@@ -147,7 +133,7 @@ const TraineeList = () => {
       field: "Experience",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
 
     {
@@ -155,7 +141,7 @@ const TraineeList = () => {
       field: "Qualification",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
 
     {
@@ -163,30 +149,23 @@ const TraineeList = () => {
       field: "Location",
       sortable: true,
       filter: true,
-      cellRendererFramework: (params) => params.value ? params.value : "NA"
+      cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
-
-
   ]);
-
 
   const handleStatusUpdate = async () => {
     debugger;
     try {
       const formData = {
         SPUserRefId: String(formData.UserID),
-        Status: formData.Status
-
+        Status: formData.Status,
       };
       const result = await statusUpdate(formData);
       if (result.response.responseCode === 1) {
         setAlertMessage({ type: "success", message: "Update Success" });
       } else {
         setAlertMessage({ type: "error", message: "Error Update" });
-
       }
-
-
     } catch (err) {
       console.log(err);
     }
@@ -207,7 +186,7 @@ const TraineeList = () => {
           data.map((center) => ({
             value: center.CenterMasterID,
             label: `${center.Center} - ${center.Center}`,
-          }))
+          })),
         );
       } else {
         setCenter([]);
@@ -216,8 +195,6 @@ const TraineeList = () => {
       console.error("Error fetching center data:", error);
     }
   };
-
-
 
   const handleEdit = async (UserID) => {
     debugger;
@@ -241,35 +218,24 @@ const TraineeList = () => {
     } catch (error) {
       console.error(error);
     }
-
   };
-
-
-
-
-
-
-
-
-
 
   const getAllAgentData = async (page, query = "", centerMasterID = "") => {
     debugger;
     try {
-
       const formData = {
-        page_size: 10,           // Pagination size
-        page_number: page,      // Page number to fetch
-        totalPages: "",         // Will be populated later
-        searchQuery: query,     // Search query for filtering
-        viewMode: "ALL",        // ViewMode set to 'ALL'
-        userId: "",             // UserID is not required for this call
-        centerMasterID: centerMasterID  // Pass centerMasterID for filtering if provided
+        page_size: 10, // Pagination size
+        page_number: page, // Page number to fetch
+        totalPages: "", // Will be populated later
+        searchQuery: query, // Search query for filtering
+        viewMode: "ALL", // ViewMode set to 'ALL'
+        userId: "", // UserID is not required for this call
+        centerMasterID: centerMasterID, // Pass centerMasterID for filtering if provided
       };
 
       // Call the API function (e.g., getAllAgent) passing the formData
       const result = await getAllAgent(formData);
-   debugger;
+      debugger;
       // Check if the response is successful
       if (result.response.responseCode === 1) {
         // If successful, update state with received data
@@ -288,9 +254,6 @@ const TraineeList = () => {
     }
   };
 
-
-
-
   const debounceSearch = useCallback(
     _.debounce((query) => {
       if (query.length >= 4) {
@@ -299,7 +262,7 @@ const TraineeList = () => {
         getAllAgentData(1);
       }
     }, 500),
-    []
+    [],
   );
 
   const handleSearchInputChange = (query) => {
@@ -315,25 +278,17 @@ const TraineeList = () => {
 
   const renderPagination = () => (
     <div className="pagination-container">
-      <button
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
+      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
         <i className="fas fas fa-arrow-left"></i>
       </button>
       <span>
         Page {currentPage} of {totalPages}
       </span>
-      <button
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
+      <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
         <i className="fas fas fa-arrow-right"></i>
       </button>
     </div>
   );
-
-
 
   const toggleAgentStatus = async (agentId, currentStatus) => {
     try {
@@ -342,11 +297,7 @@ const TraineeList = () => {
       const result = await statusUpdate({ agentId, status: newStatus });
 
       if (result.success) {
-        setFilteredData((prevData) =>
-          prevData.map((agent) =>
-            agent._id === agentId ? { ...agent, status: newStatus } : agent
-          )
-        );
+        setFilteredData((prevData) => prevData.map((agent) => (agent._id === agentId ? { ...agent, status: newStatus } : agent)));
       } else {
         console.error("Failed to update agent status");
       }
@@ -355,13 +306,9 @@ const TraineeList = () => {
     }
   };
 
-
-
-
   const handleSearch = () => {
     getAllAgentData(1, searchQuery, selectedCenter);
   };
-
 
   useEffect(() => {
     debugger;
@@ -381,11 +328,7 @@ const TraineeList = () => {
                 value={searchQuery}
                 onChange={(e) => handleSearchInputChange(e.target.value)}
               />
-              <select
-                className="styled-dropdown"
-                value={selectedCenter}
-                onChange={(e) => setSelectedCenter(e.target.value)}
-              >
+              <select className="styled-dropdown" value={selectedCenter} onChange={(e) => setSelectedCenter(e.target.value)}>
                 <option value="">Select Center</option>
                 {center.map((item) => (
                   <option key={item.value} value={item.value}>
@@ -402,28 +345,28 @@ const TraineeList = () => {
           <div className="ag-theme-alpine ag-grid-container">
             <AgGridReact
               rowData={filteredData}
-
               columnDefs={[
                 {
                   headerName: "S.No",
                   valueGetter: (params) => params.node.rowIndex + 1,
                   width: 80,
                   headerClass: "custom-header-style",
-                }, ...columnDefs,
-
-
+                },
+                ...columnDefs,
               ]}
-              defaultColDef={{ resizable: true, sortable: true, headerClass: "custom-header-style-other", cellStyle: { border: "1px solid #ECECEC", padding: "5px" }, }}
+              defaultColDef={{
+                resizable: true,
+                sortable: true,
+                headerClass: "custom-header-style-other",
+                cellStyle: { border: "1px solid #ECECEC", padding: "5px" },
+              }}
               rowHeight={30}
             />
           </div>
           {renderPagination()}
         </div>
       </div>
-      {isModalOpen && (
-        <EditAgent user={selectedUser} onClose={() => setIsModalOpen(false)} />
-      )}
-
+      {isModalOpen && <EditAgent user={selectedUser} onClose={() => setIsModalOpen(false)} />}
     </>
   );
 };

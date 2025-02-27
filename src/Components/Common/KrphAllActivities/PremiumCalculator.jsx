@@ -5,12 +5,11 @@ import { dateFormatDDMMYY } from "Configration/Utilities/dateformat";
 import { AlertMessage } from "Framework/Components/Widgets/Notification/NotificationProvider";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import { getMasterDataBindingDataList, getDistrictByState } from "../../Modules/Support/ManageTicket/Views/Modals/AddTicket/Services/Methods";
-import { getCropListDistrictWiseDataList,AddCalculatedPremiumData } from "Components/Common/Calculator/Service/Method";
+import { getCropListDistrictWiseDataList, AddCalculatedPremiumData } from "Components/Common/Calculator/Service/Method";
 import { krphFarmerCallingHistorydata } from "./Services/Methods";
 import BizClass from "./PremiumCalculator.module.scss";
 
-function PremiumCalculator({objStateData,objDistrictData,formValuesGI,dcryptUNQEID,dcryptUID}) {
-  
+function PremiumCalculator({ objStateData, objDistrictData, formValuesGI, dcryptUNQEID, dcryptUID }) {
   const myRef = useRef(null);
   const executeScroll = () => myRef.current.scrollIntoView({ behavior: "smooth" });
   const setAlertMessage = AlertMessage();
@@ -334,12 +333,10 @@ function PremiumCalculator({objStateData,objDistrictData,formValuesGI,dcryptUNQE
         farmerName: formValuesGI.txtFarmerName ? formValuesGI.txtFarmerName : "",
         callStatus: formValuesGI.txtCallStatus && formValuesGI.txtCallStatus.Value ? formValuesGI.txtCallStatus.Value : "",
         reason: formValuesGI.txtReason && formValuesGI.txtReason.Value ? formValuesGI.txtReason.Value : "",
-        stateCodeAlpha:
-          formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
-        districtCodeAlpha:
-          formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
+        stateCodeAlpha: formValuesGI.txtState && formValuesGI.txtState.StateCodeAlpha ? formValuesGI.txtState.StateCodeAlpha : "",
+        districtCodeAlpha: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3ID ? formValuesGI.txtDistrict.level3ID : "",
         farmerStateName: formValuesGI.txtState && formValuesGI.txtState.StateMasterName ? formValuesGI.txtState.StateMasterName : "",
-        farmerDistrictName:formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
+        farmerDistrictName: formValuesGI.txtDistrict && formValuesGI.txtDistrict.level3Name ? formValuesGI.txtDistrict.level3Name : "",
         isRegistered: "P",
       };
       const result = await krphFarmerCallingHistorydata(formData);
@@ -456,7 +453,7 @@ function PremiumCalculator({objStateData,objDistrictData,formValuesGI,dcryptUNQE
     });
     setTimeout(() => executeScroll(), 0);
     setTimeout(() => {
-     SaveCalculatedPremiumData(formValuesForCalculator.txtAreaInHectareForCalculator, calculatedSumInsured);
+      SaveCalculatedPremiumData(formValuesForCalculator.txtAreaInHectareForCalculator, calculatedSumInsured);
     }, 500);
   };
 

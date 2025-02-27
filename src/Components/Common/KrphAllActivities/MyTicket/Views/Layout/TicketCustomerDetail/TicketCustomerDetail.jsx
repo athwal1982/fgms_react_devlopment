@@ -74,44 +74,45 @@ function TicketCustomerDetail({
       Year: "Year",
       resState: "State",
       resDistrict: "District",
-      resSubDistrict:"Sub District",
-      resVillage:"Village",
+      resSubDistrict: "Sub District",
+      resVillage: "Village",
       insuranceCompanyName: "Insurance Company",
       plotStateName: "Plot State",
       plotDistrictName: "Plot District",
       plotVillageName: "Plot Village",
       policyID: "Policy No",
-      applicationNo:"Application No",
+      applicationNo: "Application No",
       landSurveyNumber: "Land Survey Number",
-      landDivisionNumber:"Land Division Number",
+      landDivisionNumber: "Land Division Number",
       policyArea: "Area",
-      cropName:"Crop Name",
-      policyPremium:"Premium Amount",
-      applicationSource:"Source of Enrolment",
-      scheme:"Scheme",
-
+      cropName: "Crop Name",
+      policyPremium: "Premium Amount",
+      applicationSource: "Source of Enrolment",
+      scheme: "Scheme",
     };
-    const mappedData =  [{
+    const mappedData = [
+      {
         Season: ticketData && ticketData.RequestSeason && ticketData.RequestSeason === 1 ? "Kharif" : "Rabi",
         Year: ticketData && ticketData.RequestYear ? ticketData.RequestYear : "",
         resState: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].resState : "",
-        resDistrict: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].resDistrict:"",
-        resSubDistrict: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].resSubDistrict:"",
-        resVillage: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].resVillage: "",
-        insuranceCompanyName : selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].insuranceCompanyName : "",
+        resDistrict: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].resDistrict : "",
+        resSubDistrict: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].resSubDistrict : "",
+        resVillage: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].resVillage : "",
+        insuranceCompanyName: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].insuranceCompanyName : "",
         plotStateName: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].plotStateName : "",
         plotDistrictName: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].plotDistrictName : "",
         plotVillageName: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].plotVillageName : "",
         policyID: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].policyID : "",
         applicationNo: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].applicationNo : "",
-        landSurveyNumber:selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].landSurveyNumber: "",
+        landSurveyNumber: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].landSurveyNumber : "",
         landDivisionNumber: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].landDivisionNumber : "",
         policyArea: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].policyArea : "",
         cropName: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].cropName : "",
-        policyPremium: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].policyPremium:"",
+        policyPremium: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].policyPremium : "",
         applicationSource: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].applicationSource : "",
-        scheme:selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].scheme : "",
-      }];
+        scheme: selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].scheme : "",
+      },
+    ];
     const rearrangedData = rearrangeAndRenameColumns(mappedData, columnOrder);
     const workSheetColumnWidth = [
       { width: 10 },
@@ -191,9 +192,9 @@ function TicketCustomerDetail({
             <p>
               Land Location :
               <span id="spnLandDistrictVillage">
-              {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].plotStateName : ""}{" "}
-              {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? `, ${selectedPolicyDetails[0].plotDistrictName}` : ""}{" "}
-              {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? `, ${selectedPolicyDetails[0].plotVillageName}` : ""}{" "}
+                {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? selectedPolicyDetails[0].plotStateName : ""}{" "}
+                {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? `, ${selectedPolicyDetails[0].plotDistrictName}` : ""}{" "}
+                {selectedPolicyDetails && selectedPolicyDetails.length > 0 ? `, ${selectedPolicyDetails[0].plotVillageName}` : ""}{" "}
               </span>
             </p>
             <FiCopy onClick={() => copyToClipboard("spnLandDistrictVillage")} />

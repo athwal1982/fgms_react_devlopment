@@ -2006,10 +2006,10 @@ function AddTicketLogics() {
     formValidationSupportTicketError[name] = validateFieldSupportTicket(name, value);
   };
 
- // A const [runningCurrentYear, setRunningCurrentYear] = useState("");
+  // A const [runningCurrentYear, setRunningCurrentYear] = useState("");
   useEffect(() => {
     const currentYear = new Date().getFullYear();
-   // A  setRunningCurrentYear(currentYear);
+    // A  setRunningCurrentYear(currentYear);
     const yearArray = [];
     for (let i = 2018; i <= currentYear; i += 1) {
       yearArray.push({ Name: i.toString(), Value: i.toString() });
@@ -2769,28 +2769,28 @@ function AddTicketLogics() {
 
     if (name === "txtYearForFarmerInfo") {
       if (value) {
-          setSelectedOption("1");
-          setSelectedOptionCropStage("1");
-          setTicketCategoryTypeList([]);
-          setTicketCategoryList([]);
-          setLossAtList([]);
-          setCropStageList([]);
-          getTicketCategoryTypeListData("1", 0, "TCKTYP");
-          setFormValuesTicketCreation({
-            ...formValuesTicketCreation,
-            txtTicketCategoryType: null,
-            txtTicketCategory: null,
-            txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-            txtCropLossIntimation: "On-time",
-            txtCropLossTime: "",
-            txtTicketDescription: "",
-            txtLossAt: null,
-            txtOtherSubCategory: null,
-            txtCropStage: null,
-            txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
-            txtCropName: "",
-          });
-        }
+        setSelectedOption("1");
+        setSelectedOptionCropStage("1");
+        setTicketCategoryTypeList([]);
+        setTicketCategoryList([]);
+        setLossAtList([]);
+        setCropStageList([]);
+        getTicketCategoryTypeListData("1", 0, "TCKTYP");
+        setFormValuesTicketCreation({
+          ...formValuesTicketCreation,
+          txtTicketCategoryType: null,
+          txtTicketCategory: null,
+          txtCropLossDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+          txtCropLossIntimation: "On-time",
+          txtCropLossTime: "",
+          txtTicketDescription: "",
+          txtLossAt: null,
+          txtOtherSubCategory: null,
+          txtCropStage: null,
+          txtCropHarvestDate: dateToSpecificFormat(moment(), "YYYY-MM-DD"),
+          txtCropName: "",
+        });
+      }
     }
   };
   const onCellDoubleClickedDetails = (event) => {
@@ -3815,9 +3815,9 @@ function AddTicketLogics() {
           } else if (selectedOption === "2") {
             ptemplateID = "I";
           }
-            const pMobileNo = selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "";
-            const pSupportTicketNo = result.response.responseData.SupportTicketNo ? result.response.responseData.SupportTicketNo : "";
-            SendSMSToFarmerAgaintSupportTicket(ptemplateID, pMobileNo, pSupportTicketNo);
+          const pMobileNo = selectedFarmer && selectedFarmer.mobile ? selectedFarmer.mobile : "";
+          const pSupportTicketNo = result.response.responseData.SupportTicketNo ? result.response.responseData.SupportTicketNo : "";
+          SendSMSToFarmerAgaintSupportTicket(ptemplateID, pMobileNo, pSupportTicketNo);
         }
       } else {
         setAlertMessage({

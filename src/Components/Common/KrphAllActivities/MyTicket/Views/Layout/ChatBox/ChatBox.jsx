@@ -29,7 +29,6 @@ function ChatBox({
   const user = getSessionStorage("user");
   const ChkBRHeadTypeID = user && user.BRHeadTypeID ? user.BRHeadTypeID.toString() : "0";
 
-
   return (
     <div className={BizClass.ReplyBox} style={{ display: replyBoxCollapsed ? "none" : "block" }}>
       <TextEditor value={value} onChange={setValue} setWordcount={setWordcount} sizeLimit={sizeLimit} />
@@ -67,10 +66,11 @@ function ChatBox({
         <Button type="button" varient="secondary" trigger={btnLoaderActive1} onClick={(e) => handleSave(e)}>
           Send
         </Button>
-        {ChkBRHeadTypeID === "124001" ?
-        <Button type="button" varient="primary" trigger={btnLoaderActiveComment} onClick={() => handleAddComment()}>
+        {ChkBRHeadTypeID === "124001" ? (
+          <Button type="button" varient="primary" trigger={btnLoaderActiveComment} onClick={() => handleAddComment()}>
             Comment
-          </Button> : null}
+          </Button>
+        ) : null}
       </div>
     </div>
   );

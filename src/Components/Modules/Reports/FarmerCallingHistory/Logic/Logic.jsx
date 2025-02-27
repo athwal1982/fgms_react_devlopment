@@ -37,7 +37,17 @@ function FarmerCallingHistoryLogics() {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
     // A let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
     // A XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
-    worksheet["!cols"] = [{ width: 20 },{ width: 20 }, { width: 10 }, { width: 25 }, { width: 15 }, { width: 15 }, { width: 35 }, { width: 35 }, { width: 20 }];
+    worksheet["!cols"] = [
+      { width: 20 },
+      { width: 20 },
+      { width: 10 },
+      { width: 25 },
+      { width: 15 },
+      { width: 15 },
+      { width: 35 },
+      { width: 35 },
+      { width: 20 },
+    ];
     XLSX.writeFile(workbook, "Farmer_Calling_History.xlsx");
   };
 
@@ -166,8 +176,8 @@ function FarmerCallingHistoryLogics() {
           : "",
         Reason: value.Reason,
         InsertDateTime: value.InsertDateTime
-        ? dateToSpecificFormat(`${value.InsertDateTime.split("T")[0]} ${Convert24FourHourAndMinute(value.InsertDateTime.split("T")[1])}`, "DD-MM-YYYY HH:mm")
-        : "",
+          ? dateToSpecificFormat(`${value.InsertDateTime.split("T")[0]} ${Convert24FourHourAndMinute(value.InsertDateTime.split("T")[1])}`, "DD-MM-YYYY HH:mm")
+          : "",
       };
     });
     const rearrangedData = rearrangeAndRenameColumns(mappedData, columnOrder);
