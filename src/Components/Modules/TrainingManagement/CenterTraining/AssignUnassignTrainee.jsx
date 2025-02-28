@@ -181,7 +181,7 @@ function AssignUnAssignTrainee({
                 const splitData = data.split("|");
                 if (splitData.length > 0 && splitData[0] && splitData[1]) {
                   assignmentIdList.push({
-                    TraineeMasterID: splitData[0],
+                    TrainingMasterID: splitData[0],
                     TrainingUserAssignmentID: splitData[1],
                   });
                 }
@@ -194,16 +194,16 @@ function AssignUnAssignTrainee({
           if (assignedIds.length > 0) {
             assignedIds.forEach((data) => {
               TraineeList.forEach((x) => {
-                let pTraineeMasterID = "0";
+                let pTrainingMasterID = "0";
                 if (!Array.isArray(x)) {
-                  pTraineeMasterID = x.TraineeMasterID.toString();
+                  pTrainingMasterID = x.TrainingMasterID;
                 } else {
-                  pTraineeMasterID = x[0].TraineeMasterID.toString();
+                  pTrainingMasterID =  x[0].TrainingMasterID;
                 }
-                if (pTraineeMasterID === data.TraineeMasterID.toString()) {
+                if (pTrainingMasterID === data.TrainingMasterID.toString()) {
                   x.AssignmentFlag = 1;
-                  x.TraineeMasterID = data.TraineeMasterID;
-                  x.TrainingTraineeAssignmentID = data.TrainingUserAssignmentID;
+                  x.TrainingMasterID = data.TrainingMasterID;
+                  x.TrainingUserAssignmentID = data.TrainingUserAssignmentID;
                 }
               });
             });
@@ -367,7 +367,7 @@ const assignedTraineeActionTemplate = (props) => {
     <div style={{ display: "flex" }}>
       {props.data && props.data.AssignmentFlag === 1 ? (
         <span
-          title="Unassign The Center"
+          title="Unassign the trainee"
           style={{
             cursor: "pointer",
             display: "grid",

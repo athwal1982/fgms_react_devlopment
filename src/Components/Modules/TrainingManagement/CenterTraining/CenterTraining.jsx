@@ -57,7 +57,7 @@ const CenterTraining = () => {
     return (
       <>
         <>
-          <i className="fas fa-tasks" style={{ cursor: "pointer", color: "green" }} onClick={() => toggleAssignUnAssignCenterModal(props.data)} title="Assign Trainee"></i>
+          <i className="fas fa-tasks" style={{ cursor: "pointer", color: "green" }} onClick={() => toggleAssignUnAssignCenterModal(props.data)} title="Assign/UnAssign Trainee"></i>
         </>
       </>
     );

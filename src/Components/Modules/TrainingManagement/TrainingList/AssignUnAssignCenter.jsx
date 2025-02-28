@@ -302,7 +302,7 @@ function AssignUnAssignCenter({
                 // A headerCheckboxSelection
                 // A headerCheckboxSelectionFilteredOnly
                 checkboxSelection={checkboxSelection}
-                tooltipField="Assign The Center"
+                tooltipField="Assign the center"
                 cellRenderer="assignedCenterActionTemplate"
                 cellRendererParams={{
                   onClickDeleteAssignedCenter,
