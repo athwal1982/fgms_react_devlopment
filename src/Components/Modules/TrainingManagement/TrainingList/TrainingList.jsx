@@ -302,7 +302,7 @@ const TrainingList = () => {
           : null;
       },
     },
-    {
+    /* {
       headerName: "Updated By",
       field: "UpdatedBy",
       sortable: true,
@@ -325,7 +325,7 @@ const TrainingList = () => {
           )
           : null;
       },
-    },
+    }, */
   ]);
 
 

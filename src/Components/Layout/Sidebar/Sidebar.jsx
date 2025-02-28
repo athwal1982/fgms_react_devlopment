@@ -202,6 +202,8 @@ function Sidebar() {
         return <FaChalkboardTeacher />;
       case "Trainee":
         return <FaUserGraduate />;
+      case "Settings":
+          return <AiFillSetting />;  
       default:
         return <MdOutlineDisabledByDefault />;
     }
