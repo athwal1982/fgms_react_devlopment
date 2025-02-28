@@ -9,6 +9,7 @@ const APIEndpoints = {
     CSCCenterTrainingAssignManage : "FGMS/CSCCenterTrainingAssignManage",
     CSCCenterWiseTraining: "FGMS/CSCCenterWiseTraining",
     CSCUserTrainingAssignManage:"FGMS/CSCUserTrainingAssignManage",
+    CSCCenterWiseTraining:"FGMS/CSCCenterWiseTraining",
   },
 };  
 

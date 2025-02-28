@@ -371,16 +371,22 @@ const [openAssignUnAssignCenterModal, setOpenAssignAssignCenterModal] =
 const toggleAssignUnAssignCenterModal = (data) => {
   debugger;
   setOpenAssignAssignCenterModal(!openAssignUnAssignCenterModal);
+  
   setAssignUnAssignCenterModal(data);
 };
 
 
-  useEffect(() => {
-    debugger;
+  // A useEffect(() => {
+  // A  debugger;
 
-    fetchAllTraining(currentPage);
+  //  A fetchAllTraining(currentPage);
+  //  A fetchAllTrainer();
+  // A }, [currentPage]);
+
+  useEffect(() => {
+    fetchAllTraining(currentPage, searchQuery);
     fetchAllTrainer();
-  }, [currentPage]);
+  }, [currentPage, searchQuery]);
 
   return (
     <>
