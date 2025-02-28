@@ -76,109 +76,6 @@ function AssignUnAssignCenter({
         getAssignedUserListData(assignUnAssignCenterModal);
     }, [assignUnAssignCenterModal]);
 
-<<<<<<< HEAD
-  const updateAssignUnAssignCenter = (addedCenter) => {
-    if (assignedCenterGridApi) {
-      const rowData = [];
-      if (addedCenter && addedCenter.length > 0) {
-        addedCenter.forEach((data) => {
-          rowData.push(data);
-        });
-      }
-      assignedCenterGridApi.forEachNode((node) => rowData.push(node.data));
-      assignedCenterGridApi.setRowData(rowData);
-      CenterList.unshift(addedCenter[0]);
-      setCenterList([]);
-      setCenterList(CenterList);
-    }
-  };
-
-  const checkboxSelection = (params) => {
-    console.log(params);
-    if (params.node.data.AssignmentFlag === 1) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  const getRowStyle = (params) => {
-    if (params.data.IsNewlyAdded) {
-      return { background: "white" };
-    }
-    if (params.node.rowIndex % 2 === 0) {
-      return { background: "white" };
-    }
-    return { background: "white" };
-  };
-
-  return (
-    <>
-      <Modal
-        varient="half"
-        title={`Assign/Unassign Center (${
-            assignUnAssignCenterModal.TrainingTitle
-            ? assignUnAssignCenterModal.TrainingTitle
-            : ""
-        })`}
-        right={0}
-        width="50vw"
-        height="100vh"
-        show={toggleAssignUnAssignCenterModal}
-      >
-        <Modal.Body>
-          <div
-            className="PageStart"
-          >
-            <PageBar>
-              <PageBar.Search
-                value={searchTextAssigendCenter}
-                onChange={(e) => onSearchAssignedCenter(e.target.value)}
-              />
-            </PageBar>
-
-
-            <DataGrid
-              rowData={CenterList}
-              loader={isLoadingCenterList ? <Loader /> : null}
-              suppressRowClickSelection={true}
-              rowSelection={"multiple"}
-              getRowStyle={getRowStyle}
-              onGridReady={onAssignedCenterGridReady}
-              frameworkComponents={{
-                assignedCenterActionTemplate,
-              }}
-            >
-              <DataGrid.Column
-                lockPosition="1"
-                pinned="left"
-                headerName="Action"
-                field=""
-                width={80}
-                // A headerCheckboxSelection
-                // A headerCheckboxSelectionFilteredOnly
-                checkboxSelection={checkboxSelection}
-                tooltipField="Assign the center"
-                cellRenderer="assignedCenterActionTemplate"
-                cellRendererParams={{
-                  onClickDeleteAssignedCenter,
-                }}
-                
-              />
-              <DataGrid.Column
-                field="#"
-                headerName="Sr No."
-                width={75}
-                valueGetter="node.rowIndex + 1"
-                pinned="left"
-              />
-              <DataGrid.Column
-                field="AssignmentFlag"
-                headerName="Status"
-                width={120}
-                valueFormatter={(param) =>
-                  param.value === 1 ? "Assigned" : " Not Assigned"
-=======
     const onClickDeleteAssignedCenter = async (data) => {
         debugger;
         try {
@@ -208,7 +105,6 @@ function AssignUnAssignCenter({
                     assignedCenterGridApi.updateRowData({
                         update: itemsToUpdate,
                     });
->>>>>>> f04f741896bf8305ecca11f5b2d48283528e9397
                 }
             } else {
                 setAlertMessage({

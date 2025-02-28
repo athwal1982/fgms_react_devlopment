@@ -85,11 +85,15 @@ function AssignUnAssignTrainee({
     try {
       const formdata = {
         viewMode: "UNASSIGN",
-        TraineeID: data.TraineeMasterID,
-        trainingMasterID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.TrainingMasterId
-        ? assignUnAssignTraineeModal.TrainingMasterId.toString()
+        cSCAppAccessTypeID: userData && userData.CSCAccessTypeID ? userData.CSCAccessTypeID : 0,
+        centerID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.CenterMasterID
+        ? assignUnAssignTraineeModal.CenterMasterID.toString()
         : "0",
-        trainingTraineeAssignmentID: data.TrainingTraineeAssignmentID,
+        trainingMasterID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.TrainingMasterID
+        ? assignUnAssignTraineeModal.TrainingMasterID.toString()
+        : "0",
+        userID: data.UserID,
+        trainingUserAssignmentID: data.TrainingUserAssignmentID,
       };
       const result = await CSCUserTrainingAssignManageData(formdata);
       if (result.response.responseCode === 1) {
@@ -101,7 +105,7 @@ function AssignUnAssignTrainee({
         if (assignedTraineeGridApi) {
           const itemsToUpdate = [];
           assignedTraineeGridApi.forEachNode(function (rowNode) {
-            if (rowNode.data.TraineeMasterID === data.TraineeMasterID) {
+            if (rowNode.data.UserID === data.UserID) {
               itemsToUpdate.push(data);
               rowNode.setData(data);
             }
@@ -182,7 +186,7 @@ function AssignUnAssignTrainee({
                 const splitData = data.split("|");
                 if (splitData.length > 0 && splitData[0] && splitData[1]) {
                   assignmentIdList.push({
-                    TrainingMasterID: splitData[0],
+                    UserID: splitData[0],
                     TrainingUserAssignmentID: splitData[1],
                   });
                 }
@@ -195,15 +199,15 @@ function AssignUnAssignTrainee({
           if (assignedIds.length > 0) {
             assignedIds.forEach((data) => {
               TraineeList.forEach((x) => {
-                let pTrainingMasterID = "0";
+                let pUserID = "0";
                 if (!Array.isArray(x)) {
-                  pTrainingMasterID = x.TrainingMasterID;
+                  pUserID = x.UserID.toString();
                 } else {
-                  pTrainingMasterID =  x[0].TrainingMasterID;
+                  pUserID =  x[0].UserID.toString();
                 }
-                if (pTrainingMasterID === data.TrainingMasterID.toString()) {
+                if (pUserID === data.UserID.toString()) {
                   x.AssignmentFlag = 1;
-                  x.TrainingMasterID = data.TrainingMasterID;
+                  x.UserID = data.UserID;
                   x.TrainingUserAssignmentID = data.TrainingUserAssignmentID;
                 }
               });
@@ -342,6 +346,12 @@ function AssignUnAssignTrainee({
 
                   param.value === 1 ? "Assigned" : " Not Assigned"
                 }
+              />
+               <DataGrid.Column
+                field="UserID"
+                headerName="User ID"
+                width={150}
+                flex={1}
               />
               <DataGrid.Column
                 field="NAME"
