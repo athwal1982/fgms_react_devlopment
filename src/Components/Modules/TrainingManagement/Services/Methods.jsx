@@ -279,3 +279,59 @@ export const getAgentTraining = async (formData) => {
     };
   }
 };
+
+
+export const getAgentDetails = async (formData) => {
+  debugger;
+  try {
+    const requestData = {
+      main: {
+        ...formData,
+      },
+    };
+    const result = await ApiCalling(
+      requestData,
+      APIEndpoints.Training.CSCAgentBYID,
+    );
+    if (result.responseCode === 1) {
+      if (result.responseData) {
+        return { response: result };
+      }
+      return { response: result };
+    }
+    return { response: result };
+  } catch (error) {
+    console.log(error);
+    return {
+      response: { responseCode: 0, responseData: null, responseMessage: error },
+    };
+  }
+};
+
+export const UpdateAgentProfile = async (formData) => {
+  debugger;
+  try {
+    const requestData = {
+      main: {
+        ...formData,
+      },
+    };
+    const result = await ApiCalling(
+      requestData,
+      APIEndpoints.Training.CSCUpdateAgentBYID,
+    );
+    if (result.responseCode === 1) {
+      if (result.responseData) {
+        return { response: result };
+      }
+      return { response: result };
+    }
+    return { response: result };
+  } catch (error) {
+    console.log(error);
+    return {
+      response: { responseCode: 0, responseData: null, responseMessage: error },
+    };
+  }
+};
+

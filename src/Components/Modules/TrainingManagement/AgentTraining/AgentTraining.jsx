@@ -71,8 +71,8 @@ const AgentTraining = () => {
         const currentDateTime = moment();
       
         // Convert Training Date & Time to a valid DateTime format
-        const trainingStartDateTime = moment(`${TrainingDate} ${StartTime}`, "YYYY-MM-DD HH:mm");
-        const trainingEndDateTime = moment(`${TrainingDate} ${EndTime}`, "YYYY-MM-DD HH:mm");
+        const trainingStartDateTime = moment(`${TrainingDate} ${StartTime}`, "YYYY-MM-DD HH:mm").subtract(15, "minutes");
+  const trainingEndDateTime = moment(`${TrainingDate} ${EndTime}`, "YYYY-MM-DD HH:mm").add(15, "minutes");
       
         // Check if the meeting is active
         const isMeetingActive = currentDateTime.isBetween(trainingStartDateTime, trainingEndDateTime);
