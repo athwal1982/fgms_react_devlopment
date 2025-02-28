@@ -315,12 +315,12 @@ function AssignUnAssignTrainee({
               <DataGrid.Column
                 lockPosition="1"
                 pinned="left"
-                headerName="Action"
+                headerName=""
                 field=""
                 flex={1}
                 width={80}
-                // A headerCheckboxSelection
-                // A headerCheckboxSelectionFilteredOnly
+                headerCheckboxSelection
+                headerCheckboxSelectionFilteredOnly
                 checkboxSelection={checkboxSelection}
                 tooltipField="Assign The Trainee"
                 cellRenderer="assignedTraineeActionTemplate"
@@ -340,7 +340,7 @@ function AssignUnAssignTrainee({
               <DataGrid.Column
                 field="AssignmentFlag"
                 headerName="Status"
-                width={120}
+                width={110}
                 flex={1}
                 valueFormatter={(param) =>
 
@@ -350,7 +350,7 @@ function AssignUnAssignTrainee({
                <DataGrid.Column
                 field="UserID"
                 headerName="User ID"
-                width={150}
+                width={100}
                 flex={1}
               />
               <DataGrid.Column
@@ -363,7 +363,7 @@ function AssignUnAssignTrainee({
                 field="Center"
                 flex={1}
                 headerName="Center Name"
-                width={150}
+                width={120}
               />
             </DataGrid>
           </div>

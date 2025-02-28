@@ -303,10 +303,12 @@ function AssignUnAssignCenter({
                             <DataGrid.Column
                                 lockPosition="1"
                                 pinned="left"
-                                headerName="Action"
+                                headerName=""
                                 flex={1}
                                 field=""
                                 width={80}
+                                headerCheckboxSelection
+                                headerCheckboxSelectionFilteredOnly
                                 checkboxSelection={checkboxSelection}
                                 tooltipField="Assign The Center"
                                 cellRenderer="assignedCenterActionTemplate"

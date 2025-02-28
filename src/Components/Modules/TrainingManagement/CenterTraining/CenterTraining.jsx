@@ -90,7 +90,7 @@ const CenterTraining = () => {
         field: "TrainingTitle",
         sortable: true,
         filter: true,
-        width: 150,
+        width: 220,
       },
       {
         headerName: "Training Link",
