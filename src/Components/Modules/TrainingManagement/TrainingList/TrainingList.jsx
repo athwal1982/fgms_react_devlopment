@@ -11,6 +11,7 @@ import { Modal, Button } from "react-bootstrap";
 import Select from "react-select";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import AssignUnAssignCenter from "./AssignUnAssignCenter";
+import AssignUnassginTraineeByAdmin from "./AssignUnassginTraineeByAdmin.jsx";
 
 const TrainingList = () => {
   const setAlertMessage = AlertMessage();
@@ -205,6 +206,10 @@ const TrainingList = () => {
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
               onClick={() => toggleAssignUnAssignCenterModal(props.data)}
               title="Assign/Unassign Center"></i>
+            <i class="fa fa-tasks"  
+              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+              onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
+              title="Assign/Unassign Trainee"></i>  
             {/* <i
               className="fas fa-edit"
               style={{ cursor: "pointer", color: "green" }}
@@ -375,6 +380,17 @@ const toggleAssignUnAssignCenterModal = (data) => {
   setAssignUnAssignCenterModal(data);
 };
 
+const [assignUnAssignTraineeByAdminModal, setAssignUnAssignTraineeByAdminModal] =
+useState(false);
+const [openAssignUnAssignTraineeByAdminModal, setOpenAssignAssignTraineeByAdminModal] =
+useState(false);
+const toggleAssignUnAssignTraineeByAdminModal = (data) => {
+debugger;
+setOpenAssignAssignTraineeByAdminModal(!openAssignUnAssignTraineeByAdminModal);
+
+setAssignUnAssignTraineeByAdminModal(data);
+};
+
 
   // A useEffect(() => {
   // A  debugger;
@@ -394,6 +410,12 @@ const toggleAssignUnAssignCenterModal = (data) => {
         <AssignUnAssignCenter
           toggleAssignUnAssignCenterModal={toggleAssignUnAssignCenterModal}
           assignUnAssignCenterModal={assignUnAssignCenterModal}
+        />
+      )}
+       {openAssignUnAssignTraineeByAdminModal && (
+        <AssignUnassginTraineeByAdmin
+          toggleAssignUnAssignTraineeByAdminModal={toggleAssignUnAssignTraineeByAdminModal}
+          assignUnAssignTraineeByAdminModal={assignUnAssignTraineeByAdminModal}
         />
       )}
       <div className="form-wrapper-agent">

@@ -246,7 +246,7 @@
   width: 400px;
   transition: all 0.3s ease-in-out;
   position: relative;
-  border: 2px solid #004d00;
+  border: 1px solid #004d00;
 }
 
 /* Search Input */
@@ -310,4 +310,18 @@
   color: white !important;
   font-size: 14px;
   text-align: center;
+}
+
+.custom-ddl-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 6px;
+  margin-top: 5px;
+  margin-left: 5px;
+  padding: 6px 12px;;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  border: 1px solid #004d00;
 }
