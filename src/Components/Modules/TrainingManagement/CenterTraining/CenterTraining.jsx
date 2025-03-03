@@ -39,10 +39,11 @@ const CenterTraining = () => {
     try {
       const response = await CSCCenterWiseTrainingData({ page, limit, searchQuery: query, SPUserID: userData && userData.LoginID ? userData.LoginID : 0, SPMode: "CENTERTRAINING" });
       let responseCode = response.response.responseCode;
+      
       if (responseCode === 1) {
-        setRowData(response.response.responseData);
-        setFilteredData(response.response.responseData);
-        setTotalPages(response.totalPages);
+        setRowData(response.response.responseData.result);
+        setFilteredData(response.response.responseData.result);
+        setTotalPages(response.response.responseData.totalPages);
         
       } else {
         setRowData([]);

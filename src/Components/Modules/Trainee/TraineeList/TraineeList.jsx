@@ -232,7 +232,8 @@ const TraineeList = () => {
         userId: "", // UserID is not required for this call
         centerMasterID: centerMasterID, // Pass centerMasterID for filtering if provided
       };
-
+      
+    
       // Call the API function (e.g., getAllAgent) passing the formData
       const result = await getAllAgent(formData);
       debugger;
@@ -273,8 +274,11 @@ const TraineeList = () => {
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
       setCurrentPage(newPage);
+      getAllAgentData(newPage, searchQuery, selectedCenter); // Use latest search filters
     }
   };
+  
+  
 
   const renderPagination = () => (
     <div className="pagination-container">
@@ -307,14 +311,17 @@ const TraineeList = () => {
   };
 
   const handleSearch = () => {
+    setCurrentPage(1); // Reset to first page when searching
     getAllAgentData(1, searchQuery, selectedCenter);
   };
+  
 
   useEffect(() => {
-    debugger;
-    getAllAgentData(currentPage);
+    getAllAgentData(currentPage, "", ""); // Load data initially without filters
     fetchAllTrainer();
-  }, [currentPage]);
+  }, []); // Empty dependency array ensures this runs only once on mount
+  
+  
   return (
     <>
       <div className="form-wrapper-agent">

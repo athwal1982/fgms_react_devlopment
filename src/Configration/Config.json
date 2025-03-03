@@ -1,3 +1,4 @@
 {
-  "BaseUrl": "http://14.141.50.211:8021/"
+  "BaseUrl": "http://14.141.50.211:8021/",
+  "BaseUrltest": " http://localhost:8021/"
 }

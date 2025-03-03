@@ -40,16 +40,13 @@ const TrainingList = () => {
     debugger;
     try {
       const response = await getTrainingListData({ page, limit, searchQuery: query });
-      let data = response.response.responseData;
+      let data = response.response.responseData.items;
       let responseCode = response.response.responseCode;
       if (responseCode === 1) {
-        const updatedData = data.map(item => ({
-          ...item,
-          Assigned: item.Assigned === 1 ? "Yes" : "No"
-        }));
-        setRowData(updatedData);
-        setFilteredData(updatedData);
-        setTotalPages(response.totalPages);
+        
+        setRowData(data);
+        setFilteredData(data);
+        setTotalPages(response.response.responseData.totalPages);
       } else {
         setRowData([]);
         setFilteredData([]);
@@ -206,7 +203,7 @@ const TrainingList = () => {
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
               onClick={() => toggleAssignUnAssignCenterModal(props.data)}
               title="Assign/Unassign Center"></i>
-            <i class="fa fa-tasks"  
+            <i  class="fa fa-user-graduate"  
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
               onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
               title="Assign/Unassign Trainee"></i>  
@@ -401,7 +398,7 @@ setAssignUnAssignTraineeByAdminModal(data);
 
   useEffect(() => {
     fetchAllTraining(currentPage, searchQuery);
-    fetchAllTrainer();
+    // A fetchAllTrainer();
   }, [currentPage, searchQuery]);
 
   return (

@@ -14,11 +14,16 @@ import "./TrainingList.scss";
 function AssignUnAssignCenter({
     toggleAssignUnAssignCenterModal,
     assignUnAssignCenterModal,
+  
 }) {
     const setAlertMessage = AlertMessage();
 
     const userData = getSessionStorage("user");
 
+    const handleChange = (e) => {
+        setSelectedCenterIds(e.target.value);
+        TrainingList(e.target.value); 
+    };
     const [assignedCenterGridApi, setAssignedCenterGridApi] = useState();
     const onAssignedCenterGridReady = (params) => {
         setAssignedCenterGridApi(params.api);
@@ -38,7 +43,7 @@ function AssignUnAssignCenter({
         debugger;
         // A setProfileRightData(data);
         try {
-            setCenterList([]);
+            
             setIsLoadingCenterList(true);
             const formdata = {
                 viewMode: "GETALLCENTER",
@@ -144,6 +149,9 @@ function AssignUnAssignCenter({
                     return data.CenterMasterID;
                 })
                 .join(",");
+
+                
+
             setBtnLoaderActive(true);
 
             const formdata = {
