@@ -145,7 +145,23 @@ function ManageTicketLogics() {
     } else if (pType === "DEFAULTFILTER") {
       TicketStatusID = 109301;
     }
-
+    if (formValues.txtFromDate) {
+      if (formValues.txtToDate) {
+        if (formValues.txtFromDate > formValues.txtToDate) {
+          setAlertMessage({
+            type: "error",
+            message: "From Date must be less than To Date",
+          });
+          return;
+        }
+      } else {
+        setAlertMessage({
+          type: "error",
+          message: "Please select To Date",
+        });
+        return;
+      }
+    }
     if (showHideDownload === false) {
       const dateDiffrence = daysdifference(dateFormatDefault(formValues.txtFromDate), dateFormatDefault(formValues.txtToDate));
       if (formValues.txtFromDate === "") {
@@ -183,9 +199,9 @@ function ManageTicketLogics() {
     }
 
     try {
-      const userData = getSessionStorage("user");
-      const ChkBRHeadTypeID = userData && userData.BRHeadTypeID ? userData.BRHeadTypeID.toString() : "0";
-      const ChkAppAccessTypeID = userData && userData.AppAccessTypeID ? userData.AppAccessTypeID.toString() : "0";
+      // A const userData = getSessionStorage("user");
+      // A const ChkBRHeadTypeID = userData && userData.BRHeadTypeID ? userData.BRHeadTypeID.toString() : "0";
+      // A const ChkAppAccessTypeID = userData && userData.AppAccessTypeID ? userData.AppAccessTypeID.toString() : "0";
       const formData = {
         insuranceCompanyID: formValues.txtInsuranceCompany && formValues.txtInsuranceCompany.CompanyID ? formValues.txtInsuranceCompany.CompanyID : 0,
         viewTYP: pviewTYP,
@@ -209,11 +225,12 @@ function ManageTicketLogics() {
       };
       setIsLoadingFarmersticket(true);
       let result = [];
-      if (ChkBRHeadTypeID === "124003" && ChkAppAccessTypeID === "503") {
-        result = await getAssignedTicketList(formData);
-      } else {
-        result = await getfarmerTicketsListPagging(formData);
-      }
+      // A if (ChkBRHeadTypeID === "124003" && ChkAppAccessTypeID === "503") {
+      // A  result = await getAssignedTicketList(formData);
+      // A } else {
+      // A  result = await getfarmerTicketsListPagging(formData);
+      // A }
+      result = await getfarmerTicketsListPagging(formData);
       setIsLoadingFarmersticket(false);
       let totalStsCnt = 0;
       const jsonStatusCnt = { Open: "0", InProgress: "0", Resolved: "0", ResolvedInformation: "0", ReOpen: "0" };
@@ -600,7 +617,9 @@ function ManageTicketLogics() {
       }
 
       setViewTypeMode(pviewTYP);
-
+      // A const userData = getSessionStorage("user");
+      // A const ChkBRHeadTypeID = userData && userData.BRHeadTypeID ? userData.BRHeadTypeID.toString() : "0";
+      // A const ChkAppAccessTypeID = userData && userData.AppAccessTypeID ? userData.AppAccessTypeID.toString() : "0";
       const formData = {
         insuranceCompanyID: 0,
         viewTYP: pviewTYP,
@@ -622,6 +641,13 @@ function ManageTicketLogics() {
         pageSize: pageSize,
       };
       setIsLoadingFarmersticket(true);
+     // A const result = await getfarmerTicketsListPagging(formData);
+    // A  let result = [];
+      // A if (ChkBRHeadTypeID === "124003" && ChkAppAccessTypeID === "503") {
+      // A  result = await getAssignedTicketList(formData);
+      // A} else {
+      // A  result = await getfarmerTicketsListPagging(formData);
+      // A}
       const result = await getfarmerTicketsListPagging(formData);
       setIsLoadingFarmersticket(false);
       let totalStsCnt = 0;
@@ -789,8 +815,8 @@ function ManageTicketLogics() {
                   value.SupportTicketTypeID === 13
                     ? `${value.SupportTicketTypeName}(Loss at individual farms)`
                     : value.SupportTicketTypeID === 14
-                    ? `${value.SupportTicketTypeName}(Loss at multiple farms)`
-                    : value.SupportTicketTypeName,
+                      ? `${value.SupportTicketTypeName}(Loss at multiple farms)`
+                      : value.SupportTicketTypeName,
                 SupportTicketTypeID: value.SupportTicketTypeID ? value.SupportTicketTypeID : "",
               };
             });
@@ -1181,6 +1207,9 @@ function ManageTicketLogics() {
     getStateListData();
     getSchemeListData();
   };
+  const handleBackButtonClick = () => {
+    setshowHideManageTicket(false);
+  };
 
   return {
     farmersTicketData,
@@ -1198,6 +1227,7 @@ function ManageTicketLogics() {
     getTicketCategoryListData,
     getTicketCategoryTypeListData,
     refereshFarmerTicket,
+    handleBackButtonClick,
     ClearTicketFilters,
     getTicketSourceListData,
     ticketSourceList,
