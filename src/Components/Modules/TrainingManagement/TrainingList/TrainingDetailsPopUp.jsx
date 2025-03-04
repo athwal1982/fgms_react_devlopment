@@ -114,6 +114,7 @@ function TrainingDetailsPopUp({
                         type: "success",
                         message: result.response.responseMessage,
                     });
+                    getAssignedUserListData();
                     data.AssignmentFlag = 0;
                     if (assignedCenterGridApi) {
                         const itemsToUpdate = [];
@@ -179,56 +180,13 @@ function TrainingDetailsPopUp({
             const result = await setUpdateAttendance(formdata);
             setBtnLoaderActive(false);
             if (result.response.responseCode === 1) {
+            
                 setAlertMessage({
                     type: "success",
                     message: result.response.responseMessage,
                 });
-                if (result.response.responseData) {
-                    const responseAssignedIds = result.response.responseData.AssignCenterID
-                        ? result.response.responseData.AssignCenterID.split(",")
-                        : [];
-                    console.log(responseAssignedIds);
-                    let assignedIds = [];
-                    if (responseAssignedIds.length > 0) {
-                        assignedIds = responseAssignedIds.reduce(
-                            (assignmentIdList, data) => {
-                                const splitData = data.split("|");
-                                if (splitData.length > 0 && splitData[0] && splitData[1]) {
-                                    assignmentIdList.push({
-                                        CenterMasterID: splitData[0],
-                                        TrainingCenterAssignmentID: splitData[1],
-                                    });
-                                }
-                                return assignmentIdList;
-                            },
-                            []
-                        );
-                    }
-
-                    if (assignedIds.length > 0) {
-                        assignedIds.forEach((data) => {
-                            CenterList.forEach((x) => {
-                                let pCenterMasterID = "0";
-                                if (!Array.isArray(x)) {
-                                    pCenterMasterID = x.CenterMasterID.toString();
-                                } else {
-                                    pCenterMasterID = x[0].CenterMasterID.toString();
-                                }
-                                if (pCenterMasterID === data.CenterMasterID.toString()) {
-                                    x.AssignmentFlag = 1;
-                                    x.CenterMasterID = data.CenterMasterID;
-                                    x.TrainingCenterAssignmentID = data.TrainingCenterAssignmentID;
-                                }
-                            });
-                        });
-                    }
-                }
-
-                setCenterList([]);
-                setCenterList(CenterList);
-                if (assignedCenterGridApi) {
-                    assignedCenterGridApi.setRowData(CenterList);
-                }
+               
+                getAssignedUserListData();
             } else {
                 setAlertMessage({
                     type: "warning",
