@@ -14,7 +14,6 @@ const AgentTraining = () => {
   const navigate = useNavigate();
 
   const [rowData, setRowData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -25,30 +24,37 @@ const AgentTraining = () => {
  
 
 
-    const fetchAllTrainer = async () => {
-        debugger;
-      const formData = {
-        SPUserID:CscUserID,
-        SPMode:"USERTRAINING"
-    };
-      try {
+  const fetchAllTrainer = async () => {
+    try {
+        const formData = {
+            SPUserID: CscUserID,
+            SPMode: "USERTRAINING"
+        };
         const response = await getAgentTraining(formData);
-        let data = response.response.responseData;
-        let responseCode = response.response.responseCode;
-  
+        console.log("API Response:", response); 
+
+      
+        let data = response.response.responseData.result;
+        let responseCode = response.response.responseCode || 0;
+
         if (responseCode === 1) {
-            setRowData(data);
-            setFilteredData(data);
-  
+            const transformedData = data.map(item => ({
+                ...item,
+                IsPresent: item.IsPresent === "Y" ? "Present" : item.IsPresent === "N" ? "Absent" : item.IsPresent
+            }));
+            setRowData(transformedData);
+          
         } else {
             setRowData([]);
-            setFilteredData();
-  
+           
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Error fetching trainer data:", error);
-      }
-    };
+        setRowData([]); 
+       
+    }
+};
+
  
 
 
@@ -122,14 +128,14 @@ const AgentTraining = () => {
       field: "TrainingType",
       sortable: true,
       filter: true,
-      width: 200,
+      width: 150,
     },
     {
       headerName: "Training Title",
       field: "TrainingTitle",
       sortable: true,
       filter: true,
-      width: 200,
+      width: 150,
     },
 
     {
@@ -137,28 +143,43 @@ const AgentTraining = () => {
       field: "TrainingDate",
       sortable: true,
       filter: true,
-      width: 180,
+      width: 140,
       valueFormatter: (param) =>
         param.value ? moment(param.value).format("DD-MM-YYYY") : "",
     },
     {
-      headerName: "Start Time",
-      field: "StartTime",
-      sortable: true,
-      filter: true,
-      width: 180,
-      valueGetter: (node) =>
-        node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null,
-    },
+        headerName: "Start Time",
+        field: "StartTime",
+        sortable: true,
+        filter: true,
+        width: 140,
+        valueGetter: (node) =>
+          node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null,
+      },
+      {
+        headerName: "End Time",
+        field: "EndTime",
+        sortable: true,
+        filter: true,
+        width: 140,
+        valueGetter: (node) =>
+          node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null,
+      },
     {
-      headerName: "End Time",
-      field: "EndTime",
-      sortable: true,
-      filter: true,
-      width: 180,
-      valueGetter: (node) =>
-        node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null,
-    },
+        headerName: "Attendance Status",
+        field: "IsPresent",
+        sortable: true,
+        filter: true,
+        width: 150,
+      },
+      {
+        headerName: "Number of Hours",
+        field: "Duration",
+        sortable: true,
+        filter: true,
+        width: 150,
+      },
+
    
   ]);
 

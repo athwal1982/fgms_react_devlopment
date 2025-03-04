@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
 import "./TraineeList.scss";
 import { FaEdit } from "react-icons/fa";
-import { getAllAgent, statusUpdate } from "./Services/Methods";
+import { getAllAgent, statusUpdate,setCSCUpdateAgentBYID } from "./Services/Methods";
 import _ from "lodash";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import EditAgent from "../EditAgent/EditAgent";
@@ -19,11 +19,27 @@ const TraineeList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+ 
   const setAlertMessage = AlertMessage();
 
   const [center, setCenter] = useState([]);
   const [selectedCenter, setSelectedCenter] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [selectedAgent, setSelectedAgent] = useState(null);
+
+const handleEdit = (agent) => {
+  debugger;
+  
+  setSelectedAgent(agent);
+  setIsModalOpen(true);
+};
+
+
+const handleCloseModal = () => {
+  setIsModalOpen(false);
+  setSelectedAgent(null);
+};
+
 
   const [columnDefs] = useState([
     {
@@ -32,10 +48,13 @@ const TraineeList = () => {
       width: 100,
       cellRendererFramework: (params) => {
         const agent = params.data;
-        const status = agent.Status;
         return (
           <div className="action-icons">
-            <FaEdit className="icon edit-icon" title="Edit" onClick={() => handleEdit(agent.UserID)} />
+            <FaEdit
+              className="icon edit-icon"
+              title="Edit"
+              onClick={() => handleEdit(agent)}
+            />
           </div>
         );
       },
@@ -196,7 +215,7 @@ const TraineeList = () => {
     }
   };
 
-  const handleEdit = async (UserID) => {
+  const handleEdit23 = async (UserID) => {
     debugger;
     try {
       const formData = {
@@ -250,7 +269,7 @@ const TraineeList = () => {
         console.error(result.response.responseMessage);
       }
     } catch (error) {
-      // Log any errors encountered during the request
+     
       console.error(error);
     }
   };
@@ -274,7 +293,7 @@ const TraineeList = () => {
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
       setCurrentPage(newPage);
-      getAllAgentData(newPage, searchQuery, selectedCenter); // Use latest search filters
+      getAllAgentData(newPage, searchQuery, selectedCenter); 
     }
   };
   
@@ -320,10 +339,120 @@ const TraineeList = () => {
     getAllAgentData(currentPage, "", ""); // Load data initially without filters
     fetchAllTrainer();
   }, []); // Empty dependency array ensures this runs only once on mount
+
+  useEffect(() => {
+   
+  }, [isModalOpen]);
+  
+  
+  const handleSubmit = async (e) => {
+    debugger;
+    e.preventDefault(); 
+  
+    try {
+      
+      const formData = {
+        SPUserID: selectedAgent.UserID, 
+        gender: selectedAgent.Gender || "Male", 
+        experience: selectedAgent.Experience || 0, 
+        designation: selectedAgent.Designation || "N/A",
+        JoiningDate: e.target.JoiningDate.value, 
+        ExitDate: e.target.ExitDate.value, 
+      };
+  
+    
+  
+   
+      const result = await setCSCUpdateAgentBYID(formData);
+  
+
+      if (result.response.responseCode === 1) {
+        setAlertMessage({
+          type: "success",
+          message: result.response.responseMessage,
+        });
+       
+        handleCloseModal(); 
+      } else {
+        setAlertMessage({
+          type: "error",
+          message: result.response.responseMessage,
+        });
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      setAlertMessage({
+        type: "error",
+        message: "Something went wrong. Please try again.",
+      });
+    }
+  };
+  
   
   
   return (
     <>
+    {isModalOpen && (
+       <div className="modal-overlay">
+       <div className="modal-content">
+       <button className="modal-close-btn" onClick={handleCloseModal}>&times;</button>
+
+         <h2>Edit Agent Details</h2>
+         <form onSubmit={handleSubmit}>
+           <div className="modal-row">
+             <div className="modal-input">
+               <label>Name</label>
+               <input type="text" defaultValue={selectedAgent.Name} disabled/>
+             </div>
+             <div className="modal-input">
+               <label>Email</label>
+               <input type="email" defaultValue={selectedAgent.Email} disabled/>
+             </div>
+             <div className="modal-input">
+               <label>Phone</label>
+               <input type="text" defaultValue={selectedAgent.MobileNo} disabled />
+             </div>
+           </div>
+     
+          
+           <div className="modal-row">
+             <div className="modal-input">
+               <label>Designation</label>
+               <input type="text" defaultValue={selectedAgent.Designation} disabled/>
+             </div>
+             <div className="modal-input">
+               <label>Experience</label>
+               <input type="text" defaultValue={selectedAgent.Experience} disabled />
+             </div>
+             <div className="modal-input">
+               <label>Qualification</label>
+               <input type="text" defaultValue={selectedAgent.Qualification} disabled/>
+             </div>
+           </div>
+     
+        
+           <div className="modal-row">
+           
+             <div className="modal-input">
+               <label>Date of Birth</label>
+               <input type="date" defaultValue={selectedAgent.DOB} disabled/>
+             </div>
+             <div className="modal-input">   <label>Joining Date</label>
+             <input type="date" name="JoiningDate" defaultValue={selectedAgent.JoiningDate || ""} /></div>
+             <div className="modal-input">   <label>Exit Date</label>
+             <input type="date" name="ExitDate" defaultValue={selectedAgent.ExitDate || ""} /></div>
+           </div>
+     
+           <div className="modal-buttons">
+           <button type="submit">Save</button>
+             <button type="button" onClick={handleCloseModal}>Cancel</button>
+          
+           </div>
+         </form>
+       </div>
+     </div>
+     
+      )}
       <div className="form-wrapper-agent">
         <div className="modify-agent-container">
           <div className="top-actions">
@@ -372,10 +501,13 @@ const TraineeList = () => {
           </div>
           {renderPagination()}
         </div>
+        
       </div>
-      {isModalOpen && <EditAgent user={selectedUser} onClose={() => setIsModalOpen(false)} />}
+      
     </>
   );
 };
 
 export default TraineeList;
+
+

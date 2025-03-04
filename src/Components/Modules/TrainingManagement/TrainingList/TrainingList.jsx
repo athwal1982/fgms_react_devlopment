@@ -12,6 +12,7 @@ import Select from "react-select";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import AssignUnAssignCenter from "./AssignUnAssignCenter";
 import AssignUnassginTraineeByAdmin from "./AssignUnassginTraineeByAdmin.jsx";
+import TrainingDetailsPopUp from "./TrainingDetailsPopUp";
 
 const TrainingList = () => {
   const setAlertMessage = AlertMessage();
@@ -33,9 +34,18 @@ const TrainingList = () => {
   const [selectedCenter, setselectedCenter] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-  const [selectedTraining, setSelectedTraining] = useState(null); // Added state for selected training
+  const [selectedTraining, setSelectedTraining] = useState(null);
 
-  // Fetching training data
+  const [showTrainingDetailsPopup, setShowTrainingDetailsPopup] = useState(false);
+  const [selectedTrainingDetails, setSelectedTrainingDetails] = useState(null);
+
+const toggleTrainingByAdminModal = (data) => {
+  setSelectedTrainingDetails(data);
+  setOpentrainingByAdminModal(!opentrainingByAdminModal);
+  settrainingByAdminModal(data);
+};
+
+
   const fetchAllTraining = async (page = 1, query = "") => {
     debugger;
     try {
@@ -43,7 +53,7 @@ const TrainingList = () => {
       let data = response.response.responseData.items;
       let responseCode = response.response.responseCode;
       if (responseCode === 1) {
-        
+
         setRowData(data);
         setFilteredData(data);
         setTotalPages(response.response.responseData.totalPages);
@@ -55,32 +65,8 @@ const TrainingList = () => {
       console.error("Error fetching training data:", error);
     }
   };
-  const fetchAllTrainer = async () => {
-    const formData = {
-      SPMODE: "CENTER",
-      SPCenterID: 0,
-    };
 
-    try {
-      const response = await getTrainerList(formData);
-      let data = response.response.responseData;
-      let responseCode = response.response.responseCode;
-
-      if (responseCode === 1) {
-        setCenter(
-          data.map((center) => ({
-            value: center.CenterMasterID,
-            label: `${center.Center} - ${center.Center}`,
-          }))
-        );
-
-      } else {
-        setCenter([]);
-      }
-    } catch (error) {
-      console.error("Error fetching trainer data:", error);
-    }
-  };
+  
 
   const fetchTrainersByCenter = async (centerId) => {
     debugger;
@@ -163,56 +149,34 @@ const TrainingList = () => {
 
 
 
-  const handleShow = async (training) => {
-    debugger;
-    setSelectedTraining(null);
-    setSelectedTrainers([]);
-    setselectedCenter(null);
-    try {
-      await Promise.all([fetchAllTrainer("LOCATIONTRAINER"), fetchAllTrainer("CENTER")]);
-
-      setSelectedTraining(training);
-      setShowModal(true);
-    } catch (error) {
-      console.error("Error in handleShow:", error);
-    }
-  };
 
 
   const handleClose = () => {
     setShowModal(false);
-    setSelectedTraining(null); 
+    setSelectedTraining(null);
   };
 
-  const assignunassigncenterOnClick = async () => {
 
-  };
 
   const ActionCellRenderer = (props) => {
     return (
       <>
         {accessCode == 999 && (
           <>
-            {/* <i
-              className="fas fa-save"
-              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-              onClick={() => handleShow(props.data)}
-              title="Save">
-            </i> */}
-            <i class="fa fa-tasks"  
+
+            <i class="fa fa-tasks"
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
               onClick={() => toggleAssignUnAssignCenterModal(props.data)}
               title="Assign/Unassign Center"></i>
-            <i  class="fa fa-user-graduate"  
+            <i class="fa fa-user-graduate"
               style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
               onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
-              title="Assign/Unassign Trainee"></i>  
-            {/* <i
-              className="fas fa-edit"
-              style={{ cursor: "pointer", color: "green" }}
-              onClick={() => handleEdit(props.data)}
-              title="Edit"
-            ></i> */}
+              title="Assign/Unassign Trainee"></i>
+               <i class="fa fa-bookmark"
+              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+              onClick={() => toggleTrainingByAdminModal(props.data)}
+              title="Mark Training"></i>
+
           </>
         )}
       </>
@@ -231,7 +195,7 @@ const TrainingList = () => {
       width: 100,
       cellStyle: { textAlign: "center" },
     },
-  
+
     {
       headerName: "Training Type",
       field: "TrainingType",
@@ -304,30 +268,7 @@ const TrainingList = () => {
           : null;
       },
     },
-    /* {
-      headerName: "Updated By",
-      field: "UpdatedBy",
-      sortable: true,
-      filter: true,
-      width: 160,
-    },
-    {
-      headerName: "Updated On",
-      field: "UpdateDateTime",
-      sortable: true,
-      filter: true,
-      width: 160,
-      valueGetter: (node) => {
-        return node.data.UpdateDateTime
-          ? dateToSpecificFormat(
-            `${node.data.UpdateDateTime.split("T")[0]} ${Convert24FourHourAndMinute(
-              node.data.UpdateDateTime.split("T")[1]
-            )}`,
-            "DD-MM-YYYY HH:mm"
-          )
-          : null;
-      },
-    }, */
+
   ]);
 
 
@@ -357,64 +298,71 @@ const TrainingList = () => {
     </div>
   );
 
-  const handleSearchInputChange = (query) => {
+
+
+  const handleSearchInputChange = _.debounce((query) => {
     setSearchQuery(query);
     fetchAllTraining(1, query);
-  };
-
-  const handleEdit = (trainingData) => {
-    navigate("/CreateNewTraining", { state: trainingData });
-  };
+  }, 500); 
 
   const [assignUnAssignCenterModal, setAssignUnAssignCenterModal] =
-  useState(false);
-const [openAssignUnAssignCenterModal, setOpenAssignAssignCenterModal] =
-  useState(false);
-const toggleAssignUnAssignCenterModal = (data) => {
-  debugger;
-  setOpenAssignAssignCenterModal(!openAssignUnAssignCenterModal);
-  
-  setAssignUnAssignCenterModal(data);
-};
+    useState(false);
+  const [openAssignUnAssignCenterModal, setOpenAssignAssignCenterModal] =
+    useState(false);
+  const toggleAssignUnAssignCenterModal = (data) => {
+    debugger;
+    setOpenAssignAssignCenterModal(!openAssignUnAssignCenterModal);
 
-const [assignUnAssignTraineeByAdminModal, setAssignUnAssignTraineeByAdminModal] =
-useState(false);
-const [openAssignUnAssignTraineeByAdminModal, setOpenAssignAssignTraineeByAdminModal] =
-useState(false);
-const toggleAssignUnAssignTraineeByAdminModal = (data) => {
-debugger;
-setOpenAssignAssignTraineeByAdminModal(!openAssignUnAssignTraineeByAdminModal);
+    setAssignUnAssignCenterModal(data);
+  };
 
-setAssignUnAssignTraineeByAdminModal(data);
-};
+  const [assignUnAssignTraineeByAdminModal, setAssignUnAssignTraineeByAdminModal] =
+    useState(false);
+    const [trainingByAdminModal, settrainingByAdminModal] =
+    useState(false);
+  const [openAssignUnAssignTraineeByAdminModal, setOpenAssignAssignTraineeByAdminModal] =
+    useState(false);
+    const [opentrainingByAdminModal, setOpentrainingByAdminModal] =
+    useState(false);
+  const toggleAssignUnAssignTraineeByAdminModal = (data) => {
+    debugger;
+    setOpenAssignAssignTraineeByAdminModal(!openAssignUnAssignTraineeByAdminModal);
+
+    setAssignUnAssignTraineeByAdminModal(data);
+  };
 
 
-  // A useEffect(() => {
-  // A  debugger;
 
-  //  A fetchAllTraining(currentPage);
-  //  A fetchAllTrainer();
-  // A }, [currentPage]);
 
   useEffect(() => {
     fetchAllTraining(currentPage, searchQuery);
-    // A fetchAllTrainer();
+
   }, [currentPage, searchQuery]);
+
+  
 
   return (
     <>
-    {openAssignUnAssignCenterModal && (
+      {openAssignUnAssignCenterModal && (
         <AssignUnAssignCenter
           toggleAssignUnAssignCenterModal={toggleAssignUnAssignCenterModal}
           assignUnAssignCenterModal={assignUnAssignCenterModal}
         />
       )}
-       {openAssignUnAssignTraineeByAdminModal && (
+      {openAssignUnAssignTraineeByAdminModal && (
         <AssignUnassginTraineeByAdmin
           toggleAssignUnAssignTraineeByAdminModal={toggleAssignUnAssignTraineeByAdminModal}
           assignUnAssignTraineeByAdminModal={assignUnAssignTraineeByAdminModal}
         />
       )}
+      {opentrainingByAdminModal && (
+  <TrainingDetailsPopUp
+    toggleTrainingByAdminModal={toggleTrainingByAdminModal}
+    trainingByAdminModal={trainingByAdminModal}
+    trainingDetails={selectedTrainingDetails}
+  />
+)}
+
       <div className="form-wrapper-agent">
         <div className="modify-agent-container">
           <div className="top-actions">
@@ -440,7 +388,7 @@ setAssignUnAssignTraineeByAdminModal(data);
 
           <div className="ag-theme-alpine ag-grid-container">
             <AgGridReact
-              rowData={filteredData}
+             rowData={Array.isArray(filteredData) ? filteredData : []} 
               columnDefs={[
                 { headerName: "S.No", valueGetter: (params) => params.node.rowIndex + 1, width: 80 },
                 ...columnDefs,
@@ -455,7 +403,7 @@ setAssignUnAssignTraineeByAdminModal(data);
               rowHeight={30}
             />
 
-           
+
             {selectedTraining && (
               <Modal show={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
 
