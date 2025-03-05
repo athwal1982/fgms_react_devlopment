@@ -55,6 +55,7 @@ import Page from "./Page/Page";
 import PageAuthenticator from "./PageAuthenticator/PageAuthenticator";
 import AgentTraining from "Components/Modules/TrainingManagement/AgentTraining/AgentTraining";
 
+
 function PageRouter() {
   return (
     <Router>
@@ -130,6 +131,7 @@ function PageRouter() {
         <Route exact path="/CenterTrainings" element={<Page component={<CenterTraining />} title="Center Trainings" />} />
         <Route exact path="/AgentTrainings" element={<Page component={<AgentTraining />} title="Agent Trainings" />} />
         <Route exact path="/UpdateProfile" element={<Page component={<UpdateProfile />} title="Update Profile" />} />
+       
       </Routes>
     </Router>
   );

@@ -6,7 +6,6 @@ import { FaEdit } from "react-icons/fa";
 import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import { getAllAgent, statusUpdate,setCSCUpdateAgentBYID } from "./Services/Methods";
 import _ from "lodash";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import EditAgent from "../EditAgent/EditAgent";
 import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
 import { getTrainerList } from "../../TrainingManagement/Services/Methods";
@@ -442,15 +441,15 @@ const handleCloseModal = () => {
          <form onSubmit={handleSubmit}>
            <div className="modal-row">
              <div className="modal-input">
-               <label>Name</label>
+               <label  className="Trainee-form-label">Name</label>
                <input type="text" defaultValue={selectedAgent.Name} disabled/>
              </div>
              <div className="modal-input">
-               <label>Email</label>
+               <label  className="Trainee-form-label">Email</label>
                <input type="email" defaultValue={selectedAgent.Email} disabled/>
              </div>
              <div className="modal-input">
-               <label>Phone</label>
+               <label  className="Trainee-form-label">Phone</label>
                <input type="text" defaultValue={selectedAgent.MobileNo} disabled />
              </div>
            </div>
@@ -458,15 +457,15 @@ const handleCloseModal = () => {
           
            <div className="modal-row">
              <div className="modal-input">
-               <label>Designation</label>
+               <label  className="Trainee-form-label">Designation</label>
                <input type="text" defaultValue={selectedAgent.Designation} disabled/>
              </div>
              <div className="modal-input">
-               <label>Experience</label>
+               <label  className="Trainee-form-label">Experience</label>
                <input type="text" defaultValue={selectedAgent.Experience} disabled />
              </div>
              <div className="modal-input">
-               <label>Qualification</label>
+               <label  className="Trainee-form-label">Qualification</label>
                <input type="text" defaultValue={selectedAgent.Qualification} disabled/>
              </div>
            </div>
@@ -475,12 +474,12 @@ const handleCloseModal = () => {
            <div className="modal-row">
            
              <div className="modal-input">
-               <label>Date of Birth</label>
+               <label  className="Trainee-form-label">Date of Birth</label>
                <input type="date" defaultValue={selectedAgent.DOB} disabled/>
              </div>
-             <div className="modal-input">   <label>Joining Date</label>
+             <div className="modal-input">   <label  className="Trainee-form-label">Joining Date</label>
              <input type="date" name="JoiningDate" defaultValue={selectedAgent.JoiningDate || ""} /></div>
-             <div className="modal-input">   <label>Exit Date</label>
+             <div className="modal-input">   <label  className="Trainee-form-label">Exit Date</label>
              <input type="date" name="ExitDate" defaultValue={selectedAgent.ExitDate || ""} /></div>
            </div>
      

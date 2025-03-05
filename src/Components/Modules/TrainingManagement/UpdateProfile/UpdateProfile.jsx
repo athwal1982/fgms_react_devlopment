@@ -160,28 +160,28 @@ const UpdateProfile = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
-              <label>Agent ID</label>
+              <label  className="UpdateProfile-form-label">Agent ID</label>
               <input type="text" name="agentID" value={formData.agentID} disabled />
             </div>
             <div className="form-group">
-              <label>Full Name</label>
+              <label  className="UpdateProfile-form-label">Full Name</label>
               <input type="text" name="fullName" value={formData.fullName} disabled />
             </div>
             <div className="form-group">
-              <label>Mobile Number</label>
+              <label  className="UpdateProfile-form-label">Mobile Number</label>
               <input type="text" name="mobile" value={formData.mobile} disabled />
             </div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label>Email</label>
+              <label  className="UpdateProfile-form-label">Email</label>
               <input type="email" name="email" value={formData.email} onChange={handleChange} />
               {errors.email && <span className="error">{errors.email}</span>}
             </div>
 
             <div className="form-group">
-              <label>Gender</label>
+              <label  className="UpdateProfile-form-label">Gender</label>
               <select name="gender" value={formData.gender} onChange={handleChange}>
                 <option value="">Select</option>
                 <option value="Male">Male</option>
@@ -192,7 +192,7 @@ const UpdateProfile = () => {
             </div>
 
             <div className="form-group">
-              <label>Experience</label>
+              <label  className="UpdateProfile-form-label">Experience</label>
               <input type="text" name="experience" value={formData.experience} onChange={handleChange} />
               {errors.experience && <span className="error">{errors.experience}</span>}
             </div>
@@ -200,7 +200,7 @@ const UpdateProfile = () => {
 
           <div className="form-row">
             <div className="form-group">
-              <label>Designation</label>
+              <label  className="UpdateProfile-form-label">Designation</label>
               <input type="text" name="designation" value={formData.designation} onChange={handleChange} />
               {errors.designation && <span className="error">{errors.designation}</span>}
             </div>

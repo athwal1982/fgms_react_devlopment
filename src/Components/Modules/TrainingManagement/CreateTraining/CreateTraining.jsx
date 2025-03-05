@@ -312,7 +312,7 @@ const CreateTraining = ({ props }) => {
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="training-title">
+              <label  className="CreateTraining-form-label" htmlFor="training-title">
                 Training Title <span className="asteriskCss">&#42;</span>
               </label>
               <input
@@ -326,7 +326,7 @@ const CreateTraining = ({ props }) => {
               <span className="login_ErrorTxt">{trainingTitelErrorMsg}</span>
             </div>
             <div className="form-group">
-              <label htmlFor="training-module">
+              <label  className="CreateTraining-form-label" htmlFor="training-module">
                 Training Type <span className="asteriskCss">&#42;</span>
               </label>
               <select id="training-module" value={selectedModule} onChange={(e) => setSelectedModule(e.target.value)}>
@@ -347,7 +347,7 @@ const CreateTraining = ({ props }) => {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="training-link">
+              <label  className="CreateTraining-form-label" htmlFor="training-link">
                 Training Link <span className="asteriskCss">&#42;</span>
               </label>
               <input
@@ -364,7 +364,7 @@ const CreateTraining = ({ props }) => {
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="training-date">
+              <label  className="CreateTraining-form-label" htmlFor="training-date">
                 Training Scheduled Date <span className="asteriskCss">&#42;</span>
               </label>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -381,14 +381,14 @@ const CreateTraining = ({ props }) => {
             </div>
             <div className="form-group time-group" style={{ display: "flex", flexDirection: "row", gap: "20px", marginRight: "0px" }}>
               <div>
-                <label htmlFor="training-start-time">
+                <label  className="CreateTraining-form-label" htmlFor="training-start-time">
                   Training Start Time <span className="asteriskCss">&#42;</span>
                 </label>
                 <input style={{ width: "200px" }} type="time" id="training-start-time" value={startTime} onChange={handleStartTimeChange} />
                 <span className="login_ErrorTxt">{trainingStartDateErrorMsg}</span>
               </div>
               <div>
-                <label htmlFor="training-end-time">
+                <label  className="CreateTraining-form-label" htmlFor="training-end-time">
                   Training End Time <span className="asteriskCss">&#42;</span>
                 </label>
                 <input style={{ width: "200px" }} type="time" id="training-end-time" value={endTime} onChange={handleEndTimeChange} disabled={true} />
@@ -398,7 +398,7 @@ const CreateTraining = ({ props }) => {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="training-duration">
+              <label  className="CreateTraining-form-label" htmlFor="training-duration">
                 Duration <span className="asteriskCss">&#42;</span>
               </label>
               <select id="training-duration" value={duration} onChange={handleDurationChange}>
