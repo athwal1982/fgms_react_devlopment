@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
 import "./TraineeList.scss";
 import { FaEdit } from "react-icons/fa";
+import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import { getAllAgent, statusUpdate,setCSCUpdateAgentBYID } from "./Services/Methods";
 import _ from "lodash";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -170,6 +171,44 @@ const handleCloseModal = () => {
       filter: true,
       cellRendererFramework: (params) => (params.value ? params.value : "NA"),
     },
+    {
+      headerName: "Joining Date",
+      field: "JoiningDate",
+      sortable: true,
+      filter: true,
+      width: 150,
+      cellRendererFramework: (params) => {
+        if (params.value) {
+          const date = new Date(params.value);
+          const day = ("0" + date.getDate()).slice(-2);
+          const month = ("0" + (date.getMonth() + 1)).slice(-2);
+          const year = date.getFullYear();
+          return `${day}-${month}-${year}`;
+        } else {
+          return "NA";
+        }
+      },
+    },
+    {
+      headerName: "Exit Date",
+      field: "ExitDate",
+      sortable: true,
+      filter: true,
+      width: 150,
+      cellRendererFramework: (params) => {
+        if (params.value) {
+          const date = new Date(params.value);
+          const day = ("0" + date.getDate()).slice(-2);
+          const month = ("0" + (date.getMonth() + 1)).slice(-2);
+          const year = date.getFullYear();
+          return `${day}-${month}-${year}`;
+        } else {
+          return "NA";
+        }
+      },
+    },
+    
+    
   ]);
 
   const handleStatusUpdate = async () => {
@@ -358,6 +397,7 @@ const handleCloseModal = () => {
         designation: selectedAgent.Designation || "N/A",
         JoiningDate: e.target.JoiningDate.value, 
         ExitDate: e.target.ExitDate.value, 
+        email: selectedAgent.Email,
       };
   
     
@@ -373,6 +413,7 @@ const handleCloseModal = () => {
         });
        
         handleCloseModal(); 
+        getAllAgentData(currentPage, "", "");
       } else {
         setAlertMessage({
           type: "error",
