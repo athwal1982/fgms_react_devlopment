@@ -386,17 +386,18 @@ const handleCloseModal = () => {
   const handleSubmit = async (e) => {
     debugger;
     e.preventDefault(); 
-  
+    const genderMapping = { Male: "0", Female: "1" };
     try {
       
       const formData = {
-        SPUserID: selectedAgent.UserID, 
-        gender: selectedAgent.Gender || "Male", 
-        experience: selectedAgent.Experience || 0, 
-        designation: selectedAgent.Designation || "N/A",
-        JoiningDate: e.target.JoiningDate.value, 
-        ExitDate: e.target.ExitDate.value, 
+        SPViewMode: "UPDATEBYADMIN",
+        SPUserID: selectedAgent.UserID,
         email: selectedAgent.Email,
+        gender: genderMapping[selectedAgent.Gender] ?? "",
+        experience: parseInt( selectedAgent.Experience, 10) || 0, 
+        designation: selectedAgent.Designation,
+        JoiningDate:  e.target.JoiningDate.value,
+        ExitDate: e.target.ExitDate.value,
       };
   
     
