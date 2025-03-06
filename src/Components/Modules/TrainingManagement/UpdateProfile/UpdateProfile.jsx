@@ -90,6 +90,7 @@ const UpdateProfile = () => {
   };
 
   const updateAgentProfile = async () => {
+    debugger;
     if (!validateForm()) return;
 
     const genderMapping = {
@@ -99,12 +100,16 @@ const UpdateProfile = () => {
     };
 
     const payload = {
-      SPUserID: formData.agentID,
-      email: formData.email,
-      gender: genderMapping[formData.gender] ?? "",
-      experience: formData.experience,
-      designation: formData.designation,
-    };
+        SPViewMode: "UPDATEBYAGENT",
+        SPUserID: formData.agentID,
+        email: formData.email,
+        gender: String(genderMapping[formData.gender] ?? ""), 
+        experience: parseInt(formData.experience, 10) || 0, 
+        designation: formData.designation,
+        JoiningDate: "",
+        ExitDate: "",
+      };
+      
 
     try {
       const response = await UpdateAgentProfile(payload);

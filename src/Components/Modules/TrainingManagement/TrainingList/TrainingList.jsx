@@ -13,6 +13,7 @@ import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import AssignUnAssignCenter from "./AssignUnAssignCenter";
 import AssignUnassginTraineeByAdmin from "./AssignUnassginTraineeByAdmin.jsx";
 import TrainingDetailsPopUp from "./TrainingDetailsPopUp";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const TrainingList = () => {
   const setAlertMessage = AlertMessage();
@@ -161,7 +162,7 @@ const toggleTrainingByAdminModal = (data) => {
   const ActionCellRenderer = (props) => {
     return (
       <>
-        {accessCode == 999 && (
+      
           <>
 
             <i class="fa fa-tasks"
@@ -178,7 +179,7 @@ const toggleTrainingByAdminModal = (data) => {
               title="Mark Training"></i>
 
           </>
-        )}
+    
       </>
     );
   };
