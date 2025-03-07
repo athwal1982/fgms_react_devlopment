@@ -1,17 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { AgGridReact } from "ag-grid-react";
 import "./TraineeList.scss";
 import { FaEdit } from "react-icons/fa";
-import { Convert24FourHourAndMinute, dateToSpecificFormat } from "Configration/Utilities/dateformat";
-import { getAllAgent, statusUpdate,setCSCUpdateAgentBYID } from "./Services/Methods";
+import { getAllAgent, statusUpdate, setCSCUpdateAgentBYID } from "./Services/Methods";
 import _ from "lodash";
-import EditAgent from "../EditAgent/EditAgent";
 import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
 import { getTrainerList } from "../../TrainingManagement/Services/Methods";
 
 const TraineeList = () => {
-  const navigate = useNavigate();
   const [rowData, setRowData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,26 +15,26 @@ const TraineeList = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
   const [selectedUser, setSelectedUser] = useState(null);
- 
+
   const setAlertMessage = AlertMessage();
 
   const [center, setCenter] = useState([]);
   const [selectedCenter, setSelectedCenter] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [selectedAgent, setSelectedAgent] = useState(null);
+  const [selectedAgent, setSelectedAgent] = useState(null);
 
-const handleEdit = (agent) => {
-  debugger;
-  
-  setSelectedAgent(agent);
-  setIsModalOpen(true);
-};
+  const handleEdit = (agent) => {
+    debugger;
+
+    setSelectedAgent(agent);
+    setIsModalOpen(true);
+  };
 
 
-const handleCloseModal = () => {
-  setIsModalOpen(false);
-  setSelectedAgent(null);
-};
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedAgent(null);
+  };
 
 
   const [columnDefs] = useState([
@@ -206,27 +202,11 @@ const handleCloseModal = () => {
         }
       },
     },
-    
-    
+
+
   ]);
 
-  const handleStatusUpdate = async () => {
-    debugger;
-    try {
-      const formData = {
-        SPUserRefId: String(formData.UserID),
-        Status: formData.Status,
-      };
-      const result = await statusUpdate(formData);
-      if (result.response.responseCode === 1) {
-        setAlertMessage({ type: "success", message: "Update Success" });
-      } else {
-        setAlertMessage({ type: "error", message: "Error Update" });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  
   const fetchAllTrainer = async () => {
     const formData = {
       SPMODE: "CENTER",
@@ -253,29 +233,7 @@ const handleCloseModal = () => {
     }
   };
 
-  const handleEdit23 = async (UserID) => {
-    debugger;
-    try {
-      const formData = {
-        page_size: 10,
-        page_number: 1,
-        totalPages: "",
-        searchQuery: "",
-        viewMode: "BYID",
-        userId: UserID,
-      };
-      const result = await getAllAgent(formData);
-      if (result.response.responseCode === 1) {
-        setSelectedUser(result.response.responseData.traineeList[0]);
-        setIsModalOpen(true);
-      } else {
-        setSelectedUser([]);
-        console.error(result.response.responseMessage);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
 
   const getAllAgentData = async (page, query = "", centerMasterID = "") => {
     debugger;
@@ -289,8 +247,8 @@ const handleCloseModal = () => {
         userId: "", // UserID is not required for this call
         centerMasterID: centerMasterID, // Pass centerMasterID for filtering if provided
       };
-      
-    
+
+
       // Call the API function (e.g., getAllAgent) passing the formData
       const result = await getAllAgent(formData);
       debugger;
@@ -307,7 +265,7 @@ const handleCloseModal = () => {
         console.error(result.response.responseMessage);
       }
     } catch (error) {
-     
+
       console.error(error);
     }
   };
@@ -331,11 +289,11 @@ const handleCloseModal = () => {
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
       setCurrentPage(newPage);
-      getAllAgentData(newPage, searchQuery, selectedCenter); 
+      getAllAgentData(newPage, searchQuery, selectedCenter);
     }
   };
-  
-  
+
+
 
   const renderPagination = () => (
     <div className="pagination-container">
@@ -351,68 +309,54 @@ const handleCloseModal = () => {
     </div>
   );
 
-  const toggleAgentStatus = async (agentId, currentStatus) => {
-    try {
-      const newStatus = currentStatus === 0 ? 1 : 0;
 
-      const result = await statusUpdate({ agentId, status: newStatus });
-
-      if (result.success) {
-        setFilteredData((prevData) => prevData.map((agent) => (agent._id === agentId ? { ...agent, status: newStatus } : agent)));
-      } else {
-        console.error("Failed to update agent status");
-      }
-    } catch (error) {
-      console.error("Error updating agent status:", error);
-    }
-  };
 
   const handleSearch = () => {
-    setCurrentPage(1); // Reset to first page when searching
+    setCurrentPage(1); 
     getAllAgentData(1, searchQuery, selectedCenter);
   };
-  
+
 
   useEffect(() => {
-    getAllAgentData(currentPage, "", ""); // Load data initially without filters
+    getAllAgentData(currentPage, "", "");
     fetchAllTrainer();
-  }, []); // Empty dependency array ensures this runs only once on mount
+  }, []);
 
   useEffect(() => {
-   
+
   }, [isModalOpen]);
-  
-  
+
+
   const handleSubmit = async (e) => {
     debugger;
-    e.preventDefault(); 
+    e.preventDefault();
     const genderMapping = { Male: "0", Female: "1" };
     try {
-      
+
       const formData = {
         SPViewMode: "UPDATEBYADMIN",
         SPUserID: selectedAgent.UserID,
         email: selectedAgent.Email,
         gender: genderMapping[selectedAgent.Gender] ?? "",
-        experience: parseInt( selectedAgent.Experience, 10) || 0, 
+        experience: parseInt(selectedAgent.Experience, 10) || 0,
         designation: selectedAgent.Designation,
-        JoiningDate:  e.target.JoiningDate.value,
+        JoiningDate: e.target.JoiningDate.value,
         ExitDate: e.target.ExitDate.value,
       };
-  
-    
-  
-   
+
+
+
+
       const result = await setCSCUpdateAgentBYID(formData);
-  
+
 
       if (result.response.responseCode === 1) {
         setAlertMessage({
           type: "success",
           message: result.response.responseMessage,
         });
-       
-        handleCloseModal(); 
+
+        handleCloseModal();
         getAllAgentData(currentPage, "", "");
       } else {
         setAlertMessage({
@@ -428,71 +372,71 @@ const handleCloseModal = () => {
       });
     }
   };
-  
-  
-  
+
+
+
   return (
     <>
-    {isModalOpen && (
-       <div className="modal-overlay">
-       <div className="modal-content">
-       <button className="modal-close-btn" onClick={handleCloseModal}>&times;</button>
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button className="modal-close-btn" onClick={handleCloseModal}>&times;</button>
 
-         <h2>Edit Agent Details</h2>
-         <form onSubmit={handleSubmit}>
-           <div className="modal-row">
-             <div className="modal-input">
-               <label  className="Trainee-form-label">Name</label>
-               <input type="text" defaultValue={selectedAgent.Name} disabled/>
-             </div>
-             <div className="modal-input">
-               <label  className="Trainee-form-label">Email</label>
-               <input type="email" defaultValue={selectedAgent.Email} disabled/>
-             </div>
-             <div className="modal-input">
-               <label  className="Trainee-form-label">Phone</label>
-               <input type="text" defaultValue={selectedAgent.MobileNo} disabled />
-             </div>
-           </div>
-     
-          
-           <div className="modal-row">
-             <div className="modal-input">
-               <label  className="Trainee-form-label">Designation</label>
-               <input type="text" defaultValue={selectedAgent.Designation} disabled/>
-             </div>
-             <div className="modal-input">
-               <label  className="Trainee-form-label">Experience</label>
-               <input type="text" defaultValue={selectedAgent.Experience} disabled />
-             </div>
-             <div className="modal-input">
-               <label  className="Trainee-form-label">Qualification</label>
-               <input type="text" defaultValue={selectedAgent.Qualification} disabled/>
-             </div>
-           </div>
-     
-        
-           <div className="modal-row">
-           
-             <div className="modal-input">
-               <label  className="Trainee-form-label">Date of Birth</label>
-               <input type="date" defaultValue={selectedAgent.DOB} disabled/>
-             </div>
-             <div className="modal-input">   <label  className="Trainee-form-label">Joining Date</label>
-             <input type="date" name="JoiningDate" defaultValue={selectedAgent.JoiningDate || ""} /></div>
-             <div className="modal-input">   <label  className="Trainee-form-label">Exit Date</label>
-             <input type="date" name="ExitDate" defaultValue={selectedAgent.ExitDate || ""} /></div>
-           </div>
-     
-           <div className="modal-buttons">
-           <button type="submit">Save</button>
-             <button type="button" onClick={handleCloseModal}>Cancel</button>
-          
-           </div>
-         </form>
-       </div>
-     </div>
-     
+            <h2>Edit Agent Details</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="modal-row">
+                <div className="modal-input">
+                  <label className="Trainee-form-label">Name</label>
+                  <input type="text" defaultValue={selectedAgent.Name} disabled />
+                </div>
+                <div className="modal-input">
+                  <label className="Trainee-form-label">Email</label>
+                  <input type="email" defaultValue={selectedAgent.Email} disabled />
+                </div>
+                <div className="modal-input">
+                  <label className="Trainee-form-label">Phone</label>
+                  <input type="text" defaultValue={selectedAgent.MobileNo} disabled />
+                </div>
+              </div>
+
+
+              <div className="modal-row">
+                <div className="modal-input">
+                  <label className="Trainee-form-label">Designation</label>
+                  <input type="text" defaultValue={selectedAgent.Designation} disabled />
+                </div>
+                <div className="modal-input">
+                  <label className="Trainee-form-label">Experience</label>
+                  <input type="text" defaultValue={selectedAgent.Experience} disabled />
+                </div>
+                <div className="modal-input">
+                  <label className="Trainee-form-label">Qualification</label>
+                  <input type="text" defaultValue={selectedAgent.Qualification} disabled />
+                </div>
+              </div>
+
+
+              <div className="modal-row">
+
+                <div className="modal-input">
+                  <label className="Trainee-form-label">Date of Birth</label>
+                  <input type="date" defaultValue={selectedAgent.DOB} disabled />
+                </div>
+                <div className="modal-input">   <label className="Trainee-form-label">Joining Date</label>
+                  <input type="date" name="JoiningDate" defaultValue={selectedAgent.JoiningDate || ""} /></div>
+                <div className="modal-input">   <label className="Trainee-form-label">Exit Date</label>
+                  <input type="date" name="ExitDate" defaultValue={selectedAgent.ExitDate || ""} /></div>
+              </div>
+
+              <div className="modal-buttons">
+                <button type="submit">Save</button>
+                <button type="button" onClick={handleCloseModal}>Cancel</button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+
       )}
       <div className="form-wrapper-agent">
         <div className="modify-agent-container">
@@ -542,9 +486,9 @@ const handleCloseModal = () => {
           </div>
           {renderPagination()}
         </div>
-        
+
       </div>
-      
+
     </>
   );
 };

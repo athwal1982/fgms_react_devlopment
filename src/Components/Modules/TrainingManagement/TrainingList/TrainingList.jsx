@@ -14,6 +14,7 @@ import AssignUnAssignCenter from "./AssignUnAssignCenter";
 import AssignUnassginTraineeByAdmin from "./AssignUnassginTraineeByAdmin.jsx";
 import TrainingDetailsPopUp from "./TrainingDetailsPopUp";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import EditTraining from "../EditTraining/EditTraining"; 
 
 const TrainingList = () => {
   const setAlertMessage = AlertMessage();
@@ -40,12 +41,24 @@ const TrainingList = () => {
   const [showTrainingDetailsPopup, setShowTrainingDetailsPopup] = useState(false);
   const [selectedTrainingDetails, setSelectedTrainingDetails] = useState(null);
 
+  const [refreshKey, setRefreshKey] = useState(0);
+
+
+
 const toggleTrainingByAdminModal = (data) => {
   setSelectedTrainingDetails(data);
   setOpentrainingByAdminModal(!opentrainingByAdminModal);
   settrainingByAdminModal(data);
 };
 
+
+const [isEditModalOpen, setEditModalOpen] = useState(false);
+const [selectedData, setSelectedData] = useState(null);
+
+const toggleEditTrainingModal = (data) => {
+  setSelectedData(data);
+  setEditModalOpen(true);
+};
 
   const fetchAllTraining = async (page = 1, query = "") => {
     debugger;
@@ -160,26 +173,39 @@ const toggleTrainingByAdminModal = (data) => {
 
 
   const ActionCellRenderer = (props) => {
+    const { ExpiredFlag } = props.data; // Extract ExpiredFlag from data
+  
+    // If ExpiredFlag is 1, return nothing (hide icons)
+    if (ExpiredFlag == 1) {
+      return null;
+    }
+  
     return (
       <>
-      
-          <>
-
-            <i class="fa fa-tasks"
-              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-              onClick={() => toggleAssignUnAssignCenterModal(props.data)}
-              title="Assign/Unassign Center"></i>
-            <i class="fa fa-user-graduate"
-              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-              onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
-              title="Assign/Unassign Trainee"></i>
-               <i class="fa fa-bookmark"
-              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-              onClick={() => toggleTrainingByAdminModal(props.data)}
-              title="Mark Training"></i>
-
-          </>
-    
+        <i
+          className="fa fa-tasks"
+          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+          onClick={() => toggleAssignUnAssignCenterModal(props.data)}
+          title="Assign/Unassign Center"
+        ></i>
+        <i
+          className="fa fa-user-graduate"
+          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+          onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
+          title="Assign/Unassign Trainee"
+        ></i>
+        <i
+          className="fa fa-bookmark"
+          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+          onClick={() => toggleTrainingByAdminModal(props.data)}
+          title="Mark Training"
+        ></i>
+         <i
+         className="fa fa-edit"
+          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+          onClick={() => toggleEditTrainingModal(props.data)}
+          title="Mark Training"
+        ></i>
       </>
     );
   };
@@ -195,6 +221,14 @@ const toggleTrainingByAdminModal = (data) => {
       cellRenderer: ActionCellRenderer,
       width: 100,
       cellStyle: { textAlign: "center" },
+    },
+    {
+      headerName: "Training Status",
+      field: "ExpiredFlag",
+      sortable: true,
+      filter: true,
+      width: 150,
+      valueGetter: (params) => (params.data.ExpiredFlag === 0 ? "Active" : "Expired"),
     },
 
     {
@@ -336,14 +370,24 @@ const toggleTrainingByAdminModal = (data) => {
 
 
   useEffect(() => {
+    debugger;
     fetchAllTraining(currentPage, searchQuery);
 
   }, [currentPage, searchQuery]);
 
   
 
+  
   return (
     <>
+ {isEditModalOpen && (
+  <EditTraining
+    isOpen={isEditModalOpen}
+    onClose={() => setEditModalOpen(false)}
+    trainingData={selectedData}
+  />
+)}
+
       {openAssignUnAssignCenterModal && (
         <AssignUnAssignCenter
           toggleAssignUnAssignCenterModal={toggleAssignUnAssignCenterModal}
@@ -377,14 +421,14 @@ const toggleTrainingByAdminModal = (data) => {
               />
             </div>
 
-            {accessCode === 999 && (
+           
               <button
                 className="create-agent-button"
                 onClick={() => navigate("/CreateNewTraining")}
               >
                 Create Training &nbsp; <i className="fas fas fa-arrow-right"></i>
               </button>
-            )}
+            
           </div>
 
           <div className="ag-theme-alpine ag-grid-container">

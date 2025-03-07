@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { AlertMessage, Loader } from "Framework/Components/Widgets";
 import Modal from "Framework/Components/Layout/Modal/Modal";
-import { DataGrid, PageBar } from "Framework/Components/Layout";
+import { DataGrid } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
 import { FaPaperPlane } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
-// A import { getSessionStorage } from "Components/Modules/Common/Login/Auth/auth";
 import { getSessionStorage } from "../../../Common/Login/Auth/auth";
 import { CSCUserTrainingAssignManageData } from "../Services/Methods";
 import "./CenterTraining.scss";
 
 
 function AssignUnAssignTrainee({
-    toggleAssignUnAssignCenterModal,
+  toggleAssignUnAssignCenterModal,
   assignUnAssignTraineeModal,
 }) {
   const setAlertMessage = AlertMessage();
@@ -44,11 +43,11 @@ function AssignUnAssignTrainee({
         viewMode: "GETALLUSER",
         cSCAppAccessTypeID: userData && userData.CSCAccessTypeID ? userData.CSCAccessTypeID : 0,
         centerID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.CenterMasterID
-        ? assignUnAssignTraineeModal.CenterMasterID.toString()
-        : "0",
+          ? assignUnAssignTraineeModal.CenterMasterID.toString()
+          : "0",
         trainingMasterID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.TrainingMasterID
-        ? assignUnAssignTraineeModal.TrainingMasterID.toString()
-        : "0",
+          ? assignUnAssignTraineeModal.TrainingMasterID.toString()
+          : "0",
         userID: "0",
         trainingUserAssignmentID: "0",
       };
@@ -87,11 +86,11 @@ function AssignUnAssignTrainee({
         viewMode: "UNASSIGN",
         cSCAppAccessTypeID: userData && userData.CSCAccessTypeID ? userData.CSCAccessTypeID : 0,
         centerID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.CenterMasterID
-        ? assignUnAssignTraineeModal.CenterMasterID.toString()
-        : "0",
+          ? assignUnAssignTraineeModal.CenterMasterID.toString()
+          : "0",
         trainingMasterID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.TrainingMasterID
-        ? assignUnAssignTraineeModal.TrainingMasterID.toString()
-        : "0",
+          ? assignUnAssignTraineeModal.TrainingMasterID.toString()
+          : "0",
         userID: data.UserID,
         trainingUserAssignmentID: data.TrainingUserAssignmentID,
       };
@@ -119,7 +118,7 @@ function AssignUnAssignTrainee({
           type: "error",
           message: result.response.responseMessage,
         });
-      
+
       }
     } catch (error) {
       setAlertMessage({ open: true, type: "error", message: error });
@@ -158,11 +157,11 @@ function AssignUnAssignTrainee({
         viewMode: "ASSIGN",
         cSCAppAccessTypeID: userData && userData.CSCAccessTypeID ? userData.CSCAccessTypeID : 0,
         centerID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.CenterMasterID
-        ? assignUnAssignTraineeModal.CenterMasterID.toString()
-        : "0",
+          ? assignUnAssignTraineeModal.CenterMasterID.toString()
+          : "0",
         trainingMasterID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.TrainingMasterID
-        ? assignUnAssignTraineeModal.TrainingMasterID.toString()
-        : "0",
+          ? assignUnAssignTraineeModal.TrainingMasterID.toString()
+          : "0",
         userID: UserIds,
         trainingUserAssignmentID: "0",
       };
@@ -203,7 +202,7 @@ function AssignUnAssignTrainee({
                 if (!Array.isArray(x)) {
                   pUserID = x.UserID.toString();
                 } else {
-                  pUserID =  x[0].UserID.toString();
+                  pUserID = x[0].UserID.toString();
                 }
                 if (pUserID === data.UserID.toString()) {
                   x.AssignmentFlag = 1;
@@ -234,21 +233,7 @@ function AssignUnAssignTrainee({
     }
   };
 
-  const updateAssignUnAssignTrainee = (addedTrainee) => {
-    if (assignedTraineeGridApi) {
-      const rowData = [];
-      if (addedTrainee && addedTrainee.length > 0) {
-        addedTrainee.forEach((data) => {
-          rowData.push(data);
-        });
-      }
-      assignedTraineeGridApi.forEachNode((node) => rowData.push(node.data));
-      assignedTraineeGridApi.setRowData(rowData);
-      TraineeList.unshift(addedTrainee[0]);
-      setTraineeList([]);
-      setTraineeList(TraineeList);
-    }
-  };
+
 
   const checkboxSelection = (params) => {
     console.log(params);
@@ -273,11 +258,10 @@ function AssignUnAssignTrainee({
     <>
       <Modal
         varient="half"
-        title={`Assign/Unassign Trainee (${
-            assignUnAssignTraineeModal.TrainingTitle
+        title={`Assign/Unassign Trainee (${assignUnAssignTraineeModal.TrainingTitle
             ? assignUnAssignTraineeModal.TrainingTitle
             : ""
-        })`}
+          })`}
         right={0}
         width="50vw"
         height="100vh"
@@ -287,19 +271,15 @@ function AssignUnAssignTrainee({
           <div
             className="PageStart"
           >
-          
             <div className="custom-search-container">
-                            <input
-                                type="text"
-                                value={searchTextAssigendTrainee}
-                                onChange={(e) => onSearchAssignedTrainee(e.target.value)}
-                                className="custom-search-input"
-                                placeholder="Search Trainee..."
-                            />
-
-                        </div>
-
-
+              <input
+                type="text"
+                value={searchTextAssigendTrainee}
+                onChange={(e) => onSearchAssignedTrainee(e.target.value)}
+                className="custom-search-input"
+                placeholder="Search Trainee..."
+              />
+            </div>
             <DataGrid
               rowData={TraineeList}
               loader={isLoadingTraineeList ? <Loader /> : null}
@@ -310,7 +290,7 @@ function AssignUnAssignTrainee({
               frameworkComponents={{
                 assignedTraineeActionTemplate,
               }}
-               className="custom-data-grid"
+              className="custom-data-grid"
             >
               <DataGrid.Column
                 lockPosition="1"
@@ -327,7 +307,7 @@ function AssignUnAssignTrainee({
                 cellRendererParams={{
                   onClickDeleteAssignedTrainee,
                 }}
-                
+
               />
               <DataGrid.Column
                 field="#"
@@ -347,7 +327,7 @@ function AssignUnAssignTrainee({
                   param.value === 1 ? "Assigned" : " Not Assigned"
                 }
               />
-               <DataGrid.Column
+              <DataGrid.Column
                 field="UserID"
                 headerName="User ID"
                 width={100}
@@ -359,7 +339,7 @@ function AssignUnAssignTrainee({
                 width={150}
                 flex={1}
               />
-               <DataGrid.Column
+              <DataGrid.Column
                 field="Center"
                 flex={1}
                 headerName="Center Name"
@@ -374,9 +354,9 @@ function AssignUnAssignTrainee({
             varient="danger"
             onClick={(e) => handleSave(e)}
             trigger={btnLoaderActive ? "true" : "false"}
-              className="custom-button-AssignUnassign"
+            className="custom-button-AssignUnassign"
           >
-             <FaPaperPlane className="icon" />
+            <FaPaperPlane className="icon" />
             Save
           </Button>
         </Modal.Footer>
