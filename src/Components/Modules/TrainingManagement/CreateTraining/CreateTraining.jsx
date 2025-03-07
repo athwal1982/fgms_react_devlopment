@@ -211,6 +211,46 @@ const CreateTraining = () => {
     }
   };
 
+  const isHighlightedDate = (date) => {
+    return existingTrainingDates.some((trainingDate) => isSameDay(trainingDate, date));
+  };
+
+
+
+  const capitalizeText = (text) => {
+    if (!text) return text;
+    return text
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
+  const getDateOnly = (date) => {
+    const d = new Date(date);
+    return d.toISOString().split("T")[0];
+  };
+
+  const convertToAMPM = (time) => {
+    if (!time || !/^\d{2}:\d{2}:\d{2}$/.test(time)) {
+      throw new Error("Invalid time format. Please use 'hh:mm:ss' format.");
+    }
+
+    let [hours, minutes] = time.split(":");
+    hours = parseInt(hours, 10);
+
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+
+    if (hours === 0) {
+      hours = 12;
+    }
+
+    minutes = minutes.padStart(2, "0");
+
+    return `${hours}:${minutes} ${period}`;
+  };
+
+
+
   useEffect(() => {
     debugger;
     if (trainingData?.TrainingMasterId) {
@@ -343,7 +383,7 @@ const CreateTraining = () => {
               <span className="login_ErrorTxt">{trainingDurationErrorMsg}</span>
             </div>
           </div>
-          {/* <div className="form-row">
+          <div className="form-row">
             <div className="scheduled-training-box">
               <h5>Training Booked Slot</h5>
               <table className="training-timetable">
@@ -367,7 +407,7 @@ const CreateTraining = () => {
                 </tbody>
               </table>
             </div>
-          </div> */}
+          </div>
 
           <div className="button-group">
             <button type="submit" className="submit-btn save-btn" disabled={isSubmitting}>
