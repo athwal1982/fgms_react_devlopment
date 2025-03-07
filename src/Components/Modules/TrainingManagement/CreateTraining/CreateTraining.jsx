@@ -9,10 +9,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TextField } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { format, isSameDay } from "date-fns";
 import { useLocation } from "react-router-dom";
 
-const CreateTraining = ({ props }) => {
+const CreateTraining = () => {
   const setAlertMessage = AlertMessage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,8 +27,6 @@ const CreateTraining = ({ props }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState("");
   const [existingTrainingDates, setExistingTrainingDates] = useState([]);
-  const [tooltipContent, setTooltipContent] = useState("");
-  const [tooltipVisible, setTooltipVisible] = useState(false);
   const [trainingLink, setTrainingLink] = useState("");
   const [trainingTitelErrorMsg, settrainingTitleErrorMsg] = useState("");
   const [trainingTypeErrorMsg, settrainingTypeErrorMsg] = useState("");
@@ -108,74 +105,6 @@ const CreateTraining = ({ props }) => {
     fetchTrainingTypes();
     fetchExistingTrainingDates();
   }, []);
-
-  const isHighlightedDate = (date) => {
-    return existingTrainingDates.some((trainingDate) => isSameDay(trainingDate, date));
-  };
-
-  const renderDay = (day, _selectedDate, isInCurrentMonth, dayComponent) => {
-    const isHighlighted = isHighlightedDate(day);
-    return (
-      <div
-        style={{
-          position: "relative",
-          backgroundColor: isHighlighted ? "#ffeb3b" : "transparent",
-          borderRadius: "50%",
-          width: "36px",
-          height: "36px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {dayComponent}
-      </div>
-    );
-  };
-
-  const capitalizeText = (text) => {
-    if (!text) return text;
-    return text
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(" ");
-  };
-  const getDateOnly = (date) => {
-    const d = new Date(date);
-    return d.toISOString().split("T")[0];
-  };
-
-  const convertToAMPM = (time) => {
-    if (!time || !/^\d{2}:\d{2}:\d{2}$/.test(time)) {
-      throw new Error("Invalid time format. Please use 'hh:mm:ss' format.");
-    }
-
-    let [hours, minutes] = time.split(":");
-    hours = parseInt(hours, 10);
-
-    const period = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12;
-
-    if (hours === 0) {
-      hours = 12;
-    }
-
-    minutes = minutes.padStart(2, "0");
-
-    return `${hours}:${minutes} ${period}`;
-  };
-
-  const handleMouseEnter = (date) => {
-    const training = existingTrainingDates.find((trainingDate) => isSameDay(trainingDate, date));
-    if (training) {
-      setTooltipContent(`Time: ${training.startTime} - ${training.endTime}`);
-      setTooltipVisible(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setTooltipVisible(false);
-  };
 
   const updateEndTime = (duration, startTime) => {
     if (!startTime) return;
@@ -306,13 +235,15 @@ const CreateTraining = ({ props }) => {
     }
   }, [trainingData]);
 
+
+
   return (
     <div className="form-wrapper">
       <div className="form-container">
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
-              <label  className="CreateTraining-form-label" htmlFor="training-title">
+              <label className="CreateTraining-form-label" htmlFor="training-title">
                 Training Title <span className="asteriskCss">&#42;</span>
               </label>
               <input
@@ -326,7 +257,7 @@ const CreateTraining = ({ props }) => {
               <span className="login_ErrorTxt">{trainingTitelErrorMsg}</span>
             </div>
             <div className="form-group">
-              <label  className="CreateTraining-form-label" htmlFor="training-module">
+              <label className="CreateTraining-form-label" htmlFor="training-module">
                 Training Type <span className="asteriskCss">&#42;</span>
               </label>
               <select id="training-module" value={selectedModule} onChange={(e) => setSelectedModule(e.target.value)}>
@@ -347,7 +278,7 @@ const CreateTraining = ({ props }) => {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label  className="CreateTraining-form-label" htmlFor="training-link">
+              <label className="CreateTraining-form-label" htmlFor="training-link">
                 Training Link <span className="asteriskCss">&#42;</span>
               </label>
               <input
@@ -364,7 +295,7 @@ const CreateTraining = ({ props }) => {
 
           <div className="form-row">
             <div className="form-group">
-              <label  className="CreateTraining-form-label" htmlFor="training-date">
+              <label className="CreateTraining-form-label" htmlFor="training-date">
                 Training Scheduled Date <span className="asteriskCss">&#42;</span>
               </label>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -381,14 +312,14 @@ const CreateTraining = ({ props }) => {
             </div>
             <div className="form-group time-group" style={{ display: "flex", flexDirection: "row", gap: "20px", marginRight: "0px" }}>
               <div>
-                <label  className="CreateTraining-form-label" htmlFor="training-start-time">
+                <label className="CreateTraining-form-label" htmlFor="training-start-time">
                   Training Start Time <span className="asteriskCss">&#42;</span>
                 </label>
                 <input style={{ width: "200px" }} type="time" id="training-start-time" value={startTime} onChange={handleStartTimeChange} />
                 <span className="login_ErrorTxt">{trainingStartDateErrorMsg}</span>
               </div>
               <div>
-                <label  className="CreateTraining-form-label" htmlFor="training-end-time">
+                <label className="CreateTraining-form-label" htmlFor="training-end-time">
                   Training End Time <span className="asteriskCss">&#42;</span>
                 </label>
                 <input style={{ width: "200px" }} type="time" id="training-end-time" value={endTime} onChange={handleEndTimeChange} disabled={true} />
@@ -398,7 +329,7 @@ const CreateTraining = ({ props }) => {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label  className="CreateTraining-form-label" htmlFor="training-duration">
+              <label className="CreateTraining-form-label" htmlFor="training-duration">
                 Duration <span className="asteriskCss">&#42;</span>
               </label>
               <select id="training-duration" value={duration} onChange={handleDurationChange}>
@@ -412,7 +343,7 @@ const CreateTraining = ({ props }) => {
               <span className="login_ErrorTxt">{trainingDurationErrorMsg}</span>
             </div>
           </div>
-          <div className="form-row">
+          {/* <div className="form-row">
             <div className="scheduled-training-box">
               <h5>Training Booked Slot</h5>
               <table className="training-timetable">
@@ -436,7 +367,7 @@ const CreateTraining = ({ props }) => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
 
           <div className="button-group">
             <button type="submit" className="submit-btn save-btn" disabled={isSubmitting}>

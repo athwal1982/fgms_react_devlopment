@@ -55,6 +55,7 @@ import Page from "./Page/Page";
 import PageAuthenticator from "./PageAuthenticator/PageAuthenticator";
 import AgentTraining from "Components/Modules/TrainingManagement/AgentTraining/AgentTraining";
 import TrainingDashboard from "Components/Modules/TrainingManagement/TrainingDashboard/TrainingDashboard";
+import CenterTrainee from "Components/Modules/Trainee/CenterTrainee/CenterTrainee";
 
 function PageRouter() {
   return (
@@ -132,6 +133,7 @@ function PageRouter() {
         <Route exact path="/AgentTrainings" element={<Page component={<AgentTraining />} title="Agent Trainings" />} />
         <Route exact path="/UpdateProfile" element={<Page component={<UpdateProfile />} title="Update Profile" />} />
         <Route exact path="/TrainingDashboard" element={<Page component={<TrainingDashboard />} title="Training Dashboard" />} />
+        <Route exact path="/CenterTrainee" element={<Page component={<CenterTrainee/>} title="Center Trainee" />} />
       </Routes>
     </Router>
   );
