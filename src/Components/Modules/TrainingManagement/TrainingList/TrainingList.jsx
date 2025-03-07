@@ -173,9 +173,9 @@ const toggleEditTrainingModal = (data) => {
 
 
   const ActionCellRenderer = (props) => {
-    const { ExpiredFlag } = props.data; // Extract ExpiredFlag from data
+    const { ExpiredFlag } = props.data; 
   
-    // If ExpiredFlag is 1, return nothing (hide icons)
+  
     if (ExpiredFlag == 1) {
       return null;
     }

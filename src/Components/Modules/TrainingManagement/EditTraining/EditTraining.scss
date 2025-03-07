@@ -12,6 +12,7 @@
    
   
     .edittraining-form-container {
+      position: relative;
         border: 1px solid #006400;
       background: #fff;
       padding: 25px;
@@ -20,10 +21,23 @@
       max-width: 95%;
       box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
       animation: fadeIn 0.3s ease-in-out;
+      
+      .close-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+        color: #006400;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.2s ease-in-out;
+
+      
+    }
+      
   
       form {
         display: grid;
-        grid-template-columns: 1fr 1fr; // Two inputs per row
+        grid-template-columns: 1fr 1fr;
         gap: 20px;
         align-items: center;
   
