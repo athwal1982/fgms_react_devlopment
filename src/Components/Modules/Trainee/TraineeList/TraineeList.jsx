@@ -161,7 +161,7 @@ const TraineeList = () => {
 
     {
       headerName: "Location",
-      field: "Location",
+      field: "Center",
       sortable: true,
       filter: true,
       cellRendererFramework: (params) => (params.value ? params.value : "NA"),
