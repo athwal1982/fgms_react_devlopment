@@ -349,7 +349,7 @@ function TicketHistoryLogics() {
     }
 
     const columnOrder = {
-      UserID: "Agent ID",
+      CallingUserID: "Agent ID",
       CallingUniqueID: "Calling ID",
       NCIPDocketNo: "NCIP Docket No",
       SupportTicketNo: "Ticket No",
@@ -392,7 +392,7 @@ function TicketHistoryLogics() {
 
     const mappedData = ticketData.map((value) => {
       return {
-        UserID: value.UserID,
+        CallingUserID: value.CallingUserID,
         CallingUniqueID: value.CallingUniqueID,
         NCIPDocketNo: value.NCIPDocketNo,
         SupportTicketNo: value.SupportTicketNo,

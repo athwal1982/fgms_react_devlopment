@@ -122,7 +122,7 @@ function TicketHistory({
       <div className={BizClass.divGridPagination}>
         <DataGrid rowData={filteredTicketHistoryDataList} loader={isLoadingTicketHistoryDataList ? <Loader /> : false} onGridReady={onGridReady}>
           <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
-          <DataGrid.Column field="UserID" headerName="Agent ID" width="90px" />
+          <DataGrid.Column field="CallingUserID" headerName="Agent ID" width="90px" />
           <DataGrid.Column field="CallingUniqueID" headerName="Calling ID" width="160px" />
           <DataGrid.Column field="NCIPDocketNo" headerName="NCIP Docket No" width="160px" />
           <DataGrid.Column field="SupportTicketNo" headerName="Ticket No" width="160px" />
