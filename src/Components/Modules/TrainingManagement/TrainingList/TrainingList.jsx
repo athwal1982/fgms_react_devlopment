@@ -492,9 +492,11 @@ const TrainingList = () => {
       {isEditModalOpen && (
         <div className="edittraining-form-wrapper">
           <div className="edittraining-form-container">
-            <h5 className="edittraining-heading" style={{ marginBottom: "20px" }}>Edit Training Details</h5>
+            <div className="header-color">
+            <h5 className="edittraining-heading" style={{ marginBottom: "8px" }}>Edit Training Details</h5>
             <IoMdClose className="close-icon" onClick={() => setEditModalOpen(false)}
             />
+            </div>
             <form onSubmit={handleSubmit}>
               <div className="edittraining-form-row">
                 <div className="edittraining-form-group">

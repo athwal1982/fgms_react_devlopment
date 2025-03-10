@@ -202,7 +202,25 @@ const TraineeList = () => {
         }
       },
     },
-
+    {
+      headerName: "Re-Joining Date",
+      field: "RejoiningDate",
+      sortable: true,
+      filter: true,
+      width: 150,
+      cellRendererFramework: (params) => {
+        if (params.value) {
+          const date = new Date(params.value);
+          const day = ("0" + date.getDate()).slice(-2);
+          const month = ("0" + (date.getMonth() + 1)).slice(-2);
+          const year = date.getFullYear();
+          return `${day}-${month}-${year}`;
+        } else {
+          return "NA";
+        }
+      },
+    },
+    
 
   ]);
 
@@ -342,6 +360,7 @@ const TraineeList = () => {
         designation: selectedAgent.Designation,
         JoiningDate: e.target.JoiningDate.value,
         ExitDate: e.target.ExitDate.value,
+        RejoiningDate: e.target.RejoiningDate.value,
       };
 
 
@@ -426,10 +445,14 @@ const TraineeList = () => {
                   <input type="date" name="JoiningDate" defaultValue={selectedAgent.JoiningDate || ""} /></div>
                 <div className="modal-input">   <label className="Trainee-form-label">Exit Date</label>
                   <input type="date" name="ExitDate" defaultValue={selectedAgent.ExitDate || ""} /></div>
+              
               </div>
-
+              <div className="modal-row">
+              <div className="modal-input">   <label className="Trainee-form-label">Re-joining Date</label>
+              <input type="date" name="RejoiningDate" defaultValue={selectedAgent.RejoiningDate || ""} /></div>   <div className="modal-input"></div>  <div className="modal-input"></div> </div>
+          
               <div className="modal-buttons">
-                <button type="submit">Save</button>
+                <button type="submit">Update</button>
                 <button type="button" onClick={handleCloseModal}>Cancel</button>
 
               </div>

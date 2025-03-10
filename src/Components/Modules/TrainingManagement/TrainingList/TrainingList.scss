@@ -344,19 +344,27 @@
     position: relative;
       border: 1px solid #006400;
     background: #fff;
-    padding: 25px;
+    padding: 20px;
     border-radius: 8px;
     width: 700px; // Increased width
     max-width: 95%;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s ease-in-out;
     
+
+    .header-color{
+      color: #004d00;
+      margin-bottom: 15px;
+    }
+    
     .close-icon {
+ background-color: #004d00;
+ border-radius: 50%;
       position: absolute;
       top: 20px;
       right: 20px;
       font-size: 20px;
-      color: #006400;
+      color: white;
       cursor: pointer;
       transition: color 0.3s ease, transform 0.2s ease-in-out;
 
@@ -458,4 +466,12 @@
   .edittraining-button-group {
     justify-content: center;
   }
+}
+
+
+
+.edittraining-form-group input:focus,
+.edittraining-form-group select:focus {
+    border-color: #075307;
+    box-shadow: 0 0 4px rgba(7, 83, 7, 0.5);
 }
