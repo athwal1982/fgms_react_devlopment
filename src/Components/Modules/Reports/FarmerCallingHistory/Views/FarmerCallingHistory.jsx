@@ -65,6 +65,7 @@ function FarmerCallingHistory({
       </PageBar>
       <DataGrid rowData={filteredFarmerCallingHistoryDataList} loader={isLoadingFarmerCallingHistoryDataList ? <Loader /> : false} onGridReady={onGridReady}>
         <DataGrid.Column valueGetter="node.rowIndex + 1" field="#" headerName="Sr No." width={80} pinned="left" />
+        <DataGrid.Column field="UserID" headerName="Agent ID" width="90px" />
         <DataGrid.Column field="CallingUniqueID" headerName="Calling ID" width="160px" />
         <DataGrid.Column field="CallerMobileNumber" headerName="Caller Mobile No." width="160px" />
         <DataGrid.Column field="CallStatus" headerName="Call Status" width="110px" />

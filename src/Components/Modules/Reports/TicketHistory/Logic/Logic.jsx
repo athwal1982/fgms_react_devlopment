@@ -146,6 +146,7 @@ function TicketHistoryLogics() {
     // A let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
     // A XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
     worksheet["!cols"] = [
+      { width: 15 },
       { width: 20 },
       { width: 20 },
       { width: 20 },
@@ -167,6 +168,7 @@ function TicketHistoryLogics() {
       { width: 20 },
       { width: 30 },
       { width: 15 },
+      { width: 20 },
       { width: 20 },
       { width: 20 },
       { width: 20 },
@@ -347,6 +349,7 @@ function TicketHistoryLogics() {
     }
 
     const columnOrder = {
+      UserID: "Agent ID",
       CallingUniqueID: "Calling ID",
       NCIPDocketNo: "NCIP Docket No",
       SupportTicketNo: "Ticket No",
@@ -383,11 +386,13 @@ function TicketHistoryLogics() {
       IFSCCode: "IFSC Code",
       FarmerShare: "Farmer Share",
       SowingDate: "Sowing Date",
+      CreatedBY: "Created By",
       TicketDescription: "Description",
     };
 
     const mappedData = ticketData.map((value) => {
       return {
+        UserID: value.UserID,
         CallingUniqueID: value.CallingUniqueID,
         NCIPDocketNo: value.NCIPDocketNo,
         SupportTicketNo: value.SupportTicketNo,
@@ -426,6 +431,7 @@ function TicketHistoryLogics() {
         SowingDate: value.SowingDate
           ? dateToSpecificFormat(`${value.SowingDate.split("T")[0]} ${Convert24FourHourAndMinute(value.SowingDate.split("T")[1])}`, "DD-MM-YYYY HH:mm")
           : "",
+        CreatedBY: value.CreatedBY,  
         TicketDescription: value.TicketDescription,
       };
     });

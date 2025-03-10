@@ -45,7 +45,7 @@ function LossIntimationReport({
           name="txtTicketCategory"
           options={ticketCategoryList}
           loader={isLoadingTicketCategoryList ? <Loader /> : null}
-          getOptionLabel={(option) => `${option.TicketCategoryName}`}
+          getOptionLabel={(option) => `${option.SupportTicketTypeName}`}
           getOptionValue={(option) => `${option}`}
           value={formValues.txtTicketCategory}
           onChange={(e) => updateState("txtTicketCategory", e)}

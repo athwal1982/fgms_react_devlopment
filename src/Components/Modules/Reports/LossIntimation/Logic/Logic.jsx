@@ -61,8 +61,8 @@ function LossIntimationReportLogics() {
       const formData = {
         insuranceCompanyID: 0,
         stateID: 0,
-        ticketCategoryID: formValues.txtTicketCategory && formValues.txtTicketCategory.TicketCategoryID ? formValues.txtTicketCategory.TicketCategoryID : 0,
-        supportTicketTypeID: 11,
+        ticketCategoryID: 0,
+        supportTicketTypeID: formValues.txtTicketCategory && formValues.txtTicketCategory.TicketCategoryID ? formValues.txtTicketCategory.TicketCategoryID : 0,
         fromdate: formValues.txtFromDate ? dateToCompanyFormat(formValues.txtFromDate) : "",
         toDate: formValues.txtToDate ? dateToCompanyFormat(formValues.txtToDate) : "",
         ticketHeaderID: 4,
@@ -92,14 +92,14 @@ function LossIntimationReportLogics() {
 
   const [ticketCategoryList, setTicketCategoryList] = useState([]);
   const [isLoadingTicketCategoryList, setIsTicketCategoryList] = useState(false);
-  const getTicketCategoryListData = async (supportTicketTypeID) => {
+  const getTicketCategoryListData = async () => {
     try {
       setTicketCategoryList([]);
       setIsTicketCategoryList(true);
       const formdata = {
-        filterID: supportTicketTypeID,
+        filterID: 4,
         filterID1: 0,
-        masterName: "TCKCGZ",
+        masterName: "CRPTCKTYP",
         searchText: "#ALL",
         searchCriteria: "AW",
       };
@@ -170,7 +170,7 @@ function LossIntimationReportLogics() {
   };
 
   useEffect(() => {
-    getTicketCategoryListData(11);
+    getTicketCategoryListData();
   }, []);
 
   return {
