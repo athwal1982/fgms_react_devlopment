@@ -20,6 +20,8 @@ function LossIntimationReportPage() {
     getGrievanceReportsList,
     onClickClearSearchFilter,
     exportClick,
+    cropStageData,
+    lossAtList,
   } = LossIntimationReportLogics();
 
   return (
@@ -40,6 +42,8 @@ function LossIntimationReportPage() {
       getGrievanceReportsList={getGrievanceReportsList}
       onClickClearSearchFilter={onClickClearSearchFilter}
       exportClick={exportClick}
+      cropStageData={cropStageData}
+      lossAtList={lossAtList}
     />
   );
 }
