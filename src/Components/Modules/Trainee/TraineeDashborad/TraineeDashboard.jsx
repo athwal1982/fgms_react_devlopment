@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./TraineeDashboard.scss";
-import icon from "./Assest/icon1.svg";
-import icon4 from "./Assest/icon5.svg";
-import cloud from "./Assest/CloudIcon.svg";
-import training3 from "./Assest/training3.svg";
+import icon from "../../../../../src/assets/icon1.svg";
+import icon4 from "../../../../../src/assets/icon5.svg";
+import cloud from "../../../../../src/assets/CloudIcon.svg";
+import training3 from "../../../../../src/assets/training3.svg";
 
 const TraineeDashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState("March 2024");

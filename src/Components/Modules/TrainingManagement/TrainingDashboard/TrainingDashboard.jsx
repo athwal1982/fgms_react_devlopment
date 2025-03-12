@@ -2,16 +2,16 @@ import React from "react";
 import "./TrainingDashboard.scss";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
-import icon from "./Assest/icon1.svg";
-import icon1 from "./Assest/icon2.svg";
-import icon2 from "./Assest/icon3.svg";
-import icon3 from "./Assest/icon4.svg";
-import icon4 from "./Assest/icon5.svg";
-import icon5 from "./Assest/icon6.svg";
-import cloud from "./Assest/CloudIcon.svg";
-import training1 from "./Assest/training1.svg";
-import training2 from "./Assest/training2.svg";
-import training3 from "./Assest/training3.svg";
+import icon from "../../../../../src/assets/icon1.svg";
+import icon1 from "../../../../../src/assets/icon2.svg";;
+import icon2 from "../../../../../src/assets/icon3.svg";
+import icon3 from "../../../../../src/assets/icon4.svg";
+import icon4 from "../../../../../src/assets/icon5.svg";
+import icon5 from "../../../../../src/assets/icon6.svg";
+import cloud from "../../../../../src/assets/CloudIcon.svg";
+import training1 from "../../../../../src/assets/training1.svg";
+import training2 from "../../../../../src/assets/training2.svg";
+import training3 from "../../../../../src/assets/training3.svg";
 
 
 const dataset = [

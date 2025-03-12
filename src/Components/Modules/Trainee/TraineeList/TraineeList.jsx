@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "./TraineeList.scss";
 import { FaEdit } from "react-icons/fa";
-import { getAllAgent, statusUpdate, setCSCUpdateAgentBYID } from "./Services/Methods";
+import { getAllAgent, setCSCUpdateAgentBYID } from "./Services/Methods";
 import _ from "lodash";
 import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
 import { getTrainerList } from "../../TrainingManagement/Services/Methods";
