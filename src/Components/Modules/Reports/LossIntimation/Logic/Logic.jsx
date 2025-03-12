@@ -22,7 +22,7 @@ function LossIntimationReportLogics() {
   const setAlertMessage = AlertMessage();
 
    const ticketBindingData = getSessionStorage("ticketDataBindingSsnStrg");
-   const [cropStageData] = useState([{lable: " Standing Crop Stage", value:"1"},{lable: "Harvested Stage", value:"1"}]);
+   const [cropStageData] = useState([{lable: " Standing Crop Stage", value:"1"},{lable: "Harvested Stage", value:"2"}]);
 
   const [gridApi, setGridApi] = useState();
   const onGridReady = (params) => {

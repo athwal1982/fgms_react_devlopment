@@ -87,6 +87,7 @@ function FarmerCallingHistory({
           width="290px"
         />
         <DataGrid.Column field="Reason" headerName="Reason" width="170px" />
+        <DataGrid.Column field="CallPurpose" headerName="Call Purpose" width="170px" /> 
         <DataGrid.Column
           field="#"
           headerName="Created At"
