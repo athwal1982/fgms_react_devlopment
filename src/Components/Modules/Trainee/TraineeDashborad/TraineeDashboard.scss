@@ -1,6 +1,6 @@
-.dashboard-container {
+.dashboard-container-header {
     width: 90%;
-    margin: auto;
+    margin: 0 auto;
 
     .header {
         display: flex;
@@ -13,9 +13,9 @@
             background: white;
             padding: 20px;
             border-radius: 15px;
-            text-align: left;
-            width: 15%;
-            height: 120px;
+            text-align: center;
+            width: 48%;
+            height: 160px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
@@ -24,6 +24,8 @@
             padding-left: 10px;
             overflow: hidden;
             transition: background 0.3s ease-in-out;
+            justify-content: center; 
+            align-items: center;
 
             &::before {
                 content: "";
@@ -46,18 +48,21 @@
                 padding: 5px;
                 top: 10px;
                 right: 15px;
-                width: 35px;
-                height: 35px;
+                width: 40px;
+                height: 40px;
             }
 
             span {
-                font-size: 13px;
+                font-size: 18px;
                 color: black;
             }
 
 
             &:hover {
                 background: var(--card-hover-color, white);
+            }
+            &:hover .card-label {
+                color: white !important;  
             }
         }
 
@@ -69,13 +74,12 @@
 
     .training-status {
         background: #E3F7B6;
-        padding: 20px;
+        padding: 25px;
         border-radius: 15px;
         margin-bottom: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         background: linear-gradient(135deg, #E3F7B6, #E3F7B6);
-        padding: 20px;
-
+   
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: left;
         position: relative;
@@ -107,7 +111,7 @@
             }
 
             .month-status {
-                font-size: 14px;
+                font-size: 15px;
                 color: #666;
                 margin-bottom: 5px;
             }
@@ -121,12 +125,12 @@
 
 
         .export-btn {
+            cursor: pointer;
             background: white;
             color: #075307;
             border: 1px solid #075307;
             padding: 8px 15px;
             border-radius: 5px;
-            cursor: pointer;
             font-size: 13px;
         }
 
@@ -137,51 +141,9 @@
             height: 25vh;
 
 
-            .training-card1 {
-                background: #fff;
-                padding: 15px;
-                width: 25%;
+         
 
-                border-radius: 15px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                text-align: left;
-                position: relative;
-
-                .icon {
-                    position: absolute;
-                    top: 15px;
-                    right: 20px;
-
-                    padding: 8px 6px 8px 6px;
-                    background-color: #facb9c;
-                    border-radius: 10px;
-
-                    img {
-                        width: 30px;
-                        height: auto;
-                    }
-                }
-
-                h4 {
-                    font-size: 14px;
-                    margin: 0;
-                    font-weight: 500;
-                }
-
-                .number {
-                    font-size: 16px;
-                    font-weight: bold;
-                    margin-top: 35px;
-                }
-
-                .subtext {
-                    font-weight: bold;
-                    font-size: 12px;
-                    color: #666;
-                }
-            }
-
-            .training-card2 {
+            .training-card2-header {
                 background: #fff;
                 padding: 15px;
                 width: 40%;
@@ -205,7 +167,7 @@
                 }
 
                 h4 {
-                    font-size: 14px;
+                    font-size: 16px;
                     margin-bottom: 30px;
                     font-weight: 500;
                 }
@@ -225,62 +187,95 @@
                 .subtext {
                     font-weight: bold;
                     margin-top: 5px;
-                    font-size: 12px;
+                    font-size: 14px;
                     color: #666;
                 }
             }
 
-            .training-card3 {
+            .training-card3-header {
                 background: #fff;
                 padding: 15px;
-                width: 60%;
+                width: 100%;
                 border-radius: 15px;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                text-align: left;
+                text-align: center;
                 position: relative;
-
-                .number-container {
-                    display: flex;
-                    justify-content: space-around;
-                    width: 100%;
-                    margin-top: 30px;
-                }
-
-
-                .icon {
-                    position: absolute;
-                    top: 15px;
-                    right: 20px;
-                    padding: 8px 6px 8px 6px;
-                    background-color: #D5B8F3;
-                    border-radius: 10px;
-
-                    img {
-                        width: 30px;
-                        height: auto;
-                    }
-                }
-
-                h4 {
-                    font-size: 14px;
-                    margin: 0;
-                    font-weight: 500;
-                }
-
-                .number {
-                    font-size: 16px;
-                    font-weight: bold;
-                    margin-top: 20px;
-                    text-align: center;
-
-                }
-
-                .subtext {
-                    font-size: 12px;
-
-                    color: #666;
-                }
             }
+            
+            .number-container {
+                display: flex;
+                align-items: center;
+                justify-content: center; /* Center content horizontally */
+                gap: 20px; /* Space between elements */
+                flex-wrap: nowrap; /* Keep items in a single row */
+                overflow-x: auto; /* Allow scrolling if content overflows */
+                white-space: nowrap; /* Prevent text from wrapping */
+                padding: 10px 0;
+                margin-top: 25px;
+            }
+            
+            .number-container p {
+                font-size: 16px; /* Bigger font for visibility */
+                font-weight: 500;
+                position: relative;
+                padding-right: 15px; /* Space for the right-side line */
+                margin: 0; /* Remove default margin */
+                display: flex;
+                align-items: center;
+            }
+            
+            .number-container p::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: 0;
+                height: 60%; /* Adjust line height */
+                width: 2px; /* Line thickness */
+                background-color: black;
+                transform: translateY(-50%);
+            }
+            
+            .number-container p:last-child::after {
+                display: none; /* Remove line from last <p> */
+            }
+            
+            .icon {
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                padding: 8px;
+                background-color: #D5B8F3;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .icon img {
+                width: 30px;
+                height: auto;
+            }
+            
+            h4 {
+                font-size: 18px;
+                margin: 0;
+                font-weight: 600;
+                text-align: center;
+            }
+            
+            .number {
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+            
+            .subtext {
+                font-size: 14px;
+                color: #666;
+            }
+            
+       
+            
         }
 
     }
@@ -488,3 +483,36 @@ $colors: (
         margin-bottom: 10px;
     }
 }
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .month-dropdown {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: white;
+  }
+  
+  .month-dropdown:focus {
+    outline: none;
+    border-color: #747DE8;
+  }
+  
+  .month-dropdown option {
+    font-size: 14px;
+    padding: 5px;
+  }
+  .month-dropdown-year{
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: white;
+    margin-left: 10px;
+  }

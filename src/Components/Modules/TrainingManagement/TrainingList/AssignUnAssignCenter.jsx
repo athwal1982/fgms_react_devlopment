@@ -5,7 +5,6 @@ import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
 import { FiTrash2 } from "react-icons/fi";
 import { FaPaperPlane } from "react-icons/fa";
-// A import { getSessionStorage } from "Components/Modules/Common/Login/Auth/auth";
 import { cSCCenterTrainingAssignManageData } from "../Services/Methods";
 import "./TrainingList.scss";
 
@@ -13,15 +12,10 @@ import "./TrainingList.scss";
 function AssignUnAssignCenter({
     toggleAssignUnAssignCenterModal,
     assignUnAssignCenterModal,
-  
+
 }) {
     const setAlertMessage = AlertMessage();
 
-
-    const handleChange = (e) => {
-        setSelectedCenterIds(e.target.value);
-        TrainingList(e.target.value); 
-    };
     const [assignedCenterGridApi, setAssignedCenterGridApi] = useState();
     const onAssignedCenterGridReady = (params) => {
         setAssignedCenterGridApi(params.api);
@@ -41,7 +35,7 @@ function AssignUnAssignCenter({
         debugger;
         // A setProfileRightData(data);
         try {
-            
+
             setIsLoadingCenterList(true);
             const formdata = {
                 viewMode: "GETALLCENTER",
@@ -74,10 +68,7 @@ function AssignUnAssignCenter({
         }
     };
 
-    useEffect(() => {
-        debugger;
-        getAssignedUserListData(assignUnAssignCenterModal);
-    }, [assignUnAssignCenterModal]);
+
 
     const onClickDeleteAssignedCenter = async (data) => {
         debugger;
@@ -148,7 +139,7 @@ function AssignUnAssignCenter({
                 })
                 .join(",");
 
-                
+
 
             setBtnLoaderActive(true);
 
@@ -228,21 +219,6 @@ function AssignUnAssignCenter({
         }
     };
 
-    const updateAssignUnAssignCenter = (addedCenter) => {
-        if (assignedCenterGridApi) {
-            const rowData = [];
-            if (addedCenter && addedCenter.length > 0) {
-                addedCenter.forEach((data) => {
-                    rowData.push(data);
-                });
-            }
-            assignedCenterGridApi.forEachNode((node) => rowData.push(node.data));
-            assignedCenterGridApi.setRowData(rowData);
-            CenterList.unshift(addedCenter[0]);
-            setCenterList([]);
-            setCenterList(CenterList);
-        }
-    };
 
     const checkboxSelection = (params) => {
         console.log(params);
@@ -262,6 +238,10 @@ function AssignUnAssignCenter({
         }
         return { background: "white" };
     };
+    useEffect(() => {
+        debugger;
+        getAssignedUserListData(assignUnAssignCenterModal);
+    }, [assignUnAssignCenterModal]);
 
     return (
         <>
@@ -360,18 +340,18 @@ function AssignUnAssignCenter({
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button
-  type="Button"
-  varient="danger"
-  onClick={(e) => handleSave(e)}
-  trigger={btnLoaderActive ? "true" : "false"}
-  className="custom-button-AssignUnassign"
->
-  <span className="button-content">
-    <FaPaperPlane className="icon" />
-    Save
-  </span>
-</Button>
+                    <Button
+                        type="Button"
+                        varient="danger"
+                        onClick={(e) => handleSave(e)}
+                        trigger={btnLoaderActive ? "true" : "false"}
+                        className="custom-button-AssignUnassign"
+                    >
+                        <span className="button-content">
+                            <FaPaperPlane className="icon" />
+                            Save
+                        </span>
+                    </Button>
 
 
 

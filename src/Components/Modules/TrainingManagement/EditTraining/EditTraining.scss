@@ -1,0 +1,133 @@
+.edittraining-form-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+   
+  
+    .edittraining-form-container {
+      position: relative;
+        border: 1px solid #006400;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      width: 700px; // Increased width
+      max-width: 95%;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease-in-out;
+      
+      .close-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+        color: #006400;
+        cursor: pointer;
+        transition: color 0.3s ease, transform 0.2s ease-in-out;
+
+      
+    }
+      
+  
+      form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: center;
+  
+        .edittraining-form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          padding: 6px;
+  
+          label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+          }
+  
+          input,
+          select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+          }
+        }
+  
+        .edittraining-button-group {
+          grid-column: span 2; // Buttons take full width
+          display: flex;
+          justify-content: flex-end;
+          gap: 10px;
+          margin-top: 15px;
+  
+          .edittraining-submit-btn,
+          .edittraining-cancel-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+          }
+  
+          .edittraining-submit-btn {
+            background: #006400;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+  
+            &:hover {
+              background: #006400;
+            }
+          }
+  
+          .edittraining-cancel-btn {
+            background: grey;
+            color: #fff;
+  
+            &:hover {
+              background: lightgrey;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  // Responsive Design
+  @media (max-width: 768px) {
+    .edittraining-form-container {
+      width: 90%;
+    }
+  
+    form {
+      grid-template-columns: 1fr; // Single column on small screens
+    }
+  
+    .edittraining-button-group {
+      justify-content: center;
+    }
+  }
+  

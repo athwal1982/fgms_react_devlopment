@@ -23,12 +23,10 @@ const dataset = [
 ];
 
 const chartSettingBar = {
-
     width: 500,
     height: 400,
 };
 const chartSettingPie = {
-
     width: 300,
     height: 300,
 };
@@ -133,9 +131,9 @@ const TrainingDashboard = () => {
                                 scaleType: "band",
                                 dataKey: "state",
                                 tickLabelProps: () => ({
-                                    fontSize: 12, 
-                                    textAnchor: "start", 
-                                    dx: 5, 
+                                    fontSize: 12,
+                                    textAnchor: "start",
+                                    dx: 5,
                                 }),
                             },
                         ]}
@@ -146,7 +144,7 @@ const TrainingDashboard = () => {
                             },
                         ]}
                         layout="horizontal"
-                        margin={{ left: 70 }} 
+                        margin={{ left: 70 }}
                         {...chartSettingBar}
                     />
 

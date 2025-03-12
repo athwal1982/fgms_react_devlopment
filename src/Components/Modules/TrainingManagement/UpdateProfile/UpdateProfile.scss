@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh; 
+    height: 60vh;
     background-color: #f4f4f4;
     margin-top: 80px;
 }
@@ -41,7 +41,7 @@ h2 {
     margin-bottom: 2px;
 }
 
-/* Scoped styles for input and select */
+
 .update-profile-card input,
 .update-profile-card select {
     width: 100%;
@@ -49,17 +49,17 @@ h2 {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 12px;
-    outline: none; /* Prevents focus border conflicts */
+    outline: none;
 }
 
-/* Focus styles for better user experience */
+
 .update-profile-card input:focus,
 .update-profile-card select:focus {
     border-color: #075307;
     box-shadow: 0 0 4px rgba(7, 83, 7, 0.5);
 }
 
-/* Submit button styles */
+
 .form-actions {
     display: flex;
     justify-content: flex-end;

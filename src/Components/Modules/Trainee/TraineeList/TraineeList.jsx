@@ -13,11 +13,7 @@ const TraineeList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(10);
-  const [selectedUser, setSelectedUser] = useState(null);
-
   const setAlertMessage = AlertMessage();
-
   const [center, setCenter] = useState([]);
   const [selectedCenter, setSelectedCenter] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,17 +21,14 @@ const TraineeList = () => {
 
   const handleEdit = (agent) => {
     debugger;
-
     setSelectedAgent(agent);
     setIsModalOpen(true);
   };
-
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedAgent(null);
   };
-
 
   const [columnDefs] = useState([
     {
@@ -224,7 +217,6 @@ const TraineeList = () => {
 
   ]);
 
-  
   const fetchAllTrainer = async () => {
     const formData = {
       SPMODE: "CENTER",
@@ -251,33 +243,29 @@ const TraineeList = () => {
     }
   };
 
-
-
   const getAllAgentData = async (page, query = "", centerMasterID = "") => {
     debugger;
     try {
       const formData = {
-        page_size: 10, // Pagination size
-        page_number: page, // Page number to fetch
-        totalPages: "", // Will be populated later
-        searchQuery: query, // Search query for filtering
-        viewMode: "ALL", // ViewMode set to 'ALL'
-        userId: "", // UserID is not required for this call
-        centerMasterID: centerMasterID, // Pass centerMasterID for filtering if provided
+        page_size: 10, 
+        page_number: page, 
+        totalPages: "", 
+        searchQuery: query, 
+        viewMode: "ALL", 
+        userId: "", 
+        centerMasterID: centerMasterID, 
       };
 
-
-      // Call the API function (e.g., getAllAgent) passing the formData
       const result = await getAllAgent(formData);
       debugger;
-      // Check if the response is successful
+      
       if (result.response.responseCode === 1) {
-        // If successful, update state with received data
-        setRowData(result.response.responseData.traineeList); // List of agents
-        setFilteredData(result.response.responseData.traineeList); // Filtered data (same as traineeList for now)
-        setTotalPages(result.response.responseData.totalPages); // Total number of pages
+     
+        setRowData(result.response.responseData.traineeList); 
+        setFilteredData(result.response.responseData.traineeList);
+        setTotalPages(result.response.responseData.totalPages);
       } else {
-        // If not successful, reset the data and log an error
+       
         setRowData([]);
         setFilteredData([]);
         console.error(result.response.responseMessage);
@@ -312,7 +300,6 @@ const TraineeList = () => {
   };
 
 
-
   const renderPagination = () => (
     <div className="pagination-container">
       <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
@@ -327,23 +314,10 @@ const TraineeList = () => {
     </div>
   );
 
-
-
   const handleSearch = () => {
     setCurrentPage(1); 
     getAllAgentData(1, searchQuery, selectedCenter);
   };
-
-
-  useEffect(() => {
-    getAllAgentData(currentPage, "", "");
-    fetchAllTrainer();
-  }, []);
-
-  useEffect(() => {
-
-  }, [isModalOpen]);
-
 
   const handleSubmit = async (e) => {
     debugger;
@@ -392,7 +366,13 @@ const TraineeList = () => {
     }
   };
 
+  useEffect(() => {
+    getAllAgentData(currentPage, "", "");
+    fetchAllTrainer();
+  }, []);
 
+  useEffect(() => {
+  }, [isModalOpen]);
 
   return (
     <>

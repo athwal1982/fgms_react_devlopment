@@ -5,23 +5,21 @@ import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
 import { FaPaperPlane } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
-// A import { getSessionStorage } from "Components/Modules/Common/Login/Auth/auth";
-import { cSCCenterTrainingAssignManageData,setAssignList,setUpdateAttendance } from "../Services/Methods";
+import { setAssignList, setUpdateAttendance } from "../Services/Methods";
 import "./TrainingList.scss";
 
 
 function TrainingDetailsPopUp({
     toggleTrainingByAdminModal,
-    trainingByAdminModal,
     trainingDetails,
-  
+
 }) {
     const setAlertMessage = AlertMessage();
 
 
-    const handleChange = (e) => {  
+    const handleChange = (e) => {
         setSelectedCenterIds(e.target.value);
-        TrainingList(e.target.value); 
+        TrainingList(e.target.value);
     };
     const [assignedCenterGridApi, setAssignedCenterGridApi] = useState();
     const onAssignedCenterGridReady = (params) => {
@@ -42,15 +40,15 @@ function TrainingDetailsPopUp({
         debugger;
         // A setProfileRightData(data);
         try {
-            
+
             setIsLoadingCenterList(true);
             const formdata = {
                 viewMode: "GETALLASSIGNED",
-                cSCAppAccessTypeID:503,
+                cSCAppAccessTypeID: 503,
                 centerID: "0",
                 trainingMasterID: trainingDetails && trainingDetails.TrainingMasterId
-                ? trainingDetails.TrainingMasterId.toString()
-                : "0",
+                    ? trainingDetails.TrainingMasterId.toString()
+                    : "0",
                 userID: "0",
                 trainingUserAssignmentID: "0",
             };
@@ -78,13 +76,6 @@ function TrainingDetailsPopUp({
         }
     };
 
-    useEffect(() => {
-        debugger;
-        getAssignedUserListData(toggleTrainingByAdminModal);
-    }, [toggleTrainingByAdminModal]);
-
-
-
 
     const getSelectedRowData = () => {
         const selectedNodes = assignedCenterGridApi.getSelectedNodes();
@@ -92,54 +83,49 @@ function TrainingDetailsPopUp({
         return selectedData;
     };
 
-
-
-       const onClickDeleteAssignedCenter = async (data) => {
-            debugger;
-            try {
-             
-               
-            
-                const formdata =  {
-                    SPViewMode: "MARKABSENT", 
-                    SPTraningMasterID: trainingDetails && trainingDetails.TrainingMasterId
+    const onClickDeleteAssignedCenter = async (data) => {
+        debugger;
+        try {
+            const formdata = {
+                SPViewMode: "MARKABSENT",
+                SPTraningMasterID: trainingDetails && trainingDetails.TrainingMasterId
                     ? trainingDetails.TrainingMasterId
                     : 0,
-                    SPTrainingAssignmentID: data.TrainingUserAssignmentID, 
-                    SPUserID: data.UserID.toString()
-                };
-                const result = await setUpdateAttendance(formdata);
-                if (result.response.responseCode === 1) {
-                    setAlertMessage({
-                        type: "success",
-                        message: result.response.responseMessage,
+                SPTrainingAssignmentID: data.TrainingUserAssignmentID,
+                SPUserID: data.UserID.toString()
+            };
+            const result = await setUpdateAttendance(formdata);
+            if (result.response.responseCode === 1) {
+                setAlertMessage({
+                    type: "success",
+                    message: result.response.responseMessage,
+                });
+                getAssignedUserListData();
+                data.AssignmentFlag = 0;
+                if (assignedCenterGridApi) {
+                    const itemsToUpdate = [];
+                    assignedCenterGridApi.forEachNode(function (rowNode) {
+                        if (rowNode.data.CenterMasterID === data.CenterMasterID) {
+                            itemsToUpdate.push(data);
+                            rowNode.setData(data);
+                        }
                     });
-                    getAssignedUserListData();
-                    data.AssignmentFlag = 0;
-                    if (assignedCenterGridApi) {
-                        const itemsToUpdate = [];
-                        assignedCenterGridApi.forEachNode(function (rowNode) {
-                            if (rowNode.data.CenterMasterID === data.CenterMasterID) {
-                                itemsToUpdate.push(data);
-                                rowNode.setData(data);
-                            }
-                        });
-                        assignedCenterGridApi.updateRowData({
-                            update: itemsToUpdate,
-                        });
-                    }
-                } else {
-                    setAlertMessage({
-                        type: "error",
-                        message: result.response.responseMessage,
+                    assignedCenterGridApi.updateRowData({
+                        update: itemsToUpdate,
                     });
-    
                 }
-            } catch (error) {
-                setAlertMessage({ open: true, type: "error", message: error });
-                console.log(error);
+            } else {
+                setAlertMessage({
+                    type: "error",
+                    message: result.response.responseMessage,
+                });
+
             }
-        };
+        } catch (error) {
+            setAlertMessage({ open: true, type: "error", message: error });
+            console.log(error);
+        }
+    };
 
     const [btnLoaderActive, setBtnLoaderActive] = useState(false);
     const handleSave = async (e) => {
@@ -154,38 +140,32 @@ function TrainingDetailsPopUp({
                 });
                 return;
             }
-          
+
             const UserID = checkedItem
-            .map((data) => {
-                return data.UserID;
-            })
-            .join(",");
-                
+                .map((data) => {
+                    return data.UserID;
+                })
+                .join(",");
+
 
             setBtnLoaderActive(true);
-
-          
-            const formdata =  {
-                
-
-                SPViewMode: "MARKPRESENT", 
+            const formdata = {
+                SPViewMode: "MARKPRESENT",
                 SPTraningMasterID: trainingDetails && trainingDetails.TrainingMasterId
-                ? trainingDetails.TrainingMasterId
-                : 0,
-                SPTrainingAssignmentID: 0, 
+                    ? trainingDetails.TrainingMasterId
+                    : 0,
+                SPTrainingAssignmentID: 0,
                 SPUserID: UserID
-            
             };
-
             const result = await setUpdateAttendance(formdata);
             setBtnLoaderActive(false);
             if (result.response.responseCode === 1) {
-            
+
                 setAlertMessage({
                     type: "success",
                     message: result.response.responseMessage,
                 });
-               
+
                 getAssignedUserListData();
             } else {
                 setAlertMessage({
@@ -201,7 +181,6 @@ function TrainingDetailsPopUp({
         }
     };
 
-   
 
     const checkboxSelection = (params) => {
         console.log(params);
@@ -211,8 +190,6 @@ function TrainingDetailsPopUp({
             return true;
         }
     };
-
-   
 
     const getRowStyle = (params) => {
         if (params.data.IsNewlyAdded) {
@@ -224,11 +201,17 @@ function TrainingDetailsPopUp({
         return { background: "white" };
     };
 
+    useEffect(() => {
+        debugger;
+        getAssignedUserListData(toggleTrainingByAdminModal);
+    }, [toggleTrainingByAdminModal]);
+
+
     return (
         <>
             <Modal
                 varient="half"
-                 title= 'Training Attendance'
+                title='Training Attendance'
                 right={0}
                 width="55vw"
                 height="100vh"
@@ -293,7 +276,7 @@ function TrainingDetailsPopUp({
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
                                 }}
                             />
-                               <DataGrid.Column
+                            <DataGrid.Column
                                 field="IsPresent"
                                 headerName="Is-Present"
                                 width={150}
@@ -303,7 +286,7 @@ function TrainingDetailsPopUp({
                                 }}
                                 valueFormatter={(param) => (param.value === "Y" ? "Present" : "Absent")}
                             />
-                              <DataGrid.Column
+                            <DataGrid.Column
                                 field="UserID"
                                 headerName="User ID"
                                 width={150}
@@ -312,7 +295,7 @@ function TrainingDetailsPopUp({
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
                                 }}
                             />
-                            
+
                             <DataGrid.Column
                                 field="NAME"
                                 headerName="Trainee Name"
@@ -322,7 +305,7 @@ function TrainingDetailsPopUp({
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
                                 }}
                             />
-                             <DataGrid.Column
+                            <DataGrid.Column
                                 field="Center"
                                 headerName="Center Name"
                                 width={150}
@@ -336,18 +319,18 @@ function TrainingDetailsPopUp({
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button
-  type="Button"
-  varient="danger"
-  onClick={(e) => handleSave(e)}
-  trigger={btnLoaderActive ? "true" : "false"}
-  className="custom-button-AssignUnassign"
->
-  <span className="button-content">
-    <FaPaperPlane className="icon" />
-    Save
-  </span>
-</Button>
+                    <Button
+                        type="Button"
+                        varient="danger"
+                        onClick={(e) => handleSave(e)}
+                        trigger={btnLoaderActive ? "true" : "false"}
+                        className="custom-button-AssignUnassign"
+                    >
+                        <span className="button-content">
+                            <FaPaperPlane className="icon" />
+                            Save
+                        </span>
+                    </Button>
 
 
 
@@ -372,11 +355,11 @@ const assignedCenterActionTemplate = (props) => {
                         marginRight: "3px",
                     }}
                 >
-                 <FiTrash2
-                                     style={{ fontSize: "15px", color: "#5d6d7e" }}
-                                     onClick={() => props.onClickDeleteAssignedCenter(props.data)}
-                                 />
-                    
+                    <FiTrash2
+                        style={{ fontSize: "15px", color: "#5d6d7e" }}
+                        onClick={() => props.onClickDeleteAssignedCenter(props.data)}
+                    />
+
                 </span>
             ) : null}
         </div>

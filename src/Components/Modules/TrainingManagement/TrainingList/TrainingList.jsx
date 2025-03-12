@@ -32,22 +32,30 @@ const TrainingList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(10);
-
-
   const [trainers, setTrainers] = useState([]);
   const [center, setCenter] = useState([]);
-
   const [selectedTrainers, setSelectedTrainers] = useState([]);
   const [selectedCenter, setselectedCenter] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
   const [selectedTraining, setSelectedTraining] = useState(null);
-
-  const [showTrainingDetailsPopup, setShowTrainingDetailsPopup] = useState(false);
   const [selectedTrainingDetails, setSelectedTrainingDetails] = useState(null);
 
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [totalDuration, settotalDuration] = useState(null);
 
+
+
+  const [trainingTypes, setTrainingTypes] = useState([]);
+  const [trainingTitle, setTrainingTitle] = useState("");
+  const [selectedModule, setSelectedModule] = useState("");
+  const [trainingDate, setTrainingDate] = useState(null);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [duration, setDuration] = useState("");
+  const [trainingLink, setTrainingLink] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [trainingDateErrorMsg, setTrainingDateErrorMsg] = useState("");
+    const [totalMinutes, setTotalMinutes] = useState(null);
+  
 
 
   const toggleTrainingByAdminModal = (data) => {
@@ -57,10 +65,13 @@ const TrainingList = () => {
   };
 
 
+
+
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
 
   const toggleEditTrainingModal = (data) => {
+    debugger;
     setSelectedData(data);
     setEditModalOpen(true);
   };
@@ -128,9 +139,7 @@ const TrainingList = () => {
     debugger;
     const selectedTrainerIds = selectedTrainers.map(trainer => trainer.value);
     const selectedCenterId = selectedCenter ? parseInt(selectedCenter.value, 10) : null;
-
     // A const selectedCenterId = selectedCenter.length > 0 ? parseInt(selectedCenter[0].value, 10) : null;
-
     if (!selectedTraining) {
       console.error("No training selected!");
       return;
@@ -166,16 +175,10 @@ const TrainingList = () => {
     }
   };
 
-
-
-
-
   const handleClose = () => {
     setShowModal(false);
     setSelectedTraining(null);
   };
-
-
 
   const ActionCellRenderer = (props) => {
     const { ExpiredFlag } = props.data;
@@ -214,8 +217,6 @@ const TrainingList = () => {
       </>
     );
   };
-
-
 
   const [columnDefs] = useState([
 
@@ -372,30 +373,18 @@ const TrainingList = () => {
   };
 
 
-
-
   useEffect(() => {
     debugger;
     fetchAllTraining(currentPage, searchQuery);
 
   }, [currentPage, searchQuery]);
 
-
   // A edit code
 
 
-  const [trainingTypes, setTrainingTypes] = useState([]);
-  const [trainingTitle, setTrainingTitle] = useState("");
-  const [selectedModule, setSelectedModule] = useState("");
-  const [trainingDate, setTrainingDate] = useState(null);
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [duration, setDuration] = useState("");
-  const [trainingLink, setTrainingLink] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [trainingDateErrorMsg, setTrainingDateErrorMsg] = useState("");
 
   const fetchTrainingTypes = async () => {
+    debugger;
     try {
       const data = await getTrainingTypeData({ MODE: "#ALL", TrainingID: null });
       if (data.response.responseCode === 1) {
@@ -412,6 +401,7 @@ const TrainingList = () => {
   };
 
   useEffect(() => {
+    debugger;
     fetchTrainingTypes();
     if (selectedData?.TrainingMasterId) {
       setTrainingTitle(selectedData.TrainingTitle || "");
@@ -420,16 +410,26 @@ const TrainingList = () => {
       setTrainingDate(new Date(selectedData.TrainingDate));
       setStartTime(selectedData.StartTime || "");
       setEndTime(selectedData.EndTime || "");
-      setDuration(selectedData.Duration || "");
-
-      if (selectedData.StartTime && selectedData.EndTime) {
-        const start = new Date(`1970-01-01T${selectedData.StartTime}`);
-        const end = new Date(`1970-01-01T${selectedData.EndTime}`);
-        const durationInHours = (end - start) / (1000 * 60 * 60);
-        setDuration(durationInHours);
+      // A setDuration(selectedData.Duration || "");
+      const startDate = new Date(`1970-01-01T${selectedData.StartTime}`);
+      const endDate = new Date(`1970-01-01T${selectedData.EndTime}`);
+      const diffInMinutes = Math.floor((endDate - startDate) / (1000 * 60));
+      const hours = Math.floor(diffInMinutes / 60);
+      const minutes = diffInMinutes % 60;
+      setDuration(`${hours}hrs ${minutes}min`);
+    
+      if (selectedData.startTime && selectedData.endTime) {
+       
+        calculateDuration(selectedData.startTime, selectedData.endTime);
       }
+      
     }
   }, [selectedData]);
+  
+
+
+ 
+  
 
   const calculateEndTime = (start, duration) => {
     if (!start || !duration) return "";
@@ -438,137 +438,187 @@ const TrainingList = () => {
     const newEndTime = new Date();
     newEndTime.setHours(hours + parseInt(duration), minutes, 0);
 
-    return newEndTime.toTimeString().slice(0, 5); 
+    return newEndTime.toTimeString().slice(0, 5);
   };
 
-  useEffect(() => {
-    if (startTime && duration) {
-      const newEndTime = calculateEndTime(startTime, duration);
-      setEndTime(newEndTime);
-    }
-  }, [startTime, duration]);
 
-  const handleDurationChange = (e) => {
-    setDuration(e.target.value);
-  };
+
+ 
 
   const handleSubmit = async (e) => {
+    debugger;
     e.preventDefault();
     setIsSubmitting(true);
 
+   
+    const startDate = new Date(`1970-01-01T${startTime}`);
+    const endDate = new Date(`1970-01-01T${endTime}`);
+
+    if (endDate <= startDate) {
+        setAlertMessage({ type: "error", message: "Enter a valid time. End time cannot be before start time." });
+        setIsSubmitting(false);
+        return;
+    }
+
     const updatedTraining = {
-      trainingMasterID: selectedData.TrainingMasterId,
-      trainingTypeID: parseInt(selectedModule),
-      trainingDate: trainingDate.toISOString().split("T")[0],
-      startTime: startTime,
-      endTime: endTime,
-      duration: parseFloat(duration),
-      trainingTitle: trainingTitle,
-      trainingLink: trainingLink,
+        trainingMasterID: selectedData.TrainingMasterId,
+        trainingTypeID: parseInt(selectedModule),
+        trainingDate: trainingDate.toISOString().split("T")[0],
+        startTime: startTime,
+        endTime: endTime,
+        duration: totalMinutes,
+        trainingTitle: trainingTitle,
+        trainingLink: trainingLink,
     };
 
     try {
-      const response = await setCSCUpdateTraining(updatedTraining);
-      if (response.response.responseCode === 1) {
-        setAlertMessage({ type: "success", message: response.response.responseMessage });
-        setEditModalOpen(false);
-        fetchAllTraining("", "");
-
-      } else {
-        setAlertMessage({ type: "error", message: response.response.responseMessage });
-      }
+        const response = await setCSCUpdateTraining(updatedTraining);
+        if (response.response.responseCode === 1) {
+            setAlertMessage({ type: "success", message: response.response.responseMessage });
+            setEditModalOpen(false);
+            fetchAllTraining("", "");
+        } else {
+            setAlertMessage({ type: "error", message: response.response.responseMessage });
+        }
     } catch (error) {
-      setAlertMessage({ type: "error", message: error });
+        setAlertMessage({ type: "error", message: error });
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
+};
+
+
+
+  
+
+
+  const calculateDuration = (start, end) => {
+    if (!start || !end) {
+        setDuration("");
+        setTotalMinutes(null);
+        return;
+    }
+
+    const startDate = new Date(`1970-01-01T${start}`);
+    const endDate = new Date(`1970-01-01T${end}`);
+
+    if (endDate <= startDate) {
+        
+        setTotalMinutes(null);
+        return;
+    }
+
+    const diffInMinutes = Math.floor((endDate - startDate) / (1000 * 60));
+    const hours = Math.floor(diffInMinutes / 60);
+    const minutes = diffInMinutes % 60;
+
+
+    console.log(`Calculated Duration: ${hours}h ${minutes}m`);
+    setDuration(`${hours}hrs ${minutes}min`);
+    setTotalMinutes(diffInMinutes); 
+};
+  const handleStartTimeChange = (value) => {
+    setStartTime(value);
+    calculateDuration(value, endTime);
   };
 
+  const handleEndTimeChange = (value) => {
+    setEndTime(value);
+    
+    if (startTime) {
+      const start = new Date(`1970-01-01T${startTime}`);
+      const end = new Date(`1970-01-01T${endTime}`);
 
+      if (end <= start) {
+      
+        return;
+      }
+    }
+
+    calculateDuration(startTime, value);
+  };
 
 
   return (
     <>
-      {isEditModalOpen && (
-        <div className="edittraining-form-wrapper">
-          <div className="edittraining-form-container">
-            <div className="header-color">
-            <h5 className="edittraining-heading" style={{ marginBottom: "8px" }}>Edit Training Details</h5>
-            <IoMdClose className="close-icon" onClick={() => setEditModalOpen(false)}
-            />
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div className="edittraining-form-row">
-                <div className="edittraining-form-group">
-                  <label>Training Title</label>
-                  <input type="text" value={trainingTitle} onChange={(e) => setTrainingTitle(e.target.value)} />
-                </div>
-                <div className="edittraining-form-group">
-                  <label>Training Type</label>
-                  <select value={selectedModule} onChange={(e) => setSelectedModule(e.target.value)}>
-                    <option value="">Choose Training Type</option>
-                    {trainingTypes.map((type) => (
-                      <option key={type.TrainingID} value={type.TrainingID}>{type.TrainingName}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="edittraining-form-row">
-                <div className="edittraining-form-group">
-                  <label htmlFor="training-date">
-                    Training Scheduled Date <span className="asteriskCss">&#42;</span>
-                  </label>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      id="training-date"
-                      value={trainingDate || null}
-                      onChange={(newDate) => setTrainingDate(newDate)}
-                      minDate={new Date()}
-                      renderInput={(params) => <TextField {...params} />}
-                      disablePast
-                    />
-                  </LocalizationProvider>
-                  <span className="login_ErrorTxt">{trainingDateErrorMsg}</span>
-                </div>
-                <div className="edittraining-form-group">
-                  <label>Start Time</label>
-                  <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-                </div>
-              </div>
-              <div className="edittraining-form-row">
-                <div className="edittraining-form-group">
-                  <label>End Time</label>
-                  <input type="time" value={endTime} disabled />
-                </div>
-                <div className="edittraining-form-group">
-                  <label>Duration</label>
-                  <select value={duration} onChange={handleDurationChange}>
-                    <option value="">Select Duration</option>
-                    {[...Array(10)].map((_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1} Hour{i + 1 > 1 ? "s" : ""}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="edittraining-form-row">
-                <div className="edittraining-form-group" style={{ marginTop: "-80px" }}>
-                  <label>Training Link</label>
-                  <input type="text" value={trainingLink} onChange={(e) => setTrainingLink(e.target.value)} />
-                </div>
-              </div>
-              <div className="edittraining-button-group">
-                <button type="submit" disabled={isSubmitting} className="edittraining-submit-btn">
-                  {isSubmitting ? "Updating..." : <><FaEdit /> Update</>}
-                </button>
-                <button type="button" onClick={() => setEditModalOpen(false)}
-                  className="edittraining-cancel-btn">Cancel</button>
-              </div>
-            </form>
+      {  isEditModalOpen && (
+      <div className="edittraining-form-wrapper">
+        <div className="edittraining-form-container">
+          <div className="header-color">
+            <h5 className="edittraining-heading" style={{ marginBottom: "8px" }}>
+              Edit Training Details
+            </h5>
+            <IoMdClose className="close-icon" onClick={() => setEditModalOpen(false)} />
           </div>
+          <form onSubmit={handleSubmit}>
+            <div className="edittraining-form-row">
+              <div className="edittraining-form-group">
+                <label>Training Title</label>
+                <input type="text" value={trainingTitle} onChange={(e) => setTrainingTitle(e.target.value)} />
+              </div>
+              <div className="edittraining-form-group">
+                <label>Training Type</label>
+                <select value={selectedModule} onChange={(e) => setSelectedModule(e.target.value)}>
+                  <option value="">Choose Training Type</option>
+                  {trainingTypes?.map((type) => (
+                    <option key={type.TrainingID} value={type.TrainingID}>
+                      {type.TrainingName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="edittraining-form-row">
+              <div className="edittraining-form-group">
+                <label htmlFor="training-date">
+                  Training Scheduled Date <span className="asteriskCss">&#42;</span>
+                </label>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    id="training-date"
+                    value={trainingDate || null}
+                    onChange={(newDate) => setTrainingDate(newDate)}
+                    minDate={new Date()}
+                  />
+                </LocalizationProvider>
+              </div>
+              <div className="edittraining-form-group">
+                <label>Start Time</label>
+                <input type="time" value={startTime} onChange={(e) => handleStartTimeChange(e.target.value)} required />
+              </div>
+            </div>
+
+            <div className="edittraining-form-row">
+              <div className="edittraining-form-group">
+                <label>End Time</label>
+                <input type="time" value={endTime} onChange={(e) => handleEndTimeChange(e.target.value)} />
+              </div>
+              <div className="edittraining-form-group">
+                <label>Duration</label>
+                <input style={{ width: "300px" }} type="text" value={duration} disabled />
+              </div>
+            </div>
+
+            <div className="edittraining-form-row">
+              <div className="edittraining-form-group" style={{ marginTop: "-80px" }}>
+                <label>Training Link</label>
+                <input type="text" value={trainingLink} onChange={(e) => setTrainingLink(e.target.value)} />
+              </div>
+            </div>
+
+            <div className="edittraining-button-group">
+              <button type="submit" disabled={isSubmitting} className="edittraining-submit-btn">
+                {isSubmitting ? "Updating..." : <><FaEdit /> Update</>}
+              </button>
+              <button type="button" onClick={() => setEditModalOpen(false)} className="edittraining-cancel-btn">
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
-      )}
+      </div>
+    )}
 
       {openAssignUnAssignCenterModal && (
         <AssignUnAssignCenter

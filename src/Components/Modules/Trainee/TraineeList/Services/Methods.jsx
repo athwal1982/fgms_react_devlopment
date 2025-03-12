@@ -1,5 +1,4 @@
 import { ApiCalling } from "../../../../../Services/Utilities/ApiCalling/ApiCalling";
-
 import APIEndpoints from "./Endpoint";
 
 export const getAllAgent = async (formData) => {
@@ -49,7 +48,6 @@ export const statusUpdate = async (formData) => {
     };
   }
 };
-
 
 export const setCSCUpdateAgentBYID = async (formData) => {
   debugger;
