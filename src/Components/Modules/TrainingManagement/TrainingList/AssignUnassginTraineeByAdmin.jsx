@@ -5,41 +5,39 @@ import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
 import { FaPaperPlane } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
-// A import { getSessionStorage } from "Components/Modules/Common/Login/Auth/auth";
-import { getSessionStorage } from "../../../Common/Login/Auth/auth";
-import { cSCCenterTrainingAssignManageData,CSCUserTrainingAssignManageData } from "../Services/Methods";
+import { cSCCenterTrainingAssignManageData, CSCUserTrainingAssignManageData } from "../Services/Methods";
 import "./TrainingList.scss";
 
 
 function AssignUnassginTraineeByAdmin({
-    toggleAssignUnAssignTraineeByAdminModal,
+  toggleAssignUnAssignTraineeByAdminModal,
   assignUnAssignTraineeByAdminModal,
 }) {
   const setAlertMessage = AlertMessage();
 
-  const userData = getSessionStorage("user");
-  const [centerMasterID, setCenterMasterID] = useState("0"); // Default value
+
+  const [centerMasterID, setCenterMasterID] = useState("0");
 
 
   const [filterValues, setFilterValues] = useState({
     txtAssignedCenter: null,
   });
 
-  
+
 
   const updateState = (name, value) => {
     setFilterValues((prev) => ({
       ...prev,
-      [name]: value ? value.CenterMasterID : null, 
+      [name]: value ? value.CenterMasterID : null,
     }));
-  
+
     if (name === "txtAssignedCenter" && value) {
-      getAssignedUserListData(value); 
+      getAssignedUserListData(value);
       setCenterMasterID(value.CenterMasterID);
 
     }
   };
-  
+
 
   const [assignedTraineeByAdminGridApi, setAssignedTraineeByAdminGridApi] = useState();
   const onAssignedTraineeByAdminGridReady = (params) => {
@@ -64,11 +62,11 @@ function AssignUnassginTraineeByAdmin({
       setIsLoadingTraineeByAdminList(true);
       const formdata = {
         viewMode: "GETALLUSER",
-        cSCAppAccessTypeID:503,
+        cSCAppAccessTypeID: 503,
         centerID: data.CenterMasterID ? data.CenterMasterID.toString() : "0",
         trainingMasterID: data && data.TrainingMasterID
-        ? data.TrainingMasterID.toString()
-        : "0",
+          ? data.TrainingMasterID.toString()
+          : "0",
         userID: "0",
         trainingUserAssignmentID: "0",
       };
@@ -95,49 +93,44 @@ function AssignUnassginTraineeByAdmin({
     }
   };
 
-      const [CenterList, setCenterList] = useState([]);
-      const [isLoadingCenterList, setIsLoadingCenterList] = useState(false);
-      const getAssignedCenterListData = async (data) => {
-        debugger;
-          try {
-              setCenterList([]);
-              setIsLoadingCenterList(true);
-              const formdata = {
-                  viewMode: "GETALLCENTER",
-                  centerID: "0",
-                  trainingMasterID: assignUnAssignTraineeByAdminModal && assignUnAssignTraineeByAdminModal.TrainingMasterId
-                      ? assignUnAssignTraineeByAdminModal.TrainingMasterId.toString()
-                      : "0",
-                  trainingCenterAssignmentID: "0",
-              };
-              const result = await cSCCenterTrainingAssignManageData(formdata);
-              setIsLoadingCenterList(false);
-              if (result.response.responseCode === 1) {
-                  if (result.response.responseData && result.response.responseData.CscAssignManage.length > 0) {
-                    const filteredData = result.response.responseData.CscAssignManage.filter(item => item.AssignmentFlag === 1);
-                    setCenterList(filteredData);
-                  } else {
-                      setCenterList([]);
-                  }
-              } else {
-                  setAlertMessage({
-                      type: "error",
-                      message: result.responseMessage,
-                  });
-              }
-          } catch (error) {
-              console.log(error);
-              setAlertMessage({
-                  type: "error",
-                  message: error,
-              });
-          }
-      };
-
-  useEffect(() => {
+  const [CenterList, setCenterList] = useState([]);
+  const [isLoadingCenterList, setIsLoadingCenterList] = useState(false);
+  const getAssignedCenterListData = async (data) => {
     debugger;
-    getAssignedCenterListData(assignUnAssignTraineeByAdminModal);
-  }, [assignUnAssignTraineeByAdminModal]);
+    try {
+      setCenterList([]);
+      setIsLoadingCenterList(true);
+      const formdata = {
+        viewMode: "GETALLCENTER",
+        centerID: "0",
+        trainingMasterID: assignUnAssignTraineeByAdminModal && assignUnAssignTraineeByAdminModal.TrainingMasterId
+          ? assignUnAssignTraineeByAdminModal.TrainingMasterId.toString()
+          : "0",
+        trainingCenterAssignmentID: "0",
+      };
+      const result = await cSCCenterTrainingAssignManageData(formdata);
+      setIsLoadingCenterList(false);
+      if (result.response.responseCode === 1) {
+        if (result.response.responseData && result.response.responseData.CscAssignManage.length > 0) {
+          const filteredData = result.response.responseData.CscAssignManage.filter(item => item.AssignmentFlag === 1);
+          setCenterList(filteredData);
+        } else {
+          setCenterList([]);
+        }
+      } else {
+        setAlertMessage({
+          type: "error",
+          message: result.responseMessage,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setAlertMessage({
+        type: "error",
+        message: error,
+      });
+    }
+  };
 
   const onClickDeleteAssignedTrainee = async (data) => {
     debugger;
@@ -150,11 +143,11 @@ function AssignUnassginTraineeByAdmin({
           assignUnAssignTraineeByAdminModal.TrainingMasterId
             ? assignUnAssignTraineeByAdminModal.TrainingMasterId.toString()
             : "0",
-            userID: data.UserID,
+        userID: data.UserID,
         trainingUserAssignmentID: data.TrainingUserAssignmentID,
       };
 
-  
+
       const result = await CSCUserTrainingAssignManageData(formdata);
       if (result.response.responseCode === 1) {
         setAlertMessage({
@@ -179,7 +172,7 @@ function AssignUnassginTraineeByAdmin({
           type: "error",
           message: result.response.responseMessage,
         });
-      
+
       }
     } catch (error) {
       setAlertMessage({ open: true, type: "error", message: error });
@@ -206,10 +199,7 @@ function AssignUnassginTraineeByAdmin({
         });
         return;
       }
-  
       const checkedItem = getSelectedRowData();
-  
-     
       if (!checkedItem || checkedItem.length === 0) {
         setAlertMessage({
           type: "warning",
@@ -217,15 +207,15 @@ function AssignUnassginTraineeByAdmin({
         });
         return;
       }
-      
-    
-  
+
+
+
       const UserIds = checkedItem
         .map((data) => data.UserID.toString())
         .join(",");
-  
+
       setBtnLoaderActive(true);
-  
+
       const formdata = {
         viewMode: "ASSIGN",
         cSCAppAccessTypeID: 503,
@@ -237,21 +227,21 @@ function AssignUnassginTraineeByAdmin({
         userID: UserIds,
         trainingUserAssignmentID: "0",
       };
-  
+
       const result = await CSCUserTrainingAssignManageData(formdata);
       setBtnLoaderActive(false);
-  
+
       if (result.response.responseCode === 1) {
         setAlertMessage({
           type: "success",
           message: result.response.responseMessage,
         });
-  
+
         if (result.response.responseData) {
           const responseAssignedIds = result.response.responseData?.AssignedID
             ? result.response.responseData.AssignedID.split(",")
             : [];
-  
+
           let assignedIds = [];
           if (responseAssignedIds.length > 0) {
             assignedIds = responseAssignedIds.reduce((assignmentIdList, data) => {
@@ -265,7 +255,7 @@ function AssignUnassginTraineeByAdmin({
               return assignmentIdList;
             }, []);
           }
-  
+
           if (assignedIds.length > 0) {
             const updatedTraineeList = TraineeByAdminList.map((x) => {
               let pUserID = !Array.isArray(x)
@@ -274,7 +264,7 @@ function AssignUnassginTraineeByAdmin({
               let assignedUser = assignedIds.find(
                 (data) => pUserID === data.UserID.toString()
               );
-  
+
               if (assignedUser) {
                 return {
                   ...x,
@@ -285,11 +275,11 @@ function AssignUnassginTraineeByAdmin({
               }
               return x;
             });
-  
+
             setTraineeByAdminList(updatedTraineeList);
           }
         }
-  
+
         if (assignedTraineeByAdminGridApi) {
           assignedTraineeByAdminGridApi.setRowData([...TraineeByAdminList]);
         }
@@ -306,23 +296,7 @@ function AssignUnassginTraineeByAdmin({
       });
     }
   };
-  
 
-  const updateAssignUnAssignTraineeByAdmin = (addedTraineeByAdmin) => {
-    if (assignedTraineeByAdminGridApi) {
-      const rowData = [];
-      if (addedTraineeByAdmin && addedTraineeByAdmin.length > 0) {
-        addedTraineeByAdmin.forEach((data) => {
-          rowData.push(data);
-        });
-      }
-      assignedTraineeByAdminGridApi.forEachNode((node) => rowData.push(node.data));
-      assignedTraineeByAdminGridApi.setRowData(rowData);
-      TraineeByAdminList.unshift(addedTraineeByAdmin[0]);
-      setTraineeByAdminList([]);
-      setTraineeByAdminList(TraineeByAdminList);
-    }
-  };
 
   const checkboxSelection = (params) => {
     console.log(params);
@@ -343,15 +317,19 @@ function AssignUnassginTraineeByAdmin({
     return { background: "white" };
   };
 
+  useEffect(() => {
+    debugger;
+    getAssignedCenterListData(assignUnAssignTraineeByAdminModal);
+  }, [assignUnAssignTraineeByAdminModal]);
+
   return (
     <>
       <Modal
         varient="half"
-        title={`Assign/Unassign Trainee (${
-            assignUnAssignTraineeByAdminModal.TrainingTitle
-            ? assignUnAssignTraineeByAdminModal.TrainingTitle
-            : ""
-        })`}
+        title={`Assign/Unassign Trainee (${assignUnAssignTraineeByAdminModal.TrainingTitle
+          ? assignUnAssignTraineeByAdminModal.TrainingTitle
+          : ""
+          })`}
         right={0}
         width="50vw"
         height="100vh"
@@ -362,31 +340,31 @@ function AssignUnassginTraineeByAdmin({
             className="PageStart"
           >
             <div className="top-actions">
-            <div className="custom-ddl-container">
-            <PageBar.Select
-  ControlTxt="Center"
-  label="Center"
-  name="txtAssignedCenter"
-  getOptionLabel={(option) => option.Center} // Display Center name
-  getOptionValue={(option) => option.CenterMasterID} // Ensure CenterMasterID is selected
-  options={CenterList}
-  loader={isLoadingCenterList ? <Loader /> : null}
-  value={CenterList.find((center) => center.CenterMasterID === filterValues.txtAssignedCenter) || null} // Set selected value correctly
-  onChange={(e) => updateState("txtAssignedCenter", e)}
-/>
+              <div className="custom-ddl-container">
+                <PageBar.Select
+                  ControlTxt="Center"
+                  label="Center"
+                  name="txtAssignedCenter"
+                  getOptionLabel={(option) => option.Center}
+                  getOptionValue={(option) => option.CenterMasterID}
+                  options={CenterList}
+                  loader={isLoadingCenterList ? <Loader /> : null}
+                  value={CenterList.find((center) => center.CenterMasterID === filterValues.txtAssignedCenter) || null}
+                  onChange={(e) => updateState("txtAssignedCenter", e)}
+                />
 
-              </div>           
-            <div className="custom-search-container">
-                            <input
-                                type="text"
-                                value={searchTextAssigendTraineeByAdmin}
-                                onChange={(e) => onSearchAssignedTraineeByAdmin(e.target.value)}
-                                className="custom-search-input"
-                                placeholder="Search Trainee..."
-                            />
+              </div>
+              <div className="custom-search-container">
+                <input
+                  type="text"
+                  value={searchTextAssigendTraineeByAdmin}
+                  onChange={(e) => onSearchAssignedTraineeByAdmin(e.target.value)}
+                  className="custom-search-input"
+                  placeholder="Search Trainee..."
+                />
 
-            </div>   
-           </div>
+              </div>
+            </div>
             <DataGrid
               rowData={TraineeByAdminList}
               loader={isLoadingTraineeByAdminList ? <Loader /> : null}
@@ -397,7 +375,7 @@ function AssignUnassginTraineeByAdmin({
               frameworkComponents={{
                 assignedTraineeByAdminActionTemplate,
               }}
-               className="custom-data-grid"
+              className="custom-data-grid"
             >
               <DataGrid.Column
                 lockPosition="1"
@@ -414,7 +392,7 @@ function AssignUnassginTraineeByAdmin({
                 cellRendererParams={{
                   onClickDeleteAssignedTrainee,
                 }}
-                
+
               />
               <DataGrid.Column
                 field="#"
@@ -430,11 +408,10 @@ function AssignUnassginTraineeByAdmin({
                 width={110}
                 flex={1}
                 valueFormatter={(param) =>
-
                   param.value === 1 ? "Assigned" : " Not Assigned"
                 }
               />
-               <DataGrid.Column
+              <DataGrid.Column
                 field="UserID"
                 headerName="User ID"
                 width={100}
@@ -446,7 +423,7 @@ function AssignUnassginTraineeByAdmin({
                 width={150}
                 flex={1}
               />
-               <DataGrid.Column
+              <DataGrid.Column
                 field="Center"
                 flex={1}
                 headerName="Center Name"
@@ -461,9 +438,9 @@ function AssignUnassginTraineeByAdmin({
             varient="danger"
             onClick={(e) => handleSave(e)}
             trigger={btnLoaderActive ? "true" : "false"}
-              className="custom-button-AssignUnassign"
+            className="custom-button-AssignUnassign"
           >
-             <FaPaperPlane className="icon" />
+            <FaPaperPlane className="icon" />
             Save
           </Button>
         </Modal.Footer>

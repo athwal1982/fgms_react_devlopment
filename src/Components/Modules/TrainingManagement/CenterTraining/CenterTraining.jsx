@@ -1,135 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { Convert24FourHourAndMinute } from "Configration/Utilities/dateformat";
 import moment from "moment";
 import "./CenterTraining.scss";
 import { CSCCenterWiseTrainingData } from "../Services/Methods";
-import _ from "lodash";
-import { Modal, Button } from "react-bootstrap";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import AssignUnassignTrainee from "./AssignUnassignTrainee";
+import _ from "lodash";
 
 const CenterTraining = () => {
     const userData = getSessionStorage("user");
     const [rowData, setRowData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [limit] = useState(10);
-    const [modalRowData, setModalRowData] = useState([]);
-
-
-
-
     const [showModal, setShowModal] = useState(false);
-    const [selectedTraining, setSelectedTraining] = useState(null);
+    const [assignUnAssignTraineeModal, setAssignUnAssignTraineeModal] = useState(false);
 
+    const limit = 10;
 
     const fetchAllCenterWiseTraining = async (page = 1, query = "") => {
-        debugger;
         try {
-            const response = await CSCCenterWiseTrainingData({ page, limit, searchQuery: query, SPUserID: userData && userData.LoginID ? userData.LoginID : 0, SPMode: "CENTERTRAINING" });
-            let responseCode = response.response.responseCode;
+            const response = await CSCCenterWiseTrainingData({
+                page,
+                limit,
+                searchQuery: query,
+                SPUserID: userData?.LoginID || 0,
+                SPMode: "CENTERTRAINING",
+            });
 
-            if (responseCode === 1) {
-                setRowData(response.response.responseData.result);
-                setFilteredData(response.response.responseData.result);
-                setTotalPages(response.response.responseData.totalPages);
-
+            if (response.response.responseCode === 1) {
+                const { result, totalPages } = response.response.responseData;
+                setRowData(result);
+                setTotalPages(totalPages);
             } else {
                 setRowData([]);
-                setFilteredData([]);
             }
         } catch (error) {
             console.error("Error fetching training data:", error);
         }
     };
 
-    const ActionCellRenderer = (props) => {
-        return (
-            <>
-                <>
-                    <i className="fas fa-tasks" style={{ cursor: "pointer", color: "green" }} onClick={() => toggleAssignUnAssignCenterModal(props.data)} title="Assign/UnAssign Trainee"></i>
-                </>
-            </>
-        );
-    };
+    useEffect(() => {
+        fetchAllCenterWiseTraining(currentPage, searchQuery);
+    }, [currentPage]);
 
-    const [columnDefs] = useState([
-        {
-            headerName: "Action",
-            field: "action",
-            cellRenderer: ActionCellRenderer,
-            width: 100,
-            cellStyle: { textAlign: "center" },
-        },
-        {
-            headerName: "Center Name",
-            field: "Center",
-            sortable: true,
-            filter: true,
-            width: 150,
-        },
-        {
-            headerName: "Training Type",
-            field: "TrainingName",
-            sortable: true,
-            filter: true,
-            width: 150,
-        },
-        {
-            headerName: "Training Name",
-            field: "TrainingTitle",
-            sortable: true,
-            filter: true,
-            width: 220,
-        },
-        {
-            headerName: "Training Link",
-            field: "TrainingLink",
-            sortable: true,
-            filter: true,
-            width: 250,
-        },
-        {
-            headerName: "Training Date",
-            field: "TrainingDate",
-            sortable: true,
-            filter: true,
-            width: 110,
-            valueFormatter: (param) => (param.value ? moment(param.value).format("DD-MM-YYYY") : ""),
-        },
-        {
-            headerName: "Start Time",
-            field: "StartTime",
-            sortable: true,
-            filter: true,
-            width: 100,
-            valueGetter: (node) => (node.data.StartTime ? Convert24FourHourAndMinute(node.data.StartTime) : null),
-        },
-        {
-            headerName: "End Time",
-            field: "EndTime",
-            sortable: true,
-            filter: true,
-            width: 100,
-            valueGetter: (node) => (node.data.EndTime ? Convert24FourHourAndMinute(node.data.EndTime) : null),
-        },
-    ]);
-    const modalColumnDefs = [
-        {
-            headerName: "Action",
-            field: "action",
-            width: 100,
-            cellRenderer: (params) => (
-                <button className="btn btn-sm btn-primary" onClick={() => console.log("Assigning:", params.data)}>
-                    Assign
-                </button>
-            ),
-        },
-        { headerName: "Trainee Name", field: "TraineeName", width: 200 },
-    ];
+    const debouncedSearch = useMemo(() => _.debounce(fetchAllCenterWiseTraining, 500), []);
+
+    const handleSearchInputChange = (query) => {
+        setSearchQuery(query);
+        debouncedSearch(1, query);
+    };
 
     const handlePageChange = (newPage) => {
         if (newPage > 0 && newPage <= totalPages) {
@@ -137,50 +58,69 @@ const CenterTraining = () => {
         }
     };
 
-    const renderPagination = () => (
-        <div className="pagination-container">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                <i className="fas fas fa-arrow-left"></i>
-            </button>
-            <span>
-                Page {currentPage} of {totalPages}
-            </span>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-                <i className="fas fas fa-arrow-right"></i>
-            </button>
-        </div>
+    const toggleAssignUnAssignCenterModal = (data) => {
+        setAssignUnAssignTraineeModal(data);
+        setShowModal((prev) => !prev);
+    };
+
+    const ActionCellRenderer = ({ data }) => (
+        <i
+            className="fas fa-tasks"
+            style={{ cursor: "pointer", color: "green" }}
+            onClick={() => toggleAssignUnAssignCenterModal(data)}
+            title="Assign/UnAssign Trainee"
+        ></i>
     );
 
-    const handleSearchInputChange = (query) => {
-        setSearchQuery(query);
-        fetchAllCenterWiseTraining(1, query);
-    };
-   
+    const columnDefs = useMemo(() => [
+        {
+            headerName: "Action",
+            field: "action",
+            cellRenderer: ActionCellRenderer,
+            width: 100,
+            cellStyle: { textAlign: "center" },
+        },
+        { headerName: "Center Name", field: "Center", sortable: true, filter: true, width: 150 },
+        { headerName: "Training Type", field: "TrainingName", sortable: true, filter: true, width: 150 },
+        { headerName: "Training Name", field: "TrainingTitle", sortable: true, filter: true, width: 220 },
+        { headerName: "Training Link", field: "TrainingLink", sortable: true, filter: true, width: 250 },
+        {
+            headerName: "Training Date",
+            field: "TrainingDate",
+            sortable: true,
+            filter: true,
+            width: 110,
+            valueFormatter: ({ value }) => (value ? moment(value).format("DD-MM-YYYY") : ""),
+        },
+        {
+            headerName: "Start Time",
+            field: "StartTime",
+            sortable: true,
+            filter: true,
+            width: 100,
+            valueGetter: ({ data }) => data.StartTime ? Convert24FourHourAndMinute(data.StartTime) : null,
+        },
+        {
+            headerName: "End Time",
+            field: "EndTime",
+            sortable: true,
+            filter: true,
+            width: 100,
+            valueGetter: ({ data }) => data.EndTime ? Convert24FourHourAndMinute(data.EndTime) : null,
+        },
+    ], []);
 
-    useEffect(() => {
-        debugger;
 
-        fetchAllCenterWiseTraining(currentPage);
-    }, [currentPage]);
-
-    const [assignUnAssignTraineeModal, setAssignUnAssignTraineeModal] =
-        useState(false);
-    const [openAssignUnAssignTraineeModal, setOpenAssignAssignTraineeModal] =
-        useState(false);
-    const toggleAssignUnAssignCenterModal = (data) => {
-        debugger;
-        setOpenAssignAssignTraineeModal(!openAssignUnAssignTraineeModal);
-        setAssignUnAssignTraineeModal(data);
-    };
 
     return (
         <>
-            {openAssignUnAssignTraineeModal && (
+            {showModal && (
                 <AssignUnassignTrainee
                     toggleAssignUnAssignCenterModal={toggleAssignUnAssignCenterModal}
                     assignUnAssignTraineeModal={assignUnAssignTraineeModal}
                 />
             )}
+
             <div className="form-wrapper-agent">
                 <div className="modify-agent-container">
                     <div className="top-actions">
@@ -197,9 +137,8 @@ const CenterTraining = () => {
 
                     <div className="ag-theme-alpine ag-grid-container">
                         <AgGridReact
-                            rowData={filteredData}
+                            rowData={rowData}
                             columnDefs={[{ headerName: "S.No", valueGetter: (params) => params.node.rowIndex + 1, width: 80 }, ...columnDefs]}
-                            components={{ ActionCellRenderer }}
                             defaultColDef={{
                                 resizable: true,
                                 sortable: true,
@@ -208,50 +147,17 @@ const CenterTraining = () => {
                             }}
                             rowHeight={30}
                         />
-
-                        {selectedTraining && (
-                            <Modal show={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
-                                <Modal.Header closeButton className="py-2" style={{ backgroundColor: "#004d00", color: "white" }}>
-                                    <Modal.Title style={{ fontSize: "1rem" }}>Assign / UnAssign Trainee</Modal.Title>
-                                    <style>
-                                        {`
-        .btn-close {
-            filter: invert(1);
-        }
-        `}
-                                    </style>
-                                </Modal.Header>
-
-                                <Modal.Body>
-                                    <div className="ag-theme-alpine ag-grid-container" style={{ height: 300, width: "100%" }}>
-                                        <AgGridReact
-                                            rowData={modalRowData}
-                                            columnDefs={[{ headerName: "S.No", valueGetter: (params) => params.node.rowIndex + 1, width: 100 }, ...modalColumnDefs]}
-                                            defaultColDef={{
-                                                resizable: true,
-                                                sortable: true,
-                                                headerClass: "custom-header-style",
-                                                cellStyle: {
-                                                    border: "1px solid #ECECEC",
-                                                    padding: "5px",
-                                                    marginLeft: "20px",
-                                                },
-                                            }}
-                                            rowHeight={30}
-                                        />
-                                    </div>
-                                </Modal.Body>
-
-                                <Modal.Footer className="py-2" style={{ fontSize: "0.875rem" }}>
-                                    <Button variant="secondary" size="sm" onClick={handleClose} style={{ backgroundColor: "#6c757d", border: "none", pointerEvents: "auto" }}>
-                                        Close
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                        )}
                     </div>
 
-                    {renderPagination()}
+                    <div className="pagination-container">
+                        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                            <i className="fas fas fa-arrow-left"></i>
+                        </button>
+                        <span>Page {currentPage} of {totalPages}</span>
+                        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+                            <i className="fas fas fa-arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

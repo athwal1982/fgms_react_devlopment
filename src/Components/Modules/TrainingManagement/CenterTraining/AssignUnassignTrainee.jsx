@@ -15,9 +15,7 @@ function AssignUnAssignTrainee({
   assignUnAssignTraineeModal,
 }) {
   const setAlertMessage = AlertMessage();
-
   const userData = getSessionStorage("user");
-
   const [assignedTraineeGridApi, setAssignedTraineeGridApi] = useState();
   const onAssignedTraineeGridReady = (params) => {
     setAssignedTraineeGridApi(params.api);
@@ -33,6 +31,7 @@ function AssignUnAssignTrainee({
 
   const [TraineeList, setTraineeList] = useState([]);
   const [isLoadingTraineeList, setIsLoadingTraineeList] = useState(false);
+
   const getAssignedUserListData = async (data) => {
     debugger;
     // A setProfileRightData(data);
@@ -73,11 +72,6 @@ function AssignUnAssignTrainee({
       });
     }
   };
-
-  useEffect(() => {
-    debugger;
-    getAssignedUserListData(assignUnAssignTraineeModal);
-  }, [assignUnAssignTraineeModal]);
 
   const onClickDeleteAssignedTrainee = async (data) => {
     debugger;
@@ -125,7 +119,6 @@ function AssignUnAssignTrainee({
       console.log(error);
     }
   };
-
 
   const getSelectedRowData = () => {
     const selectedNodes = assignedTraineeGridApi.getSelectedNodes();
@@ -233,8 +226,6 @@ function AssignUnAssignTrainee({
     }
   };
 
-
-
   const checkboxSelection = (params) => {
     console.log(params);
     if (params.node.data.AssignmentFlag === 1) {
@@ -254,13 +245,18 @@ function AssignUnAssignTrainee({
     return { background: "white" };
   };
 
+  useEffect(() => {
+    debugger;
+    getAssignedUserListData(assignUnAssignTraineeModal);
+  }, [assignUnAssignTraineeModal]);
+
   return (
     <>
       <Modal
         varient="half"
         title={`Assign/Unassign Trainee (${assignUnAssignTraineeModal.TrainingTitle
-            ? assignUnAssignTraineeModal.TrainingTitle
-            : ""
+          ? assignUnAssignTraineeModal.TrainingTitle
+          : ""
           })`}
         right={0}
         width="50vw"

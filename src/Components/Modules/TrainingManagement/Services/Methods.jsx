@@ -1,5 +1,4 @@
 import { ApiCalling } from "../../../../Services/Utilities/ApiCalling/ApiCalling";
-
 import APIEndpoints from "./Endpoint";
 
 export const getTrainingTypeData = async (formData) => {
@@ -82,6 +81,7 @@ export const getTrainingListData = async (formData) => {
     };
   }
 };
+
 export const createTrainingData = async (formData) => {
   debugger;
   try {
@@ -108,9 +108,6 @@ export const createTrainingData = async (formData) => {
     };
   }
 };
-
-
-
 
 export const getUpcomingTrainings = async (formData) => {
   debugger;
@@ -139,9 +136,6 @@ export const getUpcomingTrainings = async (formData) => {
   }
 };
 
-
-
-
 export const getTrainerList = async (formData) => {
   debugger;
   try {
@@ -168,8 +162,6 @@ export const getTrainerList = async (formData) => {
     };
   }
 };
-
-
 
 export const setAssignList = async (formData) => {
   debugger;
@@ -224,7 +216,6 @@ export const setUpdateAttendance = async (formData) => {
     };
   }
 };
-
 
 export const cSCCenterTrainingAssignManageData = async (formData) => {
   debugger;
@@ -333,7 +324,6 @@ export const getAgentTraining = async (formData) => {
     };
   }
 };
-
 
 export const getAgentDetails = async (formData) => {
   debugger;

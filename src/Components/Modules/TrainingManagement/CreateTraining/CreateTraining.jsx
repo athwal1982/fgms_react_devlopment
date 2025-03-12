@@ -35,6 +35,8 @@ const CreateTraining = () => {
   const [trainingStartDateErrorMsg, settrainingStartDateErrorMsg] = useState("");
   const [trainingEndDateErrorMsg, settrainingEndDateErrorMsg] = useState("");
   const [trainingDurationErrorMsg, settrainingDurationErrorMsg] = useState("");
+  const [totalMinutes, setTotalMinutes] = useState(null);
+
 
   const handleDateChange = (newDate) => {
     if (newDate) {
@@ -101,11 +103,6 @@ const CreateTraining = () => {
     }
   };
 
-  useEffect(() => {
-    fetchTrainingTypes();
-    fetchExistingTrainingDates();
-  }, []);
-
   const updateEndTime = (duration, startTime) => {
     if (!startTime) return;
     const start = new Date(`1970-01-01T${startTime}:00Z`);
@@ -123,9 +120,8 @@ const CreateTraining = () => {
   const handleStartTimeChange = (e) => {
     const selectedStartTime = e.target.value;
     setStartTime(selectedStartTime);
-    if (duration) {
-      updateEndTime(duration, selectedStartTime);
-    }
+
+    calculateDuration(e.target.value, endTime);
   };
 
   const handleEndTimeChange = (e) => {
@@ -140,9 +136,22 @@ const CreateTraining = () => {
         message: "End time must be greater than start time by the selected duration.",
       });
     }
+    calculateDuration(startTime, e.target.value);
   };
 
+
   const handleSubmit = async (e) => {
+    debugger;
+
+    
+    const startDate = new Date(`1970-01-01T${startTime}`);
+    const endDate = new Date(`1970-01-01T${endTime}`);
+
+    if (endDate <= startDate) {
+        setAlertMessage({ type: "error", message: "Enter a valid time. End time cannot be before start time." });
+
+  
+    }
     e.preventDefault();
     if (trainingTitle === "") {
       settrainingTitleErrorMsg("Training title is required!");
@@ -183,7 +192,7 @@ const CreateTraining = () => {
       TrainingDate: trainingDate,
       StartTime: startTime,
       EndTime: endTime,
-      Duration: duration,
+      Duration: totalMinutes,
       TrainingTitle: trainingTitle,
       TrainingLink: trainingLink,
     };
@@ -210,12 +219,6 @@ const CreateTraining = () => {
       setIsSubmitting(false);
     }
   };
-
-  const isHighlightedDate = (date) => {
-    return existingTrainingDates.some((trainingDate) => isSameDay(trainingDate, date));
-  };
-
-
 
   const capitalizeText = (text) => {
     if (!text) return text;
@@ -249,7 +252,12 @@ const CreateTraining = () => {
     return `${hours}:${minutes} ${period}`;
   };
 
+ 
 
+  useEffect(() => {
+    fetchTrainingTypes();
+    fetchExistingTrainingDates();
+  }, []);
 
   useEffect(() => {
     debugger;
@@ -273,7 +281,41 @@ const CreateTraining = () => {
         setDuration(durationInHours);
       }
     }
+       if (trainingTitle !== "") settrainingTitleErrorMsg("");
+       if (selectedModule !== "") settrainingTypeErrorMsg("");
+       if (trainingLink !== "") settrainingLinkErrorMsg("");
+       if (trainingDate !== "") settrainingDateErrorMsg("");
+       if (startTime !== "") settrainingStartDateErrorMsg("");
+       if (endTime !== "") settrainingEndDateErrorMsg("");
+       if (duration !== "") settrainingDurationErrorMsg("");
   }, [trainingData]);
+
+
+
+const calculateDuration = (start, end) => {
+  if (!start || !end) {
+    setDuration("");
+    setTotalMinutes(null);
+    return;
+  }
+
+  const startDate = new Date(`1970-01-01T${start}`);
+  const endDate = new Date(`1970-01-01T${end}`);
+
+  if (endDate <= startDate) {
+    setDuration("Invalid Time Range");
+    setTotalMinutes(null);
+    return;
+  }
+
+  const diffInMinutes = Math.floor((endDate - startDate) / (1000 * 60));
+  const hours = Math.floor(diffInMinutes / 60);
+  const minutes = diffInMinutes % 60;
+
+  setDuration(`${hours}h ${minutes}m`);
+  setTotalMinutes(diffInMinutes); // Store total minutes separately
+};
+
 
 
 
@@ -362,7 +404,7 @@ const CreateTraining = () => {
                 <label className="CreateTraining-form-label" htmlFor="training-end-time">
                   Training End Time <span className="asteriskCss">&#42;</span>
                 </label>
-                <input style={{ width: "200px" }} type="time" id="training-end-time" value={endTime} onChange={handleEndTimeChange} disabled={true} />
+                <input style={{ width: "200px" }} type="time" id="training-end-time" value={endTime} onChange={handleEndTimeChange}/>
                 <span className="login_ErrorTxt">{trainingEndDateErrorMsg}</span>
               </div>
             </div>
@@ -372,14 +414,14 @@ const CreateTraining = () => {
               <label className="CreateTraining-form-label" htmlFor="training-duration">
                 Duration <span className="asteriskCss">&#42;</span>
               </label>
-              <select id="training-duration" value={duration} onChange={handleDurationChange}>
-                <option value="">Choose Duration</option>
-                {durations.map((dur, index) => (
-                  <option key={index} value={dur}>
-                    {dur} hours
-                  </option>
-                ))}
-              </select>
+              <input 
+  style={{ width: "300px" }} 
+  type="text" 
+  value={duration} 
+  disabled
+/>
+
+          
               <span className="login_ErrorTxt">{trainingDurationErrorMsg}</span>
             </div>
           </div>
