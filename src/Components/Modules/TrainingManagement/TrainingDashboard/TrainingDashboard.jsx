@@ -122,7 +122,7 @@ const TrainingDashboard = () => {
                 <div className="chart-box">
                     <div className="chart-header">
                         <h3>State Wise Agent Details</h3>
-                        <div className="chart-dropdown" aria-disabled>Total Number of Agents: 233</div>
+                        <div className="chart-dropdown" aria-disabled>Total Number of Agents: 500</div>
                     </div>
                     <BarChart
                         dataset={dataset}

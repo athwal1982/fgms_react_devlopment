@@ -462,13 +462,13 @@ const calculateDuration = (start, end) => {
               )}
             </button>
 
-            <button type="button" className="submit-btn cancel-btn" onClick={() => navigate("/TrainingList")}>
+            <button type="button" className="cancel-btn" onClick={() => navigate("/TrainingList")}>
               Cancel
             </button>
 
             <button
               type="button"
-              className="submit-btn clear-btn"
+              className="clear-btn"
               onClick={() => {
                 setSelectedModule("");
                 setTrainingDate("");
