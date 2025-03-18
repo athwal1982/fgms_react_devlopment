@@ -14,7 +14,7 @@
             padding: 20px;
             border-radius: 15px;
             text-align: left;
-            width: 15%;
+            width: 23%;
             height: 120px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -113,7 +113,7 @@
             }
 
             h3 {
-                font-size: 16px;
+                font-size: 18px;
                 font-weight: 600;
                 margin: 0;
             }
@@ -184,7 +184,7 @@
             .training-card2 {
                 background: #fff;
                 padding: 15px;
-                width: 40%;
+                width: 35%;
                 border-radius: 15px;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                 text-align: left;
@@ -233,7 +233,7 @@
             .training-card3 {
                 background: #fff;
                 padding: 15px;
-                width: 60%;
+                width: 65%;
                 border-radius: 15px;
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                 text-align: left;
@@ -440,10 +440,10 @@ $colors: (
 .chart-box-PieChart {
     background: #fff;
     margin: 10px;
-    padding: 25px;
+  // A  padding: 25px;
     border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    text-align: right;
     width: 50%;
     height: 475px;
 
@@ -488,3 +488,36 @@ $colors: (
         margin-bottom: 10px;
     }
 }
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .month-dropdown {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: white;
+  }
+  
+  .month-dropdown:focus {
+    outline: none;
+    border-color: #747DE8;
+  }
+  
+  .month-dropdown option {
+    font-size: 14px;
+    padding: 5px;
+  }
+  .month-dropdown-year{
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: white;
+    margin-left: 10px;
+  }
