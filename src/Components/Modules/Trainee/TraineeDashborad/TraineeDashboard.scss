@@ -166,7 +166,7 @@
               .number-container {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 15px;
+                gap: 10px;
                 margin-top: 15px;
                 width: 100%;
           
@@ -413,6 +413,7 @@ $colors: (
     border: 1px solid #ccc;
     cursor: pointer;
     background: white;
+    margin-bottom: 10px;
   }
   
   .month-dropdown:focus {

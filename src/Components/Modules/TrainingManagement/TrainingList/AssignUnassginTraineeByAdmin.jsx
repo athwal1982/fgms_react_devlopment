@@ -440,7 +440,7 @@ function AssignUnassginTraineeByAdmin({
             trigger={btnLoaderActive ? "true" : "false"}
             className="custom-button-AssignUnassign"
           >
-            <FaPaperPlane className="icon" />
+          
             Save
           </Button>
         </Modal.Footer>

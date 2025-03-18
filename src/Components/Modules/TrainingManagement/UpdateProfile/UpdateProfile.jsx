@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./UpdateProfile.scss";
 import { getAgentDetails, UpdateAgentProfile } from "../Services/Methods";
 import { getSessionStorage } from "Components/Common/Login/Auth/auth";
-import { FaPaperPlane } from "react-icons/fa";
 import { AlertMessage } from "../../../../Framework/Components/Widgets/Notification/NotificationProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -216,7 +215,7 @@ const UpdateProfile = () => {
 
           <div className="form-actions">
             <button type="submit" className="submit-btn">
-              <FaPaperPlane className="icon" /> &nbsp; Update Profile
+             Update Profile
             </button>
           </div>
         </form>

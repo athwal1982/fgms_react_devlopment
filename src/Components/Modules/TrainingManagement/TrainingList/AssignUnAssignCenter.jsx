@@ -4,7 +4,6 @@ import Modal from "Framework/Components/Layout/Modal/Modal";
 import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
 import { FiTrash2 } from "react-icons/fi";
-import { FaPaperPlane } from "react-icons/fa";
 import { cSCCenterTrainingAssignManageData } from "../Services/Methods";
 import "./TrainingList.scss";
 
@@ -348,7 +347,7 @@ function AssignUnAssignCenter({
                         className="custom-button-AssignUnassign"
                     >
                         <span className="button-content">
-                            <FaPaperPlane className="icon" />
+                        
                             Save
                         </span>
                     </Button>

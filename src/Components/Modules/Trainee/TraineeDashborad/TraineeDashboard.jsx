@@ -11,17 +11,17 @@ const TraineeDashboard = () => {
 
 
   const cardData = [
-    { value: "12 hr/40 hr", label: "Total Hours", icon: icon, color: "#E08E3C" },
-    { value: "6 / 12", label: "Total Number of Trainings", icon: icon4, color: "#747DE8" }
+    { value: "40 hr", label: "Total Hours", icon: icon, color: "#E08E3C" },
+    { value: "12", label: "Total Number of Trainings", icon: icon4, color: "#747DE8" }
   ];
 
   const agentData = [
-    { value: "1", label: "Technical Training", color: "#4CAF50" },
-    { value: "1", label: "Soft Skills Training", color: "#FF9800" },
-    { value: "1", label: "Compliance Training", color: "#2196F3" },
-    { value: "1", label: "LMS Training", color: "#2196F3" },
-    { value: "1", label: "Refresher Training", color: "#2196F3" }, 
-    { value: "1", label: "Technical Training", color: "#2136F3" }
+    { value: "1", label: "Technical ", color: "#4CAF50" },
+    { value: "1", label: "Soft Skills ", color: "#FF9800" },
+    { value: "1", label: "Compliance ", color: "#2196F3" },
+    { value: "1", label: "LMS ", color: "#2196F3" },
+    { value: "1", label: "Refresher ", color: "#2196F3" }, 
+    { value: "1", label: "onboard ", color: "#2136F3" }
 
   ];
 
@@ -46,7 +46,7 @@ const TraineeDashboard = () => {
       <div className="training-status">
         <div className="month">
           <div className="month-info">
-            <p className="month-status">Current Month Training Status</p>
+            <p className="month-status">Month Wise Training Status</p>
             <div className="dropdown-container">
               <select className="month-dropdown" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
                 {months.map((month, index) => (
