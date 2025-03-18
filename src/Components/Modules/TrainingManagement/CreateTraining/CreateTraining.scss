@@ -82,11 +82,31 @@
   .cancel-btn {
     background-color: grey;
     color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: left;
+    gap: 8px;
+    transition: background-color 0.3s, opacity 0.3s;
   }
 
   .clear-btn {
     background-color: #007bff;
     color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: left;
+    gap: 8px;
+    transition: background-color 0.3s, opacity 0.3s;
   }
 
   .scheduled-training-box {

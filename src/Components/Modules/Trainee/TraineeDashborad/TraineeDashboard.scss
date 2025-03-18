@@ -2,7 +2,7 @@
     width: 90%;
     margin: 0 auto;
 
-    .header {
+    .header-trainee {
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;
@@ -136,147 +136,64 @@
 
         .training-cards {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             gap: 20px;
-            margin-top: 15px;
-            height: 25vh;
-
-
-         
-
-            .training-card2-header {
-                background: #fff;
-                padding: 15px;
-                width: 40%;
-                border-radius: 15px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                text-align: left;
-                position: relative; // For positioning the icon
-
-                .icon {
-                    position: absolute;
-                    top: 15px;
-                    right: 20px;
-                    padding: 8px 6px 8px 6px;
-                    background-color: #A4D3D3;
-                    border-radius: 10px;
-
-                    img {
-                        width: 30px;
-                        height: 27px;
-                    }
-                }
-
-                h4 {
-                    font-size: 16px;
-                    margin-bottom: 30px;
-                    font-weight: 500;
-                }
-
-
-                div {
-                    display: flex;
-                    gap: 20px;
-                }
-
-                .number {
-                    font-size: 16px;
-                    font-weight: bold;
-                    margin-top: 5px;
-                }
-
-                .subtext {
-                    font-weight: bold;
-                    margin-top: 5px;
-                    font-size: 14px;
-                    color: #666;
-                }
-            }
-
+          
             .training-card3-header {
-                background: #fff;
-                padding: 15px;
-                width: 100%;
-                border-radius: 15px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                text-align: center;
-                position: relative;
-            }
-            
-            .number-container {
-                display: flex;
-                align-items: center;
-                justify-content: center; /* Center content horizontally */
-                gap: 20px; /* Space between elements */
-                flex-wrap: nowrap; /* Keep items in a single row */
-                overflow-x: auto; /* Allow scrolling if content overflows */
-                white-space: nowrap; /* Prevent text from wrapping */
-                padding: 10px 0;
-                margin-top: 25px;
-            }
-            
-            .number-container p {
-                font-size: 16px; /* Bigger font for visibility */
-                font-weight: 500;
-                position: relative;
-                padding-right: 15px; /* Space for the right-side line */
-                margin: 0; /* Remove default margin */
-                display: flex;
-                align-items: center;
-            }
-            
-            .number-container p::after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                right: 0;
-                height: 60%; /* Adjust line height */
-                width: 2px; /* Line thickness */
-                background-color: black;
-                transform: translateY(-50%);
-            }
-            
-            .number-container p:last-child::after {
-                display: none; /* Remove line from last <p> */
-            }
-            
-            .icon {
-                position: absolute;
-                top: 15px;
-                right: 20px;
-                padding: 8px;
-                background-color: #D5B8F3;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .icon img {
-                width: 30px;
-                height: auto;
-            }
-            
-            h4 {
-                font-size: 18px;
-                margin: 0;
+              width: 100%;
+              background: #ffffff;
+              padding: 20px;
+              border-radius: 12px;
+              box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+              
+              .icon img {
+                width: 50px;
+                height: 50px;
+              }
+          
+              h4 {
+                font-size: 20px;
                 font-weight: 600;
-                text-align: center;
-            }
-            
-            .number {
-                font-size: 18px;
-                font-weight: bold;
+                color: #333;
                 margin-top: 10px;
+              }
+          
+              .number-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                margin-top: 15px;
+                width: 100%;
+          
+                .agent-card {
+                  background: #f9f9f9;
+                  padding: 15px;
+                  border-radius: 8px;
+                  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  text-align: center;
+                  font-size: 16px;
+                  font-weight: 500;
+                  color: #222;
+          
+                  span {
+                    font-size: 18px;
+                    font-weight: bold;
+                    color: var(--card-color);
+                  }
+                }
+              }
             }
-            
-            .subtext {
-                font-size: 14px;
-                color: #666;
-            }
-            
-       
-            
-        }
+          }
+          
 
     }
 

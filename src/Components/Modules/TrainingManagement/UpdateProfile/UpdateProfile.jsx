@@ -107,6 +107,7 @@ const UpdateProfile = () => {
         experience: parseInt(formData.experience, 10) || 0, 
         designation: formData.designation,
         JoiningDate: "",
+        RejoiningDate:"",
         ExitDate: "",
       };
       

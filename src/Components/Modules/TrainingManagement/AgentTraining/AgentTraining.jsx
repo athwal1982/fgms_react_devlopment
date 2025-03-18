@@ -23,28 +23,35 @@ const AgentTraining = () => {
             };
             const response = await getAgentTraining(formData);
             console.log("API Response:", response);
-
-
+    
             let data = response.response.responseData.result;
             let responseCode = response.response.responseCode || 0;
-
+    
             if (responseCode === 1) {
-                const transformedData = data.map(item => ({
-                    ...item,
-                    IsPresent: item.IsPresent === "Y" ? "Present" : item.IsPresent === "N" ? "Absent" : item.IsPresent
-                }));
+                const transformedData = data.map(item => {
+                    const minutes = parseInt(item.Duration, 10) || 0;
+                    const hours = Math.floor(minutes / 60);
+                    const remainingMinutes = minutes % 60;
+                    const formattedDuration = hours > 0 
+                        ? `${hours} hrs ${remainingMinutes} mins`
+                        : `${remainingMinutes} mins`;
+    
+                    return {
+                        ...item,
+                        IsPresent: item.IsPresent === "Y" ? "Present" : item.IsPresent === "N" ? "Absent" : item.IsPresent,
+                        Duration: formattedDuration
+                    };
+                });
                 setRowData(transformedData);
-
             } else {
                 setRowData([]);
-
             }
         } catch (error) {
             console.error("Error fetching trainer data:", error);
             setRowData([]);
-
         }
     };
+    
 
     const ActionCellRenderer = (props) => {
         const { TrainingDate, StartTime, EndTime, TrainingLink } = props.data;
@@ -100,6 +107,12 @@ const AgentTraining = () => {
             filter: true,
             width: 150,
         },
+        // A {
+        //  A   headerName: "Progress",
+        //  A   field: "ProgressValue",
+        //  A   width: 180,
+        //  A   cellRenderer: (params) => <ProgressBar value={params.value} />,
+        // A },
         {
             headerName: "Training Title",
             field: "TrainingTitle",
@@ -221,3 +234,30 @@ const AgentTraining = () => {
 };
 
 export default AgentTraining;
+
+
+// A const ProgressBar = ({ value = 65 }) => {
+//  A   const percentage = value || 0; 
+//   A  const color = percentage < 50 ? "red" : "green"; 
+
+//    A return (
+//     A    <div style={{ width: "100%", backgroundColor: "#ddd", borderRadius: "25px", position: "relative", overflow: "hidden" }}>
+//      A       <div
+//         A        style={{
+//              A       width: `${percentage}%`,
+//               A      backgroundColor: color,
+//                A     height: "15px",
+//                 A    transition: "width 0.5s ease-in-out",
+//                 A    display: "flex",
+//                 A    alignItems: "center",
+//                A     justifyContent: "center",
+//               A      color: "white",
+//               A      fontSize: "12px",
+//                A     fontWeight: "bold",
+//             A    }}
+//           A  >
+//               A  {percentage}%
+//            A </div>
+//        A </div>
+//  A   );
+// A  };

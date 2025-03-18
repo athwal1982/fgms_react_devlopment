@@ -16,7 +16,6 @@ import TrainingDetailsPopUp from "./TrainingDetailsPopUp";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TextField } from "@mui/material";
 import { FaEdit } from "react-icons/fa";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { IoMdClose } from "react-icons/io";
@@ -39,11 +38,6 @@ const TrainingList = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTraining, setSelectedTraining] = useState(null);
   const [selectedTrainingDetails, setSelectedTrainingDetails] = useState(null);
-
-  const [totalDuration, settotalDuration] = useState(null);
-
-
-
   const [trainingTypes, setTrainingTypes] = useState([]);
   const [trainingTitle, setTrainingTitle] = useState("");
   const [selectedModule, setSelectedModule] = useState("");
@@ -53,7 +47,6 @@ const TrainingList = () => {
   const [duration, setDuration] = useState("");
   const [trainingLink, setTrainingLink] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [trainingDateErrorMsg, setTrainingDateErrorMsg] = useState("");
     const [totalMinutes, setTotalMinutes] = useState(null);
   
 
@@ -431,15 +424,7 @@ const TrainingList = () => {
  
   
 
-  const calculateEndTime = (start, duration) => {
-    if (!start || !duration) return "";
 
-    const [hours, minutes] = start.split(":").map(Number);
-    const newEndTime = new Date();
-    newEndTime.setHours(hours + parseInt(duration), minutes, 0);
-
-    return newEndTime.toTimeString().slice(0, 5);
-  };
 
 
 
@@ -493,6 +478,7 @@ const TrainingList = () => {
 
 
   const calculateDuration = (start, end) => {
+    debugger;
     if (!start || !end) {
         setDuration("");
         setTotalMinutes(null);
@@ -511,11 +497,11 @@ const TrainingList = () => {
     const diffInMinutes = Math.floor((endDate - startDate) / (1000 * 60));
     const hours = Math.floor(diffInMinutes / 60);
     const minutes = diffInMinutes % 60;
-
+    const totalCalculatedMinutes = hours * 60 + minutes;
 
     console.log(`Calculated Duration: ${hours}h ${minutes}m`);
     setDuration(`${hours}hrs ${minutes}min`);
-    setTotalMinutes(diffInMinutes); 
+    setTotalMinutes(totalCalculatedMinutes); 
 };
   const handleStartTimeChange = (value) => {
     setStartTime(value);
@@ -572,7 +558,7 @@ const TrainingList = () => {
             <div className="edittraining-form-row">
               <div className="edittraining-form-group">
                 <label htmlFor="training-date">
-                  Training Scheduled Date <span className="asteriskCss">&#42;</span>
+                  Training Scheduled Date 
                 </label>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DatePicker
