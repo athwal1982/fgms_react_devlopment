@@ -19,6 +19,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { FaEdit } from "react-icons/fa";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { IoMdClose } from "react-icons/io";
+import AgentScore from "./AgentScore";
 
 const TrainingList = () => {
   const setAlertMessage = AlertMessage();
@@ -48,8 +49,14 @@ const TrainingList = () => {
   const [trainingLink, setTrainingLink] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
     const [totalMinutes, setTotalMinutes] = useState(null);
-  
+    const [openAgentScoreModal, setOpenAgentScoreModal] = useState(false);
+    const [selectedAgentData, setSelectedAgentData] = useState(null);
+    
 
+    const toggleAgentScoreModal = (data) => {
+      setSelectedTrainingDetails(data);
+      setOpenAgentScoreModal(!openAgentScoreModal);
+    };
 
   const toggleTrainingByAdminModal = (data) => {
     setSelectedTrainingDetails(data);
@@ -174,42 +181,76 @@ const TrainingList = () => {
   };
 
   const ActionCellRenderer = (props) => {
-    const { ExpiredFlag } = props.data;
-
-
-    if (ExpiredFlag == 1) {
-      return null;
-    }
-
+    const { TrainingDate, StartTime } = props.data;
+    const currentTime = new Date(); 
+  
+    const trainingDateObj = new Date(TrainingDate);
+    const trainingDateOnly = new Date(trainingDateObj.getFullYear(), trainingDateObj.getMonth(), trainingDateObj.getDate());
+  
+    const trainingDatePlus7 = new Date(trainingDateOnly);
+    trainingDatePlus7.setDate(trainingDatePlus7.getDate() + 6);
+  
+    const [hours, minutes, seconds] = StartTime.split(":").map(Number);
+    const startTimeObj = new Date(trainingDateObj); // Clone training date
+    startTimeObj.setHours(hours, minutes, seconds, 0); // Set time
+  
+    const currentDateOnly = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+  
+    const isStarted = trainingDateOnly <= currentDateOnly && startTimeObj <= currentTime;
+    const isWithin7Days = currentDateOnly <= trainingDatePlus7;
+  
     return (
       <>
-        <i
-          className="fa fa-tasks"
-          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-          onClick={() => toggleAssignUnAssignCenterModal(props.data)}
-          title="Assign/Unassign Center"
-        ></i>
-        <i
-          className="fa fa-user-graduate"
-          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-          onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
-          title="Assign/Unassign Trainee"
-        ></i>
-        <i
-          className="fa fa-bookmark"
-          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-          onClick={() => toggleTrainingByAdminModal(props.data)}
-          title="Mark Training"
-        ></i>
-        <i
-          className="fa fa-edit"
-          style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-          onClick={() => toggleEditTrainingModal(props.data)}
-          title="Mark Training"
-        ></i>
+        {isWithin7Days && ( // Hide these icons after 7 days
+          <>
+            <i
+              className="fa fa-tasks"
+              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+              onClick={() => toggleAssignUnAssignCenterModal(props.data)}
+              title="Assign/Unassign Center"
+            ></i>
+            <i
+              className="fa fa-user-graduate"
+              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+              onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
+              title="Assign/Unassign Trainee"
+            ></i>
+            <i
+              className="fa fa-bookmark"
+              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+              onClick={() => toggleTrainingByAdminModal(props.data)}
+              title="Mark Training"
+            ></i>
+         <i
+  className="fa fa-chart-line"
+  style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+  onClick={() => toggleAgentScoreModal(props.data)} 
+  title="Add Score"
+></i>
+
+          </>
+        )}
+        {!isStarted && ( // Hide edit icon if training has started
+          <i
+            className="fa fa-edit"
+            style={{
+              cursor: "pointer",
+              color: "green",
+              marginRight: "10px",
+            }}
+            onClick={() => toggleEditTrainingModal(props.data)}
+            title="Edit Training"
+          ></i>
+        )}
       </>
     );
   };
+  
+  
+  
+  
+  
+  
 
   const [columnDefs] = useState([
 
@@ -218,7 +259,7 @@ const TrainingList = () => {
       headerName: "Action",
       field: "action",
       cellRenderer: ActionCellRenderer,
-      width: 100,
+      width: 120,
       cellStyle: { textAlign: "center" },
     },
     {
@@ -626,6 +667,14 @@ const TrainingList = () => {
         />
       )}
 
+{openAgentScoreModal && (
+        <AgentScore
+          toggleAgentScoreModal={toggleAgentScoreModal}
+          agentScoreModal={openAgentScoreModal}
+          trainingDetails={selectedTrainingDetails}
+        />
+      )}
+
       <div className="form-wrapper-agent">
         <div className="modify-agent-container">
           <div className="top-actions">
@@ -668,8 +717,7 @@ const TrainingList = () => {
 
 
             {selectedTraining && (
-              <Modal show={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
-
+              <Modal AgentScore={showModal} onHide={handleClose} centered className="custom-modal" size="lg">
                 <Modal.Header closeButton className="py-2" style={{ backgroundColor: "#004d00", color: "white" }}>
                   <Modal.Title style={{ fontSize: "1rem" }}>Edit Training Details</Modal.Title>
                   <style>

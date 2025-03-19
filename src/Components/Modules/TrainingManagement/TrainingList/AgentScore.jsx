@@ -3,18 +3,24 @@ import { AlertMessage, Loader } from "Framework/Components/Widgets";
 import Modal from "Framework/Components/Layout/Modal/Modal";
 import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
+import { FaPaperPlane } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
-import { cSCCenterTrainingAssignManageData } from "../Services/Methods";
-import "./TrainingList.scss";
+import { setAssignList, setUpdateAttendance } from "../Services/Methods";
 
 
-function AssignUnAssignCenter({
-    toggleAssignUnAssignCenterModal,
-    assignUnAssignCenterModal,
 
+function AgentScore({
+    toggleAgentScoreModal,
+    trainingDetails,
+    
 }) {
     const setAlertMessage = AlertMessage();
 
+
+    const handleChange = (e) => {
+        setSelectedCenterIds(e.target.value);
+        TrainingList(e.target.value);
+    };
     const [assignedCenterGridApi, setAssignedCenterGridApi] = useState();
     const onAssignedCenterGridReady = (params) => {
         setAssignedCenterGridApi(params.api);
@@ -37,18 +43,22 @@ function AssignUnAssignCenter({
 
             setIsLoadingCenterList(true);
             const formdata = {
-                viewMode: "GETALLCENTER",
+                viewMode: "GETALLASSIGNED",
+                cSCAppAccessTypeID: 503,
                 centerID: "0",
-                trainingMasterID: assignUnAssignCenterModal && assignUnAssignCenterModal.TrainingMasterId
-                    ? assignUnAssignCenterModal.TrainingMasterId.toString()
+                trainingMasterID: trainingDetails && trainingDetails.TrainingMasterId
+                    ? trainingDetails.TrainingMasterId.toString()
                     : "0",
-                trainingCenterAssignmentID: "0",
+                userID: "0",
+                trainingUserAssignmentID: "0",
             };
-            const result = await cSCCenterTrainingAssignManageData(formdata);
+            const result = await setAssignList(formdata);
             setIsLoadingCenterList(false);
             if (result.response.responseCode === 1) {
                 if (result.response.responseData && result.response.responseData.CscAssignManage.length > 0) {
-                    setCenterList(result.response.responseData.CscAssignManage);
+                    const filteredData = result.response.responseData.CscAssignManage.filter(item => item.IsPresent === "Y");
+                    setCenterList(filteredData);
+              
                 } else {
                     setCenterList([]);
                 }
@@ -68,24 +78,30 @@ function AssignUnAssignCenter({
     };
 
 
+    const getSelectedRowData = () => {
+        const selectedNodes = assignedCenterGridApi.getSelectedNodes();
+        const selectedData = selectedNodes.map((node) => node.data);
+        return selectedData;
+    };
 
     const onClickDeleteAssignedCenter = async (data) => {
         debugger;
         try {
             const formdata = {
-                viewMode: "UNASSIGN",
-                centerID: data.CenterMasterID,
-                trainingMasterID: assignUnAssignCenterModal && assignUnAssignCenterModal.TrainingMasterId
-                    ? assignUnAssignCenterModal.TrainingMasterId.toString()
-                    : "0",
-                trainingCenterAssignmentID: data.TrainingCenterAssignmentID,
+                SPViewMode: "MARKABSENT",
+                SPTraningMasterID: trainingDetails && trainingDetails.TrainingMasterId
+                    ? trainingDetails.TrainingMasterId
+                    : 0,
+                SPTrainingAssignmentID: data.TrainingUserAssignmentID,
+                SPUserID: data.UserID.toString()
             };
-            const result = await cSCCenterTrainingAssignManageData(formdata);
+            const result = await setUpdateAttendance(formdata);
             if (result.response.responseCode === 1) {
                 setAlertMessage({
                     type: "success",
                     message: result.response.responseMessage,
                 });
+                getAssignedUserListData();
                 data.AssignmentFlag = 0;
                 if (assignedCenterGridApi) {
                     const itemsToUpdate = [];
@@ -112,15 +128,7 @@ function AssignUnAssignCenter({
         }
     };
 
-
-    const getSelectedRowData = () => {
-        const selectedNodes = assignedCenterGridApi.getSelectedNodes();
-        const selectedData = selectedNodes.map((node) => node.data);
-        return selectedData;
-    };
-
     const [btnLoaderActive, setBtnLoaderActive] = useState(false);
-    
     const handleSave = async (e) => {
         debugger;
         try {
@@ -133,79 +141,32 @@ function AssignUnAssignCenter({
                 });
                 return;
             }
-            const CenterIds = checkedItem
+
+            const UserID = checkedItem
                 .map((data) => {
-                    return data.CenterMasterID;
+                    return data.UserID;
                 })
                 .join(",");
 
 
-
             setBtnLoaderActive(true);
-
             const formdata = {
-                viewMode: "ASSIGN",
-                centerID: CenterIds,
-                trainingMasterID: assignUnAssignCenterModal && assignUnAssignCenterModal.TrainingMasterId
-                    ? assignUnAssignCenterModal.TrainingMasterId.toString()
-                    : "0",
-                trainingCenterAssignmentID: "0",
+                SPViewMode: "MARKPRESENT",
+                SPTraningMasterID: trainingDetails && trainingDetails.TrainingMasterId
+                    ? trainingDetails.TrainingMasterId
+                    : 0,
+                SPTrainingAssignmentID: 0,
+                SPUserID: UserID
             };
-
-            const result = await cSCCenterTrainingAssignManageData(formdata);
+            const result = await setUpdateAttendance(formdata);
             setBtnLoaderActive(false);
             if (result.response.responseCode === 1) {
+
                 setAlertMessage({
                     type: "success",
                     message: result.response.responseMessage,
                 });
-                
-                if (result.response.responseData) {
-                    const responseAssignedIds = result.response.responseData.AssignCenterID
-                        ? result.response.responseData.AssignCenterID.split(",")
-                        : [];
-                    console.log(responseAssignedIds);
-                    let assignedIds = [];
-                    if (responseAssignedIds.length > 0) {
-                        assignedIds = responseAssignedIds.reduce(
-                            (assignmentIdList, data) => {
-                                const splitData = data.split("|");
-                                if (splitData.length > 0 && splitData[0] && splitData[1]) {
-                                    assignmentIdList.push({
-                                        CenterMasterID: splitData[0],
-                                        TrainingCenterAssignmentID: splitData[1],
-                                    });
-                                }
-                                return assignmentIdList;
-                            },
-                            []
-                        );
-                    }
 
-                    if (assignedIds.length > 0) {
-                        assignedIds.forEach((data) => {
-                            CenterList.forEach((x) => {
-                                let pCenterMasterID = "0";
-                                if (!Array.isArray(x)) {
-                                    pCenterMasterID = x.CenterMasterID.toString();
-                                } else {
-                                    pCenterMasterID = x[0].CenterMasterID.toString();
-                                }
-                                if (pCenterMasterID === data.CenterMasterID.toString()) {
-                                    x.AssignmentFlag = 1;
-                                    x.CenterMasterID = data.CenterMasterID;
-                                    x.TrainingCenterAssignmentID = data.TrainingCenterAssignmentID;
-                                }
-                            });
-                        });
-                    }
-                }
-
-                setCenterList([]);
-                setCenterList(CenterList);
-                if (assignedCenterGridApi) {
-                    assignedCenterGridApi.setRowData(CenterList);
-                }
                 getAssignedUserListData();
             } else {
                 setAlertMessage({
@@ -224,7 +185,7 @@ function AssignUnAssignCenter({
 
     const checkboxSelection = (params) => {
         console.log(params);
-        if (params.node.data.AssignmentFlag === 1) {
+        if (params.node.data.IsPresent === "Y") {
             return false;
         } else {
             return true;
@@ -240,23 +201,22 @@ function AssignUnAssignCenter({
         }
         return { background: "white" };
     };
+
     useEffect(() => {
         debugger;
-        getAssignedUserListData(assignUnAssignCenterModal);
-    }, [assignUnAssignCenterModal]);
+        getAssignedUserListData(toggleAgentScoreModal);
+    }, [toggleAgentScoreModal]);
+
 
     return (
         <>
             <Modal
                 varient="half"
-                title={`Center Allocation(${assignUnAssignCenterModal.TrainingTitle
-                    ? assignUnAssignCenterModal.TrainingTitle
-                    : ""
-                    })`}
+                title='Agent Score'
                 right={0}
-                width="50vw"
+                width="55vw"
                 height="100vh"
-                show={toggleAssignUnAssignCenterModal}
+                show={toggleAgentScoreModal}
             >
                 <Modal.Body>
                     <div
@@ -270,12 +230,11 @@ function AssignUnAssignCenter({
                                 value={searchTextAssigendCenter}
                                 onChange={(e) => onSearchAssignedCenter(e.target.value)}
                                 className="custom-search-input"
-                                placeholder="Search Center..."
+                                placeholder="Search"
                             />
 
                         </div>
                         <DataGrid
-
                             rowData={CenterList}
                             loader={isLoadingCenterList ? <Loader /> : null}
                             suppressRowClickSelection={true}
@@ -319,11 +278,30 @@ function AssignUnAssignCenter({
                                 }}
                             />
                             <DataGrid.Column
-                                field="AssignmentFlag"
-                                headerName="Status"
-                                width={120}
+                                field="IsPresent"
+                                headerName="Is-Present"
+                                width={150}
                                 flex={1}
-                                valueFormatter={(param) => (param.value === 1 ? "Assigned" : "Not Assigned")}
+                                headerComponentParams={{
+                                    style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
+                                }}
+                                valueFormatter={(param) => (param.value === "Y" ? "Present" : "Absent")}
+                            />
+                            <DataGrid.Column
+                                field="UserID"
+                                headerName="User ID"
+                                width={150}
+                                flex={1}
+                                headerComponentParams={{
+                                    style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
+                                }}
+                            />
+
+                            <DataGrid.Column
+                                field="NAME"
+                                headerName="Trainee Name"
+                                width={150}
+                                flex={1}
                                 headerComponentParams={{
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
                                 }}
@@ -337,6 +315,8 @@ function AssignUnAssignCenter({
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
                                 }}
                             />
+                               
+
                         </DataGrid>
 
                     </div>
@@ -350,7 +330,7 @@ function AssignUnAssignCenter({
                         className="custom-button-AssignUnassign"
                     >
                         <span className="button-content">
-                        
+                            <FaPaperPlane className="icon" />
                             Save
                         </span>
                     </Button>
@@ -363,14 +343,14 @@ function AssignUnAssignCenter({
     );
 }
 
-export default AssignUnAssignCenter;
+export default AgentScore;
 
 const assignedCenterActionTemplate = (props) => {
     return (
         <div style={{ display: "flex" }}>
-            {props.data && props.data.AssignmentFlag === 1 ? (
+            {props.data && props.data.IsPresent === "Y" ? (
                 <span
-                    title="Unassign The Center"
+                    title="Mark Absent"
                     style={{
                         cursor: "pointer",
                         display: "grid",
@@ -382,6 +362,7 @@ const assignedCenterActionTemplate = (props) => {
                         style={{ fontSize: "15px", color: "#5d6d7e" }}
                         onClick={() => props.onClickDeleteAssignedCenter(props.data)}
                     />
+
                 </span>
             ) : null}
         </div>
