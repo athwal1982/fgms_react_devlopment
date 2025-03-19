@@ -326,7 +326,7 @@ function AssignUnassginTraineeByAdmin({
     <>
       <Modal
         varient="half"
-        title={`Assign/Unassign Trainee (${assignUnAssignTraineeByAdminModal.TrainingTitle
+        title={`Trainee Allocation(${assignUnAssignTraineeByAdminModal.TrainingTitle
           ? assignUnAssignTraineeByAdminModal.TrainingTitle
           : ""
           })`}

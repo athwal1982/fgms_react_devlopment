@@ -25,6 +25,46 @@ const TraineeDashboard = () => {
 
   ];
 
+    const fetchAllTrainer = async () => {
+          try {
+              const formData ={
+                SPViewMode:"TRAINEEDASHBOARD",
+                SPUserID:"311178",
+                SPStartDate:"2025-03-01",
+                SPEndDate:"2025-03-26"
+            
+            };
+              const response = await getAgentTraining(formData);
+              console.log("API Response:", response);
+      
+              let data = response.response.responseData.result;
+              let responseCode = response.response.responseCode || 0;
+      
+              if (responseCode === 1) {
+                  const transformedData = data.map(item => {
+                      const minutes = parseInt(item.Duration, 10) || 0;
+                      const hours = Math.floor(minutes / 60);
+                      const remainingMinutes = minutes % 60;
+                      const formattedDuration = hours > 0 
+                          ? `${hours} hrs ${remainingMinutes} mins`
+                          : `${remainingMinutes} mins`;
+      
+                      return {
+                          ...item,
+                          IsPresent: item.IsPresent === "Y" ? "Present" : item.IsPresent === "N" ? "Absent" : item.IsPresent,
+                          Duration: formattedDuration
+                      };
+                  });
+                  setRowData(transformedData);
+              } else {
+                  setRowData([]);
+              }
+          } catch (error) {
+              console.error("Error fetching trainer data:", error);
+              setRowData([]);
+          }
+      };
+
 
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   const years = ["2025", "2024", "2023", "2022"];
