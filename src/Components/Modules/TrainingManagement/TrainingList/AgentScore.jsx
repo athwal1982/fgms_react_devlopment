@@ -16,11 +16,6 @@ function AgentScore({
 }) {
     const setAlertMessage = AlertMessage();
 
-
-    const handleChange = (e) => {
-        setSelectedCenterIds(e.target.value);
-        TrainingList(e.target.value);
-    };
     const [assignedCenterGridApi, setAssignedCenterGridApi] = useState();
     const onAssignedCenterGridReady = (params) => {
         setAssignedCenterGridApi(params.api);
@@ -38,7 +33,6 @@ function AgentScore({
     const [isLoadingCenterList, setIsLoadingCenterList] = useState(false);
     const getAssignedUserListData = async (data) => {
         debugger;
-        // A setProfileRightData(data);
         try {
 
             setIsLoadingCenterList(true);
@@ -162,7 +156,7 @@ function AgentScore({
         <>
             <Modal
                 varient="half"
-                title='Agent Score'
+                title='Mark Assesment Score'
                 right={0}
                 width="55vw"
                 height="100vh"
