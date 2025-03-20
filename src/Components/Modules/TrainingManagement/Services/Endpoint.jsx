@@ -8,6 +8,7 @@ const APIEndpoints = {
     SetAssignList: "FGMS/CSCUserTrainingAssignManage",
     CSCCenterTrainingAssignManage: "FGMS/CSCCenterTrainingAssignManage",
     CSCCenterWiseTraining: "FGMS/CSCCenterWiseTraining",
+    CSCDashboard: "FGMS/CSCDashboard",
     CSCUserTrainingAssignManage: "FGMS/CSCUserTrainingAssignManage",
     CSCCenterWiseTraining: "FGMS/CSCCenterWiseTraining",
     CSCAgentBYID: "FGMS/CSCAgentBYID",

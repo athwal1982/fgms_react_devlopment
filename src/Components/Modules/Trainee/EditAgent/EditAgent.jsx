@@ -40,6 +40,7 @@ const EditAgent = ({ user, onClose }) => {
   };
 
   const handleSubmit = async (e) => {
+    debugger;
     e.preventDefault();
     try {
       const requestData = {
@@ -77,6 +78,7 @@ const EditAgent = ({ user, onClose }) => {
   };
 
   useEffect(() => {
+    debugger;
     fetchRegions();
   }, []);
 

@@ -11,11 +11,11 @@
         .card {
             position: relative;
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 15px;
             text-align: center;
             width: 48%;
-            height: 160px;
+            height: 130px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
@@ -111,15 +111,18 @@
             }
 
             .month-status {
+              
                 font-size: 15px;
-                color: #666;
-                margin-bottom: 5px;
+                color: black;
+                margin-bottom: 15px;
+                font-weight: bold;
             }
 
             h3 {
                 font-size: 16px;
                 font-weight: 600;
-                margin: 0;
+                margin-bottom: 10px;
+
             }
         }
 
@@ -152,8 +155,8 @@
               text-align: center;
               
               .icon img {
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
               }
           
               h4 {
@@ -180,7 +183,7 @@
                   align-items: center;
                   justify-content: center;
                   text-align: center;
-                  font-size: 16px;
+                  font-size: 20px;
                   font-weight: 500;
                   color: #222;
           
@@ -434,3 +437,40 @@ $colors: (
     background: white;
     margin-left: 10px;
   }
+
+  .common-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px 0px 10px;
+    background-color: #E3F7B6;
+    margin-top: 10px;
+    border-bottom: 2px solid #ddd;
+    border-radius: 10px;
+    
+    .header-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+    }
+  
+    .filter-container {
+      display: flex;
+      gap: 10px;
+  
+      select {
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+        cursor: pointer;
+        
+        &:focus {
+          outline: none;
+          border-color: #007bff;
+        }
+      }
+    }
+  }
+  
