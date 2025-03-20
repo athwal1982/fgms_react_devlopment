@@ -38,6 +38,7 @@ function FarmerCallingHistoryLogics() {
     // A let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
     // A XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
     worksheet["!cols"] = [
+      { width: 15 },
       { width: 20 },
       { width: 20 },
       { width: 10 },
@@ -147,6 +148,7 @@ function FarmerCallingHistoryLogics() {
       return;
     }
     const columnOrder = {
+      UserID: "Agent ID",
       CallingUniqueID: "Calling ID",
       CallerMobileNumber: "Caller Mobile No.",
       CallStatus: "Call Status",
@@ -159,6 +161,7 @@ function FarmerCallingHistoryLogics() {
     };
     const mappedData = FarmerCallingHistoryDataList.map((value) => {
       return {
+        UserID: value.UserID,
         CallingUniqueID: value.CallingUniqueID,
         CallerMobileNumber: value.CallerMobileNumber,
         CallStatus: value.CallStatus,

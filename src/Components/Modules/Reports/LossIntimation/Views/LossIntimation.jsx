@@ -8,7 +8,7 @@ import BizClass from "./LossIntimation.module.scss";
 
 function LossIntimationReport({
   ticketCategoryList,
-  isLoadingTicketCategoryList,
+  // A isLoadingTicketCategoryList,
   formValues,
   updateState,
   filteredGrievanceReportDataList,
@@ -19,6 +19,9 @@ function LossIntimationReport({
   grievanceReportListItemSearch,
   onClickClearSearchFilter,
   exportClick,
+  ticketCategoryTypeList,
+  cropStageData,
+  lossAtList,
 }) {
   return (
     <div className={BizClass.PageStart}>
@@ -30,6 +33,7 @@ function LossIntimationReport({
           name="txtFromDate"
           value={formValues.txtFromDate}
           onChange={(e) => updateState("txtFromDate", e.target.value)}
+         style={{width:"100px"}}
         />
         <PageBar.Input
           ControlTxt="To Date"
@@ -39,22 +43,56 @@ function LossIntimationReport({
           value={formValues.txtToDate}
           onChange={(e) => updateState("txtToDate", e.target.value)}
           max={dateToSpecificFormat(moment().subtract(0, "days"), "YYYY-MM-DD")}
+          style={{width:"100px"}}
         />
+         <PageBar.Select
+                  ControlTxt="Crop Stage"
+                  name="txtCropStageData"
+                  value={formValues.txtCropStageData}
+                  options={cropStageData}
+                  getOptionLabel={(option) => `${option.lable}`}
+                  getOptionValue={(option) => `${option}`}
+                  onChange={(e) => updateState("txtCropStageData", e)}
+                  style={{width:"100px"}}
+                />
         <PageBar.Select
-          ControlTxt="Sub Category"
-          name="txtTicketCategory"
-          options={ticketCategoryList}
-          loader={isLoadingTicketCategoryList ? <Loader /> : null}
-          getOptionLabel={(option) => `${option.TicketCategoryName}`}
-          getOptionValue={(option) => `${option}`}
-          value={formValues.txtTicketCategory}
-          onChange={(e) => updateState("txtTicketCategory", e)}
-        />
+                  ControlTxt="Loss At"
+                  name="txtLossAt"
+                  value={formValues.txtLossAt}
+                  options={lossAtList}
+                  getOptionLabel={(option) => `${option.CropStageSelection}`}
+                  getOptionValue={(option) => `${option}`}
+                  onChange={(e) => updateState("txtLossAt", e)}
+                  style={{width:"100px"}}
+                />        
+        <PageBar.Select
+                  ControlTxt="Category"
+                  name="txtTicketCategoryType"
+                  value={formValues.txtTicketCategoryType}
+                  options={ticketCategoryTypeList}
+                  getOptionLabel={(option) => `${option.SupportTicketTypeName}`}
+                  getOptionValue={(option) => `${option}`}
+                  onChange={(e) => updateState("txtTicketCategoryType", e)}
+                  width="100px"
+                />
+                <PageBar.Select
+                  ControlTxt="Sub Category"
+                  name="txtTicketCategory"
+                  options={ticketCategoryList}
+                  getOptionLabel={(option) => `${option.TicketCategoryName}`}
+                  getOptionValue={(option) => `${option}`}
+                  value={formValues.txtTicketCategory}
+                  onChange={(e) => updateState("txtTicketCategory", e)}
+                  style={{width:"100px"}}
+                />
+        <div style={{width:"160px"}}>
         <PageBar.Search
           value={grievanceReportListItemSearch}
           onChange={(e) => onChangeGrievanceReportList(e.target.value)}
           onClick={() => getGrievanceReportsList()}
         />
+          </div>        
+        
         <PageBar.Button onClick={() => onClickClearSearchFilter()} title="Clear">
           Clear
         </PageBar.Button>

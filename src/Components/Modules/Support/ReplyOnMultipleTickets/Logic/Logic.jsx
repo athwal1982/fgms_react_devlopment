@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertMessage } from "Framework/Components/Widgets/Notification/NotificationProvider";
 import { getMasterDataBinding } from "../Services/Methods";
-import { getSessionStorage } from "Components/Common/Login/Auth/auth";
+// A import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import { getfarmerTicketsListPagging, getAssignedTicketList } from "../../ManageTicket/Services/Methods";
 
 function ReplyOnMultipleTicketsLogics() {
@@ -47,8 +47,8 @@ function ReplyOnMultipleTicketsLogics() {
                   value.SupportTicketTypeID === 13
                     ? `${value.SupportTicketTypeName}(Loss at individual farms)`
                     : value.SupportTicketTypeID === 14
-                    ? `${value.SupportTicketTypeName}(Loss at multiple farms)`
-                    : value.SupportTicketTypeName,
+                      ? `${value.SupportTicketTypeName}(Loss at multiple farms)`
+                      : value.SupportTicketTypeName,
                 SupportTicketTypeID: value.SupportTicketTypeID ? value.SupportTicketTypeID : "",
               };
             });
@@ -167,10 +167,10 @@ function ReplyOnMultipleTicketsLogics() {
       // A  statusID: filterValues.txtStatus && filterValues.txtStatus.CommonMasterValueID ? filterValues.txtStatus.CommonMasterValueID : 0,
       // A  ticketHeaderID: filterValues.txtTicketType && filterValues.txtTicketType.TicketTypeID ? filterValues.txtTicketType.TicketTypeID : 0,
       // A};
-      const userData = getSessionStorage("user");
-      const ChkBRHeadTypeID = userData && userData.BRHeadTypeID ? userData.BRHeadTypeID.toString() : "0";
-      const ChkAppAccessTypeID = userData && userData.AppAccessTypeID ? userData.AppAccessTypeID.toString() : "0";
-
+      // A const userData = getSessionStorage("user");
+      // A const ChkBRHeadTypeID = userData && userData.BRHeadTypeID ? userData.BRHeadTypeID.toString() : "0";
+      // A const ChkAppAccessTypeID = userData && userData.AppAccessTypeID ? userData.AppAccessTypeID.toString() : "0";
+      
       const formData = {
         insuranceCompanyID: 0,
         viewTYP: "FILTER",
@@ -197,13 +197,13 @@ function ReplyOnMultipleTicketsLogics() {
       };
       setIsLoadingFarmersticket(true);
       // A const result = await getBulkTicketsList(formData);
-      // A const result = await getfarmerTicketsListPagging(formData);
-      let result = [];
-      if (ChkBRHeadTypeID === "124003" && ChkAppAccessTypeID === "503") {
-        result = await getAssignedTicketList(formData);
-      } else {
-        result = await getfarmerTicketsListPagging(formData);
-      }
+      const result = await getfarmerTicketsListPagging(formData);
+      //  A let result = [];
+      //  A     if (ChkBRHeadTypeID === "124003" && ChkAppAccessTypeID === "503") {
+      //  A       result = await getAssignedTicketList(formData);
+      //  A     } else {
+      //  A       result = await getfarmerTicketsListPagging(formData);
+      //  A     }
       setIsLoadingFarmersticket(false);
       let totalStsCnt = 0;
       const jsonStatusCnt = { Open: "0", InProgress: "0", Resolved: "0", ResolvedInformation: "0", ReOpen: "0" };
