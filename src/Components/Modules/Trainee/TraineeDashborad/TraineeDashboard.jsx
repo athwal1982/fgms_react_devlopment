@@ -3,6 +3,7 @@ import "./TraineeDashboard.scss";
 import icon from "../../../../assets/icon1.svg";
 import icon4 from "../../../../assets/icon5.svg";
 import training3 from "../../../../assets/training3.svg";
+import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 import {gettraineeDashboradData} from "../../TrainingManagement/Services/Methods";
 
 const getCurrentMonthAndYear = () => {
@@ -14,6 +15,7 @@ const getCurrentMonthAndYear = () => {
 
 const TraineeDashboard = () => {
   const { month, year } = getCurrentMonthAndYear();
+  const userData = getSessionStorage("user");
 
   const [selectedMonth, setSelectedMonth] = useState(month);
   const [selectedYear, setSelectedYear] = useState(year);
@@ -38,10 +40,11 @@ const TraineeDashboard = () => {
   const years = ["2025"];
   const moduleColors = ["#2196F3", "#E91E63", "#4CAF50", "#FF9800", "#9C27B0", "#795548"]; 
   const fetchAllTrainer = async () => {
+    debugger;
     try {
       const formData = {
         SPViewMode: "TRAINEEDASHBOARD",
-        SPUserID: "311178",
+        SPUserID: userData.CscUserID,
         SPYear: selectedYear,
         SPMonth: selectedMonth,
       };
