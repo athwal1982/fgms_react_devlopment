@@ -221,15 +221,15 @@ const TrainingList = () => {
               onClick={() => toggleTrainingByAdminModal(props.data)}
               title="Mark Training"
             ></i>
-         <i
+
+          </>
+        )}
+        {props.data.TrainingTypeID === 11001 && isWithin7Days ? <i
   className="fa fa-chart-line"
   style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
   onClick={() => toggleAgentScoreModal(props.data)} 
   title="Add Score"
-></i>
-
-          </>
-        )}
+></i> : null  }
         {!isStarted && ( // Hide edit icon if training has started
           <i
             className="fa fa-edit"

@@ -5,7 +5,7 @@ import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
 import { FaPaperPlane } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
-import { setAssignList, setUpdateAttendance } from "../Services/Methods";
+import { setAssignList, CSCAssessmentUpdateMark } from "../Services/Methods";
 
 
 
@@ -77,97 +77,56 @@ function AgentScore({
         }
     };
 
-
-    const getSelectedRowData = () => {
-        const selectedNodes = assignedCenterGridApi.getSelectedNodes();
-        const selectedData = selectedNodes.map((node) => node.data);
-        return selectedData;
-    };
-
-    const onClickDeleteAssignedCenter = async (data) => {
-        debugger;
-        try {
-            const formdata = {
-                SPViewMode: "MARKABSENT",
-                SPTraningMasterID: trainingDetails && trainingDetails.TrainingMasterId
-                    ? trainingDetails.TrainingMasterId
-                    : 0,
-                SPTrainingAssignmentID: data.TrainingUserAssignmentID,
-                SPUserID: data.UserID.toString()
-            };
-            const result = await setUpdateAttendance(formdata);
-            if (result.response.responseCode === 1) {
-                setAlertMessage({
-                    type: "success",
-                    message: result.response.responseMessage,
-                });
-                getAssignedUserListData();
-                data.AssignmentFlag = 0;
-                if (assignedCenterGridApi) {
-                    const itemsToUpdate = [];
-                    assignedCenterGridApi.forEachNode(function (rowNode) {
-                        if (rowNode.data.CenterMasterID === data.CenterMasterID) {
-                            itemsToUpdate.push(data);
-                            rowNode.setData(data);
-                        }
-                    });
-                    assignedCenterGridApi.updateRowData({
-                        update: itemsToUpdate,
-                    });
-                }
-            } else {
-                setAlertMessage({
-                    type: "error",
-                    message: result.response.responseMessage,
-                });
-
-            }
-        } catch (error) {
-            setAlertMessage({ open: true, type: "error", message: error });
-            console.log(error);
-        }
-    };
-
     const [btnLoaderActive, setBtnLoaderActive] = useState(false);
     const handleSave = async (e) => {
         debugger;
         try {
             if (e) e.preventDefault();
-            const checkedItem = getSelectedRowData();
-            if (checkedItem.length === 0) {
-                setAlertMessage({
-                    type: "warning",
-                    message: "Please select atleast one Center.",
-                });
-                return;
-            }
-
-            const UserID = checkedItem
-                .map((data) => {
-                    return data.UserID;
+            let pUserID, pTrainingUserAssignmentID, pOptedMarks = "";
+            let updatedArray = [];
+            if(assignedCenterGridApi) {
+                assignedCenterGridApi.forEachNode(function (rowNode) {
+                    if(rowNode.data.OptedMarks === "" || rowNode.data.OptedMarks === null || rowNode.data.OptedMarks === undefined ){
+                        setAlertMessage({
+                            type: "success",
+                            message: `Marks is required at row no. ${rowNode.rowIndex + 1}`,
+                        });
+                        return false;
+                    }
+                    updatedArray.push(rowNode.data);
+                });  
+                pUserID = updatedArray
+                 .map((data) => {
+                 return data.UserID;
                 })
-                .join(",");
-
-
+                .join(","); 
+                pTrainingUserAssignmentID = updatedArray
+                 .map((data) => {
+                 return data.TrainingUserAssignmentID;
+                })
+                .join(","); 
+                pOptedMarks = updatedArray
+                 .map((data) => {
+                 return data.OptedMarks;
+                })
+                .join(",");  
+            }    
             setBtnLoaderActive(true);
             const formdata = {
-                SPViewMode: "MARKPRESENT",
-                SPTraningMasterID: trainingDetails && trainingDetails.TrainingMasterId
+                SPTrainingUserAssignmentID: pTrainingUserAssignmentID,
+                SPTrainingMasterID: trainingDetails && trainingDetails.TrainingMasterId
                     ? trainingDetails.TrainingMasterId
                     : 0,
-                SPTrainingAssignmentID: 0,
-                SPUserID: UserID
+               SPOptedMarks: pOptedMarks,
+               SPUserID: pUserID
             };
-            const result = await setUpdateAttendance(formdata);
+            const result = await CSCAssessmentUpdateMark(formdata);
             setBtnLoaderActive(false);
             if (result.response.responseCode === 1) {
-
                 setAlertMessage({
                     type: "success",
                     message: result.response.responseMessage,
                 });
-
-                getAssignedUserListData();
             } else {
                 setAlertMessage({
                     type: "warning",
@@ -182,15 +141,6 @@ function AgentScore({
         }
     };
 
-
-    const checkboxSelection = (params) => {
-        console.log(params);
-        if (params.node.data.IsPresent === "Y") {
-            return false;
-        } else {
-            return true;
-        }
-    };
 
     const getRowStyle = (params) => {
         if (params.data.IsNewlyAdded) {
@@ -241,31 +191,24 @@ function AgentScore({
                             rowSelection={"multiple"}
                             getRowStyle={getRowStyle}
                             onGridReady={onAssignedCenterGridReady}
-                            frameworkComponents={{
-                                assignedCenterActionTemplate,
-                            }}
                             domLayout="autoHeight"
                             className="custom-data-grid"
                         >
-                            <DataGrid.Column
+                            {/* <DataGrid.Column
                                 lockPosition="1"
                                 pinned="left"
                                 headerName=""
                                 flex={1}
                                 field=""
-                                width={80}
+                                width={60}
                                 headerCheckboxSelection
                                 headerCheckboxSelectionFilteredOnly
-                                checkboxSelection={checkboxSelection}
+                                checkboxSelection
                                 tooltipField="Assign The Center"
-                                cellRenderer="assignedCenterActionTemplate"
-                                cellRendererParams={{
-                                    onClickDeleteAssignedCenter,
-                                }}
                                 headerComponentParams={{
                                     style: { backgroundColor: "#004d00", color: "white", fontSize: "14px", textAlign: "center" },
                                 }}
-                            />
+                            /> */}
                             <DataGrid.Column
                                 field="#"
                                 headerName="Sr No."
@@ -280,7 +223,7 @@ function AgentScore({
                             <DataGrid.Column
                                 field="IsPresent"
                                 headerName="Is-Present"
-                                width={150}
+                                width={110}
                                 flex={1}
                                 headerComponentParams={{
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
@@ -290,7 +233,7 @@ function AgentScore({
                             <DataGrid.Column
                                 field="UserID"
                                 headerName="User ID"
-                                width={150}
+                                width={120}
                                 flex={1}
                                 headerComponentParams={{
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
@@ -302,6 +245,30 @@ function AgentScore({
                                 headerName="Trainee Name"
                                 width={150}
                                 flex={1}
+                                headerComponentParams={{
+                                    style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
+                                }}
+                            />
+                             <DataGrid.Column
+                                field="OptedMarks"
+                                headerName="Marks"
+                                width={150}
+                                flex={1}
+                                cellRenderer={(node) => {
+                                    const handleChange = (event) => {
+                                        const updatedMarks = event.target.value.replace(/\D/g, "");
+                                        node.data.OptedMarks = updatedMarks;
+                                        node.api.refreshCells({ rowNodes: [node.node] });
+                                    };                        
+                                    return (
+                                        <input
+                                            type="text"
+                                            value={node.data?.OptedMarks || ""}
+                                            maxLength={3}
+                                            onChange={handleChange}
+                                        />
+                                    );
+                                }}
                                 headerComponentParams={{
                                     style: { backgroundColor: "#04540", color: "white", fontSize: "14px", textAlign: "center" },
                                 }}
@@ -330,7 +297,6 @@ function AgentScore({
                         className="custom-button-AssignUnassign"
                     >
                         <span className="button-content">
-                            <FaPaperPlane className="icon" />
                             Save
                         </span>
                     </Button>
@@ -344,27 +310,3 @@ function AgentScore({
 }
 
 export default AgentScore;
-
-const assignedCenterActionTemplate = (props) => {
-    return (
-        <div style={{ display: "flex" }}>
-            {props.data && props.data.IsPresent === "Y" ? (
-                <span
-                    title="Mark Absent"
-                    style={{
-                        cursor: "pointer",
-                        display: "grid",
-                        marginTop: "3px",
-                        marginRight: "3px",
-                    }}
-                >
-                    <FiTrash2
-                        style={{ fontSize: "15px", color: "#5d6d7e" }}
-                        onClick={() => props.onClickDeleteAssignedCenter(props.data)}
-                    />
-
-                </span>
-            ) : null}
-        </div>
-    );
-};
