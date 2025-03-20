@@ -162,6 +162,14 @@ const AgentTraining = () => {
             filter: true,
             width: 150,
         },
+        {
+            headerName: "Assessment  Score",
+            field: "Score",
+            sortable: true,
+            filter: true,
+            width: 150,
+        },
+
 
 
     ]);

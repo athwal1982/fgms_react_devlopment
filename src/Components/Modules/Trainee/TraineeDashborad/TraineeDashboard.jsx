@@ -1,126 +1,156 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TraineeDashboard.scss";
 import icon from "../../../../assets/icon1.svg";
 import icon4 from "../../../../assets/icon5.svg";
-import cloud from "../../../../assets/CloudIcon.svg";
 import training3 from "../../../../assets/training3.svg";
+import { getSessionStorage } from "Components/Common/Login/Auth/auth";
+import {gettraineeDashboradData} from "../../TrainingManagement/Services/Methods";
+
+const getCurrentMonthAndYear = () => {
+  const currentDate = new Date();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); 
+  const year = currentDate.getFullYear().toString();
+  return { month, year };
+};
 
 const TraineeDashboard = () => {
-  const [selectedMonth, setSelectedMonth] = useState("March");
-  const [selectedYear, setSelectedYear] = useState("2024");
+  const { month, year } = getCurrentMonthAndYear();
+  const userData = getSessionStorage("user");
 
+  const [selectedMonth, setSelectedMonth] = useState(month);
+  const [selectedYear, setSelectedYear] = useState(year);
+  const [totalTrainingHours, setTotalTrainingHours] = useState("0 hr");
+  const [totalTrainings, setTotalTrainings] = useState("0");
+  const [moduleTraining, setModuleTraining] = useState({});
 
-  const cardData = [
-    { value: "40 hr", label: "Total Hours", icon: icon, color: "#E08E3C" },
-    { value: "12", label: "Total Number of Trainings", icon: icon4, color: "#747DE8" }
+  const months = [
+    { name: "January", value: "01" },
+    { name: "February", value: "02" },
+    { name: "March", value: "03" },
+    { name: "April", value: "04" },
+    { name: "May", value: "05" },
+    { name: "June", value: "06" },
+    { name: "July", value: "07" },
+    { name: "August", value: "08" },
+    { name: "September", value: "09" },
+    { name: "October", value: "10" },
+    { name: "November", value: "11" },
+    { name: "December", value: "12" },
   ];
-
-  const agentData = [
-    { value: "1", label: "Technical ", color: "#4CAF50" },
-    { value: "1", label: "Soft Skills ", color: "#FF9800" },
-    { value: "1", label: "Compliance ", color: "#2196F3" },
-    { value: "1", label: "LMS ", color: "#2196F3" },
-    { value: "1", label: "Refresher ", color: "#2196F3" }, 
-    { value: "1", label: "onboard ", color: "#2136F3" }
-
-  ];
-
-    const fetchAllTrainer = async () => {
-          try {
-              const formData ={
-                SPViewMode:"TRAINEEDASHBOARD",
-                SPUserID:"311178",
-                SPStartDate:"2025-03-01",
-                SPEndDate:"2025-03-26"
-            
-            };
-              const response = await getAgentTraining(formData);
-              console.log("API Response:", response);
-      
-              let data = response.response.responseData.result;
-              let responseCode = response.response.responseCode || 0;
-      
-              if (responseCode === 1) {
-                  const transformedData = data.map(item => {
-                      const minutes = parseInt(item.Duration, 10) || 0;
-                      const hours = Math.floor(minutes / 60);
-                      const remainingMinutes = minutes % 60;
-                      const formattedDuration = hours > 0 
-                          ? `${hours} hrs ${remainingMinutes} mins`
-                          : `${remainingMinutes} mins`;
-      
-                      return {
-                          ...item,
-                          IsPresent: item.IsPresent === "Y" ? "Present" : item.IsPresent === "N" ? "Absent" : item.IsPresent,
-                          Duration: formattedDuration
-                      };
-                  });
-                  setRowData(transformedData);
-              } else {
-                  setRowData([]);
-              }
-          } catch (error) {
-              console.error("Error fetching trainer data:", error);
-              setRowData([]);
-          }
+  const years = ["2025"];
+  const moduleColors = ["#2196F3", "#E91E63", "#4CAF50", "#FF9800", "#9C27B0", "#795548"]; 
+  const fetchAllTrainer = async () => {
+    debugger;
+    try {
+      const formData = {
+        SPViewMode: "TRAINEEDASHBOARD",
+        SPUserID: userData.CscUserID,
+        SPYear: selectedYear,
+        SPMonth: selectedMonth,
       };
 
+      const response = await gettraineeDashboradData(formData);
+      console.log("API Response:", response);
 
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const years = ["2025", "2024", "2023", "2022"];
-  
+      if (response?.response?.responseCode === 1) {
+        const data = response.response.responseData[0] || {};
+        
+        const hours = Math.floor(data.totalTrainingHours / 60);
+        const minutes = data.totalTrainingHours % 60;
+        const formattedHours = hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
+
+        setTotalTrainingHours(formattedHours);
+        setTotalTrainings(data.totalTraining || "0");
+        setModuleTraining(data.moduleTraining || {});
+      } else {
+        setTotalTrainingHours("0 hr");
+        setTotalTrainings("0");
+        setModuleTraining({});
+      }
+    } catch (error) {
+      console.error("Error fetching trainer data:", error);
+      setTotalTrainingHours("0 hr");
+      setTotalTrainings("0");
+      setModuleTraining({});
+    }
+  };
+
+  useEffect(() => {
+    fetchAllTrainer();
+  }, [selectedMonth, selectedYear]);
+
   return (
     <div className="dashboard-container-header">
+       <div className="common-header">
+       <div className="dropdown-container">
+              <select
+                className="month-dropdown"
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+              >
+                {months.map((month, index) => (
+                  <option key={index} value={month.value}>
+                    {month.name}
+                  </option>
+                ))}
+              </select>
+              <select
+                className="month-dropdown-year"
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+              >
+                {years.map((year, index) => (
+                  <option key={index} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
+      </div>
       <div className="header-trainee">
-        {cardData.map((card, index) => (
-          <div className="card" key={index} style={{ "--card-hover-color": card.color }}>
-            <img src={card.icon} alt="icon" className="card-icon" style={{ backgroundColor: `${card.color}30` }} />
-            <span style={{ fontSize: "22px", fontWeight: "bold", color: "black" }}>{card.value}</span>
-            <span className="card-label" style={{ fontSize: "18px", fontWeight: "600", color: card.color }}>
-              {card.label}
-            </span>
-          </div>
-        ))}
+        <div className="card" style={{ "--card-hover-color": "#E08E3C" }}>
+          <img src={icon} alt="icon" className="card-icon" style={{ backgroundColor: "#E08E3C30" }} />
+          <span style={{ fontSize: "22px", fontWeight: "bold", color: "black" }}>{totalTrainingHours}</span>
+          <span className="card-label" style={{ fontSize: "18px", fontWeight: "600", color: "#E08E3C" }}>
+            Total Hours
+          </span>
+        </div>
+        <div className="card" style={{ "--card-hover-color": "#747DE8" }}>
+          <img src={icon4} alt="icon" className="card-icon" style={{ backgroundColor: "#747DE830" }} />
+          <span style={{ fontSize: "22px", fontWeight: "bold", color: "black" }}>{totalTrainings}</span>
+          <span className="card-label" style={{ fontSize: "18px", fontWeight: "600", color: "#747DE8" }}>
+            Total Number of Trainings
+          </span>
+        </div>
       </div>
 
       <div className="training-status">
         <div className="month">
           <div className="month-info">
-            <p className="month-status">Month Wise Training Status</p>
-            <div className="dropdown-container">
-              <select className="month-dropdown" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
-                {months.map((month, index) => (
-                  <option key={index} value={month}>{month}</option>
-                ))}
-              </select>
-              <select className="month-dropdown-year" value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
-                {years.map((year, index) => (
-                  <option key={index} value={year}>{year}</option>
-                ))}
-              </select>
-            </div>
+            <p className="month-status">Training Status</p>
+          
           </div>
-          <button className="export-btn">
+          {/* <button className="export-btn">
             <img src={cloud} alt="Export" style={{ backgroundColor: "white" }} />
             &nbsp;Export
-          </button>
+          </button> */}
         </div>
 
         <div className="training-cards">
-          <div className="training-card3-header">
-            <div className="icon">
-              <img src={training3} alt="training" />
-            </div>
-            <h4>Module Wise Training</h4>
-            <div className="number-container">
-              {agentData.map((item, index) => (
-                <p key={index} style={{ color: item.color }}>
-                  {item.value} <br /> {item.label}
-                </p>
-              ))}
-            </div>
-          </div>
-        </div>
+  <div className="training-card3-header">
+    <div className="icon">
+      <img src={training3} alt="training" />
+    </div>
+    <h4>Module Wise Training</h4>
+    <div className="number-container">
+      {Object.entries(moduleTraining).map(([key, value], index) => (
+        <p key={index} style={{ color: moduleColors[index % moduleColors.length] }}>
+          {value} <br />  {key}
+        </p>
+      ))}
+    </div>
+  </div>
+</div>
       </div>
     </div>
   );

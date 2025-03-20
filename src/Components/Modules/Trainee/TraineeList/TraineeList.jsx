@@ -367,6 +367,7 @@ const TraineeList = () => {
   };
 
   useEffect(() => {
+    debugger;
     getAllAgentData(currentPage, "", "");
     fetchAllTrainer();
   }, []);
@@ -384,9 +385,13 @@ const TraineeList = () => {
             <h2>Edit Agent Details</h2>
             <form onSubmit={handleSubmit}>
               <div className="modal-row">
+              <div className="modal-input">
+                  <label className="Trainee-form-label">Agent ID</label>
+                  <input type="text" defaultValue={selectedAgent.UserID} disabled />
+                </div>
                 <div className="modal-input">
                   <label className="Trainee-form-label">Name</label>
-                  <input type="text" defaultValue={selectedAgent.Name} disabled />
+                  <input type="text" defaultValue={selectedAgent.Name}  disabled/>
                 </div>
                 <div className="modal-input">
                   <label className="Trainee-form-label">Email</label>
@@ -400,6 +405,10 @@ const TraineeList = () => {
 
 
               <div className="modal-row">
+              <div className="modal-input">
+                  <label className="Trainee-form-label">Center</label>
+                  <input type="text" defaultValue={selectedAgent.Center} disabled />
+                </div>
                 <div className="modal-input">
                   <label className="Trainee-form-label">Designation</label>
                   <input type="text" defaultValue={selectedAgent.Designation} disabled />
@@ -416,6 +425,10 @@ const TraineeList = () => {
 
 
               <div className="modal-row">
+              <div className="modal-input">
+                  <label className="Trainee-form-label">Gender</label>
+                  <input type="text" defaultValue={selectedAgent.Gender} disabled />
+                </div>
 
                 <div className="modal-input">
                   <label className="Trainee-form-label">Date of Birth</label>
@@ -429,7 +442,7 @@ const TraineeList = () => {
               </div>
               <div className="modal-row">
               <div className="modal-input">   <label className="Trainee-form-label">Re-joining Date</label>
-              <input type="date" name="RejoiningDate" defaultValue={selectedAgent.RejoiningDate || ""} /></div>   <div className="modal-input"></div>  <div className="modal-input"></div> </div>
+              <input type="date" name="RejoiningDate" defaultValue={selectedAgent.RejoiningDate || ""} /></div>   <div className="modal-input"></div> <div className="modal-input"></div> <div className="modal-input"></div> </div>
           
               <div className="modal-buttons">
                 <button type="submit">Update</button>
