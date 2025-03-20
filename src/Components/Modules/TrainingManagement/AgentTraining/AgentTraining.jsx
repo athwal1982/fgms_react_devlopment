@@ -164,7 +164,7 @@ const AgentTraining = () => {
         },
         {
             headerName: "Assessment  Score",
-            field: "Score",
+            field: "OptedMarks",
             sortable: true,
             filter: true,
             width: 150,
