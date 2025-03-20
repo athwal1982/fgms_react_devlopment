@@ -87,6 +87,14 @@ function AgentScore({
                     updatedArray.push([]);    
                     throw new Error("Break");
                     }
+                    if(rowNode.data.OptedMarks > 100) {
+                        setAlertMessage({
+                            type: "warning",
+                            message: `Marks can not be greater than 100 at row no. ${rowNode.rowIndex + 1}`,
+                        });
+                        updatedArray.push([]);    
+                        throw new Error("Break");
+                    }
                     updatedArray.push(rowNode.data);
                 });  
                 pUserID = updatedArray
