@@ -225,10 +225,10 @@ const TrainingList = () => {
           </>
         )}
         {props.data.TrainingTypeID === 11001 && isWithin7Days ? <i
-  className="fa fa-chart-line"
+  className="fa fa-file-alt"
   style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
   onClick={() => toggleAgentScoreModal(props.data)} 
-  title="Add Score"
+  title="Mark Assesment Score"
 ></i> : null  }
         {!isStarted && ( // Hide edit icon if training has started
           <i
@@ -863,5 +863,3 @@ const TrainingList = () => {
 };
 
 export default TrainingList;
-
-

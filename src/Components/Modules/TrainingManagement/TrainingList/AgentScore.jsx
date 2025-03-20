@@ -3,8 +3,6 @@ import { AlertMessage, Loader } from "Framework/Components/Widgets";
 import Modal from "Framework/Components/Layout/Modal/Modal";
 import { DataGrid, PageBar } from "Framework/Components/Layout";
 import { Button } from "Framework/Components/Widgets";
-import { FaPaperPlane } from "react-icons/fa";
-import { FiTrash2 } from "react-icons/fi";
 import { setAssignList, CSCAssessmentUpdateMark } from "../Services/Methods";
 
 
@@ -33,6 +31,7 @@ function AgentScore({
     const [isLoadingCenterList, setIsLoadingCenterList] = useState(false);
     const getAssignedUserListData = async (data) => {
         debugger;
+        // A setProfileRightData(data);
         try {
 
             setIsLoadingCenterList(true);
@@ -82,10 +81,11 @@ function AgentScore({
                 assignedCenterGridApi.forEachNode(function (rowNode) {
                     if(rowNode.data.OptedMarks === "" || rowNode.data.OptedMarks === null || rowNode.data.OptedMarks === undefined ){
                         setAlertMessage({
-                            type: "success",
+                            type: "warning",
                             message: `Marks is required at row no. ${rowNode.rowIndex + 1}`,
                         });
-                        return false;
+                    updatedArray.push([]);    
+                    throw new Error("Break");
                     }
                     updatedArray.push(rowNode.data);
                 });  
@@ -128,10 +128,13 @@ function AgentScore({
                 });
             }
         } catch (error) {
+          if (error.message !== "Break")
+          {
             setAlertMessage({
                 type: "error",
                 message: error,
             });
+        }
         }
     };
 
@@ -188,21 +191,6 @@ function AgentScore({
                             domLayout="autoHeight"
                             className="custom-data-grid"
                         >
-                            {/* <DataGrid.Column
-                                lockPosition="1"
-                                pinned="left"
-                                headerName=""
-                                flex={1}
-                                field=""
-                                width={60}
-                                headerCheckboxSelection
-                                headerCheckboxSelectionFilteredOnly
-                                checkboxSelection
-                                tooltipField="Assign The Center"
-                                headerComponentParams={{
-                                    style: { backgroundColor: "#004d00", color: "white", fontSize: "14px", textAlign: "center" },
-                                }}
-                            /> */}
                             <DataGrid.Column
                                 field="#"
                                 headerName="Sr No."
