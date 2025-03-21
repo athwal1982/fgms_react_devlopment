@@ -136,7 +136,7 @@ function TrainingDetailsPopUp({
             if (checkedItem.length === 0) {
                 setAlertMessage({
                     type: "warning",
-                    message: "Please select atleast one Center.",
+                    message: "Please select atleast one trainee.",
                 });
                 return;
             }
@@ -327,7 +327,6 @@ function TrainingDetailsPopUp({
                         className="custom-button-AssignUnassign"
                     >
                         <span className="button-content">
-                            <FaPaperPlane className="icon" />
                             Save
                         </span>
                     </Button>
