@@ -195,7 +195,7 @@ function AssignUnassginTraineeByAdmin({
       if (!centerMasterID || centerMasterID.toString().trim() === "0") {
         setAlertMessage({
           type: "warning",
-          message: "Please select Center.",
+          message: "Please select trainee.",
         });
         return;
       }

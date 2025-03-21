@@ -457,7 +457,7 @@ const calculateDuration = (start, end) => {
                 "Submitting..."
               ) : (
                 <>
-                  <FaPaperPlane className="icon" /> Save
+                   Save
                 </>
               )}
             </button>
