@@ -136,7 +136,6 @@ function PageRouter() {
         <Route exact path="/TrainingDashboard" element={<Page component={<TrainingDashboard />} title="Training Dashboard" />} />
         <Route exact path="/CenterTrainee" element={<Page component={<CenterTrainee/>} title="Center Trainee" />} />
         <Route exact path="/TraineeDashboard" element={<Page component={<TraineeDashboard/>} title="Trainee Dashboard" />} />
-        <Route exact path="/CreateTraining" element={<Page component={<CreateTraining/>} title="Create  Training" />} />
       </Routes>
     </Router>
   );

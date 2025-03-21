@@ -221,15 +221,15 @@ const TrainingList = () => {
               onClick={() => toggleTrainingByAdminModal(props.data)}
               title="Mark Training"
             ></i>
+         <i
+  className="fa fa-chart-line"
+  style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+  onClick={() => toggleAgentScoreModal(props.data)} 
+  title="Add Score"
+></i>
 
           </>
         )}
-        {props.data.TrainingTypeID === 11001 && isWithin7Days ? <i
-  className="fa fa-file-alt"
-  style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-  onClick={() => toggleAgentScoreModal(props.data)} 
-  title="Mark Assesment Score"
-></i> : null  }
         {!isStarted && ( // Hide edit icon if training has started
           <i
             className="fa fa-edit"
@@ -444,7 +444,8 @@ const TrainingList = () => {
       setTrainingDate(new Date(selectedData.TrainingDate));
       setStartTime(selectedData.StartTime || "");
       setEndTime(selectedData.EndTime || "");
-      // A setDuration(selectedData.Duration || "");
+      setTotalMinutes(selectedData.Duration || "" );
+
       const startDate = new Date(`1970-01-01T${selectedData.StartTime}`);
       const endDate = new Date(`1970-01-01T${selectedData.EndTime}`);
       const diffInMinutes = Math.floor((endDate - startDate) / (1000 * 60));
@@ -863,3 +864,5 @@ const TrainingList = () => {
 };
 
 export default TrainingList;
+
+
