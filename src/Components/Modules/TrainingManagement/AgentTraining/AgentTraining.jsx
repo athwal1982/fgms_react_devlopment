@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { Convert24FourHourAndMinute } from "Configration/Utilities/dateformat";
 import moment from "moment";
@@ -10,22 +10,28 @@ import { getSessionStorage } from "Components/Common/Login/Auth/auth";
 const AgentTraining = () => {
 
     const [rowData, setRowData] = useState([]);
+     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const userData = getSessionStorage("user");
     const CscUserID = userData.CscUserID;
 
-    const fetchAllTrainer = async () => {
+    const page_size = 10;
+
+    const fetchAllTrainer = async (page_number = 1, query = "") => {
         try {
             const formData = {
+                page_number,
+                page_size,
+                searchQuery: query,
                 SPUserID: CscUserID,
                 SPMode: "USERTRAINING"
             };
             const response = await getAgentTraining(formData);
-            console.log("API Response:", response);
     
             let data = response.response.responseData.result;
             let responseCode = response.response.responseCode || 0;
+            let totalPages = response.response.responseData.totalPages;
     
             if (responseCode === 1) {
                 const transformedData = data.map(item => {
@@ -43,6 +49,7 @@ const AgentTraining = () => {
                     };
                 });
                 setRowData(transformedData);
+                setTotalPages(totalPages);
             } else {
                 setRowData([]);
             }
@@ -203,8 +210,15 @@ const AgentTraining = () => {
 
     useEffect(() => {
         debugger;
-        fetchAllTrainer();
-    }, []);
+        fetchAllTrainer(currentPage, searchQuery);
+    }, [currentPage]);
+
+        const debouncedSearch = useMemo(() => _.debounce(fetchAllTrainer, 500), []);
+    
+        const handleSearchInputChange = (query) => {
+            setSearchQuery(query);
+            debouncedSearch(1, query);
+        };
 
     return (
         <>
@@ -213,6 +227,13 @@ const AgentTraining = () => {
                 <div className="modify-agent-container">
                     <div className="top-actions">
                         <div className="search-container">
+                        <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Search by training details..."
+                                value={searchQuery}
+                                onChange={(e) => handleSearchInputChange(e.target.value)}
+                            />
                         </div>
                     </div>
 
