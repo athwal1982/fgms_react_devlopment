@@ -40,7 +40,7 @@ function AssignUnAssignTrainee({
       setIsLoadingTraineeList(true);
       const formdata = {
         viewMode: "GETALLUSER",
-        cSCAppAccessTypeID: userData && userData.CSCAccessTypeID ? userData.CSCAccessTypeID : 0,
+        cSCAppAccessTypeID: 503,
         centerID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.CenterMasterID
           ? assignUnAssignTraineeModal.CenterMasterID.toString()
           : "0",
@@ -78,7 +78,7 @@ function AssignUnAssignTrainee({
     try {
       const formdata = {
         viewMode: "UNASSIGN",
-        cSCAppAccessTypeID: userData && userData.CSCAccessTypeID ? userData.CSCAccessTypeID : 0,
+        cSCAppAccessTypeID: 503,
         centerID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.CenterMasterID
           ? assignUnAssignTraineeModal.CenterMasterID.toString()
           : "0",
@@ -148,7 +148,7 @@ function AssignUnAssignTrainee({
 
       const formdata = {
         viewMode: "ASSIGN",
-        cSCAppAccessTypeID: userData && userData.CSCAccessTypeID ? userData.CSCAccessTypeID : 0,
+        cSCAppAccessTypeID: 503,
         centerID: assignUnAssignTraineeModal && assignUnAssignTraineeModal.CenterMasterID
           ? assignUnAssignTraineeModal.CenterMasterID.toString()
           : "0",
