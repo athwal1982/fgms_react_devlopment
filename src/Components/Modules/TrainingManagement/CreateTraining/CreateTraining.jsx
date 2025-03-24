@@ -321,7 +321,7 @@ const calculateDuration = (start, end) => {
 
   return (
     <div className="form-wrapper">
-      <div className="form-container">
+      <div className="form-container_CT">
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
@@ -457,7 +457,7 @@ const calculateDuration = (start, end) => {
                 "Submitting..."
               ) : (
                 <>
-                   Save
+                Save
                 </>
               )}
             </button>
