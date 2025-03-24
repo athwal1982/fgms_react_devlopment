@@ -188,12 +188,13 @@ const fetchTotalTraineeChart = async () => {
     useEffect(() => {
         fetchTotalAgentDetails();
         fetchTotalTraineeChart();
-        // A  fetchTotalTraineeModules();
+        //   fetchTotalTraineeModules();
     }, []);
 
     useEffect(() => {
       
         fetchTotalTraineeModules();
+        fetchTotalTraineeModules1212();
     }, [[selectedMonth, selectedYear]]);
     return (
         <div className="dashboard-container">
