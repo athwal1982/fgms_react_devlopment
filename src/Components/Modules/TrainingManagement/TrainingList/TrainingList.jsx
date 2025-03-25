@@ -71,13 +71,13 @@ const TrainingList = () => {
   const [selectedData, setSelectedData] = useState(null);
 
   const toggleEditTrainingModal = (data) => {
-    debugger;
+    
     setSelectedData(data);
     setEditModalOpen(true);
   };
 
   const fetchAllTraining = async (page = 1, query = "") => {
-    debugger;
+    
     try {
       const response = await getTrainingListData({ page, limit, searchQuery: query });
       let data = response.response.responseData.items;
@@ -99,7 +99,7 @@ const TrainingList = () => {
 
 
   const fetchTrainersByCenter = async (centerId) => {
-    debugger;
+    
     try {
       const formData = {
         SPMODE: "TRAINEE",
@@ -127,7 +127,7 @@ const TrainingList = () => {
 
 
   const handleCenterChange = (selectedOption) => {
-    debugger;
+    
     setselectedCenter(selectedOption);
 
     if (selectedOption) {
@@ -136,7 +136,7 @@ const TrainingList = () => {
   };
 
   const setTrainer = async () => {
-    debugger;
+    
     const selectedTrainerIds = selectedTrainers.map(trainer => trainer.value);
     const selectedCenterId = selectedCenter ? parseInt(selectedCenter.value, 10) : null;
     // A const selectedCenterId = selectedCenter.length > 0 ? parseInt(selectedCenter[0].value, 10) : null;
@@ -221,15 +221,14 @@ const TrainingList = () => {
               onClick={() => toggleTrainingByAdminModal(props.data)}
               title="Mark Training"
             ></i>
-         <i
-  className="fa fa-chart-line"
-  style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-  onClick={() => toggleAgentScoreModal(props.data)} 
-  title="Add Score"
-></i>
-
           </>
         )}
+        {props.data.TrainingTypeID === 11001 && isWithin7Days ? <i
+  className="fa fa-file-alt"
+  style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
+  onClick={() => toggleAgentScoreModal(props.data)} 
+  title="Mark Assesment Score"
+></i> : null  }
         {!isStarted && ( // Hide edit icon if training has started
           <i
             className="fa fa-edit"
@@ -385,7 +384,7 @@ const TrainingList = () => {
   const [openAssignUnAssignCenterModal, setOpenAssignAssignCenterModal] =
     useState(false);
   const toggleAssignUnAssignCenterModal = (data) => {
-    debugger;
+    
     setOpenAssignAssignCenterModal(!openAssignUnAssignCenterModal);
 
     setAssignUnAssignCenterModal(data);
@@ -400,7 +399,7 @@ const TrainingList = () => {
   const [opentrainingByAdminModal, setOpentrainingByAdminModal] =
     useState(false);
   const toggleAssignUnAssignTraineeByAdminModal = (data) => {
-    debugger;
+    
     setOpenAssignAssignTraineeByAdminModal(!openAssignUnAssignTraineeByAdminModal);
 
     setAssignUnAssignTraineeByAdminModal(data);
@@ -408,7 +407,7 @@ const TrainingList = () => {
 
 
   useEffect(() => {
-    debugger;
+    
     fetchAllTraining(currentPage, searchQuery);
 
   }, [currentPage, searchQuery]);
@@ -418,7 +417,7 @@ const TrainingList = () => {
 
 
   const fetchTrainingTypes = async () => {
-    debugger;
+    
     try {
       const data = await getTrainingTypeData({ MODE: "#ALL", TrainingID: null });
       if (data.response.responseCode === 1) {
@@ -435,7 +434,7 @@ const TrainingList = () => {
   };
 
   useEffect(() => {
-    debugger;
+    
     fetchTrainingTypes();
     if (selectedData?.TrainingMasterId) {
       setTrainingTitle(selectedData.TrainingTitle || "");
@@ -473,7 +472,7 @@ const TrainingList = () => {
  
 
   const handleSubmit = async (e) => {
-    debugger;
+    
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -520,7 +519,7 @@ const TrainingList = () => {
 
 
   const calculateDuration = (start, end) => {
-    debugger;
+    
     if (!start || !end) {
         setDuration("");
         setTotalMinutes(null);
