@@ -48,7 +48,55 @@ const TraineeList = () => {
         );
       },
     },
-
+    {
+      headerName: "Progress Bar",
+      field: "completion_percentage",
+      sortable: true,
+      filter: true,
+      cellRendererFramework: (params) => {
+        const percentage = params.value !== null && params.value !== undefined ? params.value : 0;
+        let bgColor = "red";
+        
+        if (percentage >= 40 && percentage <= 80) bgColor = "orange";
+        if (percentage > 80) bgColor = "green";
+    
+        return (
+          <div style={{ width: "100%", position: "relative", border: "1px solid #ccc", borderRadius: "8px", padding: "0px" }}>
+            <div
+              style={{
+                width: `${percentage}%`,
+                backgroundColor: percentage > 0 ? bgColor : "#f0f0f0", 
+                height: "20px",
+                borderRadius: "8px",
+                textAlign: "center",
+                color: percentage > 0 ? "black" : "#333",
+                fontWeight: "bold",
+                lineHeight: "20px",
+                transition: "width 0.5s ease-in-out",
+              }}
+            >
+              {`${percentage}%`}
+            </div>
+          </div>
+        );
+      },
+    },
+    
+    {
+      headerName: "Total Hours",
+      field: "total_duration_hours",
+      sortable: true,
+      filter: true,
+      valueGetter: (params) => (params.data.total_duration_hours ? `${params.data.total_duration_hours} hrs` : "0 hrs"),
+    },
+    {
+      headerName: "Total Attendent",
+      field: "attended_sessions",
+      sortable: true,
+      filter: true,
+      valueGetter: (params) => (params.data.attended_sessions? `${params.data.attended_sessions} ` : "0"),
+    },
+    
     {
       headerName: "Status",
       field: "Status",
@@ -80,6 +128,8 @@ const TraineeList = () => {
         }
       },
     },
+ 
+    
 
     {
       headerName: "User Name",
@@ -478,6 +528,12 @@ const TraineeList = () => {
                 Search
               </button>
             </div>
+            <div className="color-legend">
+              <h6>Progress Bar Status :</h6>
+    <span className="legend-item" style={{ backgroundColor: "red" }}>Less than 40%</span>
+    <span className="legend-item" style={{ backgroundColor: "orange" }}>40% - 80%</span>
+    <span className="legend-item" style={{ backgroundColor: "green" }}>More than 80%</span>
+  </div>
           </div>
           <div className="ag-theme-alpine ag-grid-container">
             <AgGridReact

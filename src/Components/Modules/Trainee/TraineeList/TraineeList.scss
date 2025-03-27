@@ -442,3 +442,27 @@ input:checked+.slider:before {
   visibility: visible !important;
   opacity: 1 !important;
 }
+
+.color-legend {
+  display: flex;
+  gap: 10px;
+  margin-top: 0px;
+
+  h6{
+    margin-top: 2px;
+    font-size: small;
+
+  
+  }
+}
+
+.legend-item {
+  padding: 4px 10px; 
+  color: white;
+  border-radius: 20px; 
+  font-size: 11px;  
+  font-weight: 400;
+  display: inline-block;
+  min-width: 90px;
+  text-align: center;
+}
