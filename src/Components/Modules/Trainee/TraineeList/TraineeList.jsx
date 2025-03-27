@@ -56,10 +56,8 @@ const TraineeList = () => {
       cellRendererFramework: (params) => {
         const percentage = params.value !== null && params.value !== undefined ? params.value : 0;
         let bgColor = "red";
-        
         if (percentage >= 40 && percentage <= 80) bgColor = "orange";
         if (percentage > 80) bgColor = "green";
-    
         return (
           <div style={{ width: "100%", position: "relative", border: "1px solid #ccc", borderRadius: "8px", padding: "0px" }}>
             <div
