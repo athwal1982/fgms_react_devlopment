@@ -71,8 +71,13 @@ const TrainingReport = () => {
       });
       return;
     }
+    const formattedData = reportData.map((row) => ({
+      ...row,
+      training_hours: `${(row.training_hours / 60).toFixed(2)} hrs` 
+    }));
+  
 
-    const worksheet = XLSX.utils.json_to_sheet(reportData);
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Training Report");
 
@@ -104,7 +109,7 @@ const TrainingReport = () => {
           onChange={(newValue) => setSelectedCenter(newValue)}
         />
 
-        <PageBar.Search   value={searchQuery} onChange={(e) => handleLocalSearch(e.target.value)} onClick={fetchReport} />
+        <PageBar.Search value={searchQuery} onChange={(e) => handleLocalSearch(e.target.value)} onClick={fetchReport} />
      
         <PageBar.Button onClick={() => { setSelectedMonth(""); setSelectedYear(""); setSelectedCenter(""); }} title="Clear">
           Clear
@@ -135,7 +140,17 @@ const TrainingReport = () => {
   <DataGrid.Column field="TrainingScore" headerName="Score" width={100} />
   <DataGrid.Column field="TrainingTitle" headerName="Training Title" width={200} />
   <DataGrid.Column field="TrainingMeetingLink" headerName="Meeting Link" width={300} />
-  <DataGrid.Column field="training_hours" headerName="Training Hours" width={100} />
+  <DataGrid.Column 
+  field="training_hours" 
+  headerName="Training Hours" 
+  width={100}  
+  valueGetter={(params) => {
+    const minutes = params.data.training_hours || 0;
+    const hours = (minutes / 60).toFixed(2); 
+    return `${hours} hrs`; 
+  }} 
+/>
+
   <DataGrid.Column field="training_type" headerName="Training Type" width={150} />
   <DataGrid.Column field="date" headerName="Training Date" width={150} />
 </DataGrid>

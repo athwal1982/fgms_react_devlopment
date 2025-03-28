@@ -59,13 +59,13 @@ const TraineeList = () => {
         if (percentage >= 40 && percentage <= 80) bgColor = "orange";
         if (percentage > 80) bgColor = "green";
         return (
-          <div style={{ width: "100%", position: "relative", border: "1px solid #ccc", borderRadius: "8px", padding: "0px" }}>
+          <div style={{ width: "100%", position: "relative", border: "1px solid #ccc", borderRadius: "10px", padding: "0px" }}>
             <div
               style={{
                 width: `${percentage}%`,
                 backgroundColor: percentage > 0 ? bgColor : "#f0f0f0", 
                 height: "20px",
-                borderRadius: "8px",
+                borderRadius: "10px",
                 textAlign: "center",
                 color: percentage > 0 ? "black" : "#333",
                 fontWeight: "bold",
@@ -527,11 +527,14 @@ const TraineeList = () => {
               </button>
             </div>
             <div className="color-legend">
-              <h6>Progress Bar Status :</h6>
-    <span className="legend-item" style={{ backgroundColor: "red" }}>Less than 40%</span>
-    <span className="legend-item" style={{ backgroundColor: "orange" }}>40% - 80%</span>
-    <span className="legend-item" style={{ backgroundColor: "green" }}>More than 80%</span>
+  <h6 className="legend-title">Progress Bar Status:</h6>
+  <div className="legend-container">
+    <span className="legend-item red">Less than 40%</span>
+    <span className="legend-item orange">40% - 80%</span>
+    <span className="legend-item green">More than 80%</span>
   </div>
+</div>
+
           </div>
           <div className="ag-theme-alpine ag-grid-container">
             <AgGridReact
