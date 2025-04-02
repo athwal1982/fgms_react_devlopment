@@ -63,7 +63,6 @@ function PageRouter() {
     <Router>
       <Routes>
         <Route exact path="/" element={<PageAuthenticator />} />
-
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/ImportantInstructions" element={<ImportantInstructions />} />
         <Route exact path="/welcome" element={<Page component={<Welcome />} title="Home" />} />
@@ -73,38 +72,21 @@ function PageRouter() {
         <Route exact path="/ServiceSuccess" element={<ServiceSuccess />} />
         <Route exact path="/ManageTicket" element={<Page component={<ManageTicketPage />} title="Manage Ticket" />} />
         <Route exact path="/ReplyOnMultipleTikets" element={<Page component={<ReplyOnMultipleTicketsPage />} title="Reply On Multiple Tickets" />} />
-
         {/* <Route exact path="/MyTicket" element={<Page component={<MyTicketPage />} title="My Ticket" />} /> */}
-
         <Route exact path="/UserManagement" element={<Page component={<UserManagementPage />} title="User Management" />} />
-
         <Route exact path="/MenuManagement" element={<Page component={<MenuManagementPage />} title="Menu Management" />} />
-
         <Route exact path="/ProfileManagement" element={<Page component={<ProfileManagementPage />} title="Profile Management" />} />
-
         <Route exact path="/Regional Management" element={<Page component={<RegionalManagementPage />} title="Regional Office" />} />
-
-        <Route
-          exact
-          path="/InsuranceCompanyManagement"
-          element={<Page component={<InsuranceCompanyManagementPage />} title="Insurance Company Management" />}
-        />
-
+        <Route exact path="/InsuranceCompanyManagement" element={<Page component={<InsuranceCompanyManagementPage />} title="Insurance Company Management" />}/>
         <Route exact path="/AcessRights" element={<Page component={<AccessRightsPage />} title="Access Rights" />} />
-
         <Route exact path="/MenuToUserManagment" element={<Page component={<MenuToUser />} title="Menu To User" />} />
-
         <Route exact path="/Faq" element={<Page component={<Faq />} title="Faq" />} />
-
         <Route exact path="/Notification" element={<Page component={<Notification />} title="Notification" />} />
-
         <Route exact path="/Calculator" element={<Page component={<Calculator />} title="Calculator" />} />
-
         <Route exact path="/GrievanceReport" element={<Page component={<GrievanceReportPage />} title="Grievance Report" />} />
         <Route exact path="/LossIntimationReport" element={<Page component={<LossIntimationReportPage />} title="Loss Intimation Status Report" />} />
         <Route exact path="/CropLossIntimationReport" element={<Page component={<CropLossIntimationReportPage />} title="Loss Intimation Report" />} />
         <Route exact path="/TicketsByFarmerReport" element={<Page component={<TicketsByFarmerReportPage />} title="Tickets By Farmer" />} />
-
         <Route exact path="/AgeingReport" element={<Page component={<AgeingReportPage />} title="Ageing(Grievance) Report" />} />
         <Route exact path="/AgeingCropReport" element={<Page component={<AgeingCropReportPage />} title="Ageing(Crop) Report" />} />
         <Route exact path="/TicketHistory" element={<Page component={<TicketHistoryPage />} title="Ticket History" />} />
@@ -134,8 +116,8 @@ function PageRouter() {
         <Route exact path="/AgentTrainings" element={<Page component={<AgentTraining />} title="Agent Trainings" />} />
         <Route exact path="/UpdateProfile" element={<Page component={<UpdateProfile />} title="Update Profile" />} />
         <Route exact path="/TrainingDashboard" element={<Page component={<TrainingDashboard />} title="Training Dashboard" />} />
-        <Route exact path="/CenterTrainee" element={<Page component={<CenterTrainee/>} title="Center Trainee" />} />
-        <Route exact path="/TraineeDashboard" element={<Page component={<TraineeDashboard/>} title="Trainee Dashboard" />} />
+        <Route exact path="/CenterTrainee" element={<Page component={<CenterTrainee />} title="Center Trainee" />} />
+        <Route exact path="/TraineeDashboard" element={<Page component={<TraineeDashboard />} title="Trainee Dashboard" />} />
       </Routes>
     </Router>
   );

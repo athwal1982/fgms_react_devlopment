@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import { AlertMessage, Loader } from "Framework/Components/Widgets";
 import Modal from "Framework/Components/Layout/Modal/Modal";
 import { DataGrid, PageBar } from "Framework/Components/Layout";
@@ -7,6 +7,8 @@ import { FaPaperPlane } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import { cSCCenterTrainingAssignManageData, CSCUserTrainingAssignManageData } from "../Services/Methods";
 import "./TrainingList.scss";
+import * as XLSX from "xlsx";
+
 
 
 function AssignUnassginTraineeByAdmin({
@@ -17,7 +19,9 @@ function AssignUnassginTraineeByAdmin({
 
 
   const [centerMasterID, setCenterMasterID] = useState("0");
-
+  const [fileKey, setFileKey] = useState(Date.now()); 
+  const fileInputRef = useRef(null);
+  
 
   const [filterValues, setFilterValues] = useState({
     txtAssignedCenter: null,
@@ -54,6 +58,11 @@ function AssignUnassginTraineeByAdmin({
 
   const [TraineeByAdminList, setTraineeByAdminList] = useState([]);
   const [isLoadingTraineeByAdminList, setIsLoadingTraineeByAdminList] = useState(false);
+
+  const [TraineeUserID, setTraineeUserID] = useState([]);
+  const [Exceldata, setExcelData] = useState([]);
+
+
   const getAssignedUserListData = async (data) => {
     debugger;
     // A setProfileRightData(data);
@@ -75,6 +84,9 @@ function AssignUnassginTraineeByAdmin({
       if (result.response.responseCode === 1) {
         if (result.response.responseData && result.response.responseData.CscAssignManage.length > 0) {
           setTraineeByAdminList(result.response.responseData.CscAssignManage);
+         
+        
+          setTraineeUserID(result.response.responseData.CscAssignManage.map(item => item["UserID"]));
         } else {
           setTraineeByAdminList([]);
         }
@@ -182,10 +194,91 @@ function AssignUnassginTraineeByAdmin({
 
 
   const getSelectedRowData = () => {
+    debugger;
     const selectedNodes = assignedTraineeByAdminGridApi.getSelectedNodes();
     const selectedData = selectedNodes.map((node) => node.data);
     return selectedData;
   };
+
+
+
+  const handleFileUpload = (event) => {
+    debugger;
+    const file = event.target.files[0];
+  
+    if (
+      file &&
+      (file.type === "application/vnd.ms-excel" ||
+        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    ) {
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+  
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+  
+        const jsonData = XLSX.utils.sheet_to_json(sheet);
+        
+        
+        if (!jsonData.some((row) => row.hasOwnProperty("User_ID"))) {
+          setAlertMessage({
+            type: "error",
+            message: "XLS format is not appropriate. 'User_ID' column is missing.",
+          });
+          return;
+        }
+  
+        const ids = jsonData.map((item) => item["User_ID"].toString());
+  
+        setExcelData(ids);
+  
+        let matchedCount = 0;
+  
+        if (assignedTraineeByAdminGridApi) {
+          assignedTraineeByAdminGridApi.forEachNode((node) => {
+            if (ids.includes(node.data.UserID.toString())) {
+              node.setSelected(true);
+              matchedCount++;
+            }
+          });
+  
+          assignedTraineeByAdminGridApi.refreshCells();
+        }
+  
+      
+        if (matchedCount > 0) {
+          setAlertMessage({
+            type: "success",
+            message: `Successfully matched ${matchedCount} trainees from the uploaded file.`,
+          });
+        } else {
+          setAlertMessage({
+            type: "warning",
+            message: "No trainees have matched from the uploaded file.",
+          });
+        }
+      };
+  
+      reader.readAsArrayBuffer(file);
+    } else {
+      setAlertMessage({
+        type: "error",
+        message: "Invalid file format. Please upload a valid Excel file.",
+      });
+    }
+  };
+  
+
+  
+  
+  
+
+ 
+  
+
 
   const [btnLoaderActive, setBtnLoaderActive] = useState(false);
   const handleSave = async (e) => {
@@ -236,6 +329,10 @@ function AssignUnassginTraineeByAdmin({
           type: "success",
           message: result.response.responseMessage,
         });
+        setFileKey(Date.now()); 
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ""; 
+        }
 
         if (result.response.responseData) {
           const responseAssignedIds = result.response.responseData?.AssignedID
@@ -296,6 +393,7 @@ function AssignUnassginTraineeByAdmin({
       });
     }
   };
+  
 
 
   const checkboxSelection = (params) => {
@@ -317,6 +415,35 @@ function AssignUnassginTraineeByAdmin({
     return { background: "white" };
   };
 
+
+  const handleReset = () => {
+    setExcelData([]); 
+    setTraineeUserID([]); 
+    setFilterValues({ txtAssignedCenter: null }); 
+    setCenterMasterID("0"); 
+    setSearchTextAssigendTraineeByAdmin(""); 
+    setTraineeByAdminList([]); 
+
+    setFileKey(Date.now()); 
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; 
+    }
+  
+    if (assignedTraineeByAdminGridApi) {
+      assignedTraineeByAdminGridApi.deselectAll(); 
+      assignedTraineeByAdminGridApi.setRowData([]); 
+    }
+  
+    setAlertMessage({ type: "success", message: "Reset successful!" });
+  };
+ 
+
+
+
+  
+
+
+
   useEffect(() => {
     debugger;
     getAssignedCenterListData(assignUnAssignTraineeByAdminModal);
@@ -331,7 +458,7 @@ function AssignUnassginTraineeByAdmin({
           : ""
           })`}
         right={0}
-        width="50vw"
+        width="70vw"
         height="100vh"
         show={toggleAssignUnAssignTraineeByAdminModal}
       >
@@ -354,6 +481,23 @@ function AssignUnassginTraineeByAdmin({
                 />
 
               </div>
+              <input
+               key={fileKey}
+  type="file"
+  accept=".csv, .xls, .xlsx"
+  onChange={handleFileUpload}
+  className="import-input"
+  disabled={!filterValues.txtAssignedCenter} 
+/>
+<Button
+    type="Button"
+    varient="secondary"
+    onClick={handleReset}
+    className="custom-button-reset"
+  >
+    Reset
+  </Button>
+
               <div className="custom-search-container">
                 <input
                   type="text"
@@ -386,7 +530,8 @@ function AssignUnassginTraineeByAdmin({
                 width={80}
                 headerCheckboxSelection
                 headerCheckboxSelectionFilteredOnly
-                checkboxSelection={checkboxSelection}
+              // A  checkboxSelection={checkboxSelection}
+              checkboxSelection={(params) => params.node.data.AssignmentFlag !== 1}
                 tooltipField="Assign The TraineeByAdmin"
                 cellRenderer="assignedTraineeByAdminActionTemplate"
                 cellRendererParams={{
@@ -433,16 +578,15 @@ function AssignUnassginTraineeByAdmin({
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            type="Button"
-            varient="danger"
-            onClick={(e) => handleSave(e)}
-            trigger={btnLoaderActive ? "true" : "false"}
-            className="custom-button-AssignUnassign"
-          >
-          
-            Save
-          </Button>
+        <Button
+    type="Button"
+    varient="danger"
+    onClick={(e) => handleSave(e)}
+    trigger={btnLoaderActive ? "true" : "false"}
+    className="custom-button-AssignUnassign"
+  >
+    Save
+  </Button>
         </Modal.Footer>
       </Modal>
     </>

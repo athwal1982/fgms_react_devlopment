@@ -93,8 +93,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 4px; /* Reduce space between elements */
+  
   .create-agent-button {
-    padding: 8px;
+    padding: 6px; /* Reduce padding */
     font-size: 11px;
     background-color: #075307;
     color: #fff;
@@ -102,15 +104,18 @@
     border-radius: 3px;
     font-weight: 600;
     cursor: pointer;
+    
     &:hover {
       background-color: #004d00;
     }
+    
     i {
       display: inline-block;
       animation: move-arrow 2s infinite;
     }
   }
 }
+
 
 @keyframes move-arrow {
   0% {
@@ -243,7 +248,7 @@
   margin-top: 5px;
   margin-left: 5px;
   padding: 6px 12px;
-  width: 400px;
+  width: 260px;
   transition: all 0.3s ease-in-out;
   position: relative;
   border: 1px solid #004d00;
@@ -315,11 +320,9 @@
 .custom-ddl-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   background-color: #ffffff;
   border-radius: 6px;
   margin-top: 5px;
-  margin-left: 5px;
   padding: 6px 12px;;
   transition: all 0.3s ease-in-out;
   position: relative;
@@ -474,4 +477,41 @@
 .edittraining-form-group select:focus {
     border-color: #075307;
     box-shadow: 0 0 4px rgba(7, 83, 7, 0.5);
+}
+
+
+.import-input {
+
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+   width: 250px;
+}
+
+.custom-button-reset {
+  padding: 12px 18px;  
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+
+  &:hover {
+   
+    transform: scale(1.05);  
+  }
+
+  &:active {
+ 
+    transform: scale(0.95);  
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }
