@@ -180,8 +180,9 @@ const TrainingList = () => {
     setSelectedTraining(null);
   };
 
+ 
   const ActionCellRenderer = (props) => {
-    const { TrainingDate, StartTime } = props.data;
+    const { TrainingDate, StartTime, TrainingTypeID } = props.data;
     const currentTime = new Date(); 
   
     const trainingDateObj = new Date(TrainingDate);
@@ -191,52 +192,58 @@ const TrainingList = () => {
     trainingDatePlus7.setDate(trainingDatePlus7.getDate() + 6);
   
     const [hours, minutes, seconds] = StartTime.split(":").map(Number);
-    const startTimeObj = new Date(trainingDateObj); // Clone training date
-    startTimeObj.setHours(hours, minutes, seconds, 0); // Set time
+    const startTimeObj = new Date(trainingDateObj);
+    startTimeObj.setHours(hours, minutes, seconds, 0);
   
     const currentDateOnly = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
   
     const isStarted = trainingDateOnly <= currentDateOnly && startTimeObj <= currentTime;
     const isWithin7Days = currentDateOnly <= trainingDatePlus7;
   
+  
+    const getIconStyle = (disabled) => ({
+      cursor: disabled ? "not-allowed" : "pointer",
+      color: disabled ? "gray" : "green",
+      marginRight: "10px",
+      opacity: disabled ? 0.5 : 1,
+    });
+  
     return (
       <>
-        {isWithin7Days && ( // Hide these icons after 7 days
-          <>
-            <i
-              className="fa fa-tasks"
-              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-              onClick={() => toggleAssignUnAssignCenterModal(props.data)}
-              title="Assign/Unassign Center"
-            ></i>
-            <i
-              className="fa fa-user-graduate"
-              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-              onClick={() => toggleAssignUnAssignTraineeByAdminModal(props.data)}
-              title="Assign/Unassign Trainee"
-            ></i>
-            <i
-              className="fa fa-bookmark"
-              style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-              onClick={() => toggleTrainingByAdminModal(props.data)}
-              title="Mark Training"
-            ></i>
-          </>
+        <i
+          className="fa fa-tasks"
+          style={getIconStyle(!isWithin7Days)}
+          onClick={isWithin7Days ? () => toggleAssignUnAssignCenterModal(props.data) : null}
+          title="Assign/Unassign Center"
+        ></i>
+  
+        <i
+          className="fa fa-user-graduate"
+          style={getIconStyle(!isWithin7Days)}
+          onClick={isWithin7Days ? () => toggleAssignUnAssignTraineeByAdminModal(props.data) : null}
+          title="Assign/Unassign Trainee"
+        ></i>
+  
+        <i
+          className="fa fa-bookmark"
+          style={getIconStyle(!isWithin7Days)}
+          onClick={isWithin7Days ? () => toggleTrainingByAdminModal(props.data) : null}
+          title="Mark Training"
+        ></i>
+  
+        {TrainingTypeID === 11001 && (
+          <i
+            className="fa fa-file-alt"
+            style={getIconStyle(!isWithin7Days)}
+            onClick={isWithin7Days ? () => toggleAgentScoreModal(props.data) : null}
+            title="Mark Assessment Score"
+          ></i>
         )}
-        {props.data.TrainingTypeID === 11001 && isWithin7Days ? <i
-  className="fa fa-file-alt"
-  style={{ cursor: "pointer", color: "green", marginRight: "10px" }}
-  onClick={() => toggleAgentScoreModal(props.data)} 
-  title="Mark Assesment Score"
-></i> : null  }
-        {!isStarted && ( // Hide edit icon if training has started
+  
+        {!isStarted && (
           <i
             className="fa fa-edit"
-            style={{
-              cursor: "pointer",
-              color: "green",
-              marginRight: "10px",
-            }}
+            style={getIconStyle(false)}
             onClick={() => toggleEditTrainingModal(props.data)}
             title="Edit Training"
           ></i>
