@@ -411,7 +411,7 @@ function AssignUnassginTraineeByAdmin({
     }
     if (params.node.rowIndex % 2 === 0) {
       return { background: "white" };
-    }
+    }          
     return { background: "white" };
   };
 

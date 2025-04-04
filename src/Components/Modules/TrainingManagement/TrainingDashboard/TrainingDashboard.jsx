@@ -35,9 +35,8 @@ const TrainingDashboard = () => {
     });
     const [cardData, setCardData] = useState([
         { value: "0", label: "Total Agents", icon: icon, color: "#E08E3C" },
-        { value: "0", label: "Active Agent", icon: icon1, color: "#E0D6D8" },
-        { value: "0", label: "Completed Trainings", icon: icon2, color: "#D5B8F3" },
-        { value: "0", label: "Upcoming Trainings", icon: icon4, color: "#747DE8" },
+        { value: "0", label: "On-Boarded Agent", icon: icon1, color: "#E0D6D8" },
+        { value: "0", label: "De-Boarded Agent", icon: icon2, color: "#D5B8F3" },
     ]);
     const userData = getSessionStorage("user");
     const [selectedMonth, setSelectedMonth] = useState(month);
@@ -75,9 +74,8 @@ const TrainingDashboard = () => {
 
                 setCardData([
                     { value: data.TotalAgent || "0", label: "Total Agents", icon: icon, color: "#E08E3C" },
-                    { value: data.TotalActiveAgent || "0", label: "Active Agent", icon: icon1, color: "#E0D6D8" },
-                    { value: data.TotalInActiveAgent || "0", label: "In-Active Agent", icon: icon2, color: "#D5B8F3" },
-
+                    { value: data.OnBoardedAgent || "0", label: "On-Boarded Agent", icon: icon1, color: "#E0D6D8" },
+                    { value: data.DeboardedAgent || "0", label: "De-Boarded Agent", icon: icon2, color: "#D5B8F3" },
                 ]);
             }
         } catch (error) {
