@@ -182,8 +182,10 @@ function Sidebar() {
         return <AiFillSetting />;
       case "Enquiry":
         return <GiFarmer />;
-      case "Notification":
+      case "Crop Notification":
         return <IoIosNotificationsOutline />;
+      case "Notification":
+          return <IoIosNotificationsOutline />;  
       case "Premium Calculator":
         return <BsCalculator />;
       case "FAQ":
