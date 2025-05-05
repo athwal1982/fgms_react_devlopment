@@ -7,6 +7,7 @@ import ManageTicketPage from "Components/Modules/Support/ManageTicket";
 import ReplyOnMultipleTicketsPage from "Components/Modules/Support/ReplyOnMultipleTickets";
 // Anil import MyTicketPage from "Components/Modules/Support/MyTicket";
 import UserManagementPage from "Components/Modules/Setup/UserManagement";
+import ResourcePartnerManagement from "Components/Modules/Setup/ResourcePartnerManagement/ResourcePartnerManagement"; 
 import MenuManagementPage from "Components/Modules/Setup/MenuManagement";
 import ProfileManagementPage from "Components/Modules/Setup/ProfileManagement";
 import RegionalManagementPage from "Components/Modules/Setup/RegionalManagement";
@@ -58,6 +59,7 @@ import AgentTraining from "Components/Modules/TrainingManagement/AgentTraining/A
 import TrainingDashboard from "Components/Modules/TrainingManagement/TrainingDashboard/TrainingDashboard";
 import CenterTrainee from "Components/Modules/Trainee/CenterTrainee/CenterTrainee";
 import TraineeDashboard from "Components/Modules/Trainee/TraineeDashborad/TraineeDashboard";
+import SosAgeing from "Components/Modules/Reports/SosAgeing";
 
 function PageRouter() {
   return (
@@ -75,9 +77,11 @@ function PageRouter() {
         <Route exact path="/ReplyOnMultipleTikets" element={<Page component={<ReplyOnMultipleTicketsPage />} title="Reply On Multiple Tickets" />} />
         {/* <Route exact path="/MyTicket" element={<Page component={<MyTicketPage />} title="My Ticket" />} /> */}
         <Route exact path="/UserManagement" element={<Page component={<UserManagementPage />} title="User Management" />} />
+        <Route exact path="/ResourcePartnerManagement" element={<Page component={<ResourcePartnerManagement />} title="Resource Partner Management" />} />
         <Route exact path="/MenuManagement" element={<Page component={<MenuManagementPage />} title="Menu Management" />} />
         <Route exact path="/ProfileManagement" element={<Page component={<ProfileManagementPage />} title="Profile Management" />} />
         <Route exact path="/Regional Management" element={<Page component={<RegionalManagementPage />} title="Regional Office" />} />
+
         <Route exact path="/InsuranceCompanyManagement" element={<Page component={<InsuranceCompanyManagementPage />} title="Insurance Company Management" />}/>
         <Route exact path="/AcessRights" element={<Page component={<AccessRightsPage />} title="Access Rights" />} />
         <Route exact path="/MenuToUserManagment" element={<Page component={<MenuToUser />} title="Menu To User" />} />
@@ -120,6 +124,7 @@ function PageRouter() {
         <Route exact path="/TrainingDashboard" element={<Page component={<TrainingDashboard />} title="Training Dashboard" />} />
         <Route exact path="/CenterTrainee" element={<Page component={<CenterTrainee />} title="Center Trainee" />} />
         <Route exact path="/TraineeDashboard" element={<Page component={<TraineeDashboard />} title="Trainee Dashboard" />} />
+        <Route exact path="/SosAgeing" element={<Page component={<SosAgeing />} title="Sos Ageing" />} />
       </Routes>
     </Router>
   );

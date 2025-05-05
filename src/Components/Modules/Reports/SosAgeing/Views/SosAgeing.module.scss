@@ -1,0 +1,10 @@
+.PageStart {
+  display: grid;
+  grid-template-rows: max-content auto;
+  overflow: auto;
+  .divGridPagination {
+    display: grid;
+    grid-template-rows: auto max-content;
+    height: 85vh;
+  }
+}
