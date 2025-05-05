@@ -4,24 +4,20 @@ import { Form, Modal } from "Framework/Components/Layout";
 import { Button, Loader } from "Framework/Components/Widgets";
 import { dateToSpecificFormat } from "Configration/Utilities/dateformat";
 import moment from "moment";
-import {getMasterDataBinding} from "../Services/Methods";
+import { getMasterDataBinding, addNotificationMasterData} from "../Services/Methods";
 
-function AddNotificationsModal({ openAddNotificationsModalClick }) {
+function AddNotificationsModal({ openAddNotificationsModalClick, updateNotification }) {
      const setAlertMessage = AlertMessage();
      const fileRef = useRef(null);
 
-     const[priorityList] = useState([{lable: "Low",value : 1},{lable: "Medium",value : 2},{lable: "High",value : 3}]);
+     const[priorityList] = useState([{lable: "Low",value : 0},{lable: "High",value : 1}]);
       
-      const [btnloaderActive, setBtnloaderActive] = useState(false);
       const [formValues, setFormValues] = useState({
         txtNotificationFor: null,
         txtNotificationType: null,
         txtNotificationDateTime: "",
-        txtResourcePartner: null,
-        txtState: null,
-        txtInsuranceCompany: null,
-        txtCenter: null,
         txtPriority: null,
+        txtIsForAdmin: false,
         txtHeading: "",
         txtDocumentUpload: null,
         txtMessage: "",
@@ -105,27 +101,103 @@ function AddNotificationsModal({ openAddNotificationsModalClick }) {
           });
         }
       };
+        const handleResetFile = async () => {
+          fileRef.current.value = null;
+          setFormValues({
+            ...formValues,
+            txtDocumentUpload: null,
+          });
+        };
+        
+        const handleValidation = () => {
+          const errors = {};
+      
+          let formIsValid = true;
+          if (!formValues.txtNotificationFor || typeof formValues.txtNotificationFor === "undefined") {
+            formIsValid = false;
+            errors["txtNotificationFor"] = "Notification For is required!";
+          }
+      
+          if (!formValues.txtNotificationType || typeof formValues.txtNotificationType === "undefined") {
+            formIsValid = false;
+            errors["txtNotificationType"] = "Notification Type is required!";
+          }
 
-        const [selectedState, setSelectedState] = useState([]);
-        const [isLoadingSelectedState, setIsLoadingSelectedState] = useState(false);
-        const getState = async () => {
-          debugger;
+          if (!formValues.txtNotificationDateTime || typeof formValues.txtNotificationDateTime === "undefined") {
+            formIsValid = false;
+            errors["txtNotificationDateTime"] = "Notification Date Time is required!";
+          }
+
+          if (!formValues.txtPriority || typeof formValues.txtPriority === "undefined") {
+            formIsValid = false;
+            errors["txtPriority"] = "Priority is required!";
+          }
+
+          if (!formValues.txtHeading || typeof formValues.txtHeading === "undefined") {
+            formIsValid = false;
+            errors["txtHeading"] = "Notification Heading is required!";
+          }
+
+          if (!formValues.txtMessage || typeof formValues.txtMessage === "undefined") {
+            formIsValid = false;
+            errors["txtMessage"] = "Notification Message is required!";
+          }
+
+      
+          setFormValidationError(errors);
+          return formIsValid;
+        };
+      
+        const [btnloaderActive, setBtnloaderActive] = useState(false);
+        const handleSave = async () => {
           try {
-            setIsLoadingSelectedState(true);
-            const formdata = {
-              filterID: 0,
-              filterID1: 0,
-              masterName: "STATEMAS",
-              searchText: "#ALL",
-              searchCriteria: "AW",
+            if (!handleValidation()) {
+              return;
+            }
+      
+            setBtnloaderActive(true);
+            const formData = {
+              notificationType: formValues.txtNotificationType && formValues.txtNotificationType.CommonMasterValueID ? formValues.txtNotificationType.CommonMasterValueID : 0,
+              notificationFor: formValues.txtNotificationFor && formValues.txtNotificationFor.CommonMasterValueID ? formValues.txtNotificationFor.CommonMasterValueID : 0,
+              priorityFlag: formValues.txtPriority && formValues.txtPriority.value ? formValues.txtPriority.value : 0,
+              notificationHeading: formValues.txtHeading ? formValues.txtHeading.toString() : "",
+              notificationDateTime:formValues.txtNotificationDateTime ? dateToSpecificFormat(formValues.txtNotificationDateTime, "YYYY-MM-DD hh:mm") : "",
+              isForAdmin:  formValues.txtIsForAdmin === true ? 1 : 0,
+              description:  formValues.txtMessage ? formValues.txtMessage.toString() : "",
+              fileUrl: "",
             };
-            const result = await getMasterDataBinding(formdata);
-            console.log(result);
-            setIsLoadingSelectedState(false);
-            if (result.response.responseData && result.response.responseData.masterdatabinding && result.response.responseData.masterdatabinding.length > 0) {
-              setSelectedState(result.response.responseData.masterdatabinding);
+            debugger;
+            const result = await addNotificationMasterData(formData);
+            setBtnloaderActive(false);
+            if (result.response.responseCode === 1) {
+              setAlertMessage({
+                type: "success",
+                message: result.response.responseMessage,
+              });
+      
+              const addnotification = [
+                {
+                  NotificationMasterID: result.response.responseData.data && result.response.responseData.data.NotificationMasterID ? result.response.responseData.data.NotificationMasterID : 0,
+                  NotificationType: formValues.txtNotificationType && formValues.txtNotificationType.CommonMasterValueID ? formValues.txtNotificationType.CommonMasterValueID : 0,
+                  NotificationValueType: formValues.txtNotificationType && formValues.txtNotificationType.CommonMasterValue ? formValues.txtNotificationType.CommonMasterValue : "",
+                  NotificationFor: formValues.txtNotificationFor && formValues.txtNotificationFor.CommonMasterValueID ? formValues.txtNotificationFor.CommonMasterValueID : 0,
+                  NotificationValueFor: formValues.txtNotificationFor && formValues.txtNotificationFor.CommonMasterValue ? formValues.txtNotificationFor.CommonMasterValue : "",
+                  PriorityFlag: formValues.txtPriority && formValues.txtPriority.Value === 0 ? "Low" : "High",
+                  NotificationHeading: formValues.txtHeading ? formValues.txtHeading.toString() : "",
+                  NotificationDateTime: formValues.txtNotificationDateTime ? dateToSpecificFormat(formValues.txtNotificationDateTime, "YYYY-MM-DDThh:mm:ss") : "",
+                  IsForAdmin:  formValues.txtIsForAdmin === true ? "Yes" : No,
+                  NotificationDescription:  formValues.txtMessage ? formValues.txtMessage.toString() : "",
+                  fileUrl: "",
+                  IsNewlyAdded: true,
+                },
+              ];
+              updateNotification(addnotification);
+              openAddNotificationsModalClick();
             } else {
-              setSelectedState([]);
+              setAlertMessage({
+                type: "error",
+                message: result.response.responseMessage,
+              });
             }
           } catch (error) {
             console.log(error);
@@ -135,54 +207,11 @@ function AddNotificationsModal({ openAddNotificationsModalClick }) {
             });
           }
         };
-          const [insuranceCompanyList, setInsuranceCompanyList] = useState([]);
-          const [isLoadingInsuranceCompanyList, setIsLoadingInsuranceCompanyList] = useState(false);
-          const getInsuranceCompanyListData = async () => {
-            try {
-              setInsuranceCompanyList([]);
-              const formdata = {
-                filterID: 124003,
-                filterID1: 0,
-                masterName: "CMPLST",
-                searchText: "#ALL",
-                searchCriteria: "",
-              };
-              setIsLoadingInsuranceCompanyList(true);
-              const result = await getMasterDataBinding(formdata);
-              setIsLoadingInsuranceCompanyList(false);
-              if (result.response.responseCode === 1) {
-                if (result.response.responseData && result.response.responseData.masterdatabinding && result.response.responseData.masterdatabinding.length > 0) {
-                  setInsuranceCompanyList(result.response.responseData.masterdatabinding);
-                } else {
-                  setInsuranceCompanyList([]);
-                }
-              } else {
-                setAlertMessage({
-                  type: "error",
-                  message: result.response.responseMessage,
-                });
-              }
-            } catch (error) {
-              console.log(error);
-              setAlertMessage({
-                type: "error",
-                message: error,
-              });
-            }
-          };
-        const handleResetFile = async () => {
-          fileRef.current.value = null;
-          setFormValues({
-            ...formValues,
-            txtDocumentUpload: null,
-          });
-        };
+        
 
         useEffect(() => {
             getNotificationForData();
             getNotificationTypeData();
-            getState();
-            getInsuranceCompanyListData();
         }, []);
       
 
@@ -215,56 +244,6 @@ function AddNotificationsModal({ openAddNotificationsModalClick }) {
                            getOptionValue={(option) => `${option}`}
                          />
                        </Form.InputGroup>
-                        <Form.InputGroup label="State" errorMsg={formValidationError["txtState"]} req="true">
-                                         <Form.InputControl
-                                           control="select"
-                                           name="txtState"
-                                           loader={isLoadingSelectedState ? <Loader /> : null}
-                                           onChange={(e) => updateState("txtState", e)}
-                                           value={formValues.txtState}
-                                           options={selectedState}
-                                           getOptionLabel={(option) => `${option.StateMasterName}`}
-                                           getOptionValue={(option) => `${option}`}
-                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup label="Insurance Company" errorMsg={formValidationError["txtInsuranceCompany"]} req="true">
-                                         <Form.InputControl
-                                           control="select"
-                                           name="txtInsuranceCompany"
-                                           loader={isLoadingInsuranceCompanyList ? <Loader /> : null}
-                                           onChange={(e) => updateState("txtInsuranceCompany", e)}
-                                           value={formValues.txtInsuranceCompany}
-                                           options={insuranceCompanyList}
-                                           getOptionLabel={(option) => `${option.CompanyName}`}
-                                           getOptionValue={(option) => `${option}`}
-                                         />
-                                       </Form.InputGroup>
-                                       <Form.InputGroup label="Resource Parner" errorMsg={formValidationError["txtResourcePartner"]} req="true">
-                                         <Form.InputControl
-                                           control="select"
-                                           name="txtResourcePartner"
-                                          // A loader={isLoadingResourcePartner ? <Loader /> : null}
-                                           onChange={(e) => updateState("txtResourcePartner", e)}
-                                           value={formValues.txtResourcePartner}
-                                           options={[]}
-                                           getOptionLabel={(option) => `${option.StateMasterName}`}
-                                           getOptionValue={(option) => `${option}`}
-                                         />
-                                         
-                                       </Form.InputGroup>    
-                                       <Form.InputGroup label="Center" errorMsg={formValidationError["txtCenter"]} req="true">
-                                         <Form.InputControl
-                                           control="select"
-                                           name="txtCenter"
-                                           // A loader={isLoadingCenter ? <Loader /> : null}
-                                           onChange={(e) => updateState("txtCenter", e)}
-                                           value={formValues.txtCenter}
-                                           options={[]}
-                                           getOptionLabel={(option) => `${option.StateMasterName}`}
-                                           getOptionValue={(option) => `${option}`}
-                                         />
-                                         
-                                       </Form.InputGroup>    
                                         <Form.InputGroup label="Notification Date Time" req="true" errorMsg={formValidationError["txtNotificationDateTime"]}>
                                                      <Form.InputControl
                                                        control="input"
@@ -276,7 +255,7 @@ function AddNotificationsModal({ openAddNotificationsModalClick }) {
                                                        onKeyDown={(e) => e.preventDefault()}
                                                      />
                                                    </Form.InputGroup>  
-                                                   <Form.InputGroup label="Priority" req="true" errorMsg={formValidationError["txtCenter"]}>
+                                                   <Form.InputGroup label="Priority" req="true" errorMsg={formValidationError["txtPriority"]}>
                                          <Form.InputControl
                                            control="select"
                                            name="txtPriority"
@@ -288,7 +267,7 @@ function AddNotificationsModal({ openAddNotificationsModalClick }) {
                                          />
                                          
                                        </Form.InputGroup>  
-                                        <Form.InputGroup label="Is For Admin" LabelReq="true"  column={3}htmlFor="IsForAdmin_Check">
+                                        <Form.InputGroup label="Is For Admin" LabelReq="true"  column={3} htmlFor="IsForAdmin_Check">
                                                      <Form.InputControl
                                                        checked={formValues.txtIsForAdmin}
                                                        name="txtIsForAdmin"
@@ -340,7 +319,7 @@ function AddNotificationsModal({ openAddNotificationsModalClick }) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="button" varient="secondary" trigger={btnloaderActive}>
+        <Button type="button" varient="secondary" trigger={btnloaderActive} onClick={() => handleSave()}>
           Save
         </Button>
       </Modal.Footer>
