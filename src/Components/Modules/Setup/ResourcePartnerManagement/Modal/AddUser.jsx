@@ -307,8 +307,8 @@ function AddUser({showfunc}) {
                               name="txtCenter"
                               onChange={(e) => updateState("txtCenter", e)}
                               value={formValues.txtCenter}
-                              options={[]}
-                              getOptionLabel={(option) => `${option.Value}`}
+                              options={centerByResourcePartnerList}
+                              getOptionLabel={(option) => `${option.Center}`}
                               getOptionValue={(option) => `${option}`}
                             />
               </Form.InputGroup>  : null }            
