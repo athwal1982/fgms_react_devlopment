@@ -1,9 +1,10 @@
 const APIEndpoints = {
     ResourcePartnerManagement: {
       GetUser: "FGMS/GetUser",
-      AddNewUser: "FGMS/AddUser",
+      AddCSCResourceTrainer: "FGMS/AddCSCResourceTrainer",
       UserUpdateActiveStatus: "FGMS/UserUpdateActiveStatus",
       GetMasterDataBindingList: "FGMS/GetMasterDataBinding",
+      CscTrainingDataBinding: "FGMS/CscTrainingDataBinding",
     },
   };
   

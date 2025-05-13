@@ -9,7 +9,7 @@ export const getUserListData = async (formData) => {
         ...formData,
       },
     };
-    const result = await ApiCalling(requestData, APIEndpoints.UserManagement.GetUser);
+    const result = await ApiCalling(requestData, APIEndpoints.ResourcePartnerManagement.GetUser);
     if (result.responseCode === 1) {
       if (result.responseData) {
         return { response: result };
@@ -31,7 +31,7 @@ export const userUpdateActiveStatus = async (formData) => {
         ...formData,
       },
     };
-    const result = await ApiCalling(requestData, APIEndpoints.UserManagement.UserUpdateActiveStatus);
+    const result = await ApiCalling(requestData, APIEndpoints.ResourcePartnerManagement.UserUpdateActiveStatus);
     if (result.responseCode === 1) {
       if (result.responseData) {
         return { response: result };
@@ -52,7 +52,7 @@ export const addNewUser = async (formData) => {
           ...formData,
         },
       };
-      const result = await ApiCalling(requestData, APIEndpoints.UserManagement.AddNewUser);
+      const result = await ApiCalling(requestData, APIEndpoints.ResourcePartnerManagement.AddCSCResourceTrainer);
       console.log(result);
       return { response: result };
     } catch (error) {
@@ -70,6 +70,28 @@ export const addNewUser = async (formData) => {
         },
       };
       const result = await ApiCalling(requestData, APIEndpoints.ResourcePartnerManagement.GetMasterDataBindingList);
+      if (result.responseCode === 1) {
+        if (result.responseData) {
+          return { response: result };
+        }
+        return { response: result };
+      }
+      return { response: result };
+    } catch (error) {
+      console.log(error);
+      return { response: { responseCode: 0, responseData: null, responseMessage: error } };
+    }
+  };
+
+  export const cscTrainingDataBinding = async (formData) => {
+    debugger;
+    try {
+      const requestData = {
+        main: {
+          ...formData,
+        },
+      };
+      const result = await ApiCalling(requestData, APIEndpoints.ResourcePartnerManagement.CscTrainingDataBinding);
       if (result.responseCode === 1) {
         if (result.responseData) {
           return { response: result };

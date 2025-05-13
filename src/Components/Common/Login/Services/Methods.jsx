@@ -177,3 +177,34 @@ export const authenticateUserIDForCallingSolution = async (pmobileNumber, puserI
     return { responseCode: 2, responseData: null, responseMessage: error.message };
   }
 };
+
+export const authenticateUserIDForCSCCallingAgentLogin = async (pmobileNumber, puserId) => {
+  try {
+    const ip = await publicIp.v4();
+    const requestData = {
+      mobileNumber: pmobileNumber,
+      appAccessID: puserId,
+      objCommon: {
+        insertedIPAddress: ip,
+      },
+    };
+
+    const response = await axios.post(`${Config.BaseUrl}FGMS/CSCCallingAgentLogin`, requestData);
+    if (response.status === 200) {
+      const result = await response.data;
+      if (result.responseCode.toString() === "1") {
+        const buff = Buffer.from(result.responseDynamic ? result.responseDynamic : "", "base64");
+        if (buff.length !== 0) {
+          const Data = JSON.parse(pako.inflate(buff, { to: "string" }));
+          return { responseCode: 1, responseData: Data, responseMessage: result.responseMessage };
+        }
+        return { responseCode: 1, responseData: [], responseMessage: result.responseMessage };
+      }
+      return { responseCode: 0, responseData: result, responseMessage: result.responseMessage };
+    }
+    return { responseCode: 0, responseData: null, responseMessage: "Login Error" };
+  } catch (error) {
+    console.log(error);
+    return { responseCode: 2, responseData: null, responseMessage: error.message };
+  }
+};

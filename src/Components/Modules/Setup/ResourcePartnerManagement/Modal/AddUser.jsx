@@ -1,12 +1,15 @@
 import { React, useState, useEffect } from "react";
+import { sha256 } from "crypto-hash";
 import { AlertMessage } from "Framework/Components/Widgets/Notification/NotificationProvider";
+import moment from "moment";
 import { Form, Modal } from "Framework/Components/Layout";
 import { Button, Loader } from "Framework/Components/Widgets";
 import { FaInfoCircle } from "react-icons/fa";
-import { getMasterDataBinding} from "../Services/Methods";
+import { getSessionStorage, validatePassword, encryptStringData } from "Components/Common/Login/Auth/auth";
+import { getMasterDataBinding, cscTrainingDataBinding, addNewUser } from "../Services/Methods";
 import BizClass from "../../ResourcePartnerManagement/ResourcePartnerManagement.module.scss";
 
-function AddUser({showfunc}) {
+function AddUser({showfunc, updateResourceMgtUserData}) {
   const setAlertMessage = AlertMessage();
 
   const [isPopupVisible, setPopupVisible] = useState(false);
@@ -19,8 +22,8 @@ function AddUser({showfunc}) {
   };
 
   const [userTypeOptions] = useState([
-    { ID: 1, Value: "Resoure Partner" },
-    { ID: 2, Value: "Center Trainer" },
+    { ID: 333, Value: "Resoure Partner" },
+    { ID: 472, Value: "Trainer" },
   ]);
 
   const [formValues, setFormValues] = useState({
@@ -29,6 +32,8 @@ function AddUser({showfunc}) {
     txtPassword: "",
     txtMobileNo: "",
     txtEmailID: "",
+    txtResourcePartner: null,
+    txtCenter: null,
   });
 
     const validateField = (name, value) => {
@@ -59,6 +64,18 @@ function AddUser({showfunc}) {
         }
       }
       if (name === "txtUserType") {
+        if (!value || typeof value === "undefined") {
+          errorsMsg = "Can not be empty";
+        }
+      }
+
+      if (name === "txtResourcePartner") {
+        if (!value || typeof value === "undefined") {
+          errorsMsg = "Can not be empty";
+        }
+      }
+
+      if (name === "txtCenter") {
         if (!value || typeof value === "undefined") {
           errorsMsg = "Can not be empty";
         }
@@ -100,18 +117,6 @@ function AddUser({showfunc}) {
  
      }
 
-     if(name === "txtResourcePartner") {
-      setFormValues({
-        ...formValues,
-        txtResourcePartner: value,
-        txtCenter: null,
-      });
-      if(value && formValues && formValues.txtUserType && formValues.txtUserType.ID == 2 ) {
-        getcenterByResourcePartnerData(value.ResourcePartnerMasterID);
-      }
-     
-     }
-
    };
 
          const [resourcePartnerList, setresourcePartnerList] = useState([]);
@@ -151,27 +156,24 @@ function AddUser({showfunc}) {
            }
          };
 
-         const [centerByResourcePartnerList, setcenterByResourcePartnerList] = useState([]);
-         const [isLoadingcenterByResourcePartnerList, setIsLoadingcenterByResourcePartnerList] = useState(false);
-         const getcenterByResourcePartnerData = async (pResourcePartnerID) => {
+         const [centerList, setcenterList] = useState([]);
+         const [isLoadingcenterList, setIsLoadingcenterList] = useState(false);
+         const getcenterByData = async () => {
            debugger;
            try {
-            setcenterByResourcePartnerList([]);
-             setIsLoadingcenterByResourcePartnerList(true);
+            setcenterList([]);
+             setIsLoadingcenterList(true);
              const formdata = {
-               filterID: pResourcePartnerID,
-               filterID1: 0,
-               masterName: "CENMAS",
-               searchText: "#ALL",
-               searchCriteria: "AW",
+              SPMODE: "CENTER",
+              SPCenterID: 0,
              };
-             const result = await getMasterDataBinding(formdata);
-             setIsLoadingcenterByResourcePartnerList(false);
+             const result = await cscTrainingDataBinding(formdata);
+             setIsLoadingcenterList(false);
              if (result.response.responseCode === 1) {
-               if (result.response.responseData && result.response.responseData.masterdatabinding && result.response.responseData.masterdatabinding.length > 0) {
-                setcenterByResourcePartnerList(result.response.responseData.masterdatabinding);
+               if (result.response.responseData && result.response.responseData.length > 0) {
+                setcenterList(result.response.responseData);
                } else {
-                setcenterByResourcePartnerList([]);
+                setcenterList([]);
                }
              } else {
                setAlertMessage({
@@ -187,12 +189,117 @@ function AddUser({showfunc}) {
              });
            }
          };
+         const handleValidation = () => {
+          try {
+            const errors = {};
+            let formIsValid = true;
+            errors["txtDisplayName"] = validateField("txtDisplayName", formValues.txtDisplayName);
+            errors["txtLoginName"] = validateField("txtLoginName", formValues.txtLoginName);
+            errors["txtPassword"] = validateField("txtPassword", formValues.txtPassword);
+            errors["txtUserType"] = validateField("txtUserType", formValues.txtUserType);
+            if( formValues && formValues.txtUserType && formValues.txtUserType.ID === 333 ) {
+              errors["txtResourcePartner"] = validateField("txtResourcePartner", formValues.txtResourcePartner);
+              }
+            if( formValues && formValues.txtUserType && formValues.txtUserType.ID === 472 ) {
+              errors["txtCenter"] = validateField("txtCenter", formValues.txtCenter);
+            }
+            errors["txtMobileNo"] = validateField("txtMobileNo", formValues.txtMobileNo);
+            errors["txtEMailID"] = validateField("txtEMailID", formValues.txtEmailID);
+      
+            if (Object.values(errors).join("").toString()) {
+              formIsValid = false;
+            }
+            setFormValidationError(errors);
+            return formIsValid;
+          } catch (error) {
+            setAlertMessage({
+              type: "error",
+              message: "Something Went Wrong",
+            });
+            return false;
+          }
+        };
+      
+        const clearForm = () => {
+          setFormValues({
+            txtDisplayName: "",
+            txtLoginName: "",
+            txtPassword: "",
+            txtMobileNo: "",
+            txtEmailID: "",
+            txtResourcePartner: null,
+            txtCenter: null,
+          });
+        };      
    const [btnLoaderActive, setBtnLoaderActive] = useState(false);
    const handleSave = async (e) => {
+     if (!handleValidation()) {
+          return;
+        }
+        debugger;
+        try {
+          const encryptUserName = encryptStringData(formValues.txtLoginName ? formValues.txtLoginName : "");
+          const hashPass = await sha256(formValues.txtPassword ? formValues.txtPassword : "");
+          const formData = {
+            userTypeID: formValues.txtUserType && formValues.txtUserType.ID ? formValues.txtUserType.ID : 0,
+            centerMasterID: formValues.txtCenter && formValues.txtCenter.CenterMasterID ? formValues.txtCenter.CenterMasterID : 0,
+            center: formValues.txtCenter && formValues.txtCenter.Center ? formValues.txtCenter.Center : "",
+            resourcePartnerID: formValues.txtResourcePartner && formValues.txtResourcePartner.ResorcePartnerName ? formValues.txtResourcePartner.ResorcePartnerName : 0,
+            mobileNumber: formValues.txtMobileNo ? formValues.txtMobileNo : "",
+            emailAddress: formValues.txtEmailID ? formValues.txtEmailID : "",
+            password: hashPass,
+            userName: encryptUserName,
+            name: formValues.txtDisplayName ? formValues.txtDisplayName : "",
+          };
+          setBtnLoaderActive(true);
+          const result = await addNewUser(formData);
+          const userData = getSessionStorage("user");
+          if (result.response.responseCode === 1) {
+            debugger;
+            if (result.response && result.response.responseData) {
+              const newlyAddedUser = [
+                {
+                  AppAccessID: result.response.responseData.data.AppAccessID,
+                  UserDisplayName: formValues.txtDisplayName ? formValues.txtDisplayName : "",
+                  AppAccessUserName: formValues.txtLoginName ? formValues.txtLoginName : "",
+                  UserType: formValues.txtUserType && formValues.txtUserType.Value ? formValues.txtUserType.Value : "",
+                  ActiveStatus: "Y",
+                  EmailAddress: formValues.txtEmailID ? formValues.txtEmailID : "",
+                  UserMobileNumber: formValues.txtMobileNo ? formValues.txtMobileNo : "",
+                  ResourcePartnerName:  formValues.txtResourcePartner && formValues.txtResourcePartner.ResourcePartnerMasterID ? formValues.txtResourcePartner.ResourcePartnerMasterID : "",
+                  Center: formValues.txtCenter && formValues.txtCenter.Center ? formValues.txtCenter.Center : "",
+                  InsertUserID: userData ? userData.LoginID : 0,
+                  InsertedTime: moment().utcOffset("+05:30").format("YYYY-MM-DDTHH:mm:ss"),
+                  IsNewlyAdded: true,
+                },
+              ];
+              updateResourceMgtUserData(newlyAddedUser);
+            }
+            setBtnLoaderActive(false);
+            setAlertMessage({
+              type: "success",
+              message: result.response.responseMessage,
+            });
+            clearForm();
+          } else {
+            setBtnLoaderActive(false);
+            setAlertMessage({
+              type: "error",
+              message: result.response.responseMessage,
+            });
+          }
+        } catch (error) {
+          console.log(error);
+          setAlertMessage({
+            type: "error",
+            message: error,
+          });
+        }
    };
 
            useEffect(() => {
             getresourcePartnerData();
+            getcenterByData();
            }, []);
  
 
@@ -217,7 +324,7 @@ function AddUser({showfunc}) {
           </p>
         </div>
       )}
-      <Modal onSubmit={(e) => handleSave(e)} varient="center" title="Add User" show={showfunc} right="0">
+      <Modal  varient="center" title="Add User" show={showfunc} right="0">
         <Modal.Body>
           <Form>
             <Form.Group column={2} controlwidth="280px">
@@ -287,7 +394,7 @@ function AddUser({showfunc}) {
                               getOptionValue={(option) => `${option}`}
                             />
               </Form.InputGroup>
-              {formValues && formValues.txtUserType && formValues.txtUserType.ID && (formValues.txtUserType.ID === 1 || formValues.txtUserType.ID === 2) ?
+              {formValues && formValues.txtUserType && formValues.txtUserType.ID && formValues.txtUserType.ID === 333 ?
                <Form.InputGroup label="Resource Partner" errorMsg={formValidationError["txtResourcePartner"]} req="true" >
                             <Form.InputControl
                               control="select"
@@ -300,14 +407,15 @@ function AddUser({showfunc}) {
                               getOptionValue={(option) => `${option}`}
                             />
               </Form.InputGroup>  : null } 
-              {formValues && formValues.txtUserType && formValues.txtUserType.ID && formValues.txtUserType.ID === 2 ?
+              {formValues && formValues.txtUserType && formValues.txtUserType.ID && formValues.txtUserType.ID === 472 ?
               <Form.InputGroup label="Center" errorMsg={formValidationError["txtCenter"]} req="true" >
                             <Form.InputControl
                               control="select"
                               name="txtCenter"
                               onChange={(e) => updateState("txtCenter", e)}
                               value={formValues.txtCenter}
-                              options={centerByResourcePartnerList}
+                              options={centerList}
+                              loader={isLoadingcenterList ? <Loader /> : null}
                               getOptionLabel={(option) => `${option.Center}`}
                               getOptionValue={(option) => `${option}`}
                             />
@@ -317,7 +425,7 @@ function AddUser({showfunc}) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit" varient="secondary" trigger={btnLoaderActive}>
+          <Button type="button" onClick={(e) => handleSave(e)} varient="secondary" trigger={btnLoaderActive}>
             Save
           </Button>
         </Modal.Footer>

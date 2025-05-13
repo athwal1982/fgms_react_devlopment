@@ -481,17 +481,10 @@ function CalculatorLogics() {
     const preminumpaidbyfarmer = (parseFloat(calculatedSumInsured) * parseFloat(selectedCropData.farmerShare)) / 100;
     const preminumpaidbygovt = (parseFloat(calculatedSumInsured) * parseFloat(actualRate)) / 100;
     setselectedCalculation({
-      CalculatedSumInsured: calculatedSumInsured,
+      CalculatedSumInsured: parseFloat(calculatedSumInsured).toFixed(2),
       ActurialRate: acturialRate,
-      Preminumpaidbyfarmer: preminumpaidbyfarmer,
-      Preminumpaidbygovt: preminumpaidbygovt,
-      AreaInhectare: formValuesForCalculator.txtAreaInHectareForCalculator,
-    });
-    console.log({
-      CalculatedSumInsured: calculatedSumInsured,
-      ActurialRate: acturialRate,
-      Preminumpaidbyfarmer: preminumpaidbyfarmer,
-      Preminumpaidbygovt: preminumpaidbygovt,
+      Preminumpaidbyfarmer: parseFloat(preminumpaidbyfarmer).toFixed(2),
+      Preminumpaidbygovt: parseFloat(preminumpaidbygovt).toFixed(2),
       AreaInhectare: formValuesForCalculator.txtAreaInHectareForCalculator,
     });
     setTimeout(() => executeScroll(), 0);

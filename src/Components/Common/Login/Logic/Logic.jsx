@@ -3,8 +3,8 @@ import { sha256 } from "crypto-hash";
 import bcrypt from "bcryptjs";
 import { AlertMessage } from "Framework/Components/Widgets/Notification/NotificationProvider";
 import { useNavigate } from "react-router-dom";
-import { setSessionStorage, encryptStringData, decryptStringData } from "../Auth/auth";
-import { authenticate, authenticateDiffUsersLogin, authenticateIntial, authenticateUserIDForCallingSolution } from "../Services/Methods";
+import { setSessionStorage, encryptStringData, decryptStringData, checkAuthExist } from "../Auth/auth";
+import { authenticate, authenticateDiffUsersLogin, authenticateIntial, authenticateUserIDForCallingSolution, authenticateUserIDForCSCCallingAgentLogin } from "../Services/Methods";
 
 function AddLoginLogics() {
   const setAlertMessage = AlertMessage();
@@ -373,16 +373,62 @@ function AddLoginLogics() {
     }
   };
 
+  const callAgentDashBoard = async () => {
+    debugger;
+    try {
+      const urlSearchParams = new URLSearchParams(window.location.search);
+      const params = Object.fromEntries(urlSearchParams.entries());
+      const encptUID = decryptStringData(params && params.userID ? params.userID : "uID");
+      const encptUMBLENO = decryptStringData(params && params.mobileNumber ? params.mobileNumber : "uMO");
+      setIsLoadingPage(true);
+      const result = await authenticateUserIDForCSCCallingAgentLogin(encptUMBLENO, encptUID);
+      setIsLoadingPage(false);
+      if (result.responseCode === 1) {
+        if (!(result.responseData.token && result.responseData.token.Token && result.responseData.token.expirationTime)) {
+          setAlertMessage({
+            type: "error",
+            message: "Token is missing in the response",
+          });
+          return;
+        }
+        const user = {
+          ...result.responseData,
+        };
+        setSessionStorage("user", user);
+        navigate("/TraineeDashboard");
+      } else if (result.responseCode === 0) {
+        setAlertMessage({
+          type: "error",
+          message: "User Name does not exist.",
+        });
+        setIsLoadingPage(false);
+      } else {
+        setAlertMessage({
+          type: "error",
+          message: result.responseMessage,
+        });
+        setIsLoadingPage(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoadingPage(false);
+    }
+  };
+
   useEffect(() => {
+    debugger;
     if (pathUrl.indexOf("uniqueID") !== -1 && pathUrl.indexOf("userID") !== -1 && pathUrl.indexOf("mobileNumber") !== -1) {
       setShowHideLogin(false);
       callKrphAllActivityPage();
+    } else if (pathUrl.indexOf("userID") !== -1 && pathUrl.indexOf("mobileNumber") !== -1) {
+        setShowHideLogin(false);
+        callAgentDashBoard();
     } else {
       setShowHideLogin(true);
       setTimeout(() => {
         createCaptcha();
       }, 500);
-    }
+    } 
     // A createCaptcha();
   }, []);
 

@@ -216,7 +216,8 @@ function Sidebar() {
     try {
       await logout(userData.LoginID ? userData.LoginID : 0, userData.SessionID ? userData.SessionID : 0);
       sessionStorage.clear();
-      navigate("/");
+      window.location = `${window.location.origin}${window.location.pathname}`;
+      // A navigate("/");
     } catch (error) {
       console.log(error);
       setAlertMessage({

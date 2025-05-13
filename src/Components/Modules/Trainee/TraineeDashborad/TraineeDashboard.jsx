@@ -113,7 +113,7 @@ const TraineeDashboard = () => {
           <img src={icon} alt="icon" className="card-icon" style={{ backgroundColor: "#E08E3C30" }} />
           <span style={{ fontSize: "22px", fontWeight: "bold", color: "black" }}>{totalTrainingHours}</span>
           <span className="card-label" style={{ fontSize: "18px", fontWeight: "600", color: "#E08E3C" }}>
-            Total Hours
+            Total Training Hours
           </span>
         </div>
         <div className="card" style={{ "--card-hover-color": "#747DE8" }}>
@@ -128,7 +128,7 @@ const TraineeDashboard = () => {
       <div className="training-status">
         <div className="month">
           <div className="month-info">
-            <p className="month-status">Training Status</p>
+            <p className="month-status">Training Status Module Wise</p>
           
           </div>
           {/* <button className="export-btn">
