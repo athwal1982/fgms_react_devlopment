@@ -60,6 +60,8 @@ import TrainingDashboard from "Components/Modules/TrainingManagement/TrainingDas
 import CenterTrainee from "Components/Modules/Trainee/CenterTrainee/CenterTrainee";
 import TraineeDashboard from "Components/Modules/Trainee/TraineeDashborad/TraineeDashboard";
 import SosAgeing from "Components/Modules/Reports/SosAgeing";
+import NCIPTicketSync from "Components/Modules/Reports/NCIPTicketSync";
+import BotFarmerTicket from "Components/Modules/Reports/BotFarmerTicket";
 
 function PageRouter() {
   return (
@@ -125,6 +127,8 @@ function PageRouter() {
         <Route exact path="/CenterTrainee" element={<Page component={<CenterTrainee />} title="Center Trainee" />} />
         <Route exact path="/TraineeDashboard" element={<Page component={<TraineeDashboard />} title="Trainee Dashboard" />} />
         <Route exact path="/SosAgeing" element={<Page component={<SosAgeing />} title="Sos Ageing" />} />
+        <Route exact path="/NCIPTicketSync" element={<Page component={<NCIPTicketSync />} title="NCIP Ticket Sync" />} />
+       <Route exact path="/BotFarmerTicket" element={<Page component={<BotFarmerTicket />} title="Bot Farmer Tickets" />} />
       </Routes>
     </Router>
   );

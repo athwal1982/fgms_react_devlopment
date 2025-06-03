@@ -68,7 +68,7 @@ function Sidebar() {
   };
 
   const getCallingdashboard = async () => {
-    let fgmsDashboardUrl = "https://fgms.smartping.io/admin/dashboard";
+    let fgmsDashboardUrl = "https://krph.csccloud.in/admin/dashboard";
     if (getSessionStorage("callingDashboard") === null) {
       const result = await fetchCallingDashboardlogin();
       if (result.responseCode === 1) {
