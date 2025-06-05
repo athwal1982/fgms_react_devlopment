@@ -203,7 +203,6 @@ function Notifications() {
                         name="txtFromDate"
                         value={formValues.txtFromDate}
                         onChange={(e) => updateState("txtFromDate", e.target.value)}
-                       style={{width:"100px"}}
                       />
                       <PageBar.Input
                         ControlTxt="To Date"
@@ -212,7 +211,6 @@ function Notifications() {
                         name="txtToDate"
                         value={formValues.txtToDate}
                         onChange={(e) => updateState("txtToDate", e.target.value)}
-                        style={{width:"100px"}}
                       />
               <PageBar.Select
                           control="select"

@@ -16,7 +16,7 @@ import AccessRightsPage from "Components/Modules/Setup/AccessRights";
 import MenuToUser from "Components/Modules/Setup/MenuToUser";
 import Faq from "Components/Common/Faq/Faq";
 import Notification from "Components/Common/Notification/Notification";
-import Notificationcs from "Components/Modules/Notifications/Notifications";
+import Notifications from "Components/Modules/Notifications/Notifications";
 import Calculator from "Components/Common/Calculator/Calculator";
 import GrievanceReportPage from "Components/Modules/Reports/Grievance";
 import AgeingReportPage from "Components/Modules/Reports/Ageing";
@@ -89,7 +89,7 @@ function PageRouter() {
         <Route exact path="/MenuToUserManagment" element={<Page component={<MenuToUser />} title="Menu To User" />} />
         <Route exact path="/Faq" element={<Page component={<Faq />} title="Faq" />} />
         <Route exact path="/Notification" element={<Page component={<Notification />} title="Crop Notification" />} />
-        <Route exact path="/Notifications" element={<Page component={<Notificationcs />} title="Notification" />} />
+        <Route exact path="/Notifications" element={<Page component={<Notifications />} title="Notification" />} />
         <Route exact path="/Calculator" element={<Page component={<Calculator />} title="Calculator" />} />
         <Route exact path="/GrievanceReport" element={<Page component={<GrievanceReportPage />} title="Grievance Report" />} />
         <Route exact path="/LossIntimationReport" element={<Page component={<LossIntimationReportPage />} title="Loss Intimation Status Report" />} />
